@@ -1,0 +1,32 @@
+.request-infomation-container{
+    display: flex;
+    gap: 44px;
+
+    justify-content: center;
+    text-align: center;
+    
+    align-items: center;
+}
+
+.request-infomation{
+    text-align: center;
+}
+
+.request-infomation-title{
+    font-size: 14px;
+    margin: 0px;
+    color: #838383;
+}
+
+.request-infomation-title-info{
+    font-size: 16px;
+}
+
+.request-buttons{
+    display: flex;
+    gap: 32px;
+}
+
+.card{
+    max-width: auto;
+}

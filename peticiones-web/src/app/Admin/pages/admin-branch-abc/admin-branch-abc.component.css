@@ -14,7 +14,6 @@
     text-align: center;
     
     width: 200px;
-    background-color: red;
 
 }
 
@@ -52,8 +51,7 @@ h1, h2{
 
 .table-branch-container{
     margin-top: 48px;
-    width: calc();
-    background-color: red;
+    width: calc(829px - 230px);
 
 }
 

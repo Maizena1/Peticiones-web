@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <app-header></app-header>
+    </header>
+    <body>
+        <div class="rol-content-container">
+            <app-admin-abc-nav-modules></app-admin-abc-nav-modules>
+            <div class="module-name-register-container">
+
+                <div class="module-name">
+                    <app-abc-module-title [label]="'Rol'"></app-abc-module-title>
+                </div>
+
+                <div class="module-register-container">
+
+                    <div class="register">
+
+                        <div class="subtitle-register">
+                            <h2>Registro de rol</h2>
+                        </div>
+
+                        <div class="input-register">
+                            <app-input [label]="'Tipo de rol'"></app-input>
+                            <app-textarea [label]="'Descripción del rol'" ></app-textarea>
+                            <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                        </div>
+
+                        <app-button></app-button>
+                    </div>
+
+                    <div class="table-rol-container">
+                        <app-table class="table"></app-table>
+                    </div>
+
+                </div>
+            
+            </div>
+        </div>
+    </body>
+</html>

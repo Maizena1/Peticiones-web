@@ -23,16 +23,23 @@
                         </div>
                     </div>
 
-                    <div class="add-material-container">
-                        <div class="add-material">
-                            <app-select></app-select>
-                            <app-input></app-input>
-                            <app-textarea></app-textarea>
+                    <div class="add-material-section">
+                        <div class="add-material-container">
+                            <div class="add-material">
+                                <app-select [label]="'Material'"></app-select>
+                                <app-textarea [label]="'Descripción del requisito'"></app-textarea>
+                                <app-input [label]="'Cantidad'"></app-input>
+                                <app-select [label]="'Unidad'"></app-select>
+                                <app-input [label]="'Precio'"></app-input>
+                            </div>
                         </div>
 
-
+                        <div class="agreggate-material-table-container">
+                            <app-table></app-table>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </body>

@@ -1,13 +1,14 @@
+.header{
+    height: 52px;
+    
+    background-color: #201C3D;
+}
+
 .menu{
     display: flex;
     gap: 24px;
-    margin: 0px auto;
 
     justify-content: flex-end;
-    padding: 28px 0px;
-
-    background-color: #201C3D;
-
 }
 
 .menu > p{

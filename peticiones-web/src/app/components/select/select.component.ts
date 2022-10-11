@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./select.component.css']
 })
 export class SelectComponent implements OnInit {
-@Input() nombre: string = 'Elija opcion'; 
+@Input() label: string | undefined; 
 
 
   constructor() { }

@@ -42,3 +42,16 @@
     display: flex;
     justify-content: center;
 }
+
+.add-material-section{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.add-material-section{
+    margin-top: 16px;
+}
+
+.content-container{
+    margin-top: 20px;
+}

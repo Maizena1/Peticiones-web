@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <app-header></app-header>
+    </header>
+    <body>
+        <div class="employee-content-container">
+            <app-admin-abc-nav-modules></app-admin-abc-nav-modules>
+            <div class="module-name-register-container">
+
+                <div class="module-name">
+                    <app-abc-module-title [label]="'Empleado'"></app-abc-module-title>
+                </div>
+
+                <div class="module-register-container">
+
+                    <div class="register">
+
+                        <div class="subtitle-register">
+                            <h2>Registro de empleado</h2>
+                        </div>
+
+                        <div class="input-register">
+                            <app-input [label]="'ID empleado'"></app-input>
+                            <app-input [label]="'Nombre '"></app-input>
+                            <app-input [label]="'Número telefónico'"></app-input>
+                            <app-input [label]="'Correo electrónico'"></app-input>
+                            <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                        </div>
+
+                        <app-button></app-button>
+                    </div>
+
+                    <div class="table-employee-container">
+                        <app-table class="table"></app-table>
+                    </div>
+
+                </div>
+            
+            </div>
+        </div>
+    </body>
+
+
+</html>

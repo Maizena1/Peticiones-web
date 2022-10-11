@@ -1,0 +1,56 @@
+.user-by-problem-type-content-container{
+    max-width: 1168px;
+
+    display: flex;
+
+    gap: 20px;
+
+    margin: 0px auto;
+    margin-top: 20px;
+}
+
+
+.register{
+    text-align: center;
+    
+    width: 200px;
+
+}
+
+.module-name-register-container{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+
+}
+
+.text-status{
+    font-size: 16px;
+}
+
+h1, h2{
+    color: #4D4D51;
+}
+
+.module-register-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 20px;
+
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    
+}
+
+.subtitle-register{
+    text-align: center;
+}
+
+.table-user-by-problem-type-container{
+    margin-top: 48px;
+
+    width: calc(829px - 230px);
+
+}

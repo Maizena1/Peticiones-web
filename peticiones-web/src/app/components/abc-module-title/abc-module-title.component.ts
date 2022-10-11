@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-abc-module-title',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./abc-module-title.component.css']
 })
 export class AbcModuleTitleComponent implements OnInit {
+
+@Input() label: string | undefined;
 
   constructor() { }
 

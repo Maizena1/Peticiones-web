@@ -28,19 +28,32 @@
                             <div class="add-material">
                                 <app-select [label]="'Material'"></app-select>
                                 <app-textarea [label]="'Descripción del requisito'"></app-textarea>
-                                <app-input [label]="'Cantidad'"></app-input>
+                                <app-input [label]="'Cantidad'" [tipo]= "'number'"></app-input>
                                 <app-select [label]="'Unidad'"></app-select>
-                                <app-input [label]="'Precio'"></app-input>
+                                <app-input [label]="'Precio'" [tipo]= "'text'"></app-input>                              
                             </div>
-                        </div>z
+
+                            <div class="example-button-row">
+                                <button mat-raised-button class="button-add" color="primary">Agregar</button>
+                                <button mat-raised-button class="button-remove" color="warn">Eliminar</button>
+                            </div>
+
+                        </div>
 
                         <div class="agreggate-material-table-container">
                             <app-table></app-table>
-                        </div>
+                        </div>                        
+                    </div>
+
+                    <div class="container-button-accept">
+                        <button mat-stroked-button class="accept" color="primary">Aceptar</button>
                     </div>
                 </div>
 
             </div>
+
+            
+
         </div>
     </body>
 </html>

@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class InputComponent implements OnInit {
 
   @Input() label: string | undefined;
-
+  @Input() tipo: string | undefined;
   constructor() { }
 
   ngOnInit(): void {

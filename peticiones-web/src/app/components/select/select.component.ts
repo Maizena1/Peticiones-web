@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 
 
+
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
@@ -10,10 +11,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SelectComponent implements OnInit {
 @Input() label: string | undefined; 
 
-
   constructor() { }
 
   ngOnInit(): void {
+    
+    
   }
 
 }

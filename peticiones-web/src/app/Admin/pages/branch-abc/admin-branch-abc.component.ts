@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 
 export class AdminBranchAbcComponent implements OnInit {
  
+  
+
   constructor() { }
 
   ngOnInit(): void {

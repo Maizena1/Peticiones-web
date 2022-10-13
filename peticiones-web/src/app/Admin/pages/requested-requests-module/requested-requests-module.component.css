@@ -3,3 +3,23 @@
     margin: 0px auto;
     padding: 12px 12px;
 }
+
+.select-filter{
+    display: flex;
+    gap:12px;
+}
+
+.filter-container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.request-requested-container{
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+

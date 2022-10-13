@@ -8,15 +8,34 @@
     <div class="content-container">
         <div class="mat-tab-group">
             <mat-tab-group animationDuration="0ms">
-                <mat-tab label="Tu sucursal">
-                    <div class="select-filter-container">
-                        <app-select [label]="'Estado'"></app-select>
-                        <app-select [label]=""></app-select>
+                <mat-tab label="Tu sucursal" class="">
+                    <div class="filter-container">
+                        <div class="select-filter">
+                            <app-select [label]="'Estado'"></app-select>
+                            <app-select [label]="'Material'"></app-select>
+                        </div>
+
+                        <div class="datepicker-filter">
+                            <app-datepicker></app-datepicker>
+                        </div>
                     </div>
 
+                    <div class="request-requested-container">
+                        
+                        <app-card></app-card>
+                        <app-card></app-card>
+                        <app-card></app-card>
+                        <app-card></app-card>
+                    </div>
+                    
                 </mat-tab>
                 <mat-tab label="General">
-                    <p>jotos</p>
+                    <app-card></app-card>
+                        <app-card></app-card>
+                        <app-card></app-card>
+                        <app-card></app-card>
+                        <app-card></app-card>
+                        <app-card></app-card>
                 </mat-tab> 
               </mat-tab-group>
         </div>

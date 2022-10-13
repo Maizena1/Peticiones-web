@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-
-
-
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',

@@ -1,92 +1,69 @@
-.title{
-    font-size: 32px;
-    color: #4D4D51;
-    font-weight: 700;
-}
-
-.type-problem, .description-problem{
-    display: flex;
-    color: #878787;
-}
-
-.type, .description{
-    font-weight: 500;
-    color: #4D4D51;
-}
-
-.description-problem{
-    flex-wrap: wrap;
-    
-    max-width: 300px;   
-}
-
-.description{
-    margin: 0px;
-}
-
-.requeriment-container{
-    display: flex;
-    justify-content: center;
-}
-
-.requeriment-content{
+.main-container{
+    margin-top: 20px;    
     min-width: 880px;
-    padding: 40px 0px;
-}
-
-.content-container{
-    padding: 0px 20px;
-}
-
-.title-container{
-    display: flex;
-    justify-content: center;
-}
-
-.add-material-section{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.add-material-section{
-    margin-top: 16px;
-}
-
-.content-container{
-    margin-top: 20px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 24px;
-}
-.add-material-container{
-    
-    text-align: center;    
-    width: 0px auto;
-}
-
-
-  
-.button-add, .mat-raised-button{
-    Max-width: 92px;
-    max-height: 39px;
-    width: 100%;
-    height: 100%;
-}
-
-.button-remove{
-    margin-left: 20px;
-}
-
-.container-button-accept{    
+    padding: 40px 0px;        
     text-align: center;
 }
 
-.accept{    
-    margin-top: 50px;
-    padding: 8px;
-    max-width: 130px;
-    max-height: 50px;
-    width: 100%;
-    height: 100%;
+.title{                
+    color: black;
+    font-weight: 700;    
     font-size: 24px;
+}
+
+.secondary-container{
+    margin-top: 40px;
+}
+
+.subtitle{
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 18px;
+}
+
+
+.order-type{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;    
+}
+
+.type-problem{
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.type{
+    font-family: 'Roboto';
+}
+
+.description-problem{
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0px;
+}
+
+.description{
+    margin-top: 0px;
+}
+
+.example-button-row{
+    display: flex;
+    justify-content: center;
+}
+
+.button-add{        
+    width: 100px;
+    height: 40px;    
     border-color: #192A86B2;    
 }
+
+.button-remove{    
+    width: 100px;
+    height: 40px;    
+    border-color: #192A86B2;    
+    margin-left: 20px;
+}
+

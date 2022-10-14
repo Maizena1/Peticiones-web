@@ -49,6 +49,22 @@
     margin-top: 0px;
 }
 
+.order-total-price{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;    
+}
+
+.total-price{
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.price{
+    font-family: 'Roboto';
+}
+
 .example-button-row{
     display: flex;
     justify-content: center;

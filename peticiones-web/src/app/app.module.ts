@@ -39,6 +39,7 @@ import { AdminBranchAbcComponent } from './Admin/pages/branch-abc/admin-branch-a
 import { AdminUserByProblemTypeAbcComponent } from './Admin/pages/user-by-problem-type-abc/admin-user-by-problem-type-abc.component';
 import { RequestedRequestsModuleComponent } from './Admin/pages/requested-requests-module/requested-requests-module.component';
 import { ConfirmMaterialDetailComponent } from './Solver/confirm-material-detail/confirm-material-detail.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 
 
@@ -63,7 +64,8 @@ import { ConfirmMaterialDetailComponent } from './Solver/confirm-material-detail
     AdminTypeOfProblemAbcComponent,
     AdminUserByProblemTypeAbcComponent,
     RequestedRequestsModuleComponent,
-    ConfirmMaterialDetailComponent
+    ConfirmMaterialDetailComponent,
+    DialogComponent
 
   ],
   imports: [

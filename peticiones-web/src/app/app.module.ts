@@ -40,6 +40,7 @@ import { AdminUserByProblemTypeAbcComponent } from './Admin/pages/user-by-proble
 import { RequestedRequestsModuleComponent } from './Admin/pages/requested-requests-module/requested-requests-module.component';
 import { ConfirmMaterialDetailComponent } from './Solver/confirm-material-detail/confirm-material-detail.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { TableMaterialComponent } from './components/table-material/table-material.component';
 
 
 
@@ -65,7 +66,8 @@ import { DialogComponent } from './dialog/dialog.component';
     AdminUserByProblemTypeAbcComponent,
     RequestedRequestsModuleComponent,
     ConfirmMaterialDetailComponent,
-    DialogComponent
+    DialogComponent,
+    TableMaterialComponent
 
   ],
   imports: [

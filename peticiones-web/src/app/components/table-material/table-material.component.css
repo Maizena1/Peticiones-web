@@ -1,0 +1,14 @@
+.mat-elevation-z8{        
+    display:table-cell;    
+    width: 60%;    
+    text-align: center;
+}
+
+th{    
+    text-align: center !important;
+    padding: 25px,20px, 30px,20px !important;    
+}
+
+table{     
+    width: 100% !important;
+}

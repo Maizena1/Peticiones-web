@@ -1,12 +1,13 @@
-.mat-elevation-z8{        
-    display:table-cell;    
-    width: 60%;    
-    text-align: center;
+.mat-elevation-z8{
+    width: 400px;
+    background-color: aqua;
+
+    margin: 0px auto;
+
 }
 
 th{    
     text-align: center !important;
-    padding: 25px,20px, 30px,20px !important;    
 }
 
 table{     

@@ -10,26 +10,31 @@
             <h1 class="title"> Registrar</h1>
         </div>
 
-        <div class="secondary-container">            
-                <p class="subtitle">Datos Problema</p>                            
-            <div class="order-type" >
-                <p class="type-problem">Tipo: </p>            
-                <p class="type">Electrico</p>
-            </div>            
-            <div>                
-                <p class="description-problem">Descripción: </p>            
-                <p class="description">Hay focos en videos que estan parpadeando</p>
-            </div>
-            <div class="order-total-price">
-                <p class="total-price">Precio Total: </p>            
-                <p class="price">$32.00</p>
-            </div>
+        <div class="secondary-container">  
+
+            <div class="problem-data-container">
+                <p class="subtitle">Datos del problema</p>                            
+                <div class="type-problem-container">
+                    <p class="type-problem">Tipo: </p>            
+                    <p class="type">Electrico</p>
+                </div>            
+                <div>                
+                    <p class="description-problem">Descripción: </p>            
+                    <p class="description">Hay focos en videos que estan parpadeando</p>
+                </div>
+                <div class="order-total-price">
+                    <p class="total-price">Precio Total: </p>            
+                    <p class="price">$32.00</p>
+                </div>
+            </div>       
+
             <div class="table-material">
                 <app-table-material></app-table-material>
             </div>
-            <div class="example-button-row">
-                <button mat-stroked-button class="button-add" color="primary">Atras</button>                
-                <button mat-stroked-button class="button-remove" color="primary">Aceptar</button>
+            
+            <div class="button-container">
+                <button mat-stroked-button class="button" color="primary">Atras</button>                
+                <button mat-stroked-button class="button" color="primary">Aceptar</button>
             </div>
 
         </div>

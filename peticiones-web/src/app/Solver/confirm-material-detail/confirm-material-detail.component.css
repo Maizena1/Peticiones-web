@@ -5,43 +5,35 @@
     text-align: center;
 }
 
-.title{                
-    color: black;
-    font-weight: 700;    
-    font-size: 24px;
+.secondary-container{
+    margin: 0px auto;
+    color: #878787;
+    max-width: 500px;
 }
 
-.secondary-container{
-    margin-top: 40px;
+.problem-data-container{
+    margin: 20px auto;
+    border: 1px solid #878787;
+}
+
+.title{
+    font-weight: 500;
 }
 
 .subtitle{
-    font-family: 'Roboto';
-    font-weight: 500;
-    font-size: 18px;
+    margin-top: 8px;
 }
 
-
-.order-type{
-    margin-top: 20px;
+.type-problem-container{
     display: flex;
     justify-content: center;    
 }
 
-.type-problem{
-    font-family: 'Roboto';
+.type-problem, .description-problem, .total-price, .subtitle{
     font-weight: 500;
-    font-size: 16px;
-}
-
-.type{
-    font-family: 'Roboto';
 }
 
 .description-problem{
-    font-family: 'Roboto';
-    font-weight: 500;
-    font-size: 16px;
     margin: 0px;
 }
 
@@ -50,37 +42,22 @@
 }
 
 .order-total-price{
-    margin-top: 20px;
     display: flex;
     justify-content: center;    
+
 }
 
-.total-price{
-    font-family: 'Roboto';
-    font-weight: 500;
-    font-size: 16px;
-}
-
-.price{
-    font-family: 'Roboto';
-}
-
-.example-button-row{
+.button-container{
     margin-top: 30px;
     display: flex;
+    gap: 16px;
+
     justify-content: center;
 }
 
-.button-add{        
+.button{        
     width: 100px;
     height: 40px;    
     border-color: #192A86B2;    
-}
-
-.button-remove{    
-    width: 100px;
-    height: 40px;    
-    border-color: #192A86B2;    
-    margin-left: 20px;
 }
 

@@ -1,58 +1,51 @@
 .main-container{
-    margin-top: 20px;    
-    min-width: 880px;
-    padding: 40px 0px;        
-    text-align: center;
+    margin: 0px auto;  
+    width: 100%;  
+    max-width: 880px;   
+}
+
+.content{
+    
+    padding: 40px 20px;  
 }
 
 .secondary-container{
-    margin: 0px auto;
+    display: flex;
+    margin: 20px 0px;
     color: #878787;
-    max-width: 500px;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.problem-data{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .problem-data-container{
-    margin: 20px auto;
-    border: 1px solid #878787;
+    max-width: 400px;
 }
 
 .title{
     font-weight: 500;
 }
 
-.subtitle{
-    margin-top: 8px;
-}
-
 .type-problem-container{
     display: flex;
-    justify-content: center;    
 }
 
 .type-problem, .description-problem, .total-price, .subtitle{
     font-weight: 500;
 }
 
-.description-problem{
-    margin: 0px;
-}
-
-.description{
-    margin-top: 0px;
-}
-
 .order-total-price{
     display: flex;
-    justify-content: center;    
-
 }
 
 .button-container{
-    margin-top: 30px;
     display: flex;
-    gap: 16px;
-
-    justify-content: center;
+    justify-content: end;
 }
 
 .button{        
@@ -61,3 +54,14 @@
     border-color: #192A86B2;    
 }
 
+.subtitle{
+    font-size: 16px;
+    color: #333333;
+}
+
+.order-title{
+    display: flex;
+    gap: 12px;
+
+    align-items: center;
+}

@@ -1,92 +1,31 @@
-.title{
-    font-size: 32px;
-    color: #4D4D51;
-    font-weight: 700;
+.main-container{
+    margin: 0px auto;  
+    width: 100%;  
+    max-width: 880px;   
 }
 
-.type-problem, .description-problem{
+.content{
+    padding: 40px 20px;  
+}
+
+.order-title{
     display: flex;
+    gap: 12px;
+
+    align-items: center;
+}
+
+.secondary-container{
+    margin: 20px 0px;
     color: #878787;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
-.type, .description{
+.title{
     font-weight: 500;
-    color: #4D4D51;
 }
 
-.description-problem{
-    flex-wrap: wrap;
-    
-    max-width: 300px;   
-}
-
-.description{
-    margin: 0px;
-}
-
-.requeriment-container{
+.type-problem{
     display: flex;
-    justify-content: center;
-}
-
-.requeriment-content{
-    min-width: 880px;
-    padding: 40px 0px;
-}
-
-.content-container{
-    padding: 0px 20px;
-}
-
-.title-container{
-    display: flex;
-    justify-content: center;
-}
-
-.add-material-section{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.add-material-section{
-    margin-top: 16px;
-}
-
-.content-container{
-    margin-top: 20px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 24px;
-}
-.add-material-container{
-    
-    text-align: center;    
-    width: 0px auto;
-}
-
-
-  
-.button-add, .mat-raised-button{
-    Max-width: 92px;
-    max-height: 39px;
-    width: 100%;
-    height: 100%;
-}
-
-.button-remove{
-    margin-left: 20px;
-}
-
-.container-button-accept{    
-    text-align: center;
-}
-
-.accept{    
-    margin-top: 50px;
-    padding: 8px;
-    max-width: 130px;
-    max-height: 50px;
-    width: 100%;
-    height: 100%;
-    font-size: 24px;
-    border-color: #192A86B2;    
 }

@@ -35,12 +35,11 @@ import { AdminEmployeeAbcComponent } from './Admin/pages/employee-abc/admin-empl
 import { AdminUserAbcComponent } from './Admin/pages/user-abc/admin-user-abc.component';
 import { AdminRoleAbcComponent } from './Admin/pages/role-abc/admin-role-abc.component';
 import { AdminTypeOfProblemAbcComponent } from './Admin/pages/type-of-problem-abc/admin-type-of-problem-abc.component';
-import { AdminBranchAbcComponent } from './Admin/pages/branch-abc/admin-branch-abc.component';
 import { AdminUserByProblemTypeAbcComponent } from './Admin/pages/user-by-problem-type-abc/admin-user-by-problem-type-abc.component';
 import { RequestedRequestsModuleComponent } from './Admin/pages/requested-requests-module/requested-requests-module.component';
 import { ConfirmMaterialDetailComponent } from './Solver/confirm-material-detail/confirm-material-detail.component';
-import { DialogComponent } from './dialog/dialog.component';
 import { TableMaterialComponent } from './components/table-material/table-material.component';
+import { AdminBranchAbcComponent } from './Admin/pages/branch-abc/admin-branch-abc.component';
 
 
 
@@ -66,7 +65,6 @@ import { TableMaterialComponent } from './components/table-material/table-materi
     AdminUserByProblemTypeAbcComponent,
     RequestedRequestsModuleComponent,
     ConfirmMaterialDetailComponent,
-    DialogComponent,
     TableMaterialComponent
 
   ],

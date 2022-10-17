@@ -4,42 +4,50 @@
         <app-header></app-header>
     </header>
     <body>
-    <div class="main-container">
+        <div class="main-container">
         
-        <div class="oreder-title">
-            <h1 class="title"> Registrar</h1>
-        </div>
+            <div class="content">
 
-        <div class="secondary-container">  
-
-            <div class="problem-data-container">
-                <p class="subtitle">Datos del problema</p>                            
-                <div class="type-problem-container">
-                    <p class="type-problem">Tipo: </p>            
-                    <p class="type">Electrico</p>
-                </div>            
-                <div>                
-                    <p class="description-problem">Descripción: </p>            
-                    <p class="description">Hay focos en videos que estan parpadeando</p>
+                <div class="order-title">
+                    <mat-icon>keyboard_backspace</mat-icon>
+                    <h1 class="title"> Registrar</h1>
                 </div>
-                <div class="order-total-price">
-                    <p class="total-price">Precio Total: </p>            
-                    <p class="price">$32.00</p>
+    
+                <div class="secondary-container">  
+    
+                    <div class="problem-data-container">
+                        <div class="problem-data">    
+                            
+                            <p class="subtitle">Datos del problema</p>                    
+                            <div class="type-problem-container">
+                                <p class="type-problem">Tipo: </p>            
+                                <p class="type">Electrico</p>
+                            </div>            
+                            <div>                
+                                <p class="description-problem">Descripción: </p>            
+                                <p class="description">Hay focos en videos que estan parpadeando</p>
+                            </div>
+                            <div class="order-total-price">
+                                <p class="total-price">Precio Total: </p>            
+                                <p class="price">$32.00</p>
+                            </div>
+                
+                        </div>   
+                        
+                    </div> 
+                    
+                    <div class="button-container">               
+                        <button mat-raised-button color="primary">Aceptar</button>
+                    </div> 
+                    
                 </div>
-            </div>       
 
-            <div class="table-material">
-                <app-table-material></app-table-material>
-            </div>
-            
-            <div class="button-container">
-                <button mat-stroked-button class="button" color="primary">Atras</button>                
-                <button mat-stroked-button class="button" color="primary">Aceptar</button>
-            </div>
+                <div class="table-material">
+                    <app-table-material></app-table-material>
+                </div>
 
+            </div>
         </div>
-
-    </div>
 
     </body>
 </html>

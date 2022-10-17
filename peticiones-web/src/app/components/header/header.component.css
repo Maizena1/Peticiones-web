@@ -1,23 +1,29 @@
 .header{
-    height: 52px;
-    
+    height: 80px;
     background-color: #201C3D;
 }
 
 .menu{
+    padding: 0px 24px;
+    height: 100%;
     display: flex;
-    gap: 24px;
-
+    gap: 32px;
     justify-content: flex-end;
 }
 
-.menu > p{
-    color: #ffff;
-    font-size: 20px;
+.menu-option{
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
-.menu :last-child{
-    margin-right: 24px;
+.icon{
+    color: white;
+}
+
+p{
+    color: #ffff;
+    font-size: 20px;
 }
 
 

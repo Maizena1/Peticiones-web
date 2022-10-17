@@ -1,9 +1,10 @@
 .mat-elevation-z8{
-    width: 400px;
+    width: auto;
     background-color: aqua;
 
     margin: 0px auto;
-
+   
+    text-align: center;
 }
 
 th{    

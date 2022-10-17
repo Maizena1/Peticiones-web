@@ -5,3 +5,12 @@
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-typography p {
+    margin: 0 0 0px;
+}
+
+.mat-typography h1 {
+    margin: 0 0 0px;
+}
+

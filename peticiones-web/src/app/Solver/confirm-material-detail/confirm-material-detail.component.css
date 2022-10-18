@@ -5,7 +5,6 @@
 }
 
 .content{
-    
     padding: 40px 20px;  
 }
 
@@ -27,31 +26,12 @@
     max-width: 400px;
 }
 
-.title{
+.type-problem-container, .order-total-prices{
+    display: flex;
+}
+
+.type-problem, .description-problem, .total-price, .subtitle, .title{
     font-weight: 500;
-}
-
-.type-problem-container{
-    display: flex;
-}
-
-.type-problem, .description-problem, .total-price, .subtitle{
-    font-weight: 500;
-}
-
-.order-total-price{
-    display: flex;
-}
-
-.button-container{
-    display: flex;
-    justify-content: end;
-}
-
-.button{        
-    width: 100px;
-    height: 40px;    
-    border-color: #192A86B2;    
 }
 
 .subtitle{

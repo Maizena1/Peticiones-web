@@ -14,26 +14,41 @@
     
                 <div class="secondary-container">  
     
-                    <div class="request">
-                        <div class="type-problem">
-                            <p>Tipo:</p>
-                            <p>Electrico</p>
+                    <div class="request-container">
+                        <div class="request">
+                            <div class="type-problem">
+                                <p class="subtitle">Tipo:</p>
+                                <p>Electrico</p>
+                            </div>
+                            <div class="description-problem">
+                                <p class="subtitle">Descripcion:</p>
+                                <p>Hay focos en vídeos que están parpadeando</p>
+                            </div>
                         </div>
-                        <p>Descripcion:</p>
-                        <p>Hay focos en vídeos que están parpadeando</p>
+                        
+                        <div class="send-request-button-container">
+                            <button mat-flat-button color="primary">Confirmar material</button>
+                        </div>
                     </div>
 
-                    <div>
+                    <div class="register-table-container">
                         <div class="register">
                             <app-select [label]="'Material'"></app-select>
                             <app-textarea [label]="'Descripcion de requisito'"></app-textarea>
                             <app-input [label]="'Cantidad'"></app-input>
                             <app-select [label]="'Unidad'"></app-select>
                             <app-input [label]="'Precio'"></app-input>
+
+                            <div class="button-container">
+                                <button mat-stroked-button color="primary">Quitar</button>
+                                <button mat-flat-button color="primary">Agregar</button>
+                            </div>
+                            
+
                         </div>
 
                         <div class="table">
-
+                            <app-table-material></app-table-material>
                         </div>
                     </div>
 

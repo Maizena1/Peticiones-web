@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'TypeOfPRoblemAbc', component: AdminTypeOfProblemAbcComponent},
   { path: 'UserAbc', component: AdminUserAbcComponent},
   { path: 'UserByProblemTypeAbc', component: AdminUserByProblemTypeAbcComponent},
+  { path: '**', component: AdminBranchAbcComponent},
 ];
 
 @NgModule({

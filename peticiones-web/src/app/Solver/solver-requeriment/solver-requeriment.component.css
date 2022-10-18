@@ -5,7 +5,11 @@
 }
 
 .content{
-    padding: 40px 20px;  
+    padding: 40px 12px;  
+}
+
+.subtitle{
+    font-weight: 500;
 }
 
 .order-title{
@@ -18,8 +22,6 @@
 .secondary-container{
     margin: 20px 0px;
     color: #878787;
-    justify-content: space-between;
-    align-items: flex-end;
 }
 
 .title{
@@ -28,4 +30,45 @@
 
 .type-problem{
     display: flex;
+}
+
+.register-table-container{
+    display: flex;
+    margin-top: 16px;
+
+    gap: 20px;
+}
+
+.table{
+    width: 100%;
+    min-width: 200px;
+}
+
+.button-container{
+    display: flex;
+    gap: 12px;
+
+    justify-content: center;
+}
+
+.request-container{
+    display: flex;
+    gap: 8px;
+
+    
+    justify-content: space-between;
+    align-items: flex-end;
+    
+}
+
+.request-container{
+    justify-content: space-between;
+}
+
+.send-request-button-container{
+   align-items: end;
+}
+
+h2{
+    text-align: center;
 }

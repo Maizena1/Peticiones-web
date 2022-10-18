@@ -9,16 +9,12 @@
             <div class="module-name-register-container">
 
                 <div class="module-name">
-                    <app-abc-module-title [label]="'Sucursal'"></app-abc-module-title>
+                    <app-abc-module-title [label]="'Registro de sucursal'"></app-abc-module-title>
                 </div>
 
                 <div class="module-register-container">
 
                     <div class="register">
-
-                        <div class="subtitle-register">
-                            <h2>Registro de sucursal</h2>
-                        </div>
 
                         <div class="input-register">
                             <app-input [label]="'ID sucursal'"></app-input>
@@ -26,14 +22,18 @@
                             <app-input [label]="'Correo electrónico'"></app-input>
                             <app-input [label]="'Número telefónico'"></app-input>
                             <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                            
+                            
+                        </div>
+                        <div class="button-container">
+                            <button mat-flat-button color="primary">Agregar</button>
                         </div>
 
-                        <app-button></app-button>
                     </div>
                     
 
                     <div class="table-branch-container">
-                        <app-table class="table"></app-table>
+                        <app-table></app-table>
                     </div>
 
                 </div>

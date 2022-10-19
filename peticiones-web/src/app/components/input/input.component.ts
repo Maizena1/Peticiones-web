@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { getLocaleDateFormat } from '@angular/common';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-input',
@@ -7,9 +8,25 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class InputComponent implements OnInit {
 
-  @Input() label: string | undefined;
-  @Input() tipo: string | undefined;
+  //se recibe
+  @Input() label: String = 'sin nombre';
+  @Input() tipo: String = 'text';
+  @Input() example: String = 'sin nombre';
+  @Input() value: String ='';
+
+  //se envia
+  @Output() onChange = new EventEmitter<String>(); 
+  @Output() KeyUp = new EventEmitter<String>();    
+
   constructor() { }
+
+  getdata( data : String ){
+    this.onChange.emit(data);
+  }
+
+  getTextPress(data: String){
+    this.KeyUp.emit(data);
+  }
 
   ngOnInit(): void {
   }

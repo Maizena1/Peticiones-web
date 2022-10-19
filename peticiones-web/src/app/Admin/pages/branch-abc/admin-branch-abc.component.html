@@ -17,7 +17,7 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-input [label]="'ID sucursal'"></app-input>
+                            <app-input [label]="'ID sucursal'" [example]="'13'" [value]="namebranch" (onChange)="onChangeNameBranch($event)"></app-input>
                             <app-input [label]="'Nombre'"></app-input>
                             <app-input [label]="'Correo electrónico'"></app-input>
                             <app-input [label]="'Número telefónico'"></app-input>
@@ -26,7 +26,7 @@
                             
                         </div>
                         <div class="button-container">
-                            <button mat-flat-button color="primary">Agregar</button>
+                            <button mat-flat-button color="primary" onclick=CreateBranch()>Agregar</button>
                         </div>
 
                     </div>

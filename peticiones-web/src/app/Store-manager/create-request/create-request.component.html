@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <app-header></app-header>
+    </header>
+
+    <body>
+        <div class="content-container">
+            <div class="title-container">
+                <h1>Datos de la peticion</h1>
+            </div>
+
+            <div class="register-request">
+                <app-select [label]="'Tipo de problema'"></app-select>
+                <app-textarea [label]="'Descripcion del problema'"></app-textarea>
+                
+                <button mat-raised-button color="primary">Solicitar peticion</button>
+            </div>
+
+
+        </div>
+    </body>
+</html>

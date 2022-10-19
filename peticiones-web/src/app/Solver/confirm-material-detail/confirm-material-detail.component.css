@@ -45,3 +45,7 @@
 
     align-items: center;
 }
+
+.keyboard-backspace{
+    cursor: pointer;
+}

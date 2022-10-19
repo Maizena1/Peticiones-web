@@ -1,12 +1,12 @@
 <div class="header">
     <div class="menu">
         <div class="menu-option">
-            <mat-icon class="icon">note_add</mat-icon>
-            <p>Crear peticion</p>
+            <mat-icon class="icon" [routerLink]="['/storeManager/createRequest']">note_add</mat-icon>
+            <p [routerLink]="['/storeManager/createRequest']">Crear peticion</p>
         </div>
         <div class="menu-option">
-            <mat-icon class="icon">storage</mat-icon>
-            <p>Peticiones solicitadas</p>
+            <mat-icon class="icon" [routerLink]="['/storeManager/requestedRequestModule']">storage</mat-icon>
+            <p [routerLink]="['/storeManager/requestedRequestModule']">Peticiones solicitadas</p>
         </div>
         <div class="menu-option">
             <mat-icon class="icon">assignment</mat-icon>

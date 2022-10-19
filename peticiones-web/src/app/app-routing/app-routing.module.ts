@@ -7,15 +7,35 @@ import { AdminUserAbcComponent } from '../Admin/pages/user-abc/admin-user-abc.co
 import { AdminUserByProblemTypeAbcComponent } from '../Admin/pages/user-by-problem-type-abc/admin-user-by-problem-type-abc.component';
 import { AdminEmployeeAbcComponent } from '../Admin/pages/employee-abc/admin-employee-abc.component';
 import { AdminBranchAbcComponent } from '../Admin/pages/branch-abc/admin-branch-abc.component';
+import { CreateRequestComponent } from '../Store-manager/create-request/create-request.component';
+import { RequestedRequestsModuleComponent } from '../Store-manager/requested-requests-module/requested-requests-module.component';
+import { ConfirmMaterialDetailComponent } from '../Solver/confirm-material-detail/confirm-material-detail.component';
+import { SolverRequerimentComponent } from '../Solver/solver-requeriment/solver-requeriment.component';
 
 const routes: Routes = [
-  { path: 'BranchAbc', component: AdminBranchAbcComponent},
-  { path: 'EmployeeAbc', component: AdminEmployeeAbcComponent},
-  { path: 'RoleAbc', component: AdminRoleAbcComponent},
-  { path: 'TypeOfPRoblemAbc', component: AdminTypeOfProblemAbcComponent},
-  { path: 'UserAbc', component: AdminUserAbcComponent},
-  { path: 'UserByProblemTypeAbc', component: AdminUserByProblemTypeAbcComponent},
-  { path: '**', component: AdminBranchAbcComponent},
+  { path: 'admin', children: [
+      { path: 'createRequest', component: CreateRequestComponent },
+      { path: 'branchAbc', component: AdminBranchAbcComponent },
+      { path: 'employeeAbc', component: AdminEmployeeAbcComponent },
+      { path: 'roleAbc', component: AdminRoleAbcComponent },
+      { path: 'typeOfPRoblemAbc', component: AdminTypeOfProblemAbcComponent },
+      { path: 'userAbc', component: AdminUserAbcComponent },
+      { path: 'userByProblemTypeAbc', component: AdminUserByProblemTypeAbcComponent },
+      { path: '**', component: AdminBranchAbcComponent },
+    ],
+  },
+  { path: 'storeManager', children: [
+      { path: 'createRequest', component: CreateRequestComponent },
+      { path: 'requestedRequestModule', component: RequestedRequestsModuleComponent },
+      { path: '**', component: CreateRequestComponent },
+    ],
+  },
+  { path: 'solver', children: [
+      { path: 'confirmMaterial', component: ConfirmMaterialDetailComponent },
+      { path: 'requerimentComponent', component: SolverRequerimentComponent },
+      { path: '**', component: ConfirmMaterialDetailComponent },
+    ],
+  },
 ];
 
 @NgModule({

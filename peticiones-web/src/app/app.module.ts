@@ -27,7 +27,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SelectComponent } from './components/select/select.component';
 import { CardComponent } from './components/card/card.component';
-import { ButtonComponent } from './components/button/button.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { TableComponent } from './components/table/table.component';
 import { AbcModuleTitleComponent } from './components/abc-module-title/abc-module-title.component';
@@ -36,10 +35,11 @@ import { AdminUserAbcComponent } from './Admin/pages/user-abc/admin-user-abc.com
 import { AdminRoleAbcComponent } from './Admin/pages/role-abc/admin-role-abc.component';
 import { AdminTypeOfProblemAbcComponent } from './Admin/pages/type-of-problem-abc/admin-type-of-problem-abc.component';
 import { AdminUserByProblemTypeAbcComponent } from './Admin/pages/user-by-problem-type-abc/admin-user-by-problem-type-abc.component';
-import { RequestedRequestsModuleComponent } from './Admin/pages/requested-requests-module/requested-requests-module.component';
+import { RequestedRequestsModuleComponent } from './Store-manager/requested-requests-module/requested-requests-module.component';
 import { ConfirmMaterialDetailComponent } from './Solver/confirm-material-detail/confirm-material-detail.component';
 import { TableMaterialComponent } from './components/table-material/table-material.component';
 import { AdminBranchAbcComponent } from './Admin/pages/branch-abc/admin-branch-abc.component';
+import { CreateRequestComponent } from './Store-manager/create-request/create-request.component';
 
 
 
@@ -49,7 +49,6 @@ import { AdminBranchAbcComponent } from './Admin/pages/branch-abc/admin-branch-a
     HeaderComponent,
     SelectComponent,
     CardComponent,
-    ButtonComponent,
     DatepickerComponent,
     SolverRequerimentComponent,
     InputComponent,
@@ -65,7 +64,8 @@ import { AdminBranchAbcComponent } from './Admin/pages/branch-abc/admin-branch-a
     AdminUserByProblemTypeAbcComponent,
     RequestedRequestsModuleComponent,
     ConfirmMaterialDetailComponent,
-    TableMaterialComponent
+    TableMaterialComponent,
+    CreateRequestComponent
 
   ],
   imports: [

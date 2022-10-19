@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
+import {MatDialog} from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AdminService } from '../../services/admin.service';
+import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition,} from '@angular/material/snack-bar';
+import { branch, response } from '../../services/type';
 
 @Component({
   selector: 'app-admin-branch-abc',
@@ -9,9 +13,75 @@ import { Component, OnInit } from '@angular/core';
 
 export class AdminBranchAbcComponent implements OnInit {
 
-  constructor() { }
+  //declaracion de variables para registrar sucursal  
+  id_sucursal : number | any;
+  nombre: String | null = null;  
+  domicilio: String | null = null;  
+  correo: String | null = null;  
+  telefono: String| null = null;  
+  estatus: String| null = null;  
+  response: response | any;
+
+  //declaracion de los datos a mostrar por si hay id
+  namebranch: String ="";
+      
+  constructor(public dialog: MatDialog, private router: Router, private APIpeticion: AdminService,  private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
+
+  //obtener el nombre de la sucursal
+  onChangeNameBranch(data: String){
+    this.nombre = data;
+    alert(this.nombre);
+  }
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  CreateBranch(){
+                            
+    if((this.nombre == null)|| (this.id_sucursal == 0) || (this.domicilio == null)||(this.correo == null)||(this.telefono == null)||(this.estatus == null)) {
+      
+      this._snackBar.open('Error faltan datos', 'X', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,          
+        //panelClass: ['green-snackbar'],
+        panelClass: ['red-snackbar'],
+      });      
+
+    }else{
+
+            
+      //llenar data a enviar
+        const datasend : branch = {              
+          id_sucursal: this.id_sucursal,
+          nombre_sucursal: this.nombre,
+          domicilio: this.domicilio,
+          correo: this.correo,
+          telefono: this.telefono,
+          estatus: this.estatus,                                                            
+        };
+       
+        //console.table(datasend);
+
+        this.APIpeticion.createBranch(datasend).subscribe(response =>{
+          
+          console.log(response);
+
+          //mostrar snavbar
+          this._snackBar.open(`${this.response.Mensaje}`, 'X', {
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,          
+            panelClass: ['green-snackbar'],
+            //panelClass: ['red-snackbar'],
+          });
+
+          //Crear la tupla y regresar al chrisyian
+          //this.router.navigate(["admin/tournament/list"]);
+        })        
+
+      }
+   }
 
 }

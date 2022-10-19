@@ -17,7 +17,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { InputComponent } from './components/input/input.component';
 import { TextareaComponent } from './components/textarea/textarea.component';
@@ -84,7 +85,9 @@ import { AdminBranchAbcComponent } from './Admin/pages/branch-abc/admin-branch-a
     MatGridListModule,
     MatPaginatorModule,
     AppRoutingModule,
-    MatTabsModule
+    MatTabsModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,7 +11,11 @@
 .register{
     text-align: center;
     
-    width: 200px;
+    width: 380px;
+}
+
+.input-register{
+    width: auto;
 }
 
 .module-name-register-container{
@@ -45,3 +49,4 @@ h1, h2{
 .button-container{
     margin-top: 12px;
 }
+

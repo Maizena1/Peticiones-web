@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { branch, response } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
-import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+
 
 /**/
 
@@ -24,6 +24,7 @@ export class AdminBranchAbcComponent implements OnInit {
   response: response | any;
 
   //declaracion de los datos a mostrar por si hay id
+  Idbranch: String = "";
   namebranch: String ="";
   
   //, private snackBar: MatSnackBar
@@ -33,6 +34,10 @@ export class AdminBranchAbcComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //obtener el id de la sucursal
+  onChangeIdBranch(data: String){
+
+  }
   
   //obtener el nombre de la sucursal
   onChangeNameBranch(data: String){
@@ -40,26 +45,10 @@ export class AdminBranchAbcComponent implements OnInit {
     alert(this.nombre);
   }
 
-  
-  
-  //horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  //verticalPosition: MatSnackBarVerticalPosition = 'top';
-
-  
-
   CreateBranch() {
                             
     if((this.nombre == null)|| (this.domicilio == null)||(this.correo == null)||(this.telefono == null)||(this.estatus == null)) {
-                    
-    /*
-      this._snackBar.open('Error faltan datos', 'X', {
-        horizontalPosition: this.horizontalPosition,
-        verticalPosition: this.verticalPosition,          
-        //panelClass: ['green-snackbar'],
-        //panelClass: ['red-snackbar'],
-      });      
-    */
-
+                      
       alert("error faltan datos");
 
     }else{
@@ -76,25 +65,16 @@ export class AdminBranchAbcComponent implements OnInit {
         };
        
         
-        //console.table(datasend);
+        console.table(datasend);
+        /*
         this.APIpeticion.createBranch(datasend).subscribe(response =>{
           
-          console.log(response);
-
-          
-          //mostrar snavbar
-          /*
-          this._snackBar.open(`${this.response.Mensaje}`, 'X', {
-            horizontalPosition: this.horizontalPosition,
-            verticalPosition: this.verticalPosition,          
-            //panelClass: ['green-snackbar'],
-            //panelClass: ['red-snackbar'],
-          });
-          */          
-          
+          console.table(response);
+                              
           //Crear la tupla y regresar al chrisyian
           //this.router.navigate(["admin/tournament/list"]);
-        })        
+        })
+        */        
       }
    }
 

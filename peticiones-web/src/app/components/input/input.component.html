@@ -1,8 +1,4 @@
-    <mat-form-field class="example-full-width " appearance="fill">
-        <mat-label>{{label}}</mat-label>
-        <input  matInput type={{tipo}} placeholder={{example}} [(ngModel)]="value" #data (change)="getdata(data.value)" (keyup)="getTextPress(data.value)" >
-    </mat-form-field>
- <!--
-<form class="example-form">
-</form>
--->   
+<mat-form-field class="example-full-width " appearance="fill">
+    <mat-label>{{label}}</mat-label>
+    <input  matInput type={{tipo}} placeholder={{example}} [(ngModel)]="value" #data (change)="getdata(data.value)" (keyup)="getTextPress(data.value)" >
+</mat-form-field>

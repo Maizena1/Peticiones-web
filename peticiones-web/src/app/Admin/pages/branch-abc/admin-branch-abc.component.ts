@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import { branch, response } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
-import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition,} from '@angular/material/snack-bar';
-import { branch, response } from '../../services/type';
+
+
+/**/
 
 @Component({
   selector: 'app-admin-branch-abc',
@@ -12,7 +13,7 @@ import { branch, response } from '../../services/type';
 })
 
 export class AdminBranchAbcComponent implements OnInit {
-
+  /**/  
   //declaracion de variables para registrar sucursal  
   id_sucursal : number | any;
   nombre: String | null = null;  
@@ -23,32 +24,32 @@ export class AdminBranchAbcComponent implements OnInit {
   response: response | any;
 
   //declaracion de los datos a mostrar por si hay id
+  Idbranch: String = "";
   namebranch: String ="";
-      
-  constructor(public dialog: MatDialog, private router: Router, private APIpeticion: AdminService,  private _snackBar: MatSnackBar) { }
+  
+  //, private snackBar: MatSnackBar
+
+  constructor( private router: Router, private APIpeticion: AdminService) { }
 
   ngOnInit(): void {
   }
 
+  //obtener el id de la sucursal
+  onChangeIdBranch(data: String){
+
+  }
+  
   //obtener el nombre de la sucursal
   onChangeNameBranch(data: String){
     this.nombre = data;
     alert(this.nombre);
   }
 
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-
-  CreateBranch(){
+  CreateBranch() {
                             
-    if((this.nombre == null)|| (this.id_sucursal == 0) || (this.domicilio == null)||(this.correo == null)||(this.telefono == null)||(this.estatus == null)) {
-      
-      this._snackBar.open('Error faltan datos', 'X', {
-        horizontalPosition: this.horizontalPosition,
-        verticalPosition: this.verticalPosition,          
-        //panelClass: ['green-snackbar'],
-        panelClass: ['red-snackbar'],
-      });      
+    if((this.nombre == null)|| (this.domicilio == null)||(this.correo == null)||(this.telefono == null)||(this.estatus == null)) {
+                      
+      alert("error faltan datos");
 
     }else{
 
@@ -63,25 +64,22 @@ export class AdminBranchAbcComponent implements OnInit {
           estatus: this.estatus,                                                            
         };
        
-        //console.table(datasend);
-
+        
+        console.table(datasend);
+        /*
         this.APIpeticion.createBranch(datasend).subscribe(response =>{
           
-          console.log(response);
-
-          //mostrar snavbar
-          this._snackBar.open(`${this.response.Mensaje}`, 'X', {
-            horizontalPosition: this.horizontalPosition,
-            verticalPosition: this.verticalPosition,          
-            panelClass: ['green-snackbar'],
-            //panelClass: ['red-snackbar'],
-          });
-
+          console.table(response);
+                              
           //Crear la tupla y regresar al chrisyian
           //this.router.navigate(["admin/tournament/list"]);
-        })        
-
+        })
+        */        
       }
    }
+
+   
+   
+
 
 }

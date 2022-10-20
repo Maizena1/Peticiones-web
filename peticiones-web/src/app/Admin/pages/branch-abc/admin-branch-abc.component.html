@@ -17,14 +17,19 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-input [label]="'ID sucursal'" [example]="'13'" [value]="namebranch" (onChange)="onChangeNameBranch($event)"></app-input>
+                            <app-input [label]="'ID sucursal'" [example]="'13'" [value]="Idbranch" (onChange)="onChangeIdBranch($event)"></app-input>                            
+                            <app-input [label]="'Nombre Sucursal'" [example]="'Sucursal Zaragoza'" [value]="namebranch" (onChange)="onChangeNameBranch($event)"></app-input>
+
+                            <!--                                
                             <app-input [label]="'Nombre'"></app-input>
                             <app-input [label]="'Correo electrónico'"></app-input>
                             <app-input [label]="'Número telefónico'"></app-input>
                             <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                            -->
+                            
                         </div>
                         <div class="button-container">
-                            <button mat-flat-button color="primary" onclick=CreateBranch()>Agregar</button>
+                            <button mat-flat-button color="primary" (click)="CreateBranch()">Agregar</button>                            
                         </div>
 
                     </div>

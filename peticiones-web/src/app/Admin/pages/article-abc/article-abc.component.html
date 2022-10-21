@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <app-header></app-header>
+    </header>
+    <body>
+        <div class="article-content-container">
+            <app-admin-abc-nav-modules></app-admin-abc-nav-modules>
+            <div class="module-name-register-container">
+
+                <div class="module-name">
+                    <app-abc-module-title [label]="'Registro de articulo'"></app-abc-module-title>
+                </div>
+                
+                <div class="module-register-container">
+
+                    <div class="register">
+
+                        <div class="input-register">
+                            <app-input [label]="'ID articulo'"></app-input>
+                            <app-input [label]="'Nombre '"></app-input>
+                            <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                        </div>
+
+                        <div class="button-container">
+                            <button mat-flat-button color="primary">Agregar</button>
+                        </div>
+
+                    </div>
+
+                    <div class="table-article-container">
+                        <app-table class="table"></app-table>
+                    </div>
+
+                </div>
+            
+            </div>
+        </div>
+    </body>
+
+
+</html>

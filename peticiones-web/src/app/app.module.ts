@@ -42,6 +42,8 @@ import { TableMaterialComponent } from './components/table-material/table-materi
 import { AdminBranchAbcComponent } from './Admin/pages/branch-abc/admin-branch-abc.component';
 import { CreateRequestComponent } from './Store-manager/create-request/create-request.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
+import { ArticleAbcComponent } from './Admin/pages/article-abc/article-abc.component';
+import { ArticleByBranchAbcComponent } from './Admin/pages/article-by-branch-abc/article-by-branch-abc.component';
 
 
 
@@ -68,7 +70,9 @@ import { InputNumberComponent } from './components/input-number/input-number.com
     ConfirmMaterialDetailComponent,
     TableMaterialComponent,
     CreateRequestComponent,
-    InputNumberComponent
+    InputNumberComponent,
+    ArticleAbcComponent,
+    ArticleByBranchAbcComponent
 
   ],
   imports: [

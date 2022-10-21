@@ -10,7 +10,7 @@ export class InputComponent implements OnInit {
 
   //se recibe
   @Input() label: String = 'sin nombre';
-  @Input() tipo: String = 'text';
+  @Input() type: String = 'text';
   @Input() example: String = 'sin nombre';
   @Input() value: String ='';
 

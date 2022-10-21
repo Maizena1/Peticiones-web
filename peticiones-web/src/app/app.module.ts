@@ -41,6 +41,8 @@ import { ConfirmMaterialDetailComponent } from './Solver/confirm-material-detail
 import { TableMaterialComponent } from './components/table-material/table-material.component';
 import { AdminBranchAbcComponent } from './Admin/pages/branch-abc/admin-branch-abc.component';
 import { CreateRequestComponent } from './Store-manager/create-request/create-request.component';
+import { ArticleAbcComponent } from './Admin/pages/article-abc/article-abc.component';
+import { ArticleByBranchAbcComponent } from './Admin/pages/article-by-branch-abc/article-by-branch-abc.component';
 
 
 
@@ -66,7 +68,9 @@ import { CreateRequestComponent } from './Store-manager/create-request/create-re
     RequestedRequestsModuleComponent,
     ConfirmMaterialDetailComponent,
     TableMaterialComponent,
-    CreateRequestComponent
+    CreateRequestComponent,
+    ArticleAbcComponent,
+    ArticleByBranchAbcComponent
 
   ],
   imports: [

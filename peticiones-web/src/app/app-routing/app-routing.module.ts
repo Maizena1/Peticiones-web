@@ -11,10 +11,12 @@ import { CreateRequestComponent } from '../Store-manager/create-request/create-r
 import { RequestedRequestsModuleComponent } from '../Store-manager/requested-requests-module/requested-requests-module.component';
 import { ConfirmMaterialDetailComponent } from '../Solver/confirm-material-detail/confirm-material-detail.component';
 import { SolverRequerimentComponent } from '../Solver/solver-requeriment/solver-requeriment.component';
+import { ArticleAbcComponent } from '../Admin/pages/article-abc/article-abc.component';
 
 const routes: Routes = [
   { path: 'admin', children: [
       { path: 'createRequest', component: CreateRequestComponent },
+      { path: 'articleAbc', component: ArticleAbcComponent },
       { path: 'branchAbc', component: AdminBranchAbcComponent },
       { path: 'employeeAbc', component: AdminEmployeeAbcComponent },
       { path: 'roleAbc', component: AdminRoleAbcComponent },

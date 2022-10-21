@@ -4,7 +4,9 @@
 }
 
 .register-request{
-    margin-top: 12px;
+    width: 300px;
+
+    margin: 12px auto;
 }
 
 h1{

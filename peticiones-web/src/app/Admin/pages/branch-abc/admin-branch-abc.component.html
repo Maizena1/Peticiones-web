@@ -17,8 +17,9 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-input [label]="'ID sucursal'" [example]="'13'" [value]="Idbranch" (onChange)="onChangeIdBranch($event)"></app-input>                            
+                            <app-input-number [label]="'ID sucursal'" [example]="'13'" [value]="Idbranch" (onChange)="onChangeIdBranch($event)"> </app-input-number>                            
                             <app-input [label]="'Nombre Sucursal'" [example]="'Sucursal Zaragoza'" [value]="namebranch" (onChange)="onChangeNameBranch($event)"></app-input>
+                            <app-select [label]="'Ejemplo'" [items]="itemsArray" [valuenum]="ItemSend" (onChange)="onChangeid($event)"></app-select>
 
                             <!--                                
                             <app-input [label]="'Nombre'"></app-input>

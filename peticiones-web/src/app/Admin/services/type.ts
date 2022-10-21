@@ -83,3 +83,7 @@ export interface response{
     Mensaje: String;
 }
   
+export interface Item {
+    _id: String;
+    name: String;
+}

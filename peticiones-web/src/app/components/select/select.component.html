@@ -1,11 +1,8 @@
-
-<mat-form-field appearance="fill" class="select">
+<mat-form-field class="example-full-width select" appearance="fill">
   <mat-label>{{label}}</mat-label>
-  <mat-select>
-    <mat-option value="En espera">En espera</mat-option>
-    <mat-option value="Aceptado">Aceptado</mat-option>
-    <mat-option value="Revision">Revision</mat-option>
-    <mat-option value="En proceso">En proceso</mat-option>
-    <mat-option value="Finalizado">Finalizado</mat-option>
+  <mat-select class="size-input-option-select" [(value)]="valor" [disabled]="enable" (valueChange)="getdata($event)" name="select">
+      <mat-option *ngFor="let item of items;  let index = index" [value]="item._id">
+          {{item.name}}
+      </mat-option>
   </mat-select>
 </mat-form-field>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { branch, response } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
+import { Item } from '../../services/type';
 
 
 /**/
@@ -15,7 +16,7 @@ import { AdminService } from '../../services/admin.service';
 export class AdminBranchAbcComponent implements OnInit {
   /**/  
   //declaracion de variables para registrar sucursal  
-  id_sucursal : number | any;
+  id_sucursal : number = 0;
   nombre: String | null = null;  
   domicilio: String | null = null;  
   correo: String | null = null;  
@@ -27,22 +28,40 @@ export class AdminBranchAbcComponent implements OnInit {
   Idbranch: String = "";
   namebranch: String ="";
   
-  //, private snackBar: MatSnackBar
+  //prueba del select
+  itemsArray: Item[] = [
+    {_id: "55000", name: 'Opcion 1'},
+    {_id: "22", name: 'Opcion 2'},
+    {_id: "13", name: 'Opcion 3'},
+    {_id: "44", name: 'Opcion 4'},
+  ];
+  
+  ItemSend: String = "";  
 
   constructor( private router: Router, private APIpeticion: AdminService) { }
 
+
+
+  //Prueba del select 
+  //obtener categoria
+  onChangeid(data: String){    
+    alert(data);
+  }
+
+
+  //------------------------------------------------
   ngOnInit(): void {
   }
 
   //obtener el id de la sucursal
-  onChangeIdBranch(data: String){
-
+  onChangeIdBranch(idsucursal: number){
+    //alert(idsucursal);
   }
   
   //obtener el nombre de la sucursal
   onChangeNameBranch(data: String){
     this.nombre = data;
-    alert(this.nombre);
+    //alert(this.nombre);
   }
 
   CreateBranch() {

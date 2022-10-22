@@ -30,10 +30,10 @@ export class AdminBranchAbcComponent implements OnInit {
   
   //prueba del select
   itemsArray: Item[] = [
-    {_id: "55000", name: 'Opcion 1'},
-    {_id: "22", name: 'Opcion 2'},
-    {_id: "13", name: 'Opcion 3'},
-    {_id: "44", name: 'Opcion 4'},
+    {_id: "55000", option: 'Opcion 1'},
+    {_id: "22", option: 'Opcion 2'},
+    {_id: "13", option: 'Opcion 3'},
+    {_id: "44", option: 'Opcion 4'},
   ];
   
   ItemSend: String = "";  

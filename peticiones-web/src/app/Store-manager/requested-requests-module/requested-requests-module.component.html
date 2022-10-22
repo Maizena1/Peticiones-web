@@ -12,8 +12,8 @@
                 <mat-tab label="Tu sucursal" class="branch-store-manager">
                     <div class="filter-container">
                         <div class="select-filter">
-                            <app-select [label]="'Estado'"></app-select>
-                            <app-select [label]="'Material'"></app-select>
+                            <app-material-status-select [label]="'Estado'" [items]="status"></app-material-status-select>
+                            <app-material-status-select [label]="'Tipo de problema'" [items]="typeOfProblem"></app-material-status-select>
                         </div>
 
                         <div class="datepicker-filter">

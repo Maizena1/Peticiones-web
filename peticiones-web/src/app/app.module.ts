@@ -44,6 +44,7 @@ import { CreateRequestComponent } from './Store-manager/create-request/create-re
 import { InputNumberComponent } from './components/input-number/input-number.component';
 import { ArticleAbcComponent } from './Admin/pages/article-abc/article-abc.component';
 import { ArticleByBranchAbcComponent } from './Admin/pages/article-by-branch-abc/article-by-branch-abc.component';
+import { MaterialStatusSelectComponent } from './components/material-status-select/material-status-select.component';
 
 
 
@@ -72,7 +73,8 @@ import { ArticleByBranchAbcComponent } from './Admin/pages/article-by-branch-abc
     CreateRequestComponent,
     InputNumberComponent,
     ArticleAbcComponent,
-    ArticleByBranchAbcComponent
+    ArticleByBranchAbcComponent,
+    MaterialStatusSelectComponent
 
   ],
   imports: [

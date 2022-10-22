@@ -17,8 +17,8 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-select [label]="'ID sucursal'"></app-select>
-                            <app-select [label]="'ID codigo de articulo'"></app-select>
+                            <app-select [label]="'ID sucursal'" [items]="itemsArray"></app-select>
+                            <app-select [label]="'ID codigo de articulo'" [items]="itemsArray"></app-select>
                             <app-input [type]="'number'" [label]="'Cantidad total'"></app-input>
                             <app-input [type]="'number'" [label]="'Cantidad disponible'"></app-input>
                             <app-select [label]="'Tipo de problema'"></app-select>

@@ -85,5 +85,10 @@ export interface response{
   
 export interface Item {
     _id: String;
-    name: String;
+    option: String;
 }
+
+export interface ItemSelect {
+    option: String;
+}
+

@@ -2,7 +2,7 @@
   <mat-label>{{label}}</mat-label>
   <mat-select class="size-input-option-select" [(value)]="valor" [disabled]="enable" (valueChange)="getdata($event)" name="select">
       <mat-option *ngFor="let item of items;  let index = index" [value]="item._id">
-          {{item.name}}
+          {{item.option}}
       </mat-option>
   </mat-select>
 </mat-form-field>

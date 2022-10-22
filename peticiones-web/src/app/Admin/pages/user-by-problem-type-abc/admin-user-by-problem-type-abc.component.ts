@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Item } from '../../services/type';
 
 @Component({
   selector: 'app-admin-user-by-problem-type-abc',
@@ -7,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminUserByProblemTypeAbcComponent implements OnInit {
 
+  itemsArray: Item[] = [
+    {_id: "55000", option: 'Opcion 1'}
+  ];
   constructor() { }
 
   ngOnInit(): void {

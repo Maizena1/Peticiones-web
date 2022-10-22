@@ -1,0 +1,8 @@
+<mat-form-field class="example-full-width select" appearance="fill">
+    <mat-label>{{label}}</mat-label>
+    <mat-select class="size-input-option-select" [(value)]="valor" [disabled]="enable" name="select">
+        <mat-option *ngFor="let item of items;  let index = index" [value]="item.option">
+            {{item.option}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

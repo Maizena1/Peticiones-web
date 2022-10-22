@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-input',
-  templateUrl: './input.component.html',
+  templateUrl: './input.component.html', 
   styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
@@ -13,6 +13,7 @@ export class InputComponent implements OnInit {
   @Input() type: String = 'text';
   @Input() example: String = 'sin nombre';
   @Input() value: String ='';
+
 
   //se envia
   @Output() onChange = new EventEmitter<String>(); 

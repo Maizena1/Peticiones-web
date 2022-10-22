@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Item } from 'src/app/Admin/services/type';
+
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',

@@ -3,7 +3,7 @@ import { branch, response } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { Item } from '../../services/type';
-
+import {FormBuilder, Validators} from '@angular/forms';
 
 /**/
 
@@ -27,6 +27,9 @@ export class AdminBranchAbcComponent implements OnInit {
   //declaracion de los datos a mostrar por si hay id
   Idbranch: String = "";
   namebranch: String ="";
+  domiciliobranch: String = "";
+  emailbranch: String = "";
+  phone_number: String=""
   
   //prueba del select
   itemsArray: Item[] = [
@@ -38,7 +41,7 @@ export class AdminBranchAbcComponent implements OnInit {
   
   ItemSend: String = "";  
 
-  constructor( private router: Router, private APIpeticion: AdminService) { }
+  constructor( private router: Router, private APIpeticion: AdminService, private _formBuilder: FormBuilder) { }
 
 
 
@@ -62,6 +65,31 @@ export class AdminBranchAbcComponent implements OnInit {
   onChangeNameBranch(data: String){
     this.nombre = data;
     //alert(this.nombre);
+  }
+
+//obtener domicilio
+  onChangeDirectionBranch(data:String){
+    this.domicilio = data;
+  }
+
+  //obtener el correo
+  onChangeEmailBranch(data: String){
+    this.correo = data;    
+  }
+
+  onChangePhoneNumberBranch(data: String){
+    this.telefono = data;
+    alert(this.telefono);
+  }
+
+  isChecked = true;
+  formGroup = this._formBuilder.group({
+    status: '',
+    acceptTerms: ['', Validators.requiredTrue],
+  });
+
+  onFormSubmit() {
+    alert(JSON.stringify(this.formGroup.value, null, 2));
   }
 
   CreateBranch() {

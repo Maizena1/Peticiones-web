@@ -16,7 +16,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InputComponent } from './components/input/input.component';
 import { TextareaComponent } from './components/textarea/textarea.component';
@@ -88,7 +88,8 @@ import { RequestTableComponent } from './components/request-table/request-table.
     AppRoutingModule,
     MatTabsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

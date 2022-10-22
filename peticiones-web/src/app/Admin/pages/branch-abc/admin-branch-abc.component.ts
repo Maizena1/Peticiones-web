@@ -3,7 +3,7 @@ import { branch, response } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { Item } from '../../services/type';
-
+import {FormBuilder, Validators} from '@angular/forms';
 
 /**/
 
@@ -27,6 +27,9 @@ export class AdminBranchAbcComponent implements OnInit {
   //declaracion de los datos a mostrar por si hay id
   Idbranch: String = "";
   namebranch: String ="";
+  domiciliobranch: String = "";
+  emailbranch: String = "";
+  phone_number: String=""
   
   //prueba del select
   itemsArray: Item[] = [
@@ -38,7 +41,7 @@ export class AdminBranchAbcComponent implements OnInit {
   
   ItemSend: String = "";  
 
-  constructor( private router: Router, private APIpeticion: AdminService) { }
+  constructor( private router: Router, private APIpeticion: AdminService, private _formBuilder: FormBuilder) { }
 
 
 
@@ -55,7 +58,8 @@ export class AdminBranchAbcComponent implements OnInit {
 
   //obtener el id de la sucursal
   onChangeIdBranch(idsucursal: number){
-    //alert(idsucursal);
+    this.id_sucursal = idsucursal
+    alert(idsucursal);
   }
   
   //obtener el nombre de la sucursal
@@ -64,15 +68,43 @@ export class AdminBranchAbcComponent implements OnInit {
     //alert(this.nombre);
   }
 
+//obtener domicilio
+  onChangeDirectionBranch(data:String){
+    this.domicilio = data;
+  }
+
+  //obtener el correo
+  onChangeEmailBranch(data: String){
+    this.correo = data;    
+  }
+
+  onChangePhoneNumberBranch(data: String){
+    this.telefono = data;
+    alert(this.telefono);
+  }
+
+  isChecked = true;  
+  
   CreateBranch() {
+
+    //obtencion del estatus
+    if (this.isChecked == true){
+        this.estatus = 'A'
+        alert(this.estatus);
+    }else{
+        this.estatus = 'B'
+        alert(this.estatus);
+    }
                             
     if((this.nombre == null)|| (this.domicilio == null)||(this.correo == null)||(this.telefono == null)||(this.estatus == null)) {
                       
-      alert("error faltan datos");
+      alert("error faltan datos");      
 
     }else{
 
             
+      
+
       //llenar data a enviar
         const datasend : branch = {              
           id_sucursal: this.id_sucursal,

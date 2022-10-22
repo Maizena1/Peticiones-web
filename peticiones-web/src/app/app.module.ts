@@ -1,11 +1,9 @@
 
 import { NgModule } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,9 +25,7 @@ import { AdminAbcNavModulesComponent } from './components/admin-abc-nav-modules/
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SelectComponent } from './components/select/select.component';
-import { CardComponent } from './components/card/card.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
-import { TableComponent } from './components/table/table.component';
 import { AbcModuleTitleComponent } from './components/abc-module-title/abc-module-title.component';
 import { AdminEmployeeAbcComponent } from './Admin/pages/employee-abc/admin-employee-abc.component';
 import { AdminUserAbcComponent } from './Admin/pages/user-abc/admin-user-abc.component';
@@ -45,22 +41,19 @@ import { InputNumberComponent } from './components/input-number/input-number.com
 import { ArticleAbcComponent } from './Admin/pages/article-abc/article-abc.component';
 import { ArticleByBranchAbcComponent } from './Admin/pages/article-by-branch-abc/article-by-branch-abc.component';
 import { MaterialStatusSelectComponent } from './components/material-status-select/material-status-select.component';
-
-
+import { RequestTableComponent } from './components/request-table/request-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SelectComponent,
-    CardComponent,
     DatepickerComponent,
     SolverRequerimentComponent,
     InputComponent,
     TextareaComponent,
     AdminBranchAbcComponent,
     AdminAbcNavModulesComponent,
-    TableComponent,
     AbcModuleTitleComponent,
     AdminEmployeeAbcComponent,
     AdminUserAbcComponent,
@@ -74,14 +67,14 @@ import { MaterialStatusSelectComponent } from './components/material-status-sele
     InputNumberComponent,
     ArticleAbcComponent,
     ArticleByBranchAbcComponent,
-    MaterialStatusSelectComponent
+    MaterialStatusSelectComponent,
+    RequestTableComponent
 
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatSelectModule,
-    MatCardModule,
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,

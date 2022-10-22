@@ -14,3 +14,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin: 0 0 0px;
 }
 
+.mat-form-field-appearance-standard .mat-form-field-flex {
+    padding-top: 0px !important; 
+}

@@ -9,4 +9,9 @@ table {
 
 th{    
     text-align: center !important;
+    
+}
+
+.mat-row{
+    height: 32px;
 }

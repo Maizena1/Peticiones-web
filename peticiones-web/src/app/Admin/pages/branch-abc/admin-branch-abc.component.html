@@ -21,15 +21,9 @@
                             <app-input [label]="'Nombre Sucursal'" [example]="'Sucursal Zaragoza'" [value]="namebranch" (onChange)="onChangeNameBranch($event)"></app-input>
                             <app-input [label]="'Direccion'" [example]="'Entre Independencia y  Zaragoza'" [value]="domiciliobranch" (onChange)="onChangeDirectionBranch($event)"></app-input>
                             <app-input [label]="'Correo electrónico'" [example]="'Sucursal@delmuro.com'" [value]="emailbranch" (onChange)="onChangeEmailBranch($event)"></app-input>
-                            <app-input [label]="'Número telefónico'" [example]="'018003312'" [value]="phone_number" (onChange)="onChangePhoneNumberBranch($event)"></app-input>
-                            <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>                            
-
-                            <form class="example-form" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()" ngNativeValidate>
-                                <mat-slide-toggle formControlName="status">Activo</mat-slide-toggle>                                                              
-                                <p>Form Group Status: {{formGroup.status}}</p>                                                              
-                            </form>
-                            
-
+                            <app-input [label]="'Número telefónico'" [example]="'018003312'" [value]="phone_number" (onChange)="onChangePhoneNumberBranch($event)"></app-input>                                                        
+                            <mat-slide-toggle [(ngModel)]="isChecked">Activo</mat-slide-toggle>
+                                                        
                             <!--                                
                             <app-select [label]="'Ejemplo'" [items]="itemsArray" [valuenum]="ItemSend" (onChange)="onChangeid($event)"></app-select>                                                                                                                
                             -->

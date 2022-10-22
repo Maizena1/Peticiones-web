@@ -1,7 +1,8 @@
-import { Component,ViewChild, OnInit } from '@angular/core';
+import { Component,ViewChild, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { datatable } from 'src/app/Admin/services/type';
 
 export interface PeriodicElement {
   name: string;
@@ -10,13 +11,12 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 4, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 5, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 6, name: 'Helium', weight: 4.0026, symbol: 'He'},
+const Itemstable: datatable[] = [
+  {col1: 1, col2: 'suc1', col3:'', col4: 'H'},
+  {col1: 1, col2: 'suc1', col3:'', col4: 'H'},
+  {col1: 1, col2: 'suc1', col3:'', col4: 'H'},
+  {col1: 1, col2: 'suc1', col3:'', col4: 'H'},
+  {col1: 1, col2: 'suc1', col3:'', col4: 'H'},  
 ];
 
 @Component({
@@ -25,12 +25,17 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-        
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  
+  @Input() itemsTable: datatable[] = []; 
+  @Input() nametable: String[] = [];
+            
+  displayedColumns: string[] = ['col1', 'col2', 'col3', 'col4'];
+  dataSource = new MatTableDataSource(Itemstable);
 
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
+
 
   constructor() { }
 

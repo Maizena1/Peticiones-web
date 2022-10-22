@@ -58,7 +58,8 @@ export class AdminBranchAbcComponent implements OnInit {
 
   //obtener el id de la sucursal
   onChangeIdBranch(idsucursal: number){
-    //alert(idsucursal);
+    this.id_sucursal = idsucursal
+    alert(idsucursal);
   }
   
   //obtener el nombre de la sucursal
@@ -82,25 +83,28 @@ export class AdminBranchAbcComponent implements OnInit {
     alert(this.telefono);
   }
 
-  isChecked = true;
-  formGroup = this._formBuilder.group({
-    status: '',
-    acceptTerms: ['', Validators.requiredTrue],
-  });
-
-  onFormSubmit() {
-    alert(JSON.stringify(this.formGroup.value, null, 2));
-  }
-
+  isChecked = true;  
+  
   CreateBranch() {
+
+    //obtencion del estatus
+    if (this.isChecked == true){
+        this.estatus = 'A'
+        alert(this.estatus);
+    }else{
+        this.estatus = 'B'
+        alert(this.estatus);
+    }
                             
     if((this.nombre == null)|| (this.domicilio == null)||(this.correo == null)||(this.telefono == null)||(this.estatus == null)) {
                       
-      alert("error faltan datos");
+      alert("error faltan datos");      
 
     }else{
 
             
+      
+
       //llenar data a enviar
         const datasend : branch = {              
           id_sucursal: this.id_sucursal,

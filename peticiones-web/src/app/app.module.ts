@@ -34,7 +34,6 @@ import { AdminTypeOfProblemAbcComponent } from './Admin/pages/type-of-problem-ab
 import { AdminUserByProblemTypeAbcComponent } from './Admin/pages/user-by-problem-type-abc/admin-user-by-problem-type-abc.component';
 import { RequestedRequestsModuleComponent } from './Store-manager/requested-requests-module/requested-requests-module.component';
 import { ConfirmMaterialDetailComponent } from './Solver/confirm-material-detail/confirm-material-detail.component';
-import { TableMaterialComponent } from './components/table-material/table-material.component';
 import { AdminBranchAbcComponent } from './Admin/pages/branch-abc/admin-branch-abc.component';
 import { CreateRequestComponent } from './Store-manager/create-request/create-request.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
@@ -62,7 +61,6 @@ import { RequestTableComponent } from './components/request-table/request-table.
     AdminUserByProblemTypeAbcComponent,
     RequestedRequestsModuleComponent,
     ConfirmMaterialDetailComponent,
-    TableMaterialComponent,
     CreateRequestComponent,
     InputNumberComponent,
     ArticleAbcComponent,

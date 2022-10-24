@@ -1,26 +1,9 @@
-.mat-tab-group{
-    width: 900px;
-    margin: 0px auto;
-    padding: 12px 12px;
+.content-container{
+    max-width: 800px;
+    padding: 20px;
+    margin: 0px auto;    
 }
 
-.select-filter{
-    display: flex;
-    gap:12px;
+.table-container{
+    padding: 16px 12px;
 }
-
-.filter-container{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 16px;
-}
-
-.request-requested-container{
-    display: flex;
-    flex-direction: column;
-
-    gap: 12px;
-
-    padding: 12px;
-}
-

@@ -36,7 +36,6 @@ import { RequestedRequestsModuleComponent } from './Store-manager/requested-requ
 import { ConfirmMaterialDetailComponent } from './Solver/confirm-material-detail/confirm-material-detail.component';
 import { AdminBranchAbcComponent } from './Admin/pages/branch-abc/admin-branch-abc.component';
 import { CreateRequestComponent } from './Store-manager/create-request/create-request.component';
-import { InputNumberComponent } from './components/input-number/input-number.component';
 import { ArticleAbcComponent } from './Admin/pages/article-abc/article-abc.component';
 import { ArticleByBranchAbcComponent } from './Admin/pages/article-by-branch-abc/article-by-branch-abc.component';
 import { MaterialStatusSelectComponent } from './components/material-status-select/material-status-select.component';
@@ -61,8 +60,7 @@ import { RequestTableComponent } from './components/request-table/request-table.
     AdminUserByProblemTypeAbcComponent,
     RequestedRequestsModuleComponent,
     ConfirmMaterialDetailComponent,
-    CreateRequestComponent,
-    InputNumberComponent,
+    CreateRequestComponent,    
     ArticleAbcComponent,
     ArticleByBranchAbcComponent,
     MaterialStatusSelectComponent,

@@ -1,6 +1,6 @@
 import { getLocaleDateFormat } from '@angular/common';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
+import {FormControl, Validators} from '@angular/forms';
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html', 
@@ -9,23 +9,26 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class InputComponent implements OnInit {
 
   //se recibe
-  @Input() label: String = 'sin nombre';
-  @Input() type: String = 'text';
-  @Input() example: String = 'sin nombre';
-  @Input() value: String ='';
+  @Input() label: string = 'sin nombre';
+  @Input() type: string = 'text';
+  @Input() example: string = 'sin nombre';
+  @Input() value: string ='';
 
 
   //se envia
-  @Output() onChange = new EventEmitter<String>(); 
-  @Output() KeyUp = new EventEmitter<String>();    
+  @Output() onChange = new EventEmitter<string>(); 
+  @Output() KeyUp = new EventEmitter<string>();    
 
   constructor() { }
 
-  getdata( data : String ){
+  //para la validacion del input
+  InputFormControl = new FormControl('', [Validators.required]);
+
+  getdata( data : string ){
     this.onChange.emit(data);
   }
 
-  getTextPress(data: String){
+  getTextPress(data: string){
     this.KeyUp.emit(data);
   }
 

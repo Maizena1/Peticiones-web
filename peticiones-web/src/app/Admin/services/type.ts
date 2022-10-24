@@ -92,10 +92,4 @@ export interface ItemSelect {
     option: String;
 }
 
-export interface datatable{
-    col1: any;
-    col2: any;
-    col3: any;
-    col4: any;
-}
 

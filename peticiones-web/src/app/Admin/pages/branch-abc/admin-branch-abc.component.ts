@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { Item } from '../../services/type';
 import {FormBuilder, Validators} from '@angular/forms';
-
+import { request_table } from 'src/app/components/services/request-table';
+//import {MatSnackBar} from '@angular/material/snack-bar';
 /**/
 
 @Component({
@@ -25,11 +26,11 @@ export class AdminBranchAbcComponent implements OnInit {
   response: response | any;
 
   //declaracion de los datos a mostrar por si hay id
-  Idbranch: String = "";
-  namebranch: String ="";
-  domiciliobranch: String = "";
-  emailbranch: String = "";
-  phone_number: String=""
+  Idbranch: string = "";  //convertir a string para enviar a compo numerico
+  namebranch: string ="";
+  domiciliobranch: string = "";
+  emailbranch: string = "";
+  phone_number: string=""
   
   //prueba del select
   itemsArray: Item[] = [
@@ -38,12 +39,29 @@ export class AdminBranchAbcComponent implements OnInit {
     {_id: "13", option: 'Opcion 3'},
     {_id: "44", option: 'Opcion 4'},
   ];
-  
+
+  //prueba de tabla
+  itemstable: request_table[] = [
+    {col1: "55001", col2: "Branch example" , col3: "Activo", col4:"botones" },
+    {col1: "55002", col2: 'Branch example' , col3: 'Desactivado', col4:'botones' },
+    {col1: "55003", col2: 'Branch example' , col3: 'Avtivo', col4:'botones' },
+    {col1: "55004", col2: 'Branch example' , col3: 'Activo', col4:'botones' },
+    {col1: "55005", col2: 'Branch example' , col3: 'Activo', col4:'botones' },
+    {col1: "55006", col2: 'Branch example' , col3: 'Desactivado', col4:'botones' },
+    {col1: "55007", col2: 'Branch example' , col3: 'Desactivado', col4:'botones' },
+    {col1: "55008", col2: 'Branch example' , col3: 'Activo', col4:'botones' },
+    {col1: "55010", col2: 'Branch example' , col3: 'Activo', col4:'botones' },
+    {col1: "55011", col2: 'Branch example' , col3: 'Activo', col4:'botones' },
+    {col1: "55012", col2: 'Branch example' , col3: 'Desactivo', col4:'botones' },
+    {col1: "55013", col2: 'Branch example' , col3: 'Desactivo', col4:'botones' },
+  ];
+
+  //nombres de columnas de tabla
+  namecolum: string[] = ['ID','Nombre','Estado','Botones'];
+
   ItemSend: String = "";  
-
+  //private _snackBar: MatSnackBar
   constructor( private router: Router, private APIpeticion: AdminService, private _formBuilder: FormBuilder) { }
-
-
 
   //Prueba del select 
   //obtener categoria
@@ -51,14 +69,13 @@ export class AdminBranchAbcComponent implements OnInit {
     alert(data);
   }
 
-
   //------------------------------------------------
   ngOnInit(): void {
   }
 
   //obtener el id de la sucursal
-  onChangeIdBranch(idsucursal: number){
-    this.id_sucursal = idsucursal
+  onChangeIdBranch(idsucursal: any){
+    this.id_sucursal = parseInt(idsucursal);  
     alert(idsucursal);
   }
   
@@ -73,7 +90,7 @@ export class AdminBranchAbcComponent implements OnInit {
     this.domicilio = data;
   }
 
-  //obtener el correo
+//obtener el correo
   onChangeEmailBranch(data: String){
     this.correo = data;    
   }
@@ -86,24 +103,22 @@ export class AdminBranchAbcComponent implements OnInit {
   isChecked = true;  
   
   CreateBranch() {
-
+              
     //obtencion del estatus
     if (this.isChecked == true){
         this.estatus = 'A'
-        alert(this.estatus);
+        //alert(this.estatus);
     }else{
         this.estatus = 'B'
-        alert(this.estatus);
+        //alert(this.estatus);
     }
                             
     if((this.nombre == null)|| (this.domicilio == null)||(this.correo == null)||(this.telefono == null)||(this.estatus == null)) {
                       
-      alert("error faltan datos");      
+      //alert("error faltan datos");      
+      //this._snackBar.open('ejemplo snackbar', 'X');
 
     }else{
-
-            
-      
 
       //llenar data a enviar
         const datasend : branch = {              
@@ -114,8 +129,7 @@ export class AdminBranchAbcComponent implements OnInit {
           telefono: this.telefono,
           estatus: this.estatus,                                                            
         };
-       
-        
+
         console.table(datasend);
         /*
         this.APIpeticion.createBranch(datasend).subscribe(response =>{

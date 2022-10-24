@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
+import { request_table } from '../services/request-table';
 
 export interface PeriodicElement {
   position: Number;
@@ -23,8 +24,17 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./request-table.component.css']
 })
 export class RequestTableComponent implements OnInit {
-  displayedColumns: String[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+//recibir datos
+@Input() Items: request_table[] = [];
+@Input() name_colum: string[] = [];
+
+//
+
+//declaracion de lo necesario para usar 
+displayedColumns: String[] = [];
+dataSource = new MatTableDataSource(this.Items);
+nameColum: string [] = [];
   
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -34,6 +44,9 @@ export class RequestTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.displayedColumns = ['col1', 'col2', 'col3', 'col4'];
+    this.dataSource = new MatTableDataSource(this.Items);
+    this.nameColum = this.name_colum;    
   }
 
 }

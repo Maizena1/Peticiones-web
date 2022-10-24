@@ -1,3 +1,7 @@
+.request-requested-container{
+    width: 100%;
+}
+
 table {
     width: 100%;
     box-shadow: rgb(255, 255, 255) 0px 2px 8px 0px;
@@ -9,7 +13,6 @@ table {
 
 th{    
     text-align: center !important;
-    
 }
 
 .mat-row{

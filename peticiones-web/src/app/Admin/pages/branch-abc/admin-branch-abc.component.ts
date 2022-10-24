@@ -5,6 +5,8 @@ import { AdminService } from '../../services/admin.service';
 import { Item } from '../../services/type';
 import {FormBuilder, Validators} from '@angular/forms';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 /**/
 
 @Component({
@@ -14,6 +16,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 })
 
 export class AdminBranchAbcComponent implements OnInit {
+
   /**/  
   //declaracion de variables para registrar sucursal  
   id_sucursal : number = 0;
@@ -40,9 +43,11 @@ export class AdminBranchAbcComponent implements OnInit {
   ];
   
   ItemSend: String = "";  
+  
 
-  constructor( private router: Router, private APIpeticion: AdminService, private _formBuilder: FormBuilder) { }
-
+  constructor( private router: Router, private APIpeticion: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
+  
+  
 
 
   //Prueba del select 
@@ -86,6 +91,10 @@ export class AdminBranchAbcComponent implements OnInit {
   isChecked = true;  
   
   CreateBranch() {
+
+   
+      this._snackBar.open('Message', 'x');
+    
 
     //obtencion del estatus
     if (this.isChecked == true){
@@ -134,3 +143,4 @@ export class AdminBranchAbcComponent implements OnInit {
 
 
 }
+

@@ -7,28 +7,17 @@
 
     <div class="content-container">
         <div class="mat-tab-group">
-            <mat-tab-group animationDuration="0ms">
+            <mat-tab-group animationDuration="0ms" class="mat-tab-group">
 
-                <mat-tab label="Tu sucursal" class="branch-store-manager">
-                    <div class="filter-container">
-
-                        <div class="select-filter">
-                            <app-material-status-select [label]="'Estado'" [items]="status"></app-material-status-select>
-                            <app-material-status-select [label]="'Tipo de problema'" [items]="typeOfProblem"></app-material-status-select>
-                        </div>
-
-                        <div class="datepicker-filter">
-                            <app-datepicker></app-datepicker>
-                        </div>
+                <mat-tab label="Tu sucursal" >
+                    <div class="table-container">
+                        <app-request-table></app-request-table>
                     </div>
-
-                    <div class="request-requested-container">
-                    </div>
-                    
                 </mat-tab>
 
                 <mat-tab label="General">
-                    <div class="request-requested-container">
+                    <div class="table-container">
+                        <app-request-table ></app-request-table>
                     </div>
                 </mat-tab> 
 

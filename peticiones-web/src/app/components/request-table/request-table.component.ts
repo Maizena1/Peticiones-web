@@ -1,8 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
-
+import { Component, OnInit } from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
 
 export interface PeriodicElement {
   position: Number;
@@ -34,8 +31,17 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 export class RequestTableComponent implements OnInit {
-  displayedColumns: String[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+
+//recibir datos
+@Input() Items: request_table[] = [];
+@Input() name_colum: string[] = [];
+
+//
+
+//declaracion de lo necesario para usar 
+displayedColumns: String[] = [];
+dataSource = new MatTableDataSource(this.Items);
+nameColum: string [] = [];
   
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
@@ -47,9 +53,7 @@ export class RequestTableComponent implements OnInit {
   
   constructor() { }
 
-  ngOnInit(){
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+  ngOnInit(): void {
   }
 
 }

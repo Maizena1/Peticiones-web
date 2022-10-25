@@ -1,9 +1,9 @@
 <div class="request-table-container">
 
   <mat-form-field appearance="standard">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-    </mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
     
   <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
@@ -40,6 +40,6 @@
     </tr>
   </table>
   
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 10]" ></mat-paginator>
   
 </div>

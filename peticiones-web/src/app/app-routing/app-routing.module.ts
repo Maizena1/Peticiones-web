@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AdminRoleAbcComponent } from '../Admin/pages/role-abc/admin-role-abc.component';
 import { AdminTypeOfProblemAbcComponent } from '../Admin/pages/type-of-problem-abc/admin-type-of-problem-abc.component';
 import { AdminUserAbcComponent } from '../Admin/pages/user-abc/admin-user-abc.component';
 import { AdminUserByProblemTypeAbcComponent } from '../Admin/pages/user-by-problem-type-abc/admin-user-by-problem-type-abc.component';
@@ -21,7 +20,6 @@ const routes: Routes = [
       { path: 'articleByBranchAbc', component: ArticleByBranchAbcComponent },
       { path: 'branchAbc', component: AdminBranchAbcComponent },
       { path: 'employeeAbc', component: AdminEmployeeAbcComponent },
-      { path: 'roleAbc', component: AdminRoleAbcComponent },
       { path: 'typeOfPRoblemAbc', component: AdminTypeOfProblemAbcComponent },
       { path: 'userAbc', component: AdminUserAbcComponent },
       { path: 'userByProblemTypeAbc', component: AdminUserByProblemTypeAbcComponent },

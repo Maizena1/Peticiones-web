@@ -31,7 +31,6 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
 import { AbcModuleTitleComponent } from './components/abc-module-title/abc-module-title.component';
 import { AdminEmployeeAbcComponent } from './Admin/pages/employee-abc/admin-employee-abc.component';
 import { AdminUserAbcComponent } from './Admin/pages/user-abc/admin-user-abc.component';
-import { AdminRoleAbcComponent } from './Admin/pages/role-abc/admin-role-abc.component';
 import { AdminTypeOfProblemAbcComponent } from './Admin/pages/type-of-problem-abc/admin-type-of-problem-abc.component';
 import { AdminUserByProblemTypeAbcComponent } from './Admin/pages/user-by-problem-type-abc/admin-user-by-problem-type-abc.component';
 import { RequestedRequestsModuleComponent } from './Store-manager/requested-requests-module/requested-requests-module.component';
@@ -41,7 +40,6 @@ import { CreateRequestComponent } from './Store-manager/create-request/create-re
 import { ArticleAbcComponent } from './Admin/pages/article-abc/article-abc.component';
 import { ArticleByBranchAbcComponent } from './Admin/pages/article-by-branch-abc/article-by-branch-abc.component';
 import { MaterialStatusSelectComponent } from './components/material-status-select/material-status-select.component';
-import { RequestTableComponent } from './components/request-table/request-table.component';
 import { AbcTableComponent } from './components/abc-table/abc-table.component';
 
 @NgModule({
@@ -58,7 +56,6 @@ import { AbcTableComponent } from './components/abc-table/abc-table.component';
     AbcModuleTitleComponent,
     AdminEmployeeAbcComponent,
     AdminUserAbcComponent,
-    AdminRoleAbcComponent,
     AdminTypeOfProblemAbcComponent,
     AdminUserByProblemTypeAbcComponent,
     RequestedRequestsModuleComponent,
@@ -67,7 +64,6 @@ import { AbcTableComponent } from './components/abc-table/abc-table.component';
     ArticleAbcComponent,
     ArticleByBranchAbcComponent,
     MaterialStatusSelectComponent,
-    RequestTableComponent,
     AbcTableComponent
 
   ],

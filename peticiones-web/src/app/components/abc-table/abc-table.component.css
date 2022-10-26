@@ -18,3 +18,14 @@ th{
 .mat-row{
     height: 32px;
 }
+
+.button-container{
+    display: flex;
+    justify-content:center ;
+    gap: 10px;    
+}
+
+td{
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}

@@ -18,6 +18,7 @@ export class AbcTableComponent implements OnInit {
   displayedColumns: String[] = ['col1','col2','col3','col4'];
   dataSource = new MatTableDataSource(this.Items);
   nameColum: String [] = [];
+  col1 : string = "";
 
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
@@ -30,6 +31,10 @@ export class AbcTableComponent implements OnInit {
 
 
   constructor() { }
+
+  getid(id: any, action: any){
+      alert(id +"  "+ action);
+  }
 
   ngOnInit () {  
 

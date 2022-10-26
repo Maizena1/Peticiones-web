@@ -43,6 +43,7 @@ import { ArticleByBranchAbcComponent } from './Admin/pages/article-by-branch-abc
 import { MaterialStatusSelectComponent } from './components/material-status-select/material-status-select.component';
 import { RequestTableComponent } from './components/request-table/request-table.component';
 import { AbcTableComponent } from './components/abc-table/abc-table.component';
+import { ButtonTableAbcComponent } from './components/button-table-abc/button-table-abc.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { AbcTableComponent } from './components/abc-table/abc-table.component';
     ArticleByBranchAbcComponent,
     MaterialStatusSelectComponent,
     RequestTableComponent,
-    AbcTableComponent
+    AbcTableComponent,
+    ButtonTableAbcComponent
 
   ],
   imports: [

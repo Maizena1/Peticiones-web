@@ -33,12 +33,10 @@
                         </div>
                     </div>
                     
-
                     <div class="table-branch-container">
-                        </div>
-
-                </div>
-            
+                        <app-abc-table [Items]="itemstable" [name_colum]="namecolum" (onChange)="onChangeActionTable($event)"></app-abc-table>
+                    </div>
+                </div>            
             </div>
         </div>
     </body>

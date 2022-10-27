@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import  { MatTableDataSource } from '@angular/material/table';
@@ -14,6 +14,10 @@ export class AbcTableComponent implements OnInit {
   @Input() Items: request_table[] = [];
   @Input() name_colum: String[] = [];
   @Input() type_table: String = "";
+
+
+  @Output() onChange = new EventEmitter<{id:string, action:string}>();   
+  
 
   displayedColumns: String[] = ['col1','col2','col3','col4'];
   dataSource = new MatTableDataSource(this.Items);
@@ -32,8 +36,9 @@ export class AbcTableComponent implements OnInit {
 
   constructor() { }
 
-  getid(id: any, action: any){
-      alert(id +"  "+ action);
+  getid(id: string, action: string){
+    this.onChange.emit({id: id,action: action});  
+    //alert(id +"  "+ action);      
   }
 
   ngOnInit () {  

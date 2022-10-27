@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { branch, response } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
-import { Item } from '../../services/type';
 import {FormBuilder, Validators} from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
 //import {MatSnackBar} from '@angular/material/snack-bar';
-
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { branches } from '../../services/type';
 
 /**/
 
@@ -34,16 +33,14 @@ export class AdminBranchAbcComponent implements OnInit {
   namebranch: string ="";
   domiciliobranch: string = "";
   emailbranch: string = "";
-  phone_number: string=""
+  phone_number: string="";
   
-  //prueba del select
-  itemsArray: Item[] = [
-    {_id: "55000", option: 'Opcion 1'},
-    {_id: "22", option: 'Opcion 2'},
-    {_id: "13", option: 'Opcion 3'},
-    {_id: "44", option: 'Opcion 4'},
-  ];
+  
+  //arreglo donde de almacenara todas las sucursales
+  Arraybranches: branches[]=[]
 
+  //arreglo de la tabla 
+  ItemsTable : request_table[]=[];
   //prueba de tabla
   itemstable: request_table[] = [
     {col1: "55001", col2: "Branch example" , col3: "Activo", col4:"botones" },
@@ -65,13 +62,9 @@ export class AdminBranchAbcComponent implements OnInit {
 
   ItemSend: String = "";  
   
-
   constructor( private router: Router, private APIpeticion: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
   
   
-
-
-  //Prueba del select 
   //obtener categoria
   onChangeid(data: String){    
     alert(data);
@@ -79,6 +72,18 @@ export class AdminBranchAbcComponent implements OnInit {
 
   //------------------------------------------------
   ngOnInit(): void {
+    //obtener los datos de la bd get sucursal y pasarlos a 
+    /*
+    this.APIpeticion.getBranches().subscribe(result =>{                
+      this.Arraybranches = result;
+      console.table(this.Arraybranches); 
+
+      this.Arraybranches.forEach((row) => {                
+        this.ItemsTable.push({col1: toString(row.id_sucursal), col2:'' , col3:'', col4:'' });
+      });                                     
+      //this.router.navigate(["admin/tournament/list"]);
+    })
+    */
   }
 
   //obtener el id de la sucursal
@@ -108,13 +113,39 @@ export class AdminBranchAbcComponent implements OnInit {
     alert(this.telefono);
   }
 
-  isChecked = true;  
-  
-  CreateBranch() {
 
+//metod para la tabla delete,edit, detail
+onChangeActionTable(data: any){  
+  alert(data.id+"---"+data.action);
+  if(data.action === 'delete'){
+    this.ActionDelete(data.id);
+  }else if(data.action === 'edit'){
+    this.ActionEdit(data.id);
+  }else if(data.action === 'detail'){
+    this.ActionDatil(data.id);
+  }  
+}
+
+//si es delete
+ActionDelete(id: string){
+
+}
+
+//si es edit
+ActionEdit(id:string){
+
+}
+
+//si es detail
+ActionDatil(id:string){
+
+}
+
+isChecked = true;  
+  
+CreateBranch() {
    
-      this._snackBar.open('Message', 'x');
-    
+      this._snackBar.open('Message', 'x');    
 
     //obtencion del estatus
     if (this.isChecked == true){
@@ -153,7 +184,7 @@ export class AdminBranchAbcComponent implements OnInit {
         })
         */        
       }
-   }
+}
 
    
    

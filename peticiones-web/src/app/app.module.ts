@@ -64,8 +64,7 @@ import { ButtonTableAbcComponent } from './components/button-table-abc/button-ta
     CreateRequestComponent,    
     ArticleAbcComponent,
     ArticleByBranchAbcComponent,
-    MaterialStatusSelectComponent,
-    RequestTableComponent,
+    MaterialStatusSelectComponent,    
     AbcTableComponent,
     ButtonTableAbcComponent
 

@@ -16,7 +16,7 @@ export class InputComponent implements OnInit {
 
 
   //se envia
-  @Output() onChange = new EventEmitter<string>(); 
+  @Output() onChange = new EventEmitter<string>();   
   @Output() KeyUp = new EventEmitter<string>();    
 
   constructor() { }

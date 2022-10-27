@@ -17,6 +17,11 @@ export class AdminService {
     //console.log(dato);
     return this.http.post(`${this.url}registrar-sucursal`,dato);
   }
+
+  getBranches():Observable<any>{
+    //console.log(dato);
+    return this.http.get(`${this.url}/sucursales`);
+  }
   
 
 

@@ -33,8 +33,8 @@
                         </div>
                     </div>
                     
-                    <div class="table-branch-container">
-                        <app-abc-table [Items]="itemstable" [name_colum]="namecolum" (onChange)="onChangeActionTable($event)"></app-abc-table>
+                    <div class="table-branch-container" *ngIf="ItemsTable.length > 0">
+                        <app-abc-table [Items]="ItemsTable" [name_colum]="namecolum" (onChange)="onChangeActionTable($event)"></app-abc-table>
                     </div>
                 </div>            
             </div>

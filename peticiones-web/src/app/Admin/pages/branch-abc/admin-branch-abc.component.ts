@@ -6,7 +6,6 @@ import {FormBuilder, Validators} from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
 //import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { branches } from '../../services/type';
 
 /**/
 
@@ -37,12 +36,10 @@ export class AdminBranchAbcComponent implements OnInit {
   
   
   //arreglo donde de almacenara todas las sucursales
-  Arraybranches: branches[]=[]
+  Arraybranches: branch[]=[];
 
   //arreglo de la tabla 
-  ItemsTable : request_table[]=[];
-  //prueba de tabla
-  itemstable: request_table[] = [
+  ItemsTable : request_table[]=[
     {col1: "55001", col2: "Branch example" , col3: "Activo", col4:"botones" },
     {col1: "55002", col2: 'Branch example' , col3: 'Desactivado', col4:'botones' },
     {col1: "55003", col2: 'Branch example' , col3: 'Avtivo', col4:'botones' },
@@ -50,16 +47,12 @@ export class AdminBranchAbcComponent implements OnInit {
     {col1: "55005", col2: 'Branch example' , col3: 'Activo', col4:'botones' },
     {col1: "55006", col2: 'Branch example' , col3: 'Desactivado', col4:'botones' },
     {col1: "55007", col2: 'Branch example' , col3: 'Desactivado', col4:'botones' },
-    {col1: "55008", col2: 'Branch example' , col3: 'Activo', col4:'botones' },
-    {col1: "55010", col2: 'Branch example' , col3: 'Activo', col4:'botones' },
-    {col1: "55011", col2: 'Branch example' , col3: 'Activo', col4:'botones' },
-    {col1: "55012", col2: 'Branch example' , col3: 'Desactivo', col4:'botones' },
-    {col1: "55013", col2: 'Branch example' , col3: 'Desactivo', col4:'botones' },
+    {col1: "55008", col2: 'Branch example' , col3: 'Activo', col4:'botones' },    
   ];
+  //prueba de tabla  
 
   //nombres de columnas de tabla
   namecolum: string[] = ['ID','Nombre','Estado','Botones'];
-
   ItemSend: String = "";  
   
   constructor( private router: Router, private APIpeticion: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
@@ -76,14 +69,15 @@ export class AdminBranchAbcComponent implements OnInit {
     /*
     this.APIpeticion.getBranches().subscribe(result =>{                
       this.Arraybranches = result;
-      console.table(this.Arraybranches); 
+      //console.table(this.Arraybranches); 
 
-      this.Arraybranches.forEach((row) => {                
-        this.ItemsTable.push({col1: toString(row.id_sucursal), col2:'' , col3:'', col4:'' });
+      this.Arraybranches.forEach((row) => {                   
+        this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_sucursal , col3:row.estatus, col4:'-' });        
       });                                     
-      //this.router.navigate(["admin/tournament/list"]);
+
+        console.table(this.ItemsTable);      
     })
-    */
+    */    
   }
 
   //obtener el id de la sucursal

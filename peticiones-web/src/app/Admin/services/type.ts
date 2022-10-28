@@ -8,10 +8,6 @@ export interface branch {
     estatus:String;
 }
 
-export interface branches{
- branches: branch[];
-}
-
 //empleados
 export interface employee{
     id_empleado: number;

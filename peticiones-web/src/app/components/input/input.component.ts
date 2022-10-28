@@ -13,6 +13,7 @@ export class InputComponent implements OnInit {
   @Input() type: string = 'text';
   @Input() example: string = 'sin nombre';
   @Input() value: string ='';
+  @Input() enable: boolean = false;
 
 
   //se envia
@@ -23,6 +24,7 @@ export class InputComponent implements OnInit {
 
   //para la validacion del input
   InputFormControl = new FormControl('', [Validators.required]);
+  
 
   getdata( data : string ){
     this.onChange.emit(data);

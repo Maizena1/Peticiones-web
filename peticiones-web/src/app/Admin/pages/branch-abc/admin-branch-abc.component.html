@@ -15,9 +15,8 @@
                 <div class="module-register-container">
 
                     <div class="register">
-
                         <div class="input-register">
-                            <app-input [type]="'number'" [label]="'ID sucursal'" [example]="'13'" [value]="Idbranch" (onChange)="onChangeIdBranch($event)"></app-input>                            
+                            <app-input [type]="'number'" [label]="'ID sucursal'" [example]="'13'" [enable]="enableid" [value]="Idbranch" (onChange)="onChangeIdBranch($event)"></app-input>                            
                             <app-input [label]="'Nombre Sucursal'" [example]="'Sucursal Zaragoza'" [value]="namebranch" (onChange)="onChangeNameBranch($event)"></app-input>
                             <app-input [label]="'Direccion'" [example]="'Entre Independencia y  Zaragoza'" [value]="domiciliobranch" (onChange)="onChangeDirectionBranch($event)"></app-input>
                             <app-input [label]="'Correo electrónico'" [example]="'Sucursal@delmuro.com'" [value]="emailbranch" (onChange)="onChangeEmailBranch($event)"></app-input>
@@ -28,9 +27,10 @@
                             <app-select [label]="'Ejemplo'" [items]="itemsArray" [valuenum]="ItemSend" (onChange)="onChangeid($event)"></app-select>                                                                                                                
                             -->                            
                         </div>
-                        <div class="button-container">
-                            <button mat-flat-button color="primary" (click)="CreateBranch()">Agregar</button>                            
-                        </div>
+                        <div class="button-container">                                                                                    
+                                <button mat-flat-button color="primary" (click)="CreateBranch()" >Agregar</button>                                                                                                                                                
+                                <button mat-flat-button color="primary" (click)="UpdateBranch()" >Actualizar</button>                                                                                    
+                        </div>                                                                                                
                     </div>
                     
                     <div class="table-branch-container" *ngIf="ItemsTable.length > 0">

@@ -18,7 +18,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { InputComponent } from './components/input/input.component';
 import { TextareaComponent } from './components/textarea/textarea.component';
@@ -42,6 +42,7 @@ import { ArticleByBranchAbcComponent } from './Admin/pages/article-by-branch-abc
 import { MaterialStatusSelectComponent } from './components/material-status-select/material-status-select.component';
 import { AbcTableComponent } from './components/abc-table/abc-table.component';
 import { ButtonTableAbcComponent } from './components/button-table-abc/button-table-abc.component';
+import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ButtonTableAbcComponent } from './components/button-table-abc/button-ta
     ArticleByBranchAbcComponent,
     MaterialStatusSelectComponent,    
     AbcTableComponent,
-    ButtonTableAbcComponent
+    ButtonTableAbcComponent,
+    DialogDeleteComponent
 
   ],
   imports: [
@@ -88,7 +90,8 @@ import { ButtonTableAbcComponent } from './components/button-table-abc/button-ta
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

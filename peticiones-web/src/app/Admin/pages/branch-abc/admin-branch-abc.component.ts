@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import {FormBuilder, Validators} from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 
@@ -170,7 +170,8 @@ ActionDatil(id:string){
 
 }
 
-
+horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+verticalPosition: MatSnackBarVerticalPosition = 'top';
 
 //Metodo de actualizacion de sucursal
 UpdateBranch(){
@@ -186,7 +187,13 @@ UpdateBranch(){
 
   if((this.nombre == '')|| (this.domicilio == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {
                           
-    this._snackBar.open('Error faltan datos para actualizar', 'x');    
+    //this._snackBar.open('Error faltan datos para actualizar', 'x');    
+    this._snackBar.open('Error faltan datos', 'X', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      //panelClass: ['green-snackbar'],
+      panelClass: ['red-snackbar'],
+    });
     
   }else{
 
@@ -205,10 +212,25 @@ UpdateBranch(){
         this.response = response;                          
           alert(this.response.Mensaje);  //sanackBar         
         //this.router.navigate(["admin/tournament/list"]);
-      })
+        if(this.response.Estatus == 'Error'){            
+          this._snackBar.open(this.response.Mensaje, 'X', {
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+            //panelClass: ['green-snackbar'],
+            panelClass: ['red-snackbar'],
+          });
+        }else{
+          this._snackBar.open(this.response.Mensaje, 'X', {
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+            panelClass: ['green-snackbar'],
+            //panelClass: ['red-snackbar'],
+          });
+          //editar el campo en base a si cambio
 
-      //this.ItemsTable = [];              
-      //this.ngOnInit();       
+          //this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: datasend.estatus, col4:'-' });            
+        }                  
+      });      
       this.Clearinputs();
       this.butonAddUpdate = '';  
     }
@@ -227,10 +249,15 @@ CreateBranch() {
         //alert(this.estatus);
     }
                             
-    if((this.nombre == "")|| (this.id_sucursal == "")|| (this.domicilio == "")||(this.correo == "")||(this.telefono == "")||(this.estatus == "")) {
-                      
+    if((this.nombre == '')|| (this.id_sucursal == '')|| (this.domicilio == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {                      
       //alert("error faltan datos");      
-      this._snackBar.open('Error faltan datos para actualizar', 'X');          
+      //this._snackBar.open('Error faltan datos para actualizar', 'X');          
+      this._snackBar.open('Error faltan datos', 'X', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        //panelClass: ['green-snackbar'],
+        panelClass: ['red-snackbar'],
+      });
 
     }else{
 
@@ -247,17 +274,24 @@ CreateBranch() {
         //console.table(datasend);        
         this.APIpeticion.createBranch(datasend).subscribe(response =>{                    
           this.response = response;          
-          if(this.response.Estatus == 'Error'){
-            alert(this.response.Mensaje);  //sanackBar 
+          if(this.response.Estatus == 'Error'){            
+            this._snackBar.open(this.response.Mensaje, 'X', {
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+              //panelClass: ['green-snackbar'],
+              panelClass: ['red-snackbar'],
+            });
           }else{
+            this._snackBar.open(this.response.Mensaje, 'X', {
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+              panelClass: ['green-snackbar'],
+              //panelClass: ['red-snackbar'],
+            });
             this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: datasend.estatus, col4:'-' });            
-          }
-          
+          }          
           //this.router.navigate(["admin/tournament/list"]);
-        })
-
-        //this.ItemsTable = [];        
-        //this.ngOnInit();
+        })        
       }
 }
 

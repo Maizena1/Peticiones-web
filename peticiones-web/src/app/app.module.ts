@@ -18,6 +18,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 import { InputComponent } from './components/input/input.component';
@@ -42,6 +43,9 @@ import { ArticleByBranchAbcComponent } from './Admin/pages/article-by-branch-abc
 import { MaterialStatusSelectComponent } from './components/material-status-select/material-status-select.component';
 import { AbcTableComponent } from './components/abc-table/abc-table.component';
 import { ButtonTableAbcComponent } from './components/button-table-abc/button-table-abc.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -88,7 +92,8 @@ import { ButtonTableAbcComponent } from './components/button-table-abc/button-ta
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,15 +2,34 @@
     <div class="menu">
         <div class="menu-option">
             <mat-icon class="icon" [routerLink]="['/storeManager/createRequest']">note_add</mat-icon>
-            <p [routerLink]="['/storeManager/createRequest']">Crear peticion</p>
+            <p class="option" [routerLink]="['/storeManager/createRequest']">Crear peticion</p>
         </div>
         <div class="menu-option">
             <mat-icon class="icon" [routerLink]="['/storeManager/requestedRequestModule']">storage</mat-icon>
-            <p [routerLink]="['/storeManager/requestedRequestModule']">Peticiones solicitadas</p>
+            <p class="option" [routerLink]="['/storeManager/requestedRequestModule']">Peticiones solicitadas</p>
         </div>
         <div class="menu-option">
             <mat-icon class="icon">assignment</mat-icon>
-            <p>Reportes</p> 
+            <p class="option">Reportes</p> 
+        </div>
+        <div class="menu-option">
+            <button mat-icon-button class="session-menu" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            
+            <mat-menu #menu="matMenu" class="session-option-menu-container">
+
+                <button mat-menu-item class="session-option-menu-button">
+                    <mat-icon class="session-option-menu">widgets</mat-icon>
+                    <span [routerLink]="'/admin/branchAbc'">Administrador</span>
+                </button>
+                
+                <button mat-menu-item class="session-option-menu-button">
+                    <mat-icon class="session-option-menu">logout</mat-icon>
+                    <span>Cerrar sesion</span>
+                </button>
+                
+            </mat-menu>    
         </div>
     </div>
 </div>

@@ -22,15 +22,21 @@
     color: white;
 }
 
-p{
+.option{
     color: #ffff;
+    font-size: 16px;
+}
+.option:hover{
     font-size: 20px;
 }
 
-.icon, p{
+.icon, .option, .session-menu{
     cursor: pointer;
 }
 
+.session-menu{
+    color: #ffff;
+}
 
 
 

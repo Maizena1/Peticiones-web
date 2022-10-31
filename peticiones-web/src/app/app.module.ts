@@ -18,6 +18,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
+
 import {MatDialogModule} from '@angular/material/dialog';
 
 import { InputComponent } from './components/input/input.component';
@@ -43,6 +45,9 @@ import { MaterialStatusSelectComponent } from './components/material-status-sele
 import { AbcTableComponent } from './components/abc-table/abc-table.component';
 import { ButtonTableAbcComponent } from './components/button-table-abc/button-table-abc.component';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -91,6 +96,7 @@ import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    MatMenuModule,
     MatDialogModule
   ],
   providers: [],

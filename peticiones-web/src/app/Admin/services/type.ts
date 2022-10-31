@@ -1,6 +1,6 @@
 //sucursales
 export interface branch {
-    id_sucursal: number;
+    id_sucursal?: number;
     nombre_sucursal: String;
     domicilio: String;
     correo: String;
@@ -77,6 +77,7 @@ export interface users_problems{
 //respuesta 
 export interface response{
     Mensaje: String;
+    Estatus: String;
 }
   
 export interface Item {

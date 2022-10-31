@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { branch } from './type';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +15,10 @@ export class AdminService {
   createBranch(dato: branch):Observable<any>{
     //console.log(dato);
     return this.http.post(`${this.url}registrar-sucursal`,dato);
+  }
+
+  UpdatedBranch(dato: branch, id: number):Observable<any>{
+    return this.http.put(`${this.url}modificar-sucursal/${id}`,dato);
   }
 
   getBranches():Observable<any>{

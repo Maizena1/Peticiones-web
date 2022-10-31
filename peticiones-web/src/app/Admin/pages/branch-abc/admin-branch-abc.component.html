@@ -16,20 +16,16 @@
 
                     <div class="register">
                         <div class="input-register">
-                            <app-input [type]="'number'" [label]="'ID sucursal'" [example]="'13'" [enable]="enableid" [value]="Idbranch" (onChange)="onChangeIdBranch($event)"></app-input>                            
-                            <app-input [label]="'Nombre Sucursal'" [example]="'Sucursal Zaragoza'" [value]="namebranch" (onChange)="onChangeNameBranch($event)"></app-input>
-                            <app-input [label]="'Direccion'" [example]="'Entre Independencia y  Zaragoza'" [value]="domiciliobranch" (onChange)="onChangeDirectionBranch($event)"></app-input>
-                            <app-input [label]="'Correo electrónico'" [example]="'Sucursal@delmuro.com'" [value]="emailbranch" (onChange)="onChangeEmailBranch($event)"></app-input>
-                            <app-input [label]="'Número telefónico'" [example]="'018003312'" [value]="phone_number" (onChange)="onChangePhoneNumberBranch($event)"></app-input>                                                        
-                            <mat-slide-toggle [color]="'primary'" [(ngModel)]="isChecked">Activo</mat-slide-toggle>
-                                                        
-                            <!--                                
-                            <app-select [label]="'Ejemplo'" [items]="itemsArray" [valuenum]="ItemSend" (onChange)="onChangeid($event)"></app-select>                                                                                                                
-                            -->                            
+                            <app-input [type]="'number'" [label]="'ID sucursal'" [example]="'13'" [enable]="enableid" [value]="id_sucursal" (onChange)="onChangeIdBranch($event)"></app-input>                            
+                            <app-input [label]="'Nombre Sucursal'" [example]="'Sucursal Zaragoza'" [value]="nombre" (onChange)="onChangeNameBranch($event)"></app-input>
+                            <app-input [label]="'Direccion'" [example]="'Entre Independencia y  Zaragoza'" [value]="domicilio" (onChange)="onChangeDirectionBranch($event)"></app-input>
+                            <app-input [label]="'Correo electrónico'" [example]="'Sucursal@delmuro.com'" [value]="correo" (onChange)="onChangeEmailBranch($event)"></app-input>
+                            <app-input [label]="'Número telefónico'" [example]="'018003312'" [value]="telefono" (onChange)="onChangePhoneNumberBranch($event)"></app-input>                                                        
+                            <mat-slide-toggle [color]="'primary'" [(ngModel)]="isChecked">Activo</mat-slide-toggle>                                                                                    
                         </div>
                         <div class="button-container">                                                                                    
-                                <button mat-flat-button color="primary" (click)="CreateBranch()" >Agregar</button>                                                                                                                                                
-                                <button mat-flat-button color="primary" (click)="UpdateBranch()" >Actualizar</button>                                                                                    
+                                <button mat-flat-button color="primary" (click)="CreateBranch()" *ngIf="butonAddUpdate.length == 0">Agregar</button>                                                                                                                                                
+                                <button  #update mat-flat-button color="primary" (click)="UpdateBranch()" *ngIf="butonAddUpdate.length> 0">Actualizar</button>                                                                                    
                         </div>                                                                                                
                     </div>
                     

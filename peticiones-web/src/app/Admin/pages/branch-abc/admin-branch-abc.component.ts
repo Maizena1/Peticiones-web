@@ -7,6 +7,7 @@ import { request_table } from 'src/app/components/services/request-table';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
+import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
 
 @Component({
   selector: 'app-admin-branch-abc',
@@ -60,8 +61,9 @@ export class AdminBranchAbcComponent implements OnInit {
   onChangeid(data: String){    
     alert(data);
   }
-
+  
   //------------------------------------------------
+  //obtener sucursales actuales y cagarlos a la tabla
   ngOnInit(): void {
     //obtener los datos de la bd get sucursal y pasarlos a 
     /**/
@@ -72,6 +74,14 @@ export class AdminBranchAbcComponent implements OnInit {
         this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_sucursal , col3:row.estatus, col4:'-' });        
       });                                     
       //console.table(this.ItemsTable);      
+    })        
+  }
+
+  //obtner sucursales actuales
+  ReloadBranches(){
+    this.Arraybranches = [];
+    this.APIpeticion.getBranches().subscribe(result =>{                
+      this.Arraybranches = result;      
     })        
   }
 
@@ -118,18 +128,42 @@ ActionDelete(id: string){
   const dialogRef = this.dialog.open(DialogDeleteComponent, {
     width: '420px',
     height: '200px',
-    data: { name: 'Eliminar,', subname: '¿Estas seguro que desea eliminar?'},
+    data: { name: 'Eliminar,', subname: '¿Estas seguro que desea Deshabilitar?'},
   });
 
   dialogRef.afterClosed().subscribe(result => {
-      if ( result == true){
-          //proceder a eliminar
-          alert('eliminando...') 
+
+    if ( result == true){
+
+          //alert('eliminando...');
           //this.router.navigate(["admin/tournament/list"]);
+          this.APIpeticion.DeleteBranch(parseInt(id)).subscribe(response =>{                    
+            this.response = response;                          
+              alert(this.response.Mensaje);  //sanackBar         
+            //this.router.navigate(["admin/tournament/list"]);
+            if(this.response.Estatus == 'Error'){            
+              this._snackBar.open(this.response.Mensaje, 'X', {
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+                //panelClass: ['green-snackbar'],
+                panelClass: ['red-snackbar'],
+              });
+            }else{
+              this._snackBar.open(this.response.Mensaje, 'X', {
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+                panelClass: ['green-snackbar'],
+                //panelClass: ['red-snackbar'],
+              });
+              //buscar el index
+              const inAct = this.ItemsTable.findIndex((element) => element.col1 == id);
+              //agregar a la tabla                        
+              this.ItemsTable[inAct].col3 = 'B';          //cambiamos a B si se elimino
+            }                  
+          });      
+          this.ReloadBranches();
       }
   });
-
-
 }
 
 Clearinputs(){
@@ -149,7 +183,7 @@ ActionEdit(id:string){
   this.butonAddUpdate = 'a';
   this.enableid = true;  
   this.DataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
-  console.table(this.DataBranchShow);
+  //console.table(this.DataBranchShow);
   this.Clearinputs();
   //asignacion de las variables a mostrar      
   this.id_sucursal = id;
@@ -162,12 +196,31 @@ ActionEdit(id:string){
   }else{
     this.isChecked = false;
   }  
-
 }
 
 //si es detail
 ActionDatil(id:string){
+  //obtener los detalles de la sucursal a mostrar  
+  this.DataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
+  const dialogRef = this.dialog.open(DialogDetailComponent, {
+    width: '300px',
+    data: [{ title: 'ID:', data: id },
+    {title: 'Nombre:', data: this.DataBranchShow.nombre_sucursal},
+    {title: 'Domicilio:', data: this.DataBranchShow.domicilio },
+  ],
 
+    /*
+    this.domicilio =  this.DataBranchShow.domicilio;  
+    this.correo = this.DataBranchShow.correo;
+    this.telefono = this.DataBranchShow.telefono;
+    if(this.DataBranchShow.estatus == 'A'){
+      this.isChecked = true;
+    }else{
+      this.isChecked = false;
+    } 
+    */ 
+
+  });  
 }
 
 horizontalPosition: MatSnackBarHorizontalPosition = 'center';
@@ -226,9 +279,15 @@ UpdateBranch(){
             panelClass: ['green-snackbar'],
             //panelClass: ['red-snackbar'],
           });
-          //editar el campo en base a si cambio
 
-          //this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: datasend.estatus, col4:'-' });            
+
+          //buscar el index
+          const inAct = this.ItemsTable.findIndex((element) => element.col1 == this.id_sucursal);
+          //agregar cambio a la tabla          
+          this.ItemsTable[inAct].col2 = this.nombre;
+          this.ItemsTable[inAct].col3 = this.estatus;          
+          //actualizar 
+          this.ReloadBranches();
         }                  
       });      
       this.Clearinputs();
@@ -289,6 +348,7 @@ CreateBranch() {
               //panelClass: ['red-snackbar'],
             });
             this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: datasend.estatus, col4:'-' });            
+            this.ReloadBranches();
           }          
           //this.router.navigate(["admin/tournament/list"]);
         })        

@@ -1,11 +1,11 @@
-<div align="center" mat-dialog-content>
-    <h4 mat-dialog-title style="color: rgba(38, 39, 43, 0.5);">{{data.name}}</h4>
+<div mat-dialog-content class="container">
+    <h4 mat-dialog-title>{{data.name}}</h4>
 </div>
-<div align="center" mat-dialog-content>
-    <h3 style="color: rgba(38, 39, 43, 0.5);">{{data.subname}}</h3>
+<div  mat-dialog-content class="second-container">
+    <h3>{{data.subname}}</h3>
 </div>
 
-<div align="center" mat-dialog-action>
+<div mat-dialog-action class="action-container">
     <button matRipple class="format-button-cancel" mat-button mat-dialog-close>Cancelar</button>
     <button matRipple class="format-button-continue" mat-button [mat-dialog-close]="true" cdkFocusInitial>Continuar</button>
 </div>

@@ -26,3 +26,18 @@
     font-style: normal;
     font-size: 16px;
 }
+
+.container .subconteiner{
+    display: flex;
+    justify-content: center;
+}
+
+.action-container{
+    display: flex;
+    justify-content: end;
+}
+
+h4 h3{
+    color: rgba(38, 39, 43, 0.5);
+}
+

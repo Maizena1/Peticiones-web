@@ -1,0 +1,21 @@
+<div mat-dialog-content class="header-container">    
+    <h4 mat-dialog-title>Detalles</h4>
+</div>
+<div mat-dialog-content class="subconteiner">
+    <!--
+    <p><strong>{{data.title1}}</strong></p><p>{{data.data1}}</p>    
+    <p><strong>{{data.title2}}</strong></p><p>{{data.data2}}</p>    
+    <p><strong>{{data.title3}}</strong></p><p>{{data.data3}}</p>        
+    -->
+
+    
+    <div *ngFor="let item of data" class="dialog-content">
+        <p class="title">{{item.title}}</p>
+        <p class="data">{{item.data}}</p>    
+    </div>
+        
+</div>
+
+<div mat-dialog-action class="action-container">
+    <button matRipple class="format-button-cancel" mat-button mat-dialog-close>Cancelar</button>    
+</div>

@@ -21,6 +21,10 @@ export class AdminService {
     return this.http.put(`${this.url}modificar-sucursal/${id}`,dato);
   }
 
+  DeleteBranch(id:number):Observable<any>{
+    return this.http.delete(`${this.url}eliminar-sucursal/${id}`);
+  }
+
   getBranches():Observable<any>{
     //console.log(dato);
     return this.http.get(`${this.url}/sucursales`);

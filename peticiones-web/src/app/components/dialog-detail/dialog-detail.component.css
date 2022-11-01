@@ -1,0 +1,12 @@
+.dialog-content{
+    display: flex;
+}
+
+.title{
+    font-weight: 700;
+}
+
+
+.header-container{
+    border-radius: 5px solid black;
+}

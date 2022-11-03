@@ -37,16 +37,7 @@ export class AdminBranchAbcComponent implements OnInit {
   Arraybranches: branch[]=[];
 
   //arreglo donde se almacenara solo los datos de la tabla de la tabla 
-  ItemsTable : request_table[]=[ 
-    {col1: "55001", col2: "Branch example" , col3: "Activo", col4:"botones" },
-    {col1: "55002", col2: 'Branch example' , col3: 'Desactivado', col4:'botones' },
-    {col1: "55003", col2: 'Branch example' , col3: 'Avtivo', col4:'botones' },
-    {col1: "55004", col2: 'Branch example' , col3: 'Activo', col4:'botones' },
-    {col1: "55005", col2: 'Branch example' , col3: 'Activo', col4:'botones' },
-    {col1: "55006", col2: 'Branch example' , col3: 'Desactivado', col4:'botones' },
-    {col1: "55007", col2: 'Branch example' , col3: 'Desactivado', col4:'botones' },
-    {col1: "55008", col2: 'Branch example' , col3: 'Activo', col4:'botones' },          
-  ];
+  ItemsTable : request_table[]=[];
   //prueba de tabla  
   /*
   {col1: "55001", col2: "Branch example" , col3: "Activo", col4:"botones" },
@@ -147,8 +138,7 @@ ActionDelete(id: string){
           //this.router.navigate(["admin/tournament/list"]);
           this.APIpeticion.DeleteBranch(parseInt(id)).subscribe(response =>{                    
             this.response = response;                          
-              alert(this.response.Mensaje);  //sanackBar         
-            //this.router.navigate(["admin/tournament/list"]);
+              alert(this.response.Mensaje);  //sanackBar                     
             if(this.response.Estatus == 'Error'){            
               this._snackBar.open(this.response.Mensaje, 'X', {
                 horizontalPosition: this.horizontalPosition,
@@ -209,13 +199,13 @@ ActionEdit(id:string){
 //si es detail
 ActionDatil(id:string){
   //obtener los detalles de la sucursal a mostrar  
-  //this.DataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
+  this.DataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
   const dialogRef = this.dialog.open(DialogDetailComponent, {
     width: '300px',
     data: [{ title: 'ID:', data: id },
-    {title: 'Nombre:', data: 'Sucursl 13'},
-    {title: 'Domicilio:', data: 'col centro, independencia y zaragoza' },
-  ],
+    {title: 'Nombre:', data: this.DataBranchShow.nombre_sucursal},
+    {title: 'Domicilio:', data: this.DataBranchShow.domicilio },
+  ],  
 
     /*
     this.domicilio =  this.DataBranchShow.domicilio;  
@@ -225,13 +215,7 @@ ActionDatil(id:string){
       this.isChecked = true;
     }else{
       this.isChecked = false;
-    } 
-
-
-    data: [{ title: 'ID:', data: id },
-    {title: 'Nombre:', data: this.DataBranchShow.nombre_sucursal},
-    {title: 'Domicilio:', data: this.DataBranchShow.domicilio },
-  ],
+    }     
     */ 
 
   });  

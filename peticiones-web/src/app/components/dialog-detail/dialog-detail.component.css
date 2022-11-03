@@ -1,12 +1,24 @@
-.dialog-content{
-    display: flex;
-}
-
 .title{
     font-weight: 700;
 }
 
-
 .header-container{
-    border-radius: 5px solid black;
+    margin: 0px auto;
+    text-align: center;
+    border: 1px solid rgba(199, 199, 199, 0.132);
+    border-radius: 4px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+
+
+.dialog-content{
+    width: 252px;
+}
+
+
+.mat-dialog-content {
+    margin: 0px; 
+    padding: 0px;
+}
+
+

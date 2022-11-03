@@ -1,35 +1,14 @@
-.format-button-cancel {
-    background-color: #FFFFFF;
-    border: 1px solid #0A90EF;
-    box-sizing: border-box;
-    border-radius: 8px;
-    width: 160px !important;
-    height: 48px !important;
-    color: #0A90EF;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-size: 16px;
 
+
+.title{
+    text-align: center;
+    color: #2698c5;
+    font-size: 20px !important;
+    font-weight: 500 !important;
 }
 
-.format-button-continue {
-    border: transparent;
-    width: 160px !important;
-    height: 48px !important;
-    margin-left: 20px !important;
-    /* Primary_Blue */
-    background: #0A90EF;
-    border-radius: 8px;
-    /* Common_White */    
-    color: #FFFFFF;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-size: 16px;
-}
-
-.container .subconteiner{
-    display: flex;
-    justify-content: center;
+.subtitle{
+    text-align: center;
 }
 
 .action-container{
@@ -37,7 +16,4 @@
     justify-content: end;
 }
 
-h4 h3{
-    color: rgba(38, 39, 43, 0.5);
-}
 

@@ -1,11 +1,11 @@
 //sucursales
 export interface branch {
     id_sucursal?: number;
-    nombre_sucursal: String;
-    domicilio: String;
-    correo: String;
-    telefono: String;
-    estatus:String;
+    nombre_sucursal: string;
+    domicilio: string;
+    correo: string;
+    telefono: string;
+    estatus:string;
 }
 
 //empleados

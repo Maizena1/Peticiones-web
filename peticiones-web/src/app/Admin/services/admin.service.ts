@@ -10,7 +10,7 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
   
-  url = 'peticionesdelmuro.ddns.net:3600/api/';
+  url = 'http://peticionesdelmuro.ddns.net:3600/api/';
 
   createBranch(dato: branch):Observable<any>{
     //console.log(dato);

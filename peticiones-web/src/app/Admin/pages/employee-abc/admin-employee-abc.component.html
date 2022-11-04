@@ -17,21 +17,22 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-input [label]="'ID empleado'"></app-input>
-                            <app-input [label]="'Nombre'"></app-input>
-                            <app-input [type]="'number'" [label]="'Número telefónico'"></app-input>
-                            <app-input [label]="'Correo electrónico'"></app-input>
-                            <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                            <app-input [type]="'number'" [label]="'ID Empleado'" [example]="'13'" [enable]="enableid" [value]="idEmpleado" (onChange)="onChangeIdEmployee($event)"></app-input>                                                        
+                            <app-input [label]="'Nombre Empleado'" [example]="'Jesus Rodrigez Smith'" [value]="nombre" (onChange)="onChangeNameEmployee($event)"></app-input>                                                                                    
+                            <app-input [label]="'Correo'" [example]="'JesusRodrigez@gmail.com'" [value]="correo" (onChange)="onChangeEmailEmployee($event)"></app-input>
+                            <app-input [label]="'Número telefónico'" [example]="'6681843221'" [value]="telefono" (onChange)="onChangePhoneNumberEmployee($event)"></app-input>                                                        
+                            <mat-slide-toggle [color]="'primary'" [(ngModel)]="isChecked">Activo</mat-slide-toggle>                                                                                    
                         </div>
 
-                        <div class="button-container">
-                            <button mat-flat-button color="primary">Agregar</button>
+                        <div class="button-container">                                                                                    
+                            <button mat-flat-button color="primary" (click)="CreateEmployee()" *ngIf="butonAddUpdate.length == 0">Agregar</button>                                                                                                                                                
+                            <button  #update mat-flat-button color="primary" (click)="UpdateEmployee()" *ngIf="butonAddUpdate.length> 0">Actualizar</button>                                                                                    
                         </div>
 
                     </div>
 
                     <div class="table-employee-container">
-                        <app-abc-table class="table"></app-abc-table>
+                        <app-abc-table class="table" [Items]="ItemsTable" [name_colum]="namecolum" (onChange)="onChangeActionTable($event)"></app-abc-table>                        
                     </div>
 
                 </div>

@@ -44,7 +44,7 @@ export class AdminBranchAbcComponent implements OnInit {
   namecolum: string[] = ['ID','Nombre','Estado','Botones'];
   ItemSend: String = "";  
     
-  constructor(public dialog: MatDialog ,private router: Router, private APIpeticion: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, ) { }
+  constructor(public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, ) { }
   
   //obtener categoria
   onChangeid(data: String){    
@@ -56,11 +56,15 @@ export class AdminBranchAbcComponent implements OnInit {
   ngOnInit(): void {
     //obtener los datos de la bd get sucursal y pasarlos a 
     /**/  
-    this.APIpeticion.getBranches().subscribe(result =>{                
+    this.APIAdminPetition.getBranches().subscribe(result =>{                
       this.Arraybranches = result;
       //console.table(this.Arraybranches); 
       this.Arraybranches.forEach((row) => {                   
-        this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_sucursal , col3:row.estatus, col4:'-' });        
+        if(row.estatus == 'A'){          
+          this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_sucursal , col3:'Activo', col4:'-' });        
+        }else{          
+          this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_sucursal , col3:'Inactivo', col4:'-' });        
+        }        
       });                                     
       //console.table(this.ItemsTable);      
     })        
@@ -69,13 +73,12 @@ export class AdminBranchAbcComponent implements OnInit {
   //obtner sucursales actuales
   ReloadBranches(){
     this.Arraybranches = [];
-    this.APIpeticion.getBranches().subscribe(result =>{                
+    this.APIAdminPetition.getBranches().subscribe(result =>{                
       //console.table(result);
       this.Arraybranches = result;      
       //console.table(this.Arraybranches);
     })       
   }
-
 
   //obtener el id de la sucursal
   onChangeIdBranch(idsucursal: string){
@@ -102,7 +105,7 @@ export class AdminBranchAbcComponent implements OnInit {
   }
 
 
-//metod para la tabla delete,edit, detail
+//metodo para la tabla delete,edit, detail
 onChangeActionTable(data: any){  
   //alert(data.id+"---"+data.action);
   if(data.action === 'delete'){
@@ -126,10 +129,17 @@ ActionDelete(id: string){
   dialogRef.afterClosed().subscribe(result => {
 
     if ( result == true){
-
-          //alert('eliminando...');
-          //this.router.navigate(["admin/tournament/list"]);
-          this.APIpeticion.DeleteBranch(parseInt(id)).subscribe(response =>{                    
+          
+        const inDesc = this.ItemsTable.findIndex((element) => element.col1 == id);
+              //agregar a la tabla                        
+        if(this.ItemsTable[inDesc].col3 == 'Inactivo'){
+              this._snackBar.open('No se puede desactivar porque ya esta inactiva', 'X', {                
+                verticalPosition: this.verticalPosition,                
+                duration: 3000,
+                panelClass: ['red-snackbar'],
+              });
+        }else{
+          this.APIAdminPetition.DeleteBranch(parseInt(id)).subscribe(response =>{                    
             this.response = response;                                        
             if(this.response.Estatus == 'Error'){            
               this._snackBar.open(this.response.Mensaje, 'X', {                
@@ -146,25 +156,26 @@ ActionDelete(id: string){
               //buscar el index
               const inAct = this.ItemsTable.findIndex((element) => element.col1 == id);
               //agregar a la tabla                        
-              this.ItemsTable[inAct].col3 = 'B';          //cambiamos a B si se elimino
+              this.ItemsTable[inAct].col3 = 'Inactivo';          //cambiamos a B si se elimino
             }                  
           });      
           this.ReloadBranches();
           this.Clearinputs();
+        }                      
       }
   });
 }
 
 Clearinputs(){
   //limpieza
+  this.isChecked == true;
   this.enableid = false;  
   this.id_sucursal ='';
   this.nombre ='';
   this.domicilio ='';
   this.correo ='';
   this.telefono='';
-  this.estatus ='';  
-  this.isChecked == true
+  this.estatus ='';    
 }
 
 //si es edit
@@ -182,8 +193,8 @@ ActionEdit(id:string){
   this.correo = this.DataBranchShow.correo;
   this.telefono = this.DataBranchShow.telefono;
   if(this.DataBranchShow.estatus == 'A'){
-    this.isChecked = true;
-  }else{
+    this.isChecked = true;    
+  }else{    
     this.isChecked = false;
   }  
 }
@@ -242,7 +253,7 @@ UpdateBranch(){
       //console.table(datasend);
       this.idupdate = this.id_sucursal;      
 
-      this.APIpeticion.UpdatedBranch(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
+      this.APIAdminPetition.UpdatedBranch(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
         this.response = response;   
         
         this.id_sucursal =this.idupdate ;        // se iguala porque se puedan
@@ -266,18 +277,22 @@ UpdateBranch(){
           this.inAct = this.ItemsTable.findIndex( element => element.col1  == this.id_sucursal);                         
           if( this.inAct != -1){
             this.ItemsTable[this.inAct].col2 = this.nombre;
-            this.ItemsTable[this.inAct].col3 = this.estatus;          
+            if(this.estatus == 'A'){
+              this.ItemsTable[this.inAct].col3 = 'Activo';          
+            }else{
+              this.ItemsTable[this.inAct].col3 = 'Inactivo';          
+            }            
           }                    
+          
+          this.Clearinputs();
           //actualizar 
-          this.ReloadBranches();
+          this.ReloadBranches();          
         }                  
       });      
-      this.Clearinputs();
+      
       this.butonAddUpdate = '';  
     }
 }
-
-
 
 CreateBranch() {
      
@@ -312,7 +327,7 @@ CreateBranch() {
         };
 
         //console.table(datasend);        
-        this.APIpeticion.createBranch(datasend).subscribe(response =>{                    
+        this.APIAdminPetition.createBranch(datasend).subscribe(response =>{                    
           this.response = response;          
           if(this.response.Estatus == 'Error'){            
             this._snackBar.open(this.response.Mensaje, 'X', {              

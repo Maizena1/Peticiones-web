@@ -10,36 +10,31 @@ export interface branch {
 
 //empleados
 export interface employee{
-    id_empleado: number;
-    nombre_empleado: String;
+    id_empleado?: number;
+    nombre_empleado: string;
     id_sucursal: number;
-    correo: String;
-    telefono: String;
-    estatus: String;
+    correo: string;
+    telefono: string;
+    estatus: string;
 }
 
-export interface employees{
-    employees: employee[];
-}
 
 //roles
 export interface role{
     id_rol?: number;
-    nombre_rol: String;
-    descripcion_rol: String;
-    estatus: String;
+    nombre_rol: string;
+    descripcion_rol: string;
+    estatus: string;
 }
 
-export interface roles{
-    roles: role[];
-}
+
 
 //tipo problema
 export interface type_of_problem{
     id_tipo_problema?: number;
-    tipo_problema:String;
-    descripcion_tipo_problema: String;
-    estatus: String;
+    tipo_problema:string;
+    descripcion_tipo_problema: string;
+    estatus: string;
 }
 
 export interface type_of_problems{
@@ -51,9 +46,9 @@ export interface user{
     id_usuario?: number;
     id_empleado: number;
     id_rol: number;
-    usuario: String;
-    password: String;
-    estatus: String;
+    usuario: string;
+    password: string;
+    estatus: string;
 }
 
 export interface users{
@@ -64,10 +59,10 @@ export interface users{
 export interface user_problem{
     id_usuario_problema?: number;    
     id_tipo_problema: number;
-    tipo_problema?: String;
+    tipo_problema?: string;
     id_usuario: number; 
-    usuario?: String;
-    estatus: String;
+    usuario?: string;
+    estatus: string;
 }
 
 export interface users_problems{
@@ -76,17 +71,17 @@ export interface users_problems{
 
 //respuesta 
 export interface response{
-    Mensaje: String;
-    Estatus: String;
+    Mensaje: string;
+    Estatus: string;
 }
   
 export interface Item {
-    _id: String;
-    option: String;
+    _id: string;
+    option: string;
 }
 
 export interface ItemSelect {
-    option: String;
+    option: string;
 }
 
 

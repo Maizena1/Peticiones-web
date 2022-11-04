@@ -11,8 +11,8 @@ import { request_table } from '../services/request-table';
 })
 export class AbcTableComponent implements OnInit {
 
-  @Input() Items: request_table[] = [];
-  @Input() name_colum: String[] = [];
+  @Input() items: request_table[] = [];
+  @Input() nameColumn: String[] = [];
   @Input() type_table: String = "";
 
 
@@ -20,9 +20,9 @@ export class AbcTableComponent implements OnInit {
   
 
   displayedColumns: String[] = ['col1','col2','col3','col4'];
-  dataSource = new MatTableDataSource(this.Items);
-  nameColum: String [] = [];
-  //col1 : string = "";
+  dataSource = new MatTableDataSource(this.items);
+  nameColumns: String [] = [];
+  col1 : string = "";
 
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
@@ -43,11 +43,11 @@ export class AbcTableComponent implements OnInit {
 
   ngOnInit () {  
 
-    this.nameColum = this.name_colum;
-    this.dataSource = new MatTableDataSource(this.Items); 
+    this.nameColumns = this.nameColumn;
+    this.dataSource = new MatTableDataSource(this.items); 
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-        console.table(this.Items);
+        console.table(this.items);
   }
 
 }

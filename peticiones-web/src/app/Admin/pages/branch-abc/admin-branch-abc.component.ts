@@ -2,10 +2,10 @@ import { Component, OnInit} from '@angular/core';
 import { branch, response } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
-import {FormBuilder, Validators} from '@angular/forms';
+import { FormBuilder, Validators} from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
-import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
 import { elementAt } from 'rxjs';
@@ -29,9 +29,9 @@ export class AdminBranchAbcComponent implements OnInit {
 
   response: response | any; //subscripcion de respuesta
   isChecked = true;     //variable para el toggle  
-  DataBranchShow: branch | any; //tipo de dato para buscar  
+  dataBranchShow: branch | any; //tipo de dato para buscar  
   enableid : boolean = false; //para poner campo en modo lectura
-  butonAddUpdate : string = '';
+  butonAddUpdate : string = ''; 
   
     
   //arreglo donde de almacenara todas las sucursales
@@ -41,15 +41,10 @@ export class AdminBranchAbcComponent implements OnInit {
   ItemsTable : request_table[]=[]; 
 
   //nombres de columnas de tabla
-  namecolum: string[] = ['ID','Nombre','Estado','Botones'];
+  nameColumn: string[] = ['ID','Nombre','Estado','Botones'];
   ItemSend: String = "";  
     
   constructor(public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, ) { }
-  
-  //obtener categoria
-  onChangeid(data: String){    
-    alert(data);
-  }
   
   //------------------------------------------------
   //obtener sucursales actuales y cagarlos a la tabla
@@ -182,34 +177,34 @@ Clearinputs(){
 ActionEdit(id:string){
   this.butonAddUpdate = 'a';
   this.enableid = true;      
-  this.DataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
-  //console.table(this.DataBranchShow);
-  //console.table(this.DataBranchShow);
+  this.dataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
+  //console.table(this.dataBranchShow);
+  //console.table(this.dataBranchShow);
   this.Clearinputs();
-  //asignacion de las variables a mostrar        
-  this.id_sucursal = String(this.DataBranchShow.id_sucursal);  
-  this.nombre = this.DataBranchShow.nombre_sucursal;
-  this.domicilio =  this.DataBranchShow.domicilio;  
-  this.correo = this.DataBranchShow.correo;
-  this.telefono = this.DataBranchShow.telefono;
-  if(this.DataBranchShow.estatus == 'A'){
-    this.isChecked = true;    
-  }else{    
+  //asignacion de las variables a mostrar
+  this.id_sucursal = String(this.dataBranchShow.id_sucursal);  
+  this.nombre = this.dataBranchShow.nombre_sucursal;
+  this.domicilio =  this.dataBranchShow.domicilio;  
+  this.correo = this.dataBranchShow.correo;
+  this.telefono = this.dataBranchShow.telefono;
+  if(this.dataBranchShow.estatus == 'A'){
+    this.isChecked = true;
+  }else{
     this.isChecked = false;
   }  
 }
 
 //si es detail
 ActionDatil(id:string){
-  //obtener los detalles de la sucursal a mostrar  
-  this.DataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
+  //obtener los detalles de la sucursal a mostrar
+  this.dataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
   const dialogRef = this.dialog.open(DialogDetailComponent, {
-    width: '300px',
+    
     data: [{ title: 'ID:', data: id },
-    {title: 'Nombre:', data: this.DataBranchShow.nombre_sucursal},
-    {title: 'Domicilio:', data: this.DataBranchShow.domicilio },
-    {title: 'Correo:', data: this.DataBranchShow.correo },
-    {title: 'Telefono:', data: this.DataBranchShow.telefono},
+    {title: 'Nombre:', data: this.dataBranchShow.nombre_sucursal},
+    {title: 'Domicilio:', data: this.dataBranchShow.domicilio },
+    {title: 'Correo:', data: this.dataBranchShow.correo },
+    {title: 'Telefono:', data: this.dataBranchShow.telefono},
   ],      
   });  
 }

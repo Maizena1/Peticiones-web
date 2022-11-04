@@ -1,18 +1,17 @@
 <div class="dialog">
     <div mat-dialog-content class="header-container">    
-        <h1 mat-dialog-title>Detalles</h1>
+        <h1 mat-dialog-title class="dialog-title">Detalles</h1>
     </div>
+
     <div mat-dialog-content class="sub-container">
-    
         <div *ngFor="let item of data" class="dialog-content">
             <p class="title">{{item.title}}</p>
             <p class="data">{{item.data}}</p>    
         </div>
-            
     </div>
     
     <div mat-dialog-action class="action-container">
-        <button matRipple class="format-button-cancel" mat-button mat-dialog-close>Cancelar</button>    
+        <button mat-flat-button color="primary" matRipple class="format-button-cancel" class="button" mat-button mat-dialog-close>Cancelar</button>    
     </div>
 
 </div>    

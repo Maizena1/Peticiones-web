@@ -41,7 +41,7 @@ export class AdminBranchAbcComponent implements OnInit {
   ItemsTable : request_table[]=[]; 
 
   //nombres de columnas de tabla
-  namecolum: string[] = ['ID','Nombre','Estado','Botones'];
+  nameColumn: string[] = ['ID','Nombre','Estado','Botones'];
   ItemSend: String = "";  
     
   constructor(public dialog: MatDialog ,private router: Router, private APIpeticion: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, ) { }

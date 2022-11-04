@@ -27,10 +27,11 @@
                         <div class="button-container">
                             <button mat-flat-button color="primary">Agregar</button>
                         </div>
+                        
                     </div>
 
-                    <div class="table-user-container">
-                        <app-abc-table class="table"></app-abc-table>
+                    <div class="table-branch-container" *ngIf="itemsTable.length > 0">
+                        <app-abc-table [items]="itemsTable" [nameColumn]="nameColum"></app-abc-table>
                     </div>
 
                 </div>

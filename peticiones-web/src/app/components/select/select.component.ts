@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Item } from 'src/app/Admin/services/type';
+import { Item, ItemSelect } from 'src/app/Admin/services/type';
 
 @Component({
   selector: 'app-select',
@@ -11,34 +11,20 @@ export class SelectComponent implements OnInit {
 
   @Input() label: string = 'sin nombre'; 
   @Input() items: Item[] = []; 
-  @Input() valuenum: String = '0';  
-  valor : String='';
+  @Input() valuenum: string = '';    
   //se envia 
   @Output() onChange = new EventEmitter<string>();    
-
-  constructor() { }
+  
+  constructor() {}
 
   SelectFormControl = new FormControl('', [Validators.required]);
   
-
   getdata( data: string){
     //console.log(data);    
     this.onChange.emit(data);
   }
 
-  ngOnInit(): void {    
-    if(this.valuenum !== ''){
-      this.valor = this.valuenum;
-    }    
+  ngOnInit(): void {        
   }  
-
-  Revisardato():String{
-    if(this.valuenum !== ''){
-      this.valor = this.valuenum;
-      return this.valor;
-    }else{
-      return '0';
-    }
-  }
-
+  
 }

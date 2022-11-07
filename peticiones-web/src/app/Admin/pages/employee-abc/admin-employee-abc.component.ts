@@ -185,7 +185,7 @@ ActionEdit(id:string){
   this.DataEmployeeShow = this.ArrayEmployees.find(element => element.id_empleado == parseInt(id));    
   this.Clearinputs();
   //asignacion de las variables a mostrar        
-  this.idEmpleado = String(this.DataEmployeeShow.id_empleado);  
+  this.idEmpleado = id;  
   this.nombre = this.DataEmployeeShow.nombre_empleado;  
   this.idSucursal = String(this.DataEmployeeShow.id_sucursal);
   alert(this.idSucursal);

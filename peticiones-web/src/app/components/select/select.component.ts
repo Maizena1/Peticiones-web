@@ -8,10 +8,17 @@ import { Item, ItemSelect } from 'src/app/Admin/services/type';
   styleUrls: ['./select.component.css']
 })
 export class SelectComponent implements OnInit {
+  // @Input() valuenum: string = '0';  z
 
+  @Input() value: string = '';
+  
+  @Output() valueChange = new EventEmitter<any>();
+  
+  
   @Input() label: string = 'sin nombre'; 
   @Input() items: Item[] = []; 
-  @Input() valuenum: string = '';    
+  @Input() valuenum: String = '0';  
+  valor : String='';
   //se envia 
   @Output() onChange = new EventEmitter<string>();    
   
@@ -24,7 +31,19 @@ export class SelectComponent implements OnInit {
     this.onChange.emit(data);
   }
 
-  ngOnInit(): void {        
+  ngOnInit(): void {    
+    if(this.valuenum !== ''){
+      this.valor = this.valuenum;
+    }    
   }  
-  
+
+  Revisardato():String{
+    if(this.valuenum !== ''){
+      this.valor = this.valuenum;
+      return this.valor;
+    }else{
+      return '0';
+    }
+  }
+
 }

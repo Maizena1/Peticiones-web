@@ -21,8 +21,7 @@ export class AbcTableComponent implements OnInit {
 
   displayedColumns: String[] = ['col1','col2','col3','col4'];
   dataSource = new MatTableDataSource(this.items);
-  nameColumns: String [] = [];
-  col1 : string = "";
+  nameColumns: String [] = [];  
 
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
@@ -47,7 +46,7 @@ export class AbcTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.items); 
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-        console.table(this.items);
+        //console.table(this.items);
   }
 
 }

@@ -1,8 +1,13 @@
 <mat-form-field class="example-full-width select" appearance="fill">
   <mat-label>{{label}}</mat-label>
-  <mat-select class="size-input-option-select" [(value)]="valor" [disabled]="enable" (valueChange)="getdata($event)" name="select">
-      <mat-option *ngFor="let item of items;  let index = index" [value]="item._id">
-          {{item.option}}
-      </mat-option>
+  <mat-select  class="size-input-option-select" [formControl]="SelectFormControl"  [ngModel]="valor" (valueChange)="getdata($event)" name="select">
+      <mat-option *ngFor="let item of items;" [value]="item._id">{{item.option}}</mat-option>      
   </mat-select>
+  <mat-error *ngIf="SelectFormControl.hasError('required')">
+    ingrese {{label}} es <strong>requerid@</strong>
+</mat-error>
 </mat-form-field>
+<p>Valor id del componente padre a hijo: {{valuenum}}</p>
+<p>Valor id de select: {{valor}}</p>
+
+

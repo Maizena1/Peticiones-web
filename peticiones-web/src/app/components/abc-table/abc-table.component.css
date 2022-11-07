@@ -1,5 +1,7 @@
 .abc-table-container{
-    width: 100%;
+    width: auto;
+    max-width: 100%;
+    overflow: auto;    
 }
 
 table {
@@ -22,7 +24,8 @@ th{
 .button-container{
     display: flex;
     justify-content:center ;
-    gap: 10px;    
+    gap: 10px;
+    padding: 0px 8px;    
 }
 
 td{

@@ -15,33 +15,54 @@ import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 })
 export class AdminUserAbcComponent implements OnInit {
 
-  id_usuario?: string = '';
-  id_empleado: string = '';
-  id_rol: string = '';
-  usuario: string = '';
-  password: string = '';
-  estatus: string = '';
+  form = {
+    user: '',
+    password: '',
+    employeeId: '',
+    rol: '',
+    status: false
+  }
 
-  response: response | any; 
-  isChecked = true;    
-  dataUserShow: user | any; 
-  enableid : boolean = false; 
-  butonAddUpdate : string = ''; 
+  value: string = '';
 
-  arrayUser: user[] = [];
-  itemsTable : request_table[]=[]; 
+  arrayUser: user [] = [];
+  itemsTable : request_table [] = []; 
 
   nameColum: string[] = ['ID','Usuario','Estatus','Botones'];
 
-  itemsArray: Item[] = [
-    {_id: "55000", option: 'Opcion 1'}
-  ];
+  itemsArray: Item[] = [];
 
-  constructor(public dialog: MatDialog ,private router: Router, private APIpeticion: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, ) { }
+  constructor(
+    public dialog: MatDialog ,
+    private APIpeticion: AdminService ) { }
   
 
   ngOnInit(): void {
-   
-  }
+    this.APIpeticion.getUsers().subscribe(result =>{   
+      this.arrayUser = result;
 
+      this.arrayUser.forEach((row) => { 
+        this.itemsTable.push({
+          col1: row.id_usuario?.toString() ?? '', 
+          col2: row.usuario , 
+          col3:row.estatus, 
+          col4:'-' });        
+      });                                      
+    }) 
+
+    this.APIpeticion.getRol().subscribe(result => {
+      this.itemsArray = result.map((rol: any) =>{
+        return {
+          _id: rol.id_rol,
+          option: rol.nombre_rol
+        }
+      });
+    })
+
+
+  }
+  
+  
+
+  
 }

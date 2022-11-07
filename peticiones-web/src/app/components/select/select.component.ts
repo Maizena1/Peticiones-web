@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Item } from 'src/app/Admin/services/type';
+import { MatOption } from '@angular/material/core';
 
 @Component({
   selector: 'app-select',
@@ -8,10 +9,15 @@ import { Item } from 'src/app/Admin/services/type';
   styleUrls: ['./select.component.css']
 })
 export class SelectComponent implements OnInit {
+  // @Input() valuenum: string = '0';  z
 
+  @Input() value: string = '';
+  
+  @Output() valueChange = new EventEmitter<any>();
+  
+  
   @Input() label: string = 'sin nombre'; 
   @Input() items: Item[] = []; 
-  @Input() valuenum: String = '0';  
   valor : String='';
   //se envia 
   @Output() onChange = new EventEmitter<string>();    
@@ -27,18 +33,22 @@ export class SelectComponent implements OnInit {
   }
 
   ngOnInit(): void {    
-    if(this.valuenum !== ''){
-      this.valor = this.valuenum;
-    }    
+    // if(this.valuenum !== ''){
+    //   this.valor = this.valuenum;
+    // }    
   }  
 
-  Revisardato():String{
-    if(this.valuenum !== ''){
-      this.valor = this.valuenum;
-      return this.valor;
-    }else{
-      return '0';
-    }
+  // Revisardato():String{
+  //   if(this.valuenum !== ''){
+  //     this.valor = this.valuenum;
+  //     return this.valor;
+  //   }else{
+  //     return '0';
+  //   }
+  // }
+
+  onChangeSelect(event: any){
+    this.valueChange.emit(event.source.value as MatOption);
   }
 
 }

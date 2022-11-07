@@ -17,11 +17,12 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-input [label]="'Usuario'"></app-input>
-                            <app-input [label]="'Contraseña'"></app-input>
-                            <app-input [label]="'ID empleado'"></app-input>
-                            <app-select [label]="'Ejemplo'" [items]="itemsArray"></app-select>
-                            <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                            <app-input [label]="'Usuario'" [(value)]="form.user"></app-input><p>{{form.user}}</p>
+                            <app-input [label]="'Contraseña'" [(value)]="form.password"></app-input>
+                            <app-input [label]="'ID empleado'" [(value)]="form.employeeId"></app-input>
+                            <app-select [label]="'Ejemplo'" [(value)]="form.rol" [items]="itemsArray"></app-select>
+                            <p>{{form.rol}}</p>
+                            <mat-slide-toggle class="slide-toggle" [(ngModel)]="form.status">Activo</mat-slide-toggle>
                         </div>
 
                         <div class="button-container">

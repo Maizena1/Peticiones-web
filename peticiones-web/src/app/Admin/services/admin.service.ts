@@ -47,4 +47,13 @@ export class AdminService {
     return this.http.post(`${this.url}registrar-empleado`,dato);
   }
   
+  getUsers():Observable<any>{
+    //console.log(dato);
+    return this.http.get(`${this.url}/usuarios`);
+  }
+
+  getRol():Observable<any>{    
+    return this.http.get(`${this.url}/roles`);
+  }
+
 }

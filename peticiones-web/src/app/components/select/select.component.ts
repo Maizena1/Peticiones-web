@@ -17,7 +17,7 @@ export class SelectComponent implements OnInit {
   
   @Input() label: string = 'sin nombre'; 
   @Input() items: Item[] = []; 
-  @Input() valuenum: String = '0';  
+  @Input() valuenum: number = 0;  
   valor : String='';
   //se envia 
   @Output() onChange = new EventEmitter<string>();    
@@ -32,18 +32,7 @@ export class SelectComponent implements OnInit {
   }
 
   ngOnInit(): void {    
-    if(this.valuenum !== ''){
-      this.valor = this.valuenum;
-    }    
+    
   }  
-
-  Revisardato():String{
-    if(this.valuenum !== ''){
-      this.valor = this.valuenum;
-      return this.valor;
-    }else{
-      return '0';
-    }
-  }
 
 }

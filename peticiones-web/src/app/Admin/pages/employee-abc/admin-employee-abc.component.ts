@@ -19,7 +19,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
   //declaracion de variables para registrar sucursal    
   idEmpleado : string ='';
   nombre: string ='';  
-  idSucursal: string = '' ;
+  idSucursal: number = 0;
   correo: string ='';
   telefono: string ='';
   estatus: string ='';
@@ -56,7 +56,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
         if(row.estatus == 'A'){          
           this.ItemsTable.push({col1: String(row.id_empleado), col2: row.nombre_empleado , col3:'Activo', col4:'-' });        
         }else{          
-          this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_empleado , col3:'Inactivo', col4:'-' });        
+          this.ItemsTable.push({col1: String(row.id_empleado), col2: row.nombre_empleado , col3:'Inactivo', col4:'-' });        
         }        
       });                                     
       //console.table(this.ItemsTable);      
@@ -84,7 +84,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
 
   
   onChangeIdBranch(data: string){
-     this.idSucursal = data;
+     this.idSucursal = parseInt(data);
   }
 
   //obtener el id de la sucursal
@@ -112,7 +112,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
     this.enableid = false;  
     this.idEmpleado ='';
     this.nombre ='';    
-    this.idSucursal='';
+    this.idSucursal=0;
     this.correo ='';
     this.telefono='';
     this.estatus ='';    
@@ -187,8 +187,7 @@ ActionEdit(id:string){
   //asignacion de las variables a mostrar        
   this.idEmpleado = id;  
   this.nombre = this.DataEmployeeShow.nombre_empleado;  
-  this.idSucursal = String(this.DataEmployeeShow.id_sucursal);
-  alert(this.idSucursal);
+  this.idSucursal = this.DataEmployeeShow.id_sucursal;
   this.correo = this.DataEmployeeShow.correo;
   this.telefono = this.DataEmployeeShow.telefono;
   if(this.DataEmployeeShow.estatus == 'A'){
@@ -238,7 +237,7 @@ UpdateEmployee(){
     //llenar data a enviar
       const datasend : employee = {                      
         nombre_empleado: this.nombre,
-        id_sucursal: parseInt(this.idSucursal),
+        id_sucursal: this.idSucursal,
         correo: this.correo,
         telefono: this.telefono,
         estatus: this.estatus,                                                                             
@@ -298,7 +297,7 @@ CreateEmployee() {
       //alert(this.estatus);
   }
                           
-  if((this.nombre == '')|| (this.idSucursal == '')|| (this.idEmpleado == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {                      
+  if((this.nombre == '')|| (this.idSucursal == 0)|| (this.idEmpleado == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {                      
     //alert("error faltan datos");      
     //this._snackBar.open('Error faltan datos para actualizar', 'X');          
     this._snackBar.open('Error faltan datos', 'X', {        
@@ -312,7 +311,7 @@ CreateEmployee() {
     //llenar data a enviar
     const datasend : employee = {                      
       nombre_empleado: this.nombre,
-      id_sucursal: parseInt(this.idSucursal),
+      id_sucursal: this.idSucursal,
       correo: this.correo,
       telefono: this.telefono,
       estatus: this.estatus,                                                                             

@@ -56,7 +56,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
         if(row.estatus == 'A'){          
           this.ItemsTable.push({col1: String(row.id_empleado), col2: row.nombre_empleado , col3:'Activo', col4:'-' });        
         }else{          
-          this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_empleado , col3:'Inactivo', col4:'-' });        
+          this.ItemsTable.push({col1: String(row.id_empleado), col2: row.nombre_empleado , col3:'Inactivo', col4:'-' });        
         }        
       });                                     
       //console.table(this.ItemsTable);      
@@ -184,6 +184,7 @@ ActionEdit(id:string){
   this.enableid = true;      
   this.DataEmployeeShow = this.ArrayEmployees.find(element => element.id_empleado == parseInt(id));    
   this.Clearinputs();
+  console.table(this.DataEmployeeShow);
   //asignacion de las variables a mostrar        
   this.idEmpleado = id;  
   this.nombre = this.DataEmployeeShow.nombre_empleado;  

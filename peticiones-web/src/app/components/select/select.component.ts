@@ -17,7 +17,7 @@ export class SelectComponent implements OnInit {
   
   @Input() label: string = 'sin nombre'; 
   @Input() items: Item[] = []; 
-  @Input() valuenum: String = '0';  
+  @Input() valuenum: string = '';  
   valor : String='';
   //se envia 
   @Output() onChange = new EventEmitter<string>();    

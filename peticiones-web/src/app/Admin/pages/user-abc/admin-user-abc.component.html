@@ -21,7 +21,6 @@
                             <app-input [label]="'Contraseña'" [(value)]="form.password"></app-input>
                             <app-input [label]="'ID empleado'" [(value)]="form.employeeId"></app-input>
                             <app-select [label]="'Ejemplo'" [(value)]="form.rol" [items]="itemsArray"></app-select>
-                            <p>{{form.rol}}</p>
                             <mat-slide-toggle class="slide-toggle" [(ngModel)]="form.status">Activo</mat-slide-toggle>
                         </div>
 
@@ -32,7 +31,7 @@
                     </div>
 
                     <div class="table-branch-container" *ngIf="itemsTable.length > 0">
-                        <app-abc-table [items]="itemsTable" [nameColumn]="nameColum"></app-abc-table>
+                        <app-abc-table [items]="itemsTable" [nameColumn]="nameColum" (onChange)="onChangeActionTable($event)"></app-abc-table>
                     </div>
 
                 </div>

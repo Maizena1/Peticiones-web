@@ -3,7 +3,8 @@
   <mat-select  class="size-input-option-select"  [formControl]="SelectFormControl" [ngModel]="valuenum" (valueChange)="getdata($event)" name="select">
       <mat-option *ngFor="let item of items;" [value]="item._id">{{item.option}}</mat-option>      
   </mat-select>
+  
   <mat-error *ngIf="SelectFormControl.hasError('required')">
     ingrese {{label}} es <strong>requerid@</strong>
-</mat-error>
+  </mat-error>
 </mat-form-field>

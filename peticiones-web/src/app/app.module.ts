@@ -46,6 +46,7 @@ import { AbcTableComponent } from './components/abc-table/abc-table.component';
 import { ButtonTableAbcComponent } from './components/button-table-abc/button-table-abc.component';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from './components/dialog-detail/dialog-detail.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -75,7 +76,8 @@ import { DialogDetailComponent } from './components/dialog-detail/dialog-detail.
     AbcTableComponent,
     ButtonTableAbcComponent,
     DialogDeleteComponent,
-    DialogDetailComponent
+    DialogDetailComponent,
+    LoginComponent
 
   ],
   imports: [

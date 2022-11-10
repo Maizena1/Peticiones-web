@@ -45,8 +45,8 @@ export class AdminUserAbcComponent implements OnInit {
         this.itemsTable.push({
           col1: row.id_usuario?.toString() ?? '', 
           col2: row.usuario , 
-          col3:row.estatus, 
-          col4:'-' });        
+          col3:row.estatus,
+          col4:'-' });
       });                                      
     }) 
 
@@ -59,9 +59,31 @@ export class AdminUserAbcComponent implements OnInit {
       });
     })
 
-
   }
   
+  onChangeActionTable(data: any){  
+    if(data.action === 'delete'){
+      this.ActionDelete(data.id);
+    }
+    else if(data.action === 'edit'){
+      this.ActionEdit(data.id);
+    }
+    else if(data.action === 'detail'){
+      this.ActionDatil(data.id);
+    }  
+  }
+  ActionDelete(id: string){
+
+  }
+
+  ActionEdit(id: string){
+    
+  }
+
+  ActionDatil(id: string){
+
+  }
+
   
 
   

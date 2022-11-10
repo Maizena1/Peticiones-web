@@ -37,9 +37,6 @@ export interface type_of_problem{
     estatus: string;
 }
 
-export interface type_of_problems{
-    type_problem: type_of_problem[];
-}
 
 //usuario
 export interface user{

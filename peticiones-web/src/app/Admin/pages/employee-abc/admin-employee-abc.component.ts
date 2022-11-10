@@ -29,6 +29,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
   DataEmployeeShow: employee | any; //tipo de dato para buscar  
   enableid : boolean = false; //para poner campo en modo lectura
   butonAddUpdate : string = '';
+  
 
   //arreglo donde de almacenara todos los empleados
   ArrayEmployees: employee[]=[];
@@ -202,14 +203,15 @@ ActionEdit(id:string){
 ActionDatil(id:string){
   //obtener los detalles de la sucursal a mostrar  
   this.DataEmployeeShow = this.ArrayEmployees.find(element => element.id_empleado == parseInt(id));  
+  this.inAct = this.itemsSelecBranches.findIndex( element => element._id  == String(this.DataEmployeeShow.id_sucursal));                         
+  //alert(this.inAct);
   const dialogRef = this.dialog.open(DialogDetailComponent, {
     width: '300px',
     data: [{ title: 'ID:', data: id },
     {title: 'Nombre:', data: this.DataEmployeeShow.nombre_empleado},    
-    {title: 'Sucursal', data: 'Sucursal Ejemplo'},    
+    {title: 'Sucursal', data: this.itemsSelecBranches[this.inAct].option},    
     {title: 'Correo:', data: this.DataEmployeeShow.correo },
-    {title: 'Telefono:', data: this.DataEmployeeShow.telefono},
-    {title: 'Estatus:', data:this.DataEmployeeShow.estatus}
+    {title: 'Telefono:', data: this.DataEmployeeShow.telefono}    
   ],      
   });  
 }

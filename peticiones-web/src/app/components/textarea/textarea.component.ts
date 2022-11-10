@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-textarea',
@@ -7,11 +7,27 @@ import { Component, OnInit, Input} from '@angular/core';
 })
 export class TextareaComponent implements OnInit {
 
-@Input() label: string | undefined;
+  @Input() label: string = 'sin nombre';
+  @Input() type: string = 'text';
+  @Input() example: string = 'sin nombre';
+  @Input() enable: boolean = false;
+  @Input() value: string = '';
 
-  constructor() { }
+
+  //se envia
+  @Output() onChange = new EventEmitter<string>();   
+  @Output() KeyUp = new EventEmitter<string>();    
+
+  constructor() { }    
+
+  getdata( data : string ){
+    this.onChange.emit(data);
+  }
+  
 
   ngOnInit(): void {
   }
+
+
 
 }

@@ -17,18 +17,19 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-input [label]="'Tipo de problema'"></app-input>
-                            <app-textarea [label]="'Descripción del tipo de problema'"></app-textarea>
-                            <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                            <app-input [label]="'Tipo de Problema'" [example]="'Electrico'" [value]="typeProblem" (onChange)="onChangeTypeProblem($event)"></app-input>                                                                                    
+                            <app-textarea [label]="'Descripción del tipo de problema'" [example]="'Todo lo relacionado a lo electrico'" [value]="descriptionProblem" (onChange)="onChangeDescrptionProblem($event)" ></app-textarea>
+                            <mat-slide-toggle [color]="'primary'" [(ngModel)]="isChecked">Activo</mat-slide-toggle>                                                                                    
                         </div>
                         
-                        <div class="button-container">
-                            <button mat-flat-button color="primary">Agregar</button>
+                        <div class="button-container">                                                                                    
+                            <button mat-flat-button color="primary" (click)="CreateTypeProblem()" *ngIf="butonAddUpdate.length == 0">Agregar</button>                                                                                                                                                
+                            <button  #update mat-flat-button color="primary" (click)="UpdateTypeProblem()" *ngIf="butonAddUpdate.length> 0">Actualizar</button>                                                                                    
                         </div>
                     </div>
 
-                    <div class="table-type-of-problem-container">
-                        <app-abc-table class="table"></app-abc-table>
+                    <div class="table-type-of-problem-container" *ngIf="ItemsTable.length > 0">
+                        <app-abc-table class="table" [items]="ItemsTable" [nameColumn]="namecolum" (onChange)="onChangeActionTable($event)"></app-abc-table>                        
                     </div>
 
                 </div>

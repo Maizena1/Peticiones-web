@@ -37,7 +37,6 @@ export interface type_of_problem{
     estatus: string;
 }
 
-
 //usuario
 export interface user{
     id_usuario?: number;
@@ -48,9 +47,6 @@ export interface user{
     estatus: string;
 }
 
-export interface users{
-    users: user[];
-}
 
 //usario por tipo problema
 export interface user_problem{
@@ -81,4 +77,9 @@ export interface ItemSelect {
     option: string;
 }
 
+//interface de login --------------
+export interface login {
+    usuario: string;
+    password: string;
+}
 

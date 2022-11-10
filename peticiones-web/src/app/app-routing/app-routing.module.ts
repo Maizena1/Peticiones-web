@@ -12,8 +12,10 @@ import { ConfirmMaterialDetailComponent } from '../Solver/confirm-material-detai
 import { SolverRequerimentComponent } from '../Solver/solver-requeriment/solver-requeriment.component';
 import { ArticleAbcComponent } from '../Admin/pages/article-abc/article-abc.component';
 import { ArticleByBranchAbcComponent } from '../Admin/pages/article-by-branch-abc/article-by-branch-abc.component';
+import { LoginComponent } from '../login/login.component';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   { path: 'admin', children: [
       { path: 'createRequest', component: CreateRequestComponent },
       { path: 'articleAbc', component: ArticleAbcComponent },

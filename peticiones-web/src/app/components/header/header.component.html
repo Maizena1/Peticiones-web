@@ -24,7 +24,7 @@
                     <span [routerLink]="'/admin/branchAbc'">Administrador</span>
                 </button>
                 
-                <button mat-menu-item class="session-option-menu-button">
+                <button mat-menu-item class="session-option-menu-button" (click)="logout()">
                     <mat-icon class="session-option-menu">logout</mat-icon>
                     <span>Cerrar sesion</span>
                 </button>

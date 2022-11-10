@@ -1,20 +1,14 @@
 <div class="page-container">
     <div class="header">
-
     </div>
-
     <div class="login-container">
         <div class="login-content">
-
             <mat-icon>account_circle</mat-icon>
-
             <div class="input-container">
-                <app-input></app-input>
-                <app-input></app-input>
+                <app-input [label]="'Usuario'" [example]="'UserName'"  [value]="usuario" (onChange)="onChangeUser($event)"></app-input>                                                                        
+                <app-input [label]="'Password'" [type]="'password'" [example]="'UserName'"  [value]="password" (onChange)="onChangePassword($event)"></app-input>
             </div>
-
-            <button mat-flat-button color="primary">Iniciar sesion</button>
-            
+            <button mat-flat-button color="primary" (click)="loginSystem()">Iniciar sesion</button>            
         </div>    
     </div>
 </div>

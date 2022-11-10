@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { branch, employee, type_of_problem } from './type';
+import { branch, employee, login, type_of_problem } from './type';
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +75,15 @@ export class AdminService {
     return this.http.put(`${this.url}modificar-tipo-problema/${id}`,dato);
   }
 
+  //login y logout----------------------------------------------------------
+  createSesion(dato: login):Observable<any>{    
+    return this.http.post(`${this.url}login`,dato);
+  }
+
+  deleteSesion(dato: login):Observable<any>{
+    return this.http.put(`${this.url}logout`,dato);
+  }
+  
 
 
 }

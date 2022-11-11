@@ -45,6 +45,7 @@ export interface user{
     usuario: string;
     password: string;
     estatus: string;
+    login?: number;
 }
 
 
@@ -58,14 +59,12 @@ export interface user_problem{
     estatus: string;
 }
 
-export interface users_problems{
-    users_problems: user_problem[];
-}
 
 //respuesta 
 export interface response{
     Mensaje: string;
     Estatus: string;
+    usuario? : user [];
 }
   
 export interface Item {
@@ -80,6 +79,10 @@ export interface ItemSelect {
 //interface de login --------------
 export interface login {
     usuario: string;
-    password: string;
+    password: string;    
 }
 
+export interface article{
+    id_codigo_articulo:string;
+    nombre_articulo:string;    
+}

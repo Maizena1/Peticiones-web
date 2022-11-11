@@ -17,19 +17,20 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-input [label]="'ID articulo'"></app-input>
-                            <app-input [label]="'Nombre '"></app-input>
-                            <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                            <app-input [label]="'ID articulo'" [example]="'5111100000'"  [value]="idArticle" (onChange)="onChangeIdArticle($event)"></app-input>                            
+                            <app-input [label]="'Nombre'" [example]="'impresora kyosera'" [value]="name" (onChange)="onChangeNameArticle($event)"></app-input>                            
+                            <app-textarea [label]="'Descripción del Articulo'" [example]="'Todo lo relacionado a caracteristicas del Articulo'" [value]="description" (onChange)="onChangeDescrptionArticle($event)" ></app-textarea>
+                            <!--
+                                <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                            -->                            
                         </div>
-
-                        <div class="button-container">
-                            <button mat-flat-button color="primary">Agregar</button>
+                        <div class="button-container">                            
+                            <button mat-flat-button color="primary" (click)="CreateArticle()" *ngIf="butonAddUpdate.length == 0">Agregar</button>                                                                                                                                                
+                            <button mat-flat-button color="primary" (click)="UpdateArticle()" *ngIf="butonAddUpdate.length> 0">Actualizar</button>                                                                                    
                         </div>
-
-                    </div>
-
-                    <div class="table-article-container">
-                        <app-abc-table class="table"></app-abc-table>
+                    </div>                    
+                    <div class="table-article-container" *ngIf="ItemsTable.length > 0">
+                        <app-abc-table class="table" [items]="ItemsTable" [nameColumn]="nameColumn" (onChange)="onChangeActionTable($event)"></app-abc-table>                        
                     </div>
 
                 </div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { branch, employee, login, type_of_problem } from './type';
+import { article, branch, employee, login, type_of_problem } from './type';
 
 @Injectable({
   providedIn: 'root'
@@ -86,6 +86,18 @@ export class AdminService {
     return this.http.put(`${this.url}logout`,dato);
   }
   
+  //Codigo de Articulos-------------------------------------------
+  getCodeArticle():Observable<any>{
+    //console.log(dato);
+    return this.http.get(`${this.url}codigos-articulos`);
+  }
 
+  UpdatedArticle(dato: article, id: string):Observable<any>{
+    return this.http.put(`${this.url}modificar-codigo-articulo/${id}`,dato);
+  }
 
+  createCodeArticle(dato: article):Observable<any>{    
+    return this.http.post(`${this.url}registrar-codigo-articulo`,dato);
+  }
+  
 }

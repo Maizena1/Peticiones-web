@@ -83,6 +83,7 @@ export interface login {
 }
 
 export interface article{
-    id_codigo_articulo:string;
-    nombre_articulo:string;    
+    id_codigo_articulo?: string;
+    nombre_articulo: string;  
+    descripcion: string;
 }

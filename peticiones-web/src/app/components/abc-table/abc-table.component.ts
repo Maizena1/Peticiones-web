@@ -14,6 +14,9 @@ export class AbcTableComponent implements OnInit {
   @Input() items: request_table[] = [];
   @Input() nameColumn: String[] = [];
   @Input() type_table: String = "";
+  @Input() optionDelete: string = 'si';
+  @Input() optionEdit: string = 'si';
+  @Input() optionDetail: string = 'si';
 
 
   @Output() onChange = new EventEmitter<{id:string, action:string}>();   

@@ -76,7 +76,7 @@ export interface response{
 }
   
 export interface Item {
-    _id: string;
+    _id: String;
     option: string;
 }
 

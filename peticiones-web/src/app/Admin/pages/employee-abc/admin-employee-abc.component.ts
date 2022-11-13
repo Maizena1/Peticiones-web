@@ -40,6 +40,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
   //nombres de columnas de tabla
   namecolum: string[] = ['ID','Nombre','Estado','Botones'];
   ItemSend: String = ""; 
+  
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
 
   inAct : number = 0;

@@ -19,7 +19,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
   //declaracion de variables para registrar sucursal    
   idEmpleado : string ='';
   nombre: string ='';  
-  idSucursal: string = '' ;
+  idSucursal: number = 0;
   correo: string ='';
   telefono: string ='';
   estatus: string ='';
@@ -29,6 +29,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
   DataEmployeeShow: employee | any; //tipo de dato para buscar  
   enableid : boolean = false; //para poner campo en modo lectura
   butonAddUpdate : string = '';
+  
 
   //arreglo donde de almacenara todos los empleados
   ArrayEmployees: employee[]=[];
@@ -57,7 +58,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
         if(row.estatus == 'A'){          
           this.ItemsTable.push({col1: String(row.id_empleado), col2: row.nombre_empleado , col3:'Activo', col4:'-' });        
         }else{          
-          this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_empleado , col3:'Inactivo', col4:'-' });        
+          this.ItemsTable.push({col1: String(row.id_empleado), col2: row.nombre_empleado , col3:'Inactivo', col4:'-' });        
         }        
       });                                     
       //console.table(this.ItemsTable);      
@@ -85,7 +86,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
 
   
   onChangeIdBranch(data: string){
-     this.idSucursal = data;
+     this.idSucursal = parseInt(data);
   }
 
   //obtener el id de la sucursal
@@ -113,7 +114,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
     this.enableid = false;  
     this.idEmpleado ='';
     this.nombre ='';    
-    this.idSucursal='';
+    this.idSucursal=0;
     this.correo ='';
     this.telefono='';
     this.estatus ='';    
@@ -183,13 +184,16 @@ ActionDelete(id: string){
 ActionEdit(id:string){
   this.butonAddUpdate = 'a';
   this.enableid = true;      
-  this.DataEmployeeShow = this.ArrayEmployees.find(element => element.id_empleado == parseInt(id));    
+  
+  this.DataEmployeeShow = this.ArrayEmployees.find(element => 
+    element.id_empleado == parseInt(id)
+  );    
+  
   this.Clearinputs();
   //asignacion de las variables a mostrar        
-  this.idEmpleado = String(this.DataEmployeeShow.id_empleado);  
+  this.idEmpleado = id;  
   this.nombre = this.DataEmployeeShow.nombre_empleado;  
-  this.idSucursal = String(this.DataEmployeeShow.id_sucursal);
-  alert(this.idSucursal);
+  this.idSucursal = this.DataEmployeeShow.id_sucursal;
   this.correo = this.DataEmployeeShow.correo;
   this.telefono = this.DataEmployeeShow.telefono;
   if(this.DataEmployeeShow.estatus == 'A'){
@@ -203,14 +207,15 @@ ActionEdit(id:string){
 ActionDatil(id:string){
   //obtener los detalles de la sucursal a mostrar  
   this.DataEmployeeShow = this.ArrayEmployees.find(element => element.id_empleado == parseInt(id));  
+  this.inAct = this.itemsSelecBranches.findIndex( element => element._id  == String(this.DataEmployeeShow.id_sucursal));                         
+  //alert(this.inAct);
   const dialogRef = this.dialog.open(DialogDetailComponent, {
     width: '300px',
     data: [{ title: 'ID:', data: id },
     {title: 'Nombre:', data: this.DataEmployeeShow.nombre_empleado},    
-    {title: 'Sucursal', data: 'Sucursal Ejemplo'},    
+    {title: 'Sucursal', data: this.itemsSelecBranches[this.inAct].option},    
     {title: 'Correo:', data: this.DataEmployeeShow.correo },
-    {title: 'Telefono:', data: this.DataEmployeeShow.telefono},
-    {title: 'Estatus:', data:this.DataEmployeeShow.estatus}
+    {title: 'Telefono:', data: this.DataEmployeeShow.telefono}    
   ],      
   });  
 }
@@ -239,7 +244,7 @@ UpdateEmployee(){
     //llenar data a enviar
       const datasend : employee = {                      
         nombre_empleado: this.nombre,
-        id_sucursal: parseInt(this.idSucursal),
+        id_sucursal: this.idSucursal,
         correo: this.correo,
         telefono: this.telefono,
         estatus: this.estatus,                                                                             
@@ -299,7 +304,7 @@ CreateEmployee() {
       //alert(this.estatus);
   }
                           
-  if((this.nombre == '')|| (this.idSucursal == '')|| (this.idEmpleado == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {                      
+  if((this.nombre == '')|| (this.idSucursal == 0)|| (this.idEmpleado == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {                      
     //alert("error faltan datos");      
     //this._snackBar.open('Error faltan datos para actualizar', 'X');          
     this._snackBar.open('Error faltan datos', 'X', {        
@@ -313,7 +318,7 @@ CreateEmployee() {
     //llenar data a enviar
     const datasend : employee = {                      
       nombre_empleado: this.nombre,
-      id_sucursal: parseInt(this.idSucursal),
+      id_sucursal: this.idSucursal,
       correo: this.correo,
       telefono: this.telefono,
       estatus: this.estatus,                                                                             

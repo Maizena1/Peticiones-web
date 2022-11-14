@@ -37,10 +37,6 @@ export interface type_of_problem{
     estatus: string;
 }
 
-export interface type_of_problems{
-    type_problem: type_of_problem[];
-}
-
 //usuario
 export interface user{
     id_usuario?: number;
@@ -49,11 +45,9 @@ export interface user{
     usuario: string;
     password: string;
     estatus: string;
+    login?: number;
 }
 
-export interface users{
-    users: user[];
-}
 
 //usario por tipo problema
 export interface user_problem{
@@ -65,18 +59,16 @@ export interface user_problem{
     estatus: string;
 }
 
-export interface users_problems{
-    users_problems: user_problem[];
-}
 
 //respuesta 
 export interface response{
     Mensaje: string;
     Estatus: string;
+    usuario? : user [];
 }
   
 export interface Item {
-    _id: String;
+    _id: string;
     option: string;
 }
 
@@ -84,4 +76,26 @@ export interface ItemSelect {
     option: string;
 }
 
+//interface de login --------------
+export interface login {
+    usuario: string;
+    password: string;    
+}
+
+export interface article{
+    id_codigo_articulo?: string;
+    nombre_articulo: string;  
+    descripcion: string;
+}
+
+export interface store {
+    id_articulo?:number;
+    id_sucursal?: number;
+    nombre_sucursal?: string;
+    id_codigo_articulo?: string;
+    nombre_articulo?:string;
+    cantidad_total: number;
+    cantidad_disponible: number;
+    tipo: string;                        
+}
 

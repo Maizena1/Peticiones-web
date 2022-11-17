@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { article, branch, employee, login, store, type_of_problem } from './type';
+import { article, articlebytypeproblem, branch, employee, login, store, type_of_problem } from './type';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class AdminService {
   constructor(private http: HttpClient) { }
   
   url = 'http://localhost:5000/api/';  
-  //http://peticionesdelmuro.ddns.net:3600/api/
+  //url ='http://peticionesdelmuro.ddns.net:3600/api/'
   
 
   createBranch(dato: branch):Observable<any>{    
@@ -112,5 +112,15 @@ export class AdminService {
   createStore(dato: store):Observable<any>{    
     return this.http.post(`${this.url}registrar-almacen`,dato);
   }
+  //Articulo por tipo de problema
+  getArticlesProblems():Observable<any>{    
+    return this.http.get(`${this.url}articulos-problemas`);
+  }
+  UpdatedArticleProblem(dato: articlebytypeproblem, id: number):Observable<any>{
+    return this.http.put(`${this.url}modificar-articulo-problema/${id}`,dato);
+  }
 
-}
+  createArticleProblem(dato: articlebytypeproblem):Observable<any>{    
+    return this.http.post(`${this.url}registrar-articulo-problema`,dato);
+  }
+} 

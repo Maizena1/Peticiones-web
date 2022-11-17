@@ -13,9 +13,11 @@ import { SolverRequerimentComponent } from '../Solver/solver-requeriment/solver-
 import { ArticleAbcComponent } from '../Admin/pages/article-abc/article-abc.component';
 import { ArticleByBranchAbcComponent } from '../Admin/pages/article-by-branch-abc/article-by-branch-abc.component';
 import { LoginComponent } from '../login/login.component';
+import { RelationArticleBytypeProblemAbcComponent } from '../Admin/pages/relation-article-bytype-problem-abc/relation-article-bytype-problem-abc.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  //{path: '', redirectTo: '/login', pathMatch: 'full'},    
   { path: 'admin', children: [
       { path: 'createRequest', component: CreateRequestComponent },
       { path: 'articleAbc', component: ArticleAbcComponent },
@@ -25,6 +27,7 @@ const routes: Routes = [
       { path: 'typeOfPRoblemAbc', component: AdminTypeOfProblemAbcComponent },
       { path: 'userAbc', component: AdminUserAbcComponent },
       { path: 'userByProblemTypeAbc', component: AdminUserByProblemTypeAbcComponent },
+      { path: 'articleByProblem', component: RelationArticleBytypeProblemAbcComponent },
       { path: '**', component: AdminBranchAbcComponent },
     ],
   },

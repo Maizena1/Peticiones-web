@@ -89,7 +89,7 @@ export interface article{
 }
 
 export interface store {
-    id_articulo?:number;
+    id_almacen?:number;
     id_sucursal?: number;
     nombre_sucursal?: string;
     id_codigo_articulo?: string;
@@ -99,3 +99,13 @@ export interface store {
     tipo: string;                        
 }
 
+export interface articlebytypeproblem{
+    id_articulo_problema?: number;
+    id_codigo_articulo: string;
+    nombre_articulo?: string;
+    id_tipo_problema: number;
+    tipo_problema?: string;
+}
+
+                
+        

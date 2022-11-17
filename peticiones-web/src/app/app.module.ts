@@ -47,6 +47,7 @@ import { ButtonTableAbcComponent } from './components/button-table-abc/button-ta
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from './components/dialog-detail/dialog-detail.component';
 import { LoginComponent } from './login/login.component';
+import { RelationArticleBytypeProblemAbcComponent } from './Admin/pages/relation-article-bytype-problem-abc/relation-article-bytype-problem-abc.component';
 
 
 
@@ -77,7 +78,8 @@ import { LoginComponent } from './login/login.component';
     ButtonTableAbcComponent,
     DialogDeleteComponent,
     DialogDetailComponent,
-    LoginComponent
+    LoginComponent,
+    RelationArticleBytypeProblemAbcComponent
 
   ],
   imports: [

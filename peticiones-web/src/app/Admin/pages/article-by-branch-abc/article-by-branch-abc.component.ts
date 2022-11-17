@@ -53,8 +53,8 @@ export class ArticleByBranchAbcComponent implements OnInit {
     this.APIAdminPetition.getStores().subscribe(result =>{                
       this.ArrayStore = result;
       //console.table(this.Arraybranches); 
-      this.ArrayStore.forEach((row:any) => {                           
-          this.ItemsTable.push({col1: String(row.id_articulo), col2: String(row.nombre_sucursal) , col3:String(row.nombre_articulo), col4:'-' });                                    
+      this.ArrayStore.forEach((row) => {                           
+          this.ItemsTable.push({col1: String(row.id_almacen), col2: String(row.nombre_sucursal) , col3: String(row.nombre_articulo), col4:'-' });                                    
       });                         
       //console.table(this.ItemsTable);      
     })
@@ -83,7 +83,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
       this.ArrayStore = result;      
       //console.table(this.Arraybranches);
       if(option == 'c'){                
-        this.ItemsTable.push({col1: String(this.ArrayStore[this.ArrayStore.length -1].id_articulo), col2: String(this.ArrayStore[this.ArrayStore.length -1].nombre_sucursal) , col3: String(this.ArrayStore[this.ArrayStore.length -1].nombre_articulo), col4:'-' });                                  
+        this.ItemsTable.push({col1: String(this.ArrayStore[this.ArrayStore.length -1].id_almacen), col2: String(this.ArrayStore[this.ArrayStore.length -1].nombre_sucursal) , col3: String(this.ArrayStore[this.ArrayStore.length -1].nombre_articulo), col4:'-' });                                  
       }            
       this.Clearinputs();      
     })       
@@ -129,7 +129,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
   ActionEdit(id:string){
     this.butonAddUpdate = 'a';    
     this.DataStoreShow = this.ArrayStore.find(element => 
-      element.id_articulo == parseInt(id)
+      element.id_almacen == parseInt(id)
     );    
     this.Clearinputs();
     this.enableid = true;      
@@ -150,7 +150,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
   //si es detail
   ActionDatil(id:string){
     //obtener los detalles de la sucursal a mostrar  
-    this.DataStoreShow = this.ArrayStore.find(element => element.id_articulo == parseInt(id));      
+    this.DataStoreShow = this.ArrayStore.find(element => element.id_almacen == parseInt(id));      
     //console.table(this.DataStoreShow);
     if(this.DataStoreShow.tipo == 'V'){
       this.tipo = 'Valor'

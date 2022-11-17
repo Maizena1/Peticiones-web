@@ -9,23 +9,38 @@ import { login, response, user } from 'src/app/Admin/services/type';
 })
 export class HeaderComponent implements OnInit {
 
+  idRol : number = 0;
   dataSesion:user|any;
   response: response | any;
   constructor(private router: Router, private APIAdminPetition: AdminService,) { }
 
   ngOnInit(): void {
+    if (localStorage){    
+      if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
+        const userJson = localStorage.getItem('dataSesion');
+        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                        
+        this.idRol = this.dataSesion.id_rol;
+      }else{        
+          //alert("DataSesion no existe en localStorage!!"); 
+          this.router.navigate(["login"]);              
+      }
+    }
+    
+    
   }
 
   logout(){
-
-
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
-        alert("DataSesion si existe en localStorage!!");                      
-            this.dataSesion = localStorage.getItem('dataSesion');
+        
+        //alert("DataSesion si existe en localStorage!!");                                  
+            const userJson = localStorage.getItem('dataSesion');
+            this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                        
             const datasend : login = {                      
                 usuario: this.dataSesion.usuario,
                 password: this.dataSesion.password                                                                      
+                //usuario: 'SauloAdmin',
+                //password: 'Saulo@123'                                                                      
             };    
             this.APIAdminPetition.deleteSesion(datasend).subscribe(response =>{                          
               this.response = response;          
@@ -34,8 +49,9 @@ export class HeaderComponent implements OnInit {
                 this.router.navigate(["login"]);      
               }            
             });
+
       }else{        
-          alert("DataSesion no existe en localStorage!!"); 
+          //alert("DataSesion no existe en localStorage!!"); 
           this.router.navigate(["login"]);              
       }
     }

@@ -71,15 +71,14 @@ export class LoginComponent implements OnInit {
             //localStorage.setItem('rol',this.dataSesion.id_rol );   
             //solo si ya se inicion sesion             
             //para obtener del local storage --------------------------------------------------                   
-            this.dataSesion = JSON.parse(localStorage.getItem('dataSesion')!);            
-            
-            console.log('Dato obtenido'+this.dataSesion.id_rol);
-            
-            if (this.dataSesion.id_rol == 1 ){
-              alert('entra al if');
+            const userJson = localStorage.getItem('dataSesion');
+            this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Error Estoy Devolviendo nulo');            
+            console.log(this.dataSesion.id_rol);
+
+            if(this.dataSesion.id_rol == 1){
               this.router.navigate(["admin/branchAbc"]);     
             }
-            //console.table(this.dataSesion);            
+            
             //{"id_usuario":1,"id_empleado":12,"id_rol":1,"usuario":"SauloAdmin","password":"Saulo@123","estatus":"A","login":1}                        
             //para borrar del local storage
             //localStorage.removeItem('dataSesion');

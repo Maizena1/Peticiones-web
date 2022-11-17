@@ -19,7 +19,7 @@
             
             <mat-menu #menu="matMenu" class="session-option-menu-container">
 
-                <button mat-menu-item class="session-option-menu-button">
+                <button mat-menu-item class="session-option-menu-button" *ngIf="idRol == 1">
                     <mat-icon class="session-option-menu">widgets</mat-icon>
                     <span [routerLink]="'/admin/branchAbc'">Administrador</span>
                 </button>

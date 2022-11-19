@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <app-header></app-header>
+    </header>
+    <body>
+        <div class="article-content-container">
+            <app-admin-abc-nav-modules></app-admin-abc-nav-modules>
+            <div class="module-name-register-container">
+
+                <div class="module-name">
+                    <app-abc-module-title [label]="'Registro De Pertenencia de Articulo a Tipo de Problema'"></app-abc-module-title>
+                </div>
+                
+                <div class="module-register-container">
+
+                    <div class="register">
+
+                        <div class="input-register">                            
+                            <app-select [label]="'Articulo'" [valuenum]="idArticle" [items]="itemsSelecArticles"  [disabled]="enableid" (onChange)="onChangeIdArticle($event)"></app-select>
+                            <app-select [label]="'Tipo Problema'" [valuenum]="idTypeProblem" [items]="itemsSelecTypeProblem" [disabled]="enableid" (onChange)="onCTypeProblem($event)"></app-select>
+                        </div>
+                        <div class="button-container">                            
+                            <button mat-flat-button color="primary" (click)="CreateRelation()" *ngIf="butonAddUpdate.length == 0">Agregar</button>                                                                                                                                                
+                            <button mat-flat-button color="primary" (click)="UpdateRelation()" *ngIf="butonAddUpdate.length> 0">Actualizar</button>                                                                                    
+                        </div>
+                    </div>                    
+                    <div class="table-article-container" *ngIf="ItemsTable.length > 0">
+                        <app-abc-table class="table" [items]="ItemsTable" [nameColumn]="nameColum"  [optionDelete]="'no'" [optionDetail]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>                        
+                    </div>
+
+                </div>            
+            </div>
+        </div>
+
+
+        
+    </body>    
+
+
+</html>
+

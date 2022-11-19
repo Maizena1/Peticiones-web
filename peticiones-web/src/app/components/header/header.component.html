@@ -19,9 +19,9 @@
             
             <mat-menu #menu="matMenu" class="session-option-menu-container">
 
-                <button mat-menu-item class="session-option-menu-button" *ngIf="idRol == 1">
+                <button mat-menu-item class="session-option-menu-button" [routerLink]="'/admin/branchAbc'" *ngIf="idRol == 1" >
                     <mat-icon class="session-option-menu">widgets</mat-icon>
-                    <span [routerLink]="'/admin/branchAbc'">Administrador</span>
+                    <span>Administrador</span>
                 </button>
                 
                 <button mat-menu-item class="session-option-menu-button" (click)="logout()">

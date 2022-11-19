@@ -27,13 +27,13 @@ export class LoginComponent implements OnInit {
   onChangeUser(user: string){
     //alert(user);
     this.usuario = user;
-    alert(this.usuario);
+    //alert(this.usuario);
   }
 
   onChangePassword(pasword: string){
     //alert(pasword);
     this.password = pasword;
-    alert(this.password);
+    //alert(this.password);
   }
 
   loginSystem(){
@@ -58,29 +58,27 @@ export class LoginComponent implements OnInit {
               duration: 3000,              
               panelClass: ['red-snackbar'],
             });
-            //localStorage.removeItem('dataSesion');
+            localStorage.removeItem('dataSesion');
           }else{
             this._snackBar.open(this.response.Mensaje, 'X', {              
               verticalPosition: this.verticalPosition,
               duration: 3000,
               panelClass: ['green-snackbar'],              
-            });            
-            
-            this.dataSesion = this.response.usuario[0];
-            localStorage.setItem('dataSesion', this.dataSesion);   
-            //localStorage.setItem('rol',this.dataSesion.id_rol );   
+            });                        
+            localStorage.removeItem('dataSesion');                        
+            localStorage.setItem('dataSesion', JSON.stringify(this.response.usuario[0]));               
             //solo si ya se inicion sesion             
             //para obtener del local storage --------------------------------------------------                   
             const userJson = localStorage.getItem('dataSesion');
             this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Error Estoy Devolviendo nulo');            
-            console.log(this.dataSesion.id_rol);
-
+            //console.log(this.dataSesion);            
+            //console.log(this.dataSesion.id_rol);
             if(this.dataSesion.id_rol == 1){
               this.router.navigate(["admin/branchAbc"]);     
             }
-            
-            //{"id_usuario":1,"id_empleado":12,"id_rol":1,"usuario":"SauloAdmin","password":"Saulo@123","estatus":"A","login":1}                        
-            //para borrar del local storage
+            if(this.dataSesion.id_rol == 2){
+              this.router.navigate(["admin/branchAbc"]);     
+            }
             //localStorage.removeItem('dataSesion');
           }                    
         })        

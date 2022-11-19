@@ -18,7 +18,7 @@
 
                         <div class="input-register">                            
                             <app-select [label]="'Articulo'" [valuenum]="idArticle" [items]="itemsSelecArticles"  [disabled]="enableid" (onChange)="onChangeIdArticle($event)"></app-select>
-                            <app-select [label]="'Sucursal'" [valuenum]="idTypeProblem" [items]="itemsSelecTypeProblem" [disabled]="enableid" (onChange)="onCTypeProblem($event)"></app-select>
+                            <app-select [label]="'Tipo Problema'" [valuenum]="idTypeProblem" [items]="itemsSelecTypeProblem" [disabled]="enableid" (onChange)="onCTypeProblem($event)"></app-select>
                         </div>
                         <div class="button-container">                            
                             <button mat-flat-button color="primary" (click)="CreateRelation()" *ngIf="butonAddUpdate.length == 0">Agregar</button>                                                                                                                                                

@@ -73,7 +73,8 @@ export class ArticleByBranchAbcComponent implements OnInit {
       result.forEach((row:any) => {                           
         this.itemsSelecArticles.push({_id: row.id_codigo_articulo, option: String(row.nombre_articulo)});    
       });                                         
-    })        
+    }) 
+           
   }
 
   //obtner empleados actuales

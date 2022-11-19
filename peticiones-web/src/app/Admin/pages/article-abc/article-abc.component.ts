@@ -38,7 +38,7 @@ export class ArticleAbcComponent implements OnInit {
   constructor(public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
 
   ngOnInit(): void {
-    this.APIAdminPetition.getCodeArticle().subscribe(result =>{                
+    this.APIAdminPetition.getArticle().subscribe(result =>{                
       this.ArrayArticles = result;
       //console.table(this.Arraybranches); 
       this.ArrayArticles.forEach((row) => {                   
@@ -55,7 +55,7 @@ export class ArticleAbcComponent implements OnInit {
 
   ReloadArticles(){
     this.ArrayArticles = [];
-    this.APIAdminPetition.getCodeArticle().subscribe(result =>{                
+    this.APIAdminPetition.getArticle().subscribe(result =>{                
       //console.table(result);
       this.ArrayArticles = result;      
       console.table(this.ArrayArticles);

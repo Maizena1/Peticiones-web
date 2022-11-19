@@ -23,6 +23,14 @@ export class AdminUserAbcComponent implements OnInit {
     status: false
   }
 
+  roles: [] = [];
+
+  response: response | any; //subscripcion de respuesta
+  isChecked = true;     //variable para el toggle  
+  dataUserShow: user | any; //tipo de dato para buscar  
+  enableid : boolean = false; //para poner campo en modo lectura
+  butonAddUpdate : string = ''; 
+
   value: string = '';
 
   arrayUser: user [] = [];
@@ -34,33 +42,36 @@ export class AdminUserAbcComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog ,
-    private APIpeticion: AdminService ) { }
+    private APIPeticion: AdminService ) { }
   
 
   ngOnInit(): void {
-    this.APIpeticion.getUsers().subscribe(result =>{   
+    this.APIPeticion.getUsers().subscribe(result =>{   
       this.arrayUser = result;
 
       this.arrayUser.forEach((row) => { 
         this.itemsTable.push({
           col1: row.id_usuario?.toString() ?? '', 
           col2: row.usuario , 
-          col3:row.estatus,
-          col4:'-' });
+          col3: row.estatus,
+          col4: '-' });
       });                                      
     }) 
 
-    this.APIpeticion.getRol().subscribe(result => {
-      this.itemsArray = result.map((rol: any) =>{
-        return {
-          _id: rol.id_rol,
-          option: rol.nombre_rol
-        }
-      });
+    this.APIPeticion.getRol().subscribe(role => {
+      this.roles = role;
     })
 
   }
   
+  getId(item: any){
+    return item.id_rol
+  }
+
+  getLabel(item: any){
+    return item.nombre_rol
+  }
+
   onChangeActionTable(data: any){  
     if(data.action === 'delete'){
       this.ActionDelete(data.id);
@@ -77,6 +88,12 @@ export class AdminUserAbcComponent implements OnInit {
   }
 
   ActionEdit(id: string){
+    this.butonAddUpdate = 'a';
+    this.enableid = true;
+    this.dataUserShow = this.arrayUser.find(element =>
+      element.id_usuario == parseInt(id)  
+    );
+
     
   }
 
@@ -84,7 +101,11 @@ export class AdminUserAbcComponent implements OnInit {
 
   }
 
-  
+  clearIinput(){
+    this.form.employeeId = '';
+    this.form.password = '';
+  }
+
 
   
 }

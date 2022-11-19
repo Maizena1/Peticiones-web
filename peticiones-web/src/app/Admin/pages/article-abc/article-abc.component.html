@@ -9,7 +9,7 @@
             <div class="module-name-register-container">
 
                 <div class="module-name">
-                    <app-abc-module-title [label]="'Registro de Codigo Articulo'"></app-abc-module-title>
+                    <app-abc-module-title [label]="'Registro de artículo'"></app-abc-module-title>
                 </div>
                 
                 <div class="module-register-container">
@@ -17,12 +17,10 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-input [label]="'ID articulo'" [example]="'5111100000'" [enable]="enableid" [value]="idArticle" (onChange)="onChangeIdArticle($event)"></app-input>                            
+                            <app-input [label]="'ID artículo'" [example]="'5111100000'" [enable]="enableid" [value]="idArticle" (onChange)="onChangeIdArticle($event)"></app-input>                            
                             <app-input [label]="'Nombre'" [example]="'impresora kyosera'" [value]="name" (onChange)="onChangeNameArticle($event)"></app-input>                            
-                            <app-textarea [label]="'Descripción del Articulo'" [example]="'Todo lo relacionado a caracteristicas del Articulo'" [value]="description" (onChange)="onChangeDescrptionArticle($event)" ></app-textarea>
-                            <!--
-                                <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
-                            -->                            
+                            <app-textarea [label]="'Descripción del artículo'" [example]="'Todo lo relacionado a caracteristicas del artículo'" [value]="description" (onChange)="onChangeDescrptionArticle($event)" ></app-textarea>
+                            <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>                   
                         </div>
                         <div class="button-container">                            
                             <button mat-flat-button color="primary" (click)="CreateArticle()" *ngIf="butonAddUpdate.length == 0">Agregar</button>                                                                                                                                                

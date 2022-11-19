@@ -50,7 +50,20 @@ export class HeaderComponent implements OnInit {
               }            
             });
 
-      }else{        
+      }else{       
+        const datasend : login = {                      
+          usuario: 'LuisAdmin',
+          password: 'Luis@123'                                                                 
+          //usuario: 'SauloAdmin',
+          //password: 'Saulo@123'                                                                      
+      };    
+      this.APIAdminPetition.deleteSesion(datasend).subscribe(response =>{                          
+        this.response = response;          
+        if(this.response.Estatus == 'Ok'){                       
+          localStorage.removeItem('dataSesion');  
+          this.router.navigate(["login"]);      
+        }            
+      }); 
           //alert("DataSesion no existe en localStorage!!"); 
           this.router.navigate(["login"]);              
       }

@@ -16,6 +16,9 @@ import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-d
 })
 export class ArticleByBranchAbcComponent implements OnInit {
     
+  branches: [] = [];
+  articles: [] = [];
+
   //declaracion de variables para registrar sucursal    
   id: string = '';
   idSucursal : number = 0;
@@ -47,39 +50,51 @@ export class ArticleByBranchAbcComponent implements OnInit {
   inAct : number = 0;
   idupdate: any;
 
-  constructor(public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
+  constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
 
   ngOnInit(): void {
-    this.APIAdminPetition.getStores().subscribe(result =>{                
+    
+    this.APIPetition.getStores().subscribe(result =>{                
       this.ArrayStore = result;
-      //console.table(this.Arraybranches); 
       this.ArrayStore.forEach((row:any) => {                           
           this.ItemsTable.push({col1: String(row.id_articulo), col2: String(row.nombre_sucursal) , col3:String(row.nombre_articulo), col4:'-' });                                    
       });                         
-      //console.table(this.ItemsTable);      
     })
-    
-     //obtener las sucursales      
-     this.APIAdminPetition.getBranches().subscribe(result =>{                            
-      result.forEach((row:any) => {                   
-        if(row.estatus == 'A'){          
-          this.itemsSelecBranches.push({_id: row.id_sucursal, option: row.nombre_sucursal});        
-        }        
-      });                                         
-    })    
 
-    //obtener los articulos 
-    this.APIAdminPetition.getCodeArticle().subscribe(result =>{                      
-      result.forEach((row:any) => {                           
-        this.itemsSelecArticles.push({_id: row.id_codigo_articulo, option: String(row.nombre_articulo)});    
-      });                                         
-    })        
+    this.APIPetition.getBranches().subscribe(branch => {
+      this.branches = branch;
+    })
+
+    this.APIPetition.getArticle().subscribe(article => {
+      this.articles = article;
+    })
+
   }
+
+  getIdBranches(item: any){
+    return item.id_sucursal
+  }
+
+  getLabelBranches(item: any){
+    return item.nombre_sucursal
+  }
+
+  getIdArticle(item: any){
+    return item.id_codigo_articulo
+  }
+
+  getLabelArticle(item: any){
+    return item.nombre_articulo
+  }
+
+
+
+
 
   //obtner empleados actuales
   ReloadStores(option: string){
     this.ArrayStore = [];
-    this.APIAdminPetition.getStores().subscribe(result =>{                      
+    this.APIPetition.getStores().subscribe(result =>{                      
       this.ArrayStore = result;      
       //console.table(this.Arraybranches);
       if(option == 'c'){                
@@ -203,7 +218,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
       //console.table(datasend);
       this.idupdate = this.id;      
 
-      this.APIAdminPetition.UpdatedStore(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
+      this.APIPetition.UpdatedStore(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
         this.response = response;   
         
         this.id =this.idupdate ;        // se iguala porque se puedan        
@@ -260,7 +275,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
     };
 
       //console.table(datasend);        
-      this.APIAdminPetition.createStore(datasend).subscribe(response =>{                    
+      this.APIPetition.createStore(datasend).subscribe(response =>{                    
         this.response = response;          
         if(this.response.Estatus == 'Error'){            
           this._snackBar.open(this.response.Mensaje, 'X', {              

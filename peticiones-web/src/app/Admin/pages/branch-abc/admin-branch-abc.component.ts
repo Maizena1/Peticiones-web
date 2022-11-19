@@ -177,7 +177,9 @@ Clearinputs(){
 ActionEdit(id:string){
   this.butonAddUpdate = 'a';
   this.enableid = true;      
-  this.dataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
+  this.dataBranchShow = this.Arraybranches.find(element => 
+    element.id_sucursal == parseInt(id)
+  );  
   //console.table(this.dataBranchShow);
   //console.table(this.dataBranchShow);
   this.Clearinputs();

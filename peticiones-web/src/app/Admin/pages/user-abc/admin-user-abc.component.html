@@ -20,7 +20,7 @@
                             <app-input [label]="'Usuario'" [(value)]="form.user"></app-input><p>{{form.user}}</p>
                             <app-input [label]="'Contraseña'" [(value)]="form.password"></app-input>
                             <app-input [label]="'ID empleado'" [(value)]="form.employeeId"></app-input>
-                            <app-select [label]="'Ejemplo'" [(value)]="form.rol" [items]="itemsArray"></app-select>
+                            <app-select [label]="'Rol'" [(value)]="form.rol" [items]="roles" [getId]="getId" [getLabel]="getLabel"></app-select>
                             <mat-slide-toggle class="slide-toggle" [(ngModel)]="form.status">Activo</mat-slide-toggle>
                         </div>
 

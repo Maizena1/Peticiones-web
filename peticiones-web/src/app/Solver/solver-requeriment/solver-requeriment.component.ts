@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from 'src/app/Admin/services/admin.service';
+
 
 @Component({
   selector: 'app-solver-requeriment',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SolverRequerimentComponent implements OnInit {
 
-  constructor() { }
+  problemArticle: [] = [];
+
+  constructor(private APIPetition: AdminService) { }
 
   ngOnInit(): void {
+
+    this.APIPetition.getProblemArticle().subscribe(article => { 
+      this.problemArticle = article;
+    });
+
+    
   }
 
 }

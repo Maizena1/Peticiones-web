@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from '../../services/type';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin-user-by-problem-type-abc',
@@ -8,12 +8,24 @@ import { Item } from '../../services/type';
 })
 export class AdminUserByProblemTypeAbcComponent implements OnInit {
 
-  itemsArray: Item[] = [
-    {_id: "55000", option: 'Opcion 1'}
-  ];
-  constructor() { }
+  problemType: [] = [];
+
+  constructor(private APIPetition: AdminService) { }
 
   ngOnInit(): void {
+
+    this.APIPetition.getTypeProblems().subscribe(types => { 
+      this.problemType = types;
+    });
+  
+  }
+
+  getId(item: any){
+    return item.id_tipo_problema;
+  }
+
+  getLabel(item: any){
+    return item.tipo_problema;
   }
 
 }

@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
             this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Error Estoy Devolviendo nulo');            
             console.log(this.dataSesion.id_rol);
 
-            if(this.dataSesion.id_rol == 1){
+            if(this.dataSesion.id_rol == 1 || this.dataSesion.id_rol == 3){
               this.router.navigate(["admin/branchAbc"]);     
             }
             

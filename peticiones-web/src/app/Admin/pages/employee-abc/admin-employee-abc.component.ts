@@ -29,14 +29,14 @@ export class AdminEmployeeAbcComponent implements OnInit {
   DataEmployeeShow: employee | any; //tipo de dato para buscar  
   enableid : boolean = false; //para poner campo en modo lectura
   butonAddUpdate : string = '';
+
+  branches: any [] = [];
   
 
   //arreglo donde de almacenara todos los empleados
   ArrayEmployees: employee[]=[];
   //arreglo donde se almacenara solo los datos de la tabla de la tabla 
   ItemsTable : request_table[]=[]; 
-  //Arreglo donde se almacena la informacion de id sucursal y nombre sucursal
-  itemsSelecBranches: Item[] =[];
 
   //nombres de columnas de tabla
   namecolum: string[] = ['ID','Nombre','Estado','Botones'];
@@ -48,10 +48,10 @@ export class AdminEmployeeAbcComponent implements OnInit {
   idupdate: any;
 
 
-  constructor(public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
+  constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
  
   ngOnInit(): void {
-    this.APIAdminPetition.getEmployees().subscribe(result =>{                
+    this.APIPetition.getEmployees().subscribe(result =>{                
       this.ArrayEmployees = result;
       //console.table(this.Arraybranches); 
       this.ArrayEmployees.forEach((row) => {                   
@@ -62,22 +62,25 @@ export class AdminEmployeeAbcComponent implements OnInit {
         }        
       });                                     
       //console.table(this.ItemsTable);      
-    })  
-    //obtener las sucursales      
-    this.APIAdminPetition.getBranches().subscribe(result =>{                            
-      result.forEach((row:any) => {                   
-        if(row.estatus == 'A'){          
-          this.itemsSelecBranches.push({_id: row.id_sucursal, option: row.nombre_sucursal});        
-        }        
-      });                                     
-      //console.table(this.itemsSelecBranches);      
-    })                 
+    }) 
+
+    this.APIPetition.getBranches().subscribe(branches => { 
+      this.branches = branches;
+    });
+
   }
 
+  getId(item: any){
+    return item.id_sucursal;
+  }
+  getLabel(item: any){
+    return item.nombre_sucursal;
+  }
+  
   //obtner sucursales actuales
   ReloadEmployees(){
     this.ArrayEmployees = [];
-    this.APIAdminPetition.getBranches().subscribe(result =>{                
+    this.APIPetition.getBranches().subscribe(result =>{                
       //console.table(result);
       this.ArrayEmployees = result;      
       //console.table(this.Arraybranches);
@@ -154,7 +157,7 @@ ActionDelete(id: string){
                 panelClass: ['red-snackbar'],
               });
         }else{
-          this.APIAdminPetition.DeleteEmployee(parseInt(id)).subscribe(response =>{                    
+          this.APIPetition.DeleteEmployee(parseInt(id)).subscribe(response =>{                    
             this.response = response;                                        
             if(this.response.Estatus == 'Error'){            
               this._snackBar.open(this.response.Mensaje, 'X', {                
@@ -206,14 +209,15 @@ ActionEdit(id:string){
 //si es detail
 ActionDatil(id:string){
   //obtener los detalles de la sucursal a mostrar  
-  this.DataEmployeeShow = this.ArrayEmployees.find(element => element.id_empleado == parseInt(id));  
-  this.inAct = this.itemsSelecBranches.findIndex( element => element._id  == String(this.DataEmployeeShow.id_sucursal));                         
+  this.DataEmployeeShow = this.ArrayEmployees.find(element => element.id_empleado == parseInt(id)); 
+  
+  this.inAct = this.branches.findIndex( (element: any) => element.id_sucursal  == String(this.DataEmployeeShow.id_sucursal));                         
   //alert(this.inAct);
   const dialogRef = this.dialog.open(DialogDetailComponent, {
     width: '300px',
     data: [{ title: 'ID:', data: id },
     {title: 'Nombre:', data: this.DataEmployeeShow.nombre_empleado},    
-    {title: 'Sucursal', data: this.itemsSelecBranches[this.inAct].option},    
+    {title: 'Sucursal', data: this.branches[this.inAct].nombre_sucursal},    
     {title: 'Correo:', data: this.DataEmployeeShow.correo },
     {title: 'Telefono:', data: this.DataEmployeeShow.telefono}    
   ],      
@@ -253,7 +257,7 @@ UpdateEmployee(){
       //console.table(datasend);
       this.idupdate = this.idEmpleado;      
 
-      this.APIAdminPetition.UpdatedEmployee(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
+      this.APIPetition.UpdatedEmployee(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
         this.response = response;   
         
         this.idEmpleado =this.idupdate ;        // se iguala porque se puedan
@@ -324,7 +328,7 @@ CreateEmployee() {
       estatus: this.estatus,                                                                             
     };
       //console.table(datasend);        
-      this.APIAdminPetition.createEmployee(datasend).subscribe(response =>{                    
+      this.APIPetition.createEmployee(datasend).subscribe(response =>{                    
         this.response = response;          
         if(this.response.Estatus == 'Error'){            
           this._snackBar.open(this.response.Mensaje, 'X', {              
@@ -350,3 +354,4 @@ CreateEmployee() {
     
 
 }
+

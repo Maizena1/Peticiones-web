@@ -15,7 +15,7 @@ export class SolverRequerimentComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.APIPetition.getProblemArticle().subscribe(article => { 
+    this.APIPetition.getArticlesProblems().subscribe(article => { 
       this.problemArticle = article;
     });
 

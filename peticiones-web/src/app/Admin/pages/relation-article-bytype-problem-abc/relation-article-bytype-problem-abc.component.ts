@@ -58,7 +58,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     })      
     
     //obtener los articulos 
-    this.APIAdminPetition.getCodeArticle().subscribe(result =>{                      
+    this.APIAdminPetition.getArticle().subscribe(result =>{                      
       result.forEach((row:any) => {                           
         this.itemsSelecArticles.push({_id: row.id_codigo_articulo, option: String(row.nombre_articulo)});    
       });                                         

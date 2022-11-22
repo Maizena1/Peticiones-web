@@ -17,18 +17,19 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-select [label]="'Tipo de problema'" [items]="problemType" [getId]="getId" [getLabel]="getLabel"></app-select>
-                            <app-input [label]="'Usuario'"></app-input>
-                            <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                            <app-select [label]="'Tipo de problema'" [valuenum]="idTypeProblem" [items]="problemType" [getId]="getId" [getLabel]="getLabel" (onChange)="onChangeIdTypeProblem($event)"></app-select>
+                            <app-input [type]="'number'" [label]="'ID Usuario'" [enable]="enableid" [example]="'13'" [value]="idUser"  ></app-input>
+                            <mat-slide-toggle class="slide-toggle" [color]="'primary'" [(ngModel)]="isChecked">Activo</mat-slide-toggle>
                         </div>
                         
-                        <div class="button-container">
-                            <button mat-flat-button color="primary">Agregar</button>
+                        <div class="button-container">                            
+                            <button mat-flat-button color="primary" (click)="CreateUserProblem()" *ngIf="butonAddUpdate.length == 0">Agregar</button>                                                                                                                                                
+                            <button  #update mat-flat-button color="primary" (click)="UpdateUserProblem()" *ngIf="butonAddUpdate.length > 0">Actualizar</button>                                                                                    
                         </div>
                     </div>
 
-                    <div class="table-user-by-problem-type-container">
-                        <app-abc-table class="table"></app-abc-table>
+                    <div class="table-user-by-problem-type-container" *ngIf="itemsTable.length > 0">
+                        <app-abc-table class="table" [items]=" itemsTable" [nameColumn]="namecolum" (onChange)="onChangeActionTable($event)"></app-abc-table>
                     </div>
 
                 </div>

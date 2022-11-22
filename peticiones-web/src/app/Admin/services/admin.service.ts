@@ -123,4 +123,13 @@ export class AdminService {
   createArticleProblem(dato: articlebytypeproblem):Observable<any>{    
     return this.http.post(`${this.url}registrar-articulo-problema`,dato);
   }
+  //USUARIO POR TIPO DE PROBLEMA 
+  getUserByTypeProblem():Observable<any>{    
+    return this.http.get(`${this.url}usuarios-problemas`);
+  }
+
+  deleteUserByPoblem(id:number):Observable<any>{
+    return this.http.delete(`${this.url}eliminar-tipo-problema/${id}`);
+  }
+  
 } 

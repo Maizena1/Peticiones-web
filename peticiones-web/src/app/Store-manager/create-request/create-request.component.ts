@@ -9,6 +9,13 @@ import { AdminService } from 'src/app/Admin/services/admin.service';
 })
 export class CreateRequestComponent implements OnInit {
 
+  form = {
+    problemType: '',
+    descriptionProblem: ''
+  }
+
+  descriptionProblem: string = '';
+
   problemTypes: [] = [];
 
   constructor(private APIPetition: AdminService) { }
@@ -29,6 +36,8 @@ export class CreateRequestComponent implements OnInit {
     return item.tipo_problema;
   }
 
-  
+  getProblemType(type: any){
+    this.form.problemType = type;
+  }
 
 }

@@ -85,11 +85,11 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     this.idTypeProblem = 0;
   }
 
-  onCTypeProblem(data: string){
+  onCTypeProblem(data: any){
     this.idTypeProblem = parseInt(data);
   }
 
-  onChangeIdArticle(data: string){
+  onChangeIdArticle(data: any){
     this.idArticle = parseInt(data);    
   }
 

@@ -77,13 +77,13 @@ export class LoginComponent implements OnInit {
               this.router.navigate(["admin/branchAbc"]);     
             }
             if(this.dataSesion.id_rol == 2){
-              this.router.navigate(["admin/branchAbc"]);     
+              this.router.navigate(["storeManager/createRequest"]);     
             }
-            if(this.dataSesion.id_rol == 3){
-              this.router.navigate(["admin/branchAbc"]);     
-            }
+            /*if(this.dataSesion.id_rol == 3){
+              this.router.navigate(["admin/"]);     
+            }*/
             if(this.dataSesion.id_rol == 4){
-              this.router.navigate(["admin/branchAbc"]);     
+              this.router.navigate(["solver/confirmMaterial"]);     
             }
             //localStorage.removeItem('dataSesion');
           }                    

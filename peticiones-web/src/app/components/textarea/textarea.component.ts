@@ -6,12 +6,14 @@ import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./textarea.component.css']
 })
 export class TextareaComponent implements OnInit {
+  @Input() value: string = '';
+
+  @Output() valueChange = new EventEmitter<any>();
 
   @Input() label: string = 'sin nombre';
   @Input() type: string = 'text';
   @Input() example: string = 'sin nombre';
   @Input() enable: boolean = false;
-  @Input() value: string = '';
 
 
   //se envia
@@ -20,9 +22,15 @@ export class TextareaComponent implements OnInit {
 
   constructor() { }    
 
-  getdata( data : string ){
+  getdata(data: string){
     this.onChange.emit(data);
   }
+
+  onChangeTextarea(event : any){
+    this.valueChange.emit(event.target.value);
+  }
+
+  
   
 
   ngOnInit(): void {

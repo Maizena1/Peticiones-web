@@ -23,15 +23,15 @@ export class SelectComponent<T> implements OnInit {
   @Input() disabled: boolean = false ; 
   valor : String='';
   //se envia 
-  @Output() onChange = new EventEmitter<string>();    
+  @Output() onChange = new EventEmitter<T>();    
   
   constructor() {}
 
   SelectFormControl = new FormControl('', [Validators.required]);
   
-  getdata( data: string){
+  getdata(item: T){
     //console.log(data);    
-    this.onChange.emit(data);
+    this.onChange.emit(item);
     //alert(data);
   }
 

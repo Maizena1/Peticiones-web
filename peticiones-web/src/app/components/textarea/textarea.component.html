@@ -1,4 +1,4 @@
 <mat-form-field class="example-full-width" appearance="fill">
   <mat-label>{{label}}</mat-label>
-  <textarea class="textarea" matInput placeholder={{example}} [value]="value" #data (change)="getdata(data.value)" ></textarea>     
+  <textarea (change)="onChangeTextarea($event)" [value]="value" #data (change)="getdata(data.value)" class="textarea" matInput placeholder={{example}} ></textarea>     
 </mat-form-field>

@@ -15,6 +15,13 @@ import { user } from 'src/app/Admin/services/type';
 })
 export class CreateRequestComponent implements OnInit {
 
+  form = {
+    problemType: '',
+    descriptionProblem: ''
+  }
+
+  descriptionProblem: string = '';
+
   problemTypes: [] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
@@ -55,6 +62,8 @@ export class CreateRequestComponent implements OnInit {
     return item.tipo_problema;
   }
 
-  
+  getProblemType(type: any){
+    this.form.problemType = type;
+  }
 
 }

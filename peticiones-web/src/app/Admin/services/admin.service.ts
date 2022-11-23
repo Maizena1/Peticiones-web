@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { article, articlebytypeproblem, branch, employee, login, store, type_of_problem } from './type';
+import { article, articlebytypeproblem, branch, employee, login, store, type_of_problem, user_problem } from './type';
 
 @Injectable({
   providedIn: 'root'
@@ -129,7 +129,15 @@ export class AdminService {
   }
 
   deleteUserByPoblem(id:number):Observable<any>{
-    return this.http.delete(`${this.url}eliminar-tipo-problema/${id}`);
+    return this.http.delete(`${this.url}eliminar-usuario-problema/${id}`);
+  }
+
+  updatedUserByProblem(dato: user_problem , id: number):Observable<any>{
+    return this.http.put(`${this.url}modificar-usuario-problema/${id}`,dato);
+  }
+
+  createUserByProblem(dato: user_problem):Observable<any>{
+    return this.http.post(`${this.url}registrar-usuario-problema`,dato);
   }
   
 } 

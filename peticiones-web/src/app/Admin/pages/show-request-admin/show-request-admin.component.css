@@ -1,0 +1,27 @@
+.content-container{
+    max-width: 800px;
+    padding: 20px;
+    margin: 0px auto;    
+
+}
+
+.table-container{
+    padding: 16px 12px;
+}
+
+
+.mat-mdc-table {
+    width: 80%;
+    max-height: 400px;
+    height: 400px;
+    overflow: auto;
+  }
+  
+  .mat-column-name {
+    /*height: 100px;*/
+  }
+
+  .body{
+    height: 700px;
+    overflow: hidden;
+  }

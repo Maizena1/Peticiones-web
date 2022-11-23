@@ -79,6 +79,12 @@ export class LoginComponent implements OnInit {
             if(this.dataSesion.id_rol == 2){
               this.router.navigate(["admin/branchAbc"]);     
             }
+            if(this.dataSesion.id_rol == 3){
+              this.router.navigate(["admin/branchAbc"]);     
+            }
+            if(this.dataSesion.id_rol == 4){
+              this.router.navigate(["admin/branchAbc"]);     
+            }
             //localStorage.removeItem('dataSesion');
           }                    
         })        

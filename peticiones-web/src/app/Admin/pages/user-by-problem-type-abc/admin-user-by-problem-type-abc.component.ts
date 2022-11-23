@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { request_table } from 'src/app/components/services/request-table';
 import { AdminService } from '../../services/admin.service';
-import { response, user_problem } from '../../services/type';
+import { response, user, user_problem } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
@@ -18,9 +18,12 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
 
   problemType: any [] = [];
 
+  id: string = '';
   idTypeProblem: number = 0;
   idUser: string ='';
   estatus: string = '';
+  dataUserByTypeProblem: user_problem | any;
+  
 
   response: response | any; //subscripcion de respuesta
   isChecked = true;     //variable para el toggle    
@@ -39,7 +42,28 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
 
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
 
+  idRol : number = 0;
+  dataSesion:user|any;
   ngOnInit(): void {
+
+    if (localStorage){    
+      if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
+        const userJson = localStorage.getItem('dataSesion');
+        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
+        this.idRol = this.dataSesion.id_rol;        
+        if(this.idRol != 1){          
+          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
+            verticalPosition: this.verticalPosition,   
+            duration: 3000,   
+            panelClass: ['red-snackbar'],
+          });
+          this.router.navigate(["login"]);              
+        }
+      }else{        
+          //alert("DataSesion no existe en localStorage!!"); 
+          this.router.navigate(["login"]);              
+      }
+    }        
 
     this.APIPetition.getUserByTypeProblem().subscribe(result =>{                
       this.arrayUser = result;
@@ -56,13 +80,30 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
   }
 
  //obtner sucursales actuales
- ReloadUserProblem(){
+ ReloadUserProblem( option: string){
   this.arrayUser = [];
-  this.APIPetition.getBranches().subscribe(result =>{                
+
+  this.APIPetition.getUserByTypeProblem().subscribe(result =>{                
     //console.table(result);
     this.arrayUser= result;      
-    //console.table(this.Arraybranches);
-  })         
+    //console.table(this.Arraybranches);    
+    if(option == 'u'){ 
+      this.inAct = this.itemsTable.findIndex( element => element.col1  == this.id);                
+      const indexUserProblem =  this.arrayUser.findIndex( element => element.id_usuario_problema  == parseInt(this.id));                        
+      if( this.inAct != -1){
+        this.itemsTable[this.inAct].col2 = String(this.arrayUser[indexUserProblem].tipo_problema);
+        this.itemsTable[this.inAct].col3 = String(this.arrayUser[indexUserProblem].usuario);                               
+      }                                            
+    }
+    
+    if(option == 'c'){                        
+      this.itemsTable.push({col1: String(this.arrayUser[this.arrayUser.length -1].id_usuario_problema), col2: String(this.arrayUser[this.arrayUser.length -1].tipo_problema) , col3: String(this.arrayUser[this.arrayUser.length -1].usuario), col4:'-' });                                  
+    }            
+    this.Clearinputs();      
+
+  });
+
+  
 }
 
 
@@ -71,6 +112,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     this.isChecked == true;
     this.enableid = false;  
     this.idTypeProblem = 0;
+    this.id = '';
     this.idUser = '';
     this.estatus ='';    
   }
@@ -113,12 +155,9 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
       data: { name: 'Eliminar', subname: '¿Estas seguro que desea Deshabilitar?'},
     });
   
-    dialogRef.afterClosed().subscribe(result => {
-  
-      if ( result == true){
-            
+    dialogRef.afterClosed().subscribe(result => {  
+      if ( result == true){            
           const inDesc = this.arrayUser.findIndex((element) => element.id_usuario_problema == parseInt(id));
-
                 //agregar a la tabla                        
           if(this.arrayUser[inDesc].estatus == 'B'){
                 this._snackBar.open('No se puede desactivar porque ya esta inactivo', 'X', {                
@@ -131,7 +170,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
               this.response = response;                                        
               if(this.response.Estatus == 'Error'){            
                 this._snackBar.open(this.response.Mensaje, 'X', {                
-                  verticalPosition: this.verticalPosition,                
+                  verticalPosition: this.verticalPosition,
                   duration: 3000,
                   panelClass: ['red-snackbar'],
                 });
@@ -143,7 +182,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
                 });                
               }                  
             });      
-            this.ReloadUserProblem();
+            this.ReloadUserProblem('u');
             this.Clearinputs();
           }                      
         }
@@ -151,19 +190,148 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
   }
 
   ActionEdit(id: string){
-
+    this.butonAddUpdate = 'a';    
+    this.dataUserByTypeProblem = this.arrayUser.find(element => 
+      element.id_usuario_problema == parseInt(id)
+    );    
+    console.table(this.dataUserByTypeProblem);
+    this.Clearinputs();
+    //asignacion de las variables a mostrar                
+    this.id = id;
+    this.idTypeProblem = this.dataUserByTypeProblem.id_tipo_problema;
+    this.idUser = String(this.dataUserByTypeProblem.id_usuario);      
+    if(this.dataUserByTypeProblem.estatus == 'A'){      
+      this.isChecked = true;
+      this.estatus = 'A'
+    }else{
+      this.isChecked = false;
+      this.estatus = 'B';
+    }
   }
 
   ActionDetail(id: string){
+      this.dataUserByTypeProblem = this.arrayUser.find(element => element.id_usuario_problema == parseInt(id));  
 
+      if(this.dataUserByTypeProblem.estatus == 'A'){
+        this.estatus = 'Activo';
+      }else{
+        this.estatus = 'Inactivo';
+      }
+
+    const dialogRef = this.dialog.open(DialogDetailComponent, {
+    width: '300px',
+    data: [{ title: 'ID:', data: id },
+      {title: 'Tipo de Problema:', data: this.dataUserByTypeProblem.tipo_problema},    
+      {title: 'Ususario Solver:', data: this.dataUserByTypeProblem.usuario},
+      {title: 'Pertenece a:', data: this.dataUserByTypeProblem.nombre_empleado},
+      {title: 'Estado:', data: this.estatus}
+    ],      
+    });  
+  }
+
+  UpdateUserProblem(){
+    
+    //obtener estatus
+    if(this.isChecked == true){
+      this.estatus = 'A';
+    }else{
+      this.estatus = 'B';
+    }
+
+    if((this.idTypeProblem == 0)||(this.idUser == '') || this.estatus == ''){
+                          
+      //this._snackBar.open('Error faltan datos para actualizar', 'x');    
+      this._snackBar.open('Error faltan datos', 'X', {      
+        verticalPosition: this.verticalPosition,      
+        panelClass: ['red-snackbar'],
+      });
+      
+    }else{
+      
+      //llenar data a enviar
+        const datasend : user_problem = {                                      
+          id_tipo_problema: this.idTypeProblem,        
+          id_usuario: parseInt(this.idUser),
+          estatus: this.estatus
+        };      
+        //console.log(this.id);
+        //console.table(datasend);
+        this.idupdate = this.id;      
+        this.APIPetition.updatedUserByProblem(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
+          this.response = response;           
+          this.id =this.idupdate ;        // se iguala porque se puedan usar
+          this.idUser = String(datasend.id_usuario);
+          this.idTypeProblem = datasend.id_tipo_problema;
+  
+          if(this.response.Estatus == 'Error'){            
+            this._snackBar.open(this.response.Mensaje, 'X', {          
+              verticalPosition: this.verticalPosition,            
+              duration: 3000,
+              panelClass: ['red-snackbar'],
+            });          
+          }else{
+              this._snackBar.open(this.response.Mensaje, 'X', {            
+                verticalPosition: this.verticalPosition,
+                duration: 3000,
+                panelClass: ['green-snackbar'],
+                //panelClass: ['red-snackbar'],
+              });                          
+              //actualizar 
+              this.ReloadUserProblem('u');                     
+          }                  
+        });            
+        this.butonAddUpdate = '';  
+      }
   }
 
   CreateUserProblem(){
 
-  }
+    //obtener estatus
+    if(this.isChecked == true){
+      this.estatus = 'A';
+    }else{
+      this.estatus = 'B';
+    }
 
-  UpdateUserProblem(){
-
+    if((this.idTypeProblem == 0)||(this.idUser == '') || this.estatus == ''){
+                          
+      //this._snackBar.open('Error faltan datos para actualizar', 'x');    
+      this._snackBar.open('Error faltan datos', 'X', {      
+        verticalPosition: this.verticalPosition,      
+        panelClass: ['red-snackbar'],
+      });
+      
+    }else{
+      
+      //llenar data a enviar
+        const datasend : user_problem = {                                      
+          id_tipo_problema: this.idTypeProblem,        
+          id_usuario: parseInt(this.idUser),
+          estatus: this.estatus
+        };      
+        //console.log(this.id);
+        //console.table(datasend);
+        this.idupdate = this.id;      
+        this.APIPetition.createUserByProblem(datasend).subscribe(response =>{                    
+          this.response = response;                                 
+          if(this.response.Estatus == 'Error'){            
+            this._snackBar.open(this.response.Mensaje, 'X', {          
+              verticalPosition: this.verticalPosition,            
+              duration: 3000,
+              panelClass: ['red-snackbar'],
+            });          
+          }else{
+              this._snackBar.open(this.response.Mensaje, 'X', {            
+                verticalPosition: this.verticalPosition,
+                duration: 3000,
+                panelClass: ['green-snackbar'],
+                //panelClass: ['red-snackbar'],
+              });                          
+              //actualizar 
+              this.ReloadUserProblem('c');                     
+          }                  
+        });                    
+      }    
   }
 
 }

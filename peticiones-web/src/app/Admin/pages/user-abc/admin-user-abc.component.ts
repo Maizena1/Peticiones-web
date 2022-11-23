@@ -39,13 +39,34 @@ export class AdminUserAbcComponent implements OnInit {
   nameColum: string[] = ['ID','Usuario','Estatus','Botones'];
 
   itemsArray: Item[] = [];
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  constructor(
-    public dialog: MatDialog ,
-    private APIPeticion: AdminService ) { }
+  constructor(public dialog: MatDialog ,private router: Router, private APIPeticion: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
   
+    idRol : number = 0;
+    dataSesion:user|any;
 
   ngOnInit(): void {
+
+    if (localStorage){    
+      if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
+        const userJson = localStorage.getItem('dataSesion');
+        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
+        this.idRol = this.dataSesion.id_rol;        
+        if(this.idRol != 1){          
+          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
+            verticalPosition: this.verticalPosition,   
+            duration: 3000,   
+            panelClass: ['red-snackbar'],
+          });
+          this.router.navigate(["login"]);              
+        }
+      }else{        
+          //alert("DataSesion no existe en localStorage!!"); 
+          this.router.navigate(["login"]);              
+      }
+    }        
+
     this.APIPeticion.getUsers().subscribe(result =>{   
       this.arrayUser = result;
 
@@ -92,9 +113,7 @@ export class AdminUserAbcComponent implements OnInit {
     this.enableid = true;
     this.dataUserShow = this.arrayUser.find(element =>
       element.id_usuario == parseInt(id)  
-    );
-
-    
+    );    
   }
 
   ActionDatil(id: string){

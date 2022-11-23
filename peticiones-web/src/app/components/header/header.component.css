@@ -5,6 +5,7 @@
 }
 
 .menu{
+    /*background-color: cyan;*/
     padding: 0px 24px;
     height: 100%;
     display: flex;
@@ -38,5 +39,22 @@
     color: #ffff;
 }
 
+.title-container{
+    /*background-color: red;*/
+    width: 15%;
+    margin-left: 5%;
+    margin-right: 48%;
+    margin-top: 12px; 
 
+}
+
+.title{
+    font-family: 'Cambo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 28px;
+    text-align: center;
+    color: #FFFFFF;
+}
 

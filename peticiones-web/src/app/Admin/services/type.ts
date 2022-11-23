@@ -56,6 +56,8 @@ export interface user_problem{
     tipo_problema?: string;
     id_usuario: number; 
     usuario?: string;
+    id_empleado?: string;
+    nombre_empleado?:string;
     estatus: string;
 }
 

@@ -8,22 +8,20 @@ import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-d
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
 import { user } from 'src/app/Admin/services/type';
 
-
 @Component({
-  selector: 'app-solver-requeriment',
-  templateUrl: './solver-requeriment.component.html',
-  styleUrls: ['./solver-requeriment.component.css']
+  selector: 'app-show-request-solver',
+  templateUrl: './show-request-solver.component.html',
+  styleUrls: ['./show-request-solver.component.css']
 })
-export class SolverRequerimentComponent implements OnInit {
+export class ShowRequestSolverComponent implements OnInit {
 
-  problemArticle: any [] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
 
   idRol : number = 0;
   dataSesion:user|any;
   ngOnInit(): void {
-     if (localStorage){    
+    if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
         const userJson = localStorage.getItem('dataSesion');
         this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
@@ -41,13 +39,6 @@ export class SolverRequerimentComponent implements OnInit {
           this.router.navigate(["login"]);              
       }
     }        
-
-
-    this.APIPetition.getArticlesProblems().subscribe(article => { 
-      this.problemArticle = article;
-    });
-
-    
   }
 
 }

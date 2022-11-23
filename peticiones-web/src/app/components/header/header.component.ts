@@ -18,8 +18,8 @@ export class HeaderComponent implements OnInit {
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
         const userJson = localStorage.getItem('dataSesion');
-        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                        
-        this.idRol = this.dataSesion.id_rol;
+        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
+        this.idRol = this.dataSesion.id_rol;        
       }else{        
           //alert("DataSesion no existe en localStorage!!"); 
           this.router.navigate(["login"]);              

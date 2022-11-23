@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { response, Item, articlebytypeproblem } from '../../services/type';
+import { response, Item, articlebytypeproblem, user } from '../../services/type';
 import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import {FormBuilder} from '@angular/forms';
@@ -39,7 +39,30 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
 
   constructor(public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
 
+   //para validar lo de sesion  y rol  
+   idRol : number = 0;
+   dataSesion:user|any;
   ngOnInit(): void {
+    if (localStorage){    
+      if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
+        const userJson = localStorage.getItem('dataSesion');
+        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
+        this.idRol = this.dataSesion.id_rol;        
+        if(this.idRol != 1){          
+          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
+            verticalPosition: this.verticalPosition,   
+            duration: 3000,   
+            panelClass: ['red-snackbar'],
+          });
+          this.router.navigate(["login"]);              
+        }
+      }else{        
+          //alert("DataSesion no existe en localStorage!!"); 
+          this.router.navigate(["login"]);              
+      }
+    }        
+
+
     this.APIAdminPetition.getArticlesProblems().subscribe(result =>{                
       this.ArrayArticleProblem = result;
       //console.table(this.Arraybranches); 

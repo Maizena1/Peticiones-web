@@ -48,8 +48,10 @@ import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.
 import { DialogDetailComponent } from './components/dialog-detail/dialog-detail.component';
 import { LoginComponent } from './login/login.component';
 import { RelationArticleBytypeProblemAbcComponent } from './Admin/pages/relation-article-bytype-problem-abc/relation-article-bytype-problem-abc.component';
+import { ShowRequestAdminComponent } from './Admin/pages/show-request-admin/show-request-admin.component';
+import { ShowRequestSolverComponent } from './Solver/show-request-solver/show-request-solver.component';
 
-
+import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
@@ -79,7 +81,9 @@ import { RelationArticleBytypeProblemAbcComponent } from './Admin/pages/relation
     DialogDeleteComponent,
     DialogDetailComponent,
     LoginComponent,
-    RelationArticleBytypeProblemAbcComponent
+    RelationArticleBytypeProblemAbcComponent,
+    ShowRequestAdminComponent,
+    ShowRequestSolverComponent
 
   ],
   imports: [
@@ -103,7 +107,8 @@ import { RelationArticleBytypeProblemAbcComponent } from './Admin/pages/relation
     ReactiveFormsModule,
     MatSnackBarModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

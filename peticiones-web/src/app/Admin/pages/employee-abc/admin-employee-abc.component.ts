@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { employee, response, Item } from '../../services/type';
+import { employee, response, Item, user } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import {FormBuilder, Validators} from '@angular/forms';
@@ -50,7 +50,28 @@ export class AdminEmployeeAbcComponent implements OnInit {
 
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
  
+  idRol : number = 0;
+  dataSesion:user|any;
   ngOnInit(): void {
+    if (localStorage){    
+      if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
+        const userJson = localStorage.getItem('dataSesion');
+        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
+        this.idRol = this.dataSesion.id_rol;        
+        if(this.idRol != 1){          
+          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
+            verticalPosition: this.verticalPosition,   
+            duration: 3000,   
+            panelClass: ['red-snackbar'],
+          });
+          this.router.navigate(["login"]);              
+        }
+      }else{        
+          //alert("DataSesion no existe en localStorage!!"); 
+          this.router.navigate(["login"]);              
+      }
+    }        
+
     this.APIPetition.getEmployees().subscribe(result =>{                
       this.ArrayEmployees = result;
       //console.table(this.Arraybranches); 
@@ -320,7 +341,8 @@ CreateEmployee() {
   }else{
 
     //llenar data a enviar
-    const datasend : employee = {                      
+    const datasend : employee = {     
+      id_empleado: parseInt(this.idEmpleado),                 
       nombre_empleado: this.nombre,
       id_sucursal: this.idSucursal,
       correo: this.correo,
@@ -342,7 +364,13 @@ CreateEmployee() {
             panelClass: ['green-snackbar'],
             //panelClass: ['red-snackbar'],
           });
-          this.ItemsTable.push({col1: String(datasend.id_empleado), col2:datasend.nombre_empleado , col3: datasend.estatus, col4:'-' });            
+
+          if(datasend.estatus == 'A'){
+            this.ItemsTable.push({col1: String(datasend.id_empleado), col2:datasend.nombre_empleado , col3:'Activo' , col4:'-' });            
+          }else{
+            this.ItemsTable.push({col1: String(datasend.id_empleado), col2:datasend.nombre_empleado , col3:'Inactivo' , col4:'-' });            
+          }
+          
           this.ReloadEmployees();
           this.Clearinputs();
         }          

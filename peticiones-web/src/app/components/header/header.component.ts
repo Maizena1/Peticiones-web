@@ -24,9 +24,7 @@ export class HeaderComponent implements OnInit {
           //alert("DataSesion no existe en localStorage!!"); 
           this.router.navigate(["login"]);              
       }
-    }
-    
-    
+    }        
   }
 
   logout(){

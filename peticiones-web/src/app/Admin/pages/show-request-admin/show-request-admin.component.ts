@@ -1,35 +1,16 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
-import { user } from '../../services/type';
-
-
-//para tabla prueba
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
+import { problem, table_show, user } from '../../services/type';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { request_table } from 'src/app/components/services/request-table';
 
 
 @Component({
@@ -39,13 +20,32 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ShowRequestAdminComponent implements OnInit {
 
+//contenido de tabla generico
+  ItemsTableGeneric : table_show []=[]; 
+//contenido de tabla Pendientes
+  ItemsTableSlopes : table_show []=[]; 
+//contenido de tabla Revisar
+  ItemsTableCheck : table_show []=[]; 
+  
+  //array principal 
+  arrayProblems: problem [] = [] ;
+  //Array General
+  arrayProblemGeneric : problem [] = [];
+  //Array Pendientes
+  arrayProblemSlopes : problem [] = [];
+  //Array revisar
+  arrayProblemCheck : problem [] = [];
+
+
+  //nombres de columnas de tabla General
+  nameColums: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Botones'];  
+  
+
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
+
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
-
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-
-
+  
+  
   idRol : number = 0;
   dataSesion:user|any;
   ngOnInit(): void {
@@ -66,8 +66,196 @@ export class ShowRequestAdminComponent implements OnInit {
           //alert("DataSesion no existe en localStorage!!"); 
           this.router.navigate(["login"]);              
       }
-    }        
+    }
+    
+    //obtener todos los problemas del servicio
+    this.ReloadProblems();    
 
   }
 
+  
+  //metodo para la tabla delete,edit, detail
+  onChangeActionTable(data: any){  
+    //alert(data.id+"---"+data.action);
+    if(data.action === 'delete'){
+      this.ActionDelete(data.fecha);
+    }else if(data.action === 'accep'){
+      this.ActionAccep(data.fecha);
+    }else if(data.action === 'detail'){
+      this.ActionDetail(data.fecha);
+    }  
+  }
+
+  ActionDelete(fecha: string){
+    alert('Fecha Para Rechazar: '+fecha);
+  }
+
+  ActionDetail(fecha: string){
+    alert('Fecha Para Mostrar Detalles: '+fecha);
+  }
+
+  ActionAccep(fecha: string){
+    alert('Fecha para Aceptar: '+fecha);    
+  }
+
+
+  ReloadProblems(){
+    this.arrayProblems = [];
+    this.ItemsTableGeneric = [];
+    this.ItemsTableSlopes = [];
+    this.ItemsTableCheck = [];
+    this.APIPetition.getProblems().subscribe(result =>{  
+      
+      if(result.Estatus){
+        this._snackBar.open(result.Mensaje, 'X', {      
+          verticalPosition: this.verticalPosition,   
+          duration: 3000,   
+          panelClass: ['red-snackbar'],
+        });
+      }else{
+        result.forEach((row:any) => {                           
+            //console.table(result);                                               
+          if(row.estatus == 'ESPERA'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: 0 ,
+              nombre_empleado_designado: "Sin solucionador asignado",
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: '--', 
+              fecha_revision:'--', 
+              fecha_enproceso:'--',
+              fecha_terminado:'--',
+              fecha_rechazado:'--',
+              id_problema:row.id_problema,  
+            });                      
+  
+          }else if('ACEPTADO'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema ,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: row.id_usuario_designado ,
+              nombre_empleado_designado: row.nombre_empleado_designado,
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: row.fecha_aceptado, 
+              fecha_revision:'--', 
+              fecha_enproceso:'--',
+              fecha_terminado:'--',
+              fecha_rechazado:'--',
+              id_problema:row.id_problema,  
+            });
+          }else if('REVISION'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema ,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: row.id_usuario_designado ,
+              nombre_empleado_designado: row.nombre_empleado_designado,
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: row.fecha_aceptado, 
+              fecha_revision: row.fecha_revision, 
+              fecha_enproceso:'--',
+              fecha_terminado:'--',
+              fecha_rechazado:'--',
+              id_problema:row.id_problema,  
+            });
+          }else if('PROCESO'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema ,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: row.id_usuario_designado ,
+              nombre_empleado_designado: row.nombre_empleado_designado,
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: row.fecha_aceptado, 
+              fecha_revision: row.fecha_revision, 
+              fecha_enproceso: row.fecha_enproceso,
+              fecha_terminado:'--',
+              fecha_rechazado:'--',
+              id_problema:row.id_problema,  
+            });
+          }else if('TERMINADO'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema ,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: row.id_usuario_designado ,
+              nombre_empleado_designado: row.nombre_empleado_designado,
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: row.fecha_aceptado, 
+              fecha_revision: row.fecha_revision, 
+              fecha_enproceso: row.fecha_enproceso,
+              fecha_terminado: row.fecha_terminado,
+              fecha_rechazado:'--',
+              id_problema:row.id_problema,  
+            });
+  
+          }else if('RECHAZADO'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema ,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: 0 ,
+              nombre_empleado_designado: "Sin solucionador asignado",
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: row.fecha_aceptado, 
+              fecha_revision: row.fecha_revision, 
+              fecha_enproceso: row.fecha_enproceso,
+              fecha_terminado: row.fecha_terminado,
+              fecha_rechazado:row.fecha_rechazado,
+              id_problema:row.id_problema,  
+            });
+          }                      
+        }); 
+
+        this.arrayProblems.forEach((row) => {
+          this.ItemsTableGeneric.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});          
+            if(row.estatus = 'ESPERA'){
+              this.ItemsTableSlopes.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
+            }else if(row.estatus = 'REVISION'){
+              this.ItemsTableCheck.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
+            }
+        });                           
+
+        //console.log(this.ItemsTableGeneric);
+      }      
+    });
+  }
+
 }
+
+
+
+  

@@ -52,6 +52,7 @@ import { ShowRequestAdminComponent } from './Admin/pages/show-request-admin/show
 import { ShowRequestSolverComponent } from './Solver/show-request-solver/show-request-solver.component';
 
 import {MatCardModule} from '@angular/material/card';
+import { TableShowComponent } from './Admin/pages/show-request-admin/table-show/table-show.component';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import {MatCardModule} from '@angular/material/card';
     LoginComponent,
     RelationArticleBytypeProblemAbcComponent,
     ShowRequestAdminComponent,
-    ShowRequestSolverComponent
+    ShowRequestSolverComponent,
+    TableShowComponent
 
   ],
   imports: [

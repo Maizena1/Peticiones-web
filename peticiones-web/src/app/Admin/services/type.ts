@@ -109,5 +109,30 @@ export interface articlebytypeproblem{
     tipo_problema?: string;
 }
 
-                
-        
+export interface problem{
+    id_tipo_problema: number;
+    tipo_problema?: string;
+    descripcion_problema: string;
+    id_usuario?: number;
+    nombre_empleado?: number;
+    id_sucursal?: number;
+    nombre_sucursal?: string;
+    id_usuario_designado?: number;
+    nombre_empleado_designado?: string;
+    estatus: string;
+    fecha_solicitud?: string;
+    fecha_aceptado?: string;
+    fecha_revision?: string;
+    fecha_enproceso?: string;
+    fecha_terminado?: string;
+    fecha_rechazado?: string;
+    id_problema?: number;
+}
+
+export interface table_show {
+    col1: string;
+    col2: string;
+    col3: string;
+    col4: string;
+    col5: string;
+}

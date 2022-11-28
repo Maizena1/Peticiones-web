@@ -11,7 +11,7 @@ export class AdminService {
   constructor(private http: HttpClient) { }
   
   //url ='http://peticionesdelmuro.ddns.net:3600/api/';
-  url = 'http://peticionesdelmuro.ddns.net:3600/api/';
+  url = 'http://127.0.0.1:5000/api/';
   
 
   createBranch(dato: branch):Observable<any>{    
@@ -138,6 +138,10 @@ export class AdminService {
 
   createUserByProblem(dato: user_problem):Observable<any>{
     return this.http.post(`${this.url}registrar-usuario-problema`,dato);
+  }
+
+  getProblems():Observable<any>{    
+    return this.http.get(`${this.url}problemas`);
   }
   
 } 

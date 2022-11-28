@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
             this.APIAdminPetition.deleteSesion(datasend).subscribe(response =>{                          
               this.response = response;          
               if(this.response.Estatus == 'Ok'){                                       
-                alert('Logout Con Exito');
+                //alert('Logout Con Exito');
                 localStorage.removeItem('dataSesion');  
                 this.router.navigate(["login"]);      
               }            

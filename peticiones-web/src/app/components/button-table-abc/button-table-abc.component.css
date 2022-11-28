@@ -11,3 +11,19 @@
 }
 
 
+/*----------------------para table show Administrador*/
+.mat-mini-fab{
+    box-shadow: none;    
+}
+
+.button-remove{
+    background-color: red !important;    
+}
+
+.button-accep{
+    background-color: green !important;    
+}
+
+.button-detail{
+    background-color: yellow !important;
+}

@@ -10,8 +10,8 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
   
-  //url ='http://peticionesdelmuro.ddns.net:3600/api/';
-  url = 'http://127.0.0.1:5000/api/';
+  url ='http://peticionesdelmuro.ddns.net:3600/api/';
+  //url = 'http://127.0.0.1:5000/api/';
   
 
   createBranch(dato: branch):Observable<any>{    

@@ -1,9 +1,27 @@
-.content-container{
-    max-width: 800px;
-    padding: 20px;
-    margin: 0px auto;    
-}
+
 
 .table-container{
-    padding: 16px 12px;
+    margin: 0px auto;
+    width: 100%;
+    padding: 20px 0px;
+}
+
+.table{
+    margin: 0px auto;
+    width: 100%;   
+    text-align: center;
+}
+
+.mat-header-cell{
+    text-align: center;
+}
+
+.mat-elevation-z8{
+    box-shadow: none;
+}
+
+.modules-tab{
+    max-width: 70%;
+    margin: 0px auto;
+    padding: 20px 0px;
 }

@@ -82,11 +82,7 @@ export class LoginComponent implements OnInit {
             }
             //localStorage.removeItem('dataSesion');
           }                    
-        })        
-        
-        
-        
-                
+        });                                                
       }
   }
 

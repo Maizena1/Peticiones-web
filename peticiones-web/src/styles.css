@@ -20,10 +20,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .red-snackbar {
     background: #EC2E2E !important;
-    color: white !important;    
 }
 
 .green-snackbar {
     background: #10B981 !important;
-    color: white !important;
+}
+
+.mat-button-wrapper{
+    color: white;
 }

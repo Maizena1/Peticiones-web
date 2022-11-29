@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   loginSystem(){
       if( this.usuario == '' || this.password == '' ){
-        this._snackBar.open('Error falntan datos 1', 'X', {          
+        this._snackBar.open('Error faltan datos ', 'X', {          
           verticalPosition: this.verticalPosition,            
           duration: 3000,
           panelClass: ['red-snackbar'],
@@ -59,12 +59,7 @@ export class LoginComponent implements OnInit {
               panelClass: ['red-snackbar'],
             });
             localStorage.removeItem('dataSesion');
-          }else{
-            this._snackBar.open(this.response.Mensaje, 'X', {              
-              verticalPosition: this.verticalPosition,
-              duration: 3000,
-              panelClass: ['green-snackbar'],              
-            });                        
+          }else{                                 
             localStorage.removeItem('dataSesion');                        
             localStorage.setItem('dataSesion', JSON.stringify(this.response.usuario[0]));               
             //solo si ya se inicion sesion             

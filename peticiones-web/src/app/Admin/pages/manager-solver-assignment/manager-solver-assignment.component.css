@@ -1,0 +1,10 @@
+.article-content-container{
+    width: 80%;
+    display: flex;
+    gap: 20px;
+
+    margin: 0px auto;
+    padding: 20px;
+
+    background-color: red;
+}

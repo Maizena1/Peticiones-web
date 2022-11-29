@@ -18,7 +18,7 @@
 
                         <div class="input-register">
                             <app-select [label]="'Tipo de problema'" [valuenum]="idTypeProblem" [items]="problemType" [getId]="getId" [getLabel]="getLabel" (onChange)="onChangeIdTypeProblem($event)"></app-select>
-                            <app-input [type]="'number'" [label]="'ID Usuario'" [enable]="enableid" [example]="'13'" [value]="idUser"  ></app-input>
+                            <app-input [type]="'number'" [label]="'ID Usuario'" [enable]="enableid" [example]="'13'" [value]="idUser"  (onChange)="onChangeIdEmployee($event)"></app-input>
                             <mat-slide-toggle class="slide-toggle" [color]="'primary'" [(ngModel)]="isChecked">Activo</mat-slide-toggle>
                         </div>
                         

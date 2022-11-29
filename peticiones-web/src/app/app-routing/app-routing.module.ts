@@ -16,6 +16,7 @@ import { LoginComponent } from '../login/login.component';
 import { RelationArticleBytypeProblemAbcComponent } from '../Admin/pages/relation-article-bytype-problem-abc/relation-article-bytype-problem-abc.component';
 import { ShowRequestAdminComponent } from '../Admin/pages/show-request-admin/show-request-admin.component';
 import { ShowRequestSolverComponent } from '../Solver/show-request-solver/show-request-solver.component';
+import { ManagerSolverAssignmentComponent } from '../Admin/pages/manager-solver-assignment/manager-solver-assignment.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'userByProblemTypeAbc', component: AdminUserByProblemTypeAbcComponent },
       { path: 'articleByProblem', component: RelationArticleBytypeProblemAbcComponent },
       { path: 'showRequested', component: ShowRequestAdminComponent },
+      { path: 'solverAssignament/:fecha', component: ManagerSolverAssignmentComponent },
       { path: '**', component: AdminBranchAbcComponent },
     ],
   },

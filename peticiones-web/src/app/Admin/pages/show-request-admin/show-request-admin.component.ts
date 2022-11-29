@@ -7,10 +7,8 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
 import { problem, table_show, user } from '../../services/type';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
-import { request_table } from 'src/app/components/services/request-table';
+
+
 
 
 @Component({
@@ -26,15 +24,11 @@ export class ShowRequestAdminComponent implements OnInit {
   ItemsTableSlopes : table_show []=[]; 
 //contenido de tabla Revisar
   ItemsTableCheck : table_show []=[]; 
+
+  dataShowProblem : problem | any;
   
   //array principal 
   arrayProblems: problem [] = [] ;
-  //Array General
-  arrayProblemGeneric : problem [] = [];
-  //Array Pendientes
-  arrayProblemSlopes : problem [] = [];
-  //Array revisar
-  arrayProblemCheck : problem [] = [];
 
 
   //nombres de columnas de tabla General
@@ -60,7 +54,7 @@ export class ShowRequestAdminComponent implements OnInit {
             duration: 3000,   
             panelClass: ['red-snackbar'],
           });
-          this.router.navigate(["login"]);              
+          this.router.navigate(["login"]);                        
         }
       }else{        
           //alert("DataSesion no existe en localStorage!!"); 
@@ -87,17 +81,38 @@ export class ShowRequestAdminComponent implements OnInit {
   }
 
   ActionDelete(fecha: string){
-    alert('Fecha Para Rechazar: '+fecha);
+    alert('Fecha Para Rechazar: '+fecha);    
+
+    this.ReloadProblems();
   }
 
-  ActionDetail(fecha: string){
-    alert('Fecha Para Mostrar Detalles: '+fecha);
-  }
 
   ActionAccep(fecha: string){
-    alert('Fecha para Aceptar: '+fecha);    
+    alert('Fecha para asignar: '+ fecha);        
+    this.router.navigate([
+      'admin/solverAssignament/' + fecha,
+    ]);        
   }
 
+  ActionDetail(fecha: string){    
+    //obtener los detalles de la sucursal a mostrar
+    this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
+    const dialogRef = this.dialog.open(DialogDetailComponent, {      
+    data: [
+      {title: 'ID:', data:  this.dataShowProblem.id_problema},      
+      {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},
+      {title: 'Descripcion:', data:this.dataShowProblem.descripcion_problema},      
+      {title: 'Nombre Empleado que solicita:', data:this.dataShowProblem.nombre_empleado},      
+      {title: 'Nombre Sucursal:', data:this.dataShowProblem.nombre_sucursal},      
+      {title: 'Solucionador Designado:', data:this.dataShowProblem.nombre_empleado_designado},
+      {title: 'Estado:', data:this.dataShowProblem.estatus},
+      {title: 'Fecha Solicitud:', data:this.dataShowProblem.fecha_solicitud},
+      {title: 'Fecha de Aceptado:', data:this.dataShowProblem.fecha_aceptado},            
+      {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
+      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},      
+    ],      
+    });  
+  }
 
   ReloadProblems(){
     this.arrayProblems = [];

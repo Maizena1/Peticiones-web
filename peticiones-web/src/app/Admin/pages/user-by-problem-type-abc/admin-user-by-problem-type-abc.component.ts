@@ -71,7 +71,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
       this.arrayUser.forEach((row) => {                   
         this.itemsTable.push({col1: String(row.id_usuario_problema), col2: String(row.tipo_problema) , col3:String(row.usuario), col4:'-' });                
       });                                     
-      //console.table(this.ItemsTable);      
+      //console.table(this.itemsTable);      
     }) 
 
     this.APIPetition.getTypeProblems().subscribe(types => { 
@@ -93,17 +93,14 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
       if( this.inAct != -1){
         this.itemsTable[this.inAct].col2 = String(this.arrayUser[indexUserProblem].tipo_problema);
         this.itemsTable[this.inAct].col3 = String(this.arrayUser[indexUserProblem].usuario);                               
-      }                                            
+      }                            
     }
     
     if(option == 'c'){                        
-      this.itemsTable.push({col1: String(this.arrayUser[this.arrayUser.length -1].id_usuario_problema), col2: String(this.arrayUser[this.arrayUser.length -1].tipo_problema) , col3: String(this.arrayUser[this.arrayUser.length -1].usuario), col4:'-' });                                  
-    }            
+      this.itemsTable.push({col1: String(this.arrayUser[this.arrayUser.length -1].id_usuario_problema), col2: String(this.arrayUser[this.arrayUser.length -1].tipo_problema) , col3: String(this.arrayUser[this.arrayUser.length -1].usuario), col4:'-' });                                        
+    }     
     this.Clearinputs();      
-
   });
-
-  
 }
 
 
@@ -133,7 +130,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
   }
 
   onChangeIdEmployee(data: string){
-    this.idUser = data;
+    this.idUser = data;    
   }
 
   //metodo para la tabla delete,edit, detail

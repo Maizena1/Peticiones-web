@@ -143,8 +143,7 @@ ActionDelete(id: string){
 
   dialogRef.afterClosed().subscribe(result => {
 
-    if ( result == true){
-          
+    if ( result == true){          
         const inDesc = this.ItemsTable.findIndex((element) => element.col1 == id);
               //agregar a la tabla                        
         if(this.ItemsTable[inDesc].col3 == 'Inactivo'){

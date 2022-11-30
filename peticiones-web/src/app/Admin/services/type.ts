@@ -111,23 +111,43 @@ export interface articlebytypeproblem{
 
 export interface problem{
     id_tipo_problema: number;
-    tipo_problema?: string;
+    tipo_problema: string;
+    descripcion_problema: string;
+    id_usuario: number;
+    nombre_empleado: number;
+    id_sucursal: number;
+    nombre_sucursal: string;
+    id_usuario_designado: number;
+    nombre_empleado_designado: string;
+    estatus: string;
+    fecha_solicitud: string;
+    fecha_aceptado: string;
+    fecha_revision: string;
+    fecha_enproceso: string;
+    fecha_terminado: string;
+    fecha_rechazado: string;
+    id_problema: number;
+}
+
+export interface add_problem{
+    id_tipo_problema: number;
     descripcion_problema: string;
     id_usuario?: number;
-    nombre_empleado?: number;
-    id_sucursal?: number;
-    nombre_sucursal?: string;
-    id_usuario_designado?: number;
-    nombre_empleado_designado?: string;
     estatus: string;
-    fecha_solicitud?: string;
-    fecha_aceptado?: string;
-    fecha_revision?: string;
-    fecha_enproceso?: string;
-    fecha_terminado?: string;
-    fecha_rechazado?: string;
-    id_problema?: number;
 }
+
+export interface assignament_problem{
+    id_problema: number;
+    id_usuario_designado:number;
+    estatus: string;    
+}
+
+export interface estatus_problem {
+    id_problema: number;
+    estatus: string;
+}
+
+
 
 export interface table_show {
     col1: string;

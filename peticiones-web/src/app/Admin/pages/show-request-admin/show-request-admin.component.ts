@@ -6,7 +6,7 @@ import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
-import { problem, table_show, user } from '../../services/type';
+import { problem, estatus_problem, response, table_show, user } from '../../services/type';
 
 
 
@@ -29,7 +29,7 @@ export class ShowRequestAdminComponent implements OnInit {
   
   //array principal 
   arrayProblems: problem [] = [] ;
-
+  response: response | any; //subscripcion de respuesta
 
   //nombres de columnas de tabla General
   nameColums: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Botones'];  
@@ -79,11 +79,52 @@ export class ShowRequestAdminComponent implements OnInit {
       this.ActionDetail(data.fecha);
     }  
   }
+  
+  ActionDelete(fecha: string){    
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
+      width: '420px',
+      height: '200px',
+      data: { name: 'Eliminar', subname: '¿Estas seguro que desea Rechazar?'},
+    });
+    dialogRef.afterClosed().subscribe(result => {  
+      if ( result == true){                    
+            const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                         
 
-  ActionDelete(fecha: string){
-    alert('Fecha Para Rechazar: '+fecha);    
+            console.log(idproblem);
+              const datasend : estatus_problem = {                      
+                id_problema: this.arrayProblems[idproblem].id_problema,                
+                estatus: 'RECHAZADO',                                                            
+              };
 
-    this.ReloadProblems();
+              console.table(datasend);
+              this.APIPetition.deleteProblem(datasend,datasend.id_problema).subscribe(response =>{           
+                this.response = response;                                        
+                if(this.response.Estatus == 'Error'){            
+                  this._snackBar.open(this.response.Mensaje, 'X', {                
+                    verticalPosition: this.verticalPosition,                
+                    duration: 3000,
+                    panelClass: ['red-snackbar'],
+                  });
+                }else{
+                  this._snackBar.open(this.response.Mensaje, 'X', {                
+                    verticalPosition: this.verticalPosition,
+                    duration: 3000,
+                    panelClass: ['green-snackbar'],                
+                  });                
+                }                  
+              });      
+              this.ReloadProblems();         
+
+          
+      
+
+              
+                                
+        }
+    });
+
+
+    
   }
 
 
@@ -119,7 +160,7 @@ export class ShowRequestAdminComponent implements OnInit {
     this.ItemsTableGeneric = [];
     this.ItemsTableSlopes = [];
     this.ItemsTableCheck = [];
-    this.APIPetition.getProblems().subscribe(result =>{  
+    this.APIPetition.getProblems().subscribe(result =>{        
       
       if(result.Estatus){
         this._snackBar.open(result.Mensaje, 'X', {      
@@ -151,7 +192,7 @@ export class ShowRequestAdminComponent implements OnInit {
               id_problema:row.id_problema,  
             });                      
   
-          }else if('ACEPTADO'){
+          }else if(row.estatus == 'ACEPTADO'){
             this.arrayProblems.push({
               id_tipo_problema: row.id_tipo_problema ,
               tipo_problema: row.tipo_problema,
@@ -171,7 +212,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
             });
-          }else if('REVISION'){
+          }else if(row.estatus == 'REVISION'){
             this.arrayProblems.push({
               id_tipo_problema: row.id_tipo_problema ,
               tipo_problema: row.tipo_problema,
@@ -191,7 +232,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
             });
-          }else if('PROCESO'){
+          }else if(row.estatus == 'PROCESO'){
             this.arrayProblems.push({
               id_tipo_problema: row.id_tipo_problema ,
               tipo_problema: row.tipo_problema,
@@ -211,7 +252,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
             });
-          }else if('TERMINADO'){
+          }else if(row.estatus == 'TERMINADO'){
             this.arrayProblems.push({
               id_tipo_problema: row.id_tipo_problema ,
               tipo_problema: row.tipo_problema,
@@ -232,7 +273,7 @@ export class ShowRequestAdminComponent implements OnInit {
               id_problema:row.id_problema,  
             });
   
-          }else if('RECHAZADO'){
+          }else if(row.estatus == 'RECHAZADO'){
             this.arrayProblems.push({
               id_tipo_problema: row.id_tipo_problema ,
               tipo_problema: row.tipo_problema,
@@ -254,17 +295,15 @@ export class ShowRequestAdminComponent implements OnInit {
             });
           }                      
         }); 
-
+        
         this.arrayProblems.forEach((row) => {
           this.ItemsTableGeneric.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});          
-            if(row.estatus = 'ESPERA'){
+            if(row.estatus == 'ESPERA'){
               this.ItemsTableSlopes.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
-            }else if(row.estatus = 'REVISION'){
+            }else if(row.estatus == 'REVISION'){
               this.ItemsTableCheck.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
             }
-        });                           
-
-        //console.log(this.ItemsTableGeneric);
+        });                  
       }      
     });
   }

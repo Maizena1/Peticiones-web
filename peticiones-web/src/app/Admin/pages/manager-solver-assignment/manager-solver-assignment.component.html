@@ -4,16 +4,47 @@
         <app-header></app-header>
     </header>
     <body>
-        <div class="article-content-container">            
-            <div class="column_izquierda">
-                <p>columna uno</p>
-            </div>    
-            <div class="column_centro">
-                <p>columna dos</p>
-            </div>    
-            <div class="column_derecha">
-                <p>columna tres</p>
-            </div>                
+        <div class="container">
+            <div class="content-container">
+
+                <div class="title">
+                    <h1>Asignar solucionador al problema</h1>
+                </div>           
+
+                <div class="problem-description">
+                    <div class="date-problem-container">
+                        <p class="date-problem">Tipo de problema:</p>
+                        <p>Eléctrico</p>
+                    </div>
+                    <div>
+                        <p class="date-problem">Descripción: </p>
+                        <p>foco Se fundi foco Se fundi foco Se fundio Se f foco Se fundi foco Se fundi foco Se fundiundi foco Se fundi foco Se fundi foco Se fundie fundi foco Se fundi foco Se fundi foco Se fundi Se fundió el focoSe fundió el focoSe fundió el foco</p>
+                    </div>
+                    <div class="date-problem-container">
+                        <p class="date-problem">Sucursal:</p>
+                        <p>Sucursal 13</p>
+                    </div>
+                    <div class="date-problem-container">
+                        <p class="date-problem">Encargad de tienda:</p>
+                        <p>Guille</p>
+                    </div>
+                </div>
+
+                <div class="assignament-container">
+                    <div class="assignament">
+                        <app-select class="solver-select"></app-select>
+                        <div class="button">
+                            <button mat-flat-button color="primary" class="assignament-button">Asignar</button>                                                                                                                                                
+                        </div>
+                    </div>
+                    <div class="solver-table">
+                        <app-abc-table></app-abc-table>
+                    </div>
+                </div>
+
+            </div>
+                
+
         </div>
     </body>
 </html>

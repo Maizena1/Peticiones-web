@@ -45,7 +45,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
       }
     }
 
-    alert('Fecha Recivida desde Peticiones admin:'+ this.dateReceived );
+    //alert('Fecha Recivida desde Peticiones admin:'+ this.dateReceived );
     //this.router.navigate(['admin/showRequested']);        
   }
 

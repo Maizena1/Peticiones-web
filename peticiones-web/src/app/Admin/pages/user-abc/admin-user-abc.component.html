@@ -17,15 +17,16 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-input [label]="'Usuario'" [(value)]="form.user"></app-input><p>{{form.user}}</p>
+                            <app-input [label]="'Usuario'" [(value)]="form.user"></app-input>
                             <app-input [label]="'Contraseña'" [(value)]="form.password"></app-input>
                             <app-input [label]="'ID empleado'" [(value)]="form.employeeId"></app-input>
-                            <app-select [label]="'Rol'" [(value)]="form.rol" [items]="roles" [getId]="getId" [getLabel]="getLabel"></app-select>{{form.rol}}
+                            <app-select [label]="'Rol'" [valuenum]="idRolSelect" [items]="roles" [getId]="getId" [getLabel]="getLabel"></app-select>
                             <mat-slide-toggle class="slide-toggle" [(ngModel)]="form.status">Activo</mat-slide-toggle>
                         </div>
 
                         <div class="button-container">
-                            <button mat-flat-button color="primary">Agregar</button>
+                            <button mat-flat-button color="primary" *ngIf="button == 'add'">Agregar</button>
+                            <button #update mat-flat-button color="primary" *ngIf="button == 'update'">Actualizar</button>
                         </div>
                         
                     </div>

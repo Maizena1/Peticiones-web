@@ -7,6 +7,7 @@ import { FormBuilder, Validators} from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-admin-user-abc',
@@ -19,17 +20,18 @@ export class AdminUserAbcComponent implements OnInit {
     user: '',
     password: '',
     employeeId: '',
-    rol: '',
     status: false
   }
 
+  estatusUser: string ='';
+  idRolSelect: number = 0;
   roles: [] = [];
 
   response: response | any; //subscripcion de respuesta
   isChecked = true;     //variable para el toggle  
   dataUserShow: user | any; //tipo de dato para buscar  
   enableid : boolean = false; //para poner campo en modo lectura
-  butonAddUpdate : string = ''; 
+  button : string = 'add'; 
 
   value: string = '';
 
@@ -43,7 +45,7 @@ export class AdminUserAbcComponent implements OnInit {
 
   constructor(public dialog: MatDialog ,private router: Router, private APIPeticion: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
   
-    idRol : number = 0;
+    idRol: number = 0;
     dataSesion:user|any;
 
   ngOnInit(): void {
@@ -71,11 +73,17 @@ export class AdminUserAbcComponent implements OnInit {
       this.arrayUser = result;
 
       this.arrayUser.forEach((row) => { 
+        if(row.estatus === 'A'){
+          this.estatusUser = 'Activo';
+        }else{
+          this.estatusUser = 'Inactivo';
+        }
         this.itemsTable.push({
           col1: row.id_usuario?.toString() ?? '', 
           col2: row.usuario , 
-          col3: row.estatus,
-          col4: '-' });
+          col3: this.estatusUser,
+          col4: '-' 
+        });
       });                                      
     }) 
 
@@ -109,20 +117,24 @@ export class AdminUserAbcComponent implements OnInit {
   }
 
   ActionEdit(id: string){
-    this.butonAddUpdate = 'a';
+    this.clearInput();
+    this.button = 'update';
     this.enableid = true;
     this.dataUserShow = this.arrayUser.find(element =>
       element.id_usuario == parseInt(id)  
     );    
+
   }
 
   ActionDatil(id: string){
 
   }
 
-  clearIinput(){
-    this.form.employeeId = '';
+  clearInput(){
+    this.form.user = '';
     this.form.password = '';
+    this.form.employeeId = '';
+    this.idRolSelect = 0;
   }
 
 

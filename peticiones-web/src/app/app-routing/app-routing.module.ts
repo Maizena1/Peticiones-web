@@ -20,7 +20,7 @@ import { ManagerSolverAssignmentComponent } from '../Admin/pages/manager-solver-
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  //{path: '', redirectTo: '/login', pathMatch: 'full'},    
+  {path: '', redirectTo: '/login', pathMatch: 'full'},    
   { path: 'admin', children: [
       { path: 'createRequest', component: CreateRequestComponent },
       { path: 'articleAbc', component: ArticleAbcComponent },
@@ -33,7 +33,7 @@ const routes: Routes = [
       { path: 'articleByProblem', component: RelationArticleBytypeProblemAbcComponent },
       { path: 'showRequested', component: ShowRequestAdminComponent },
       { path: 'solverAssignament/:fecha', component: ManagerSolverAssignmentComponent },
-      { path: '**', component: AdminBranchAbcComponent },
+      { path: '**', component: ShowRequestAdminComponent },
     ],
   },
   { path: 'storeManager', children: [
@@ -46,7 +46,7 @@ const routes: Routes = [
       { path: 'confirmMaterial', component: ConfirmMaterialDetailComponent },
       { path: 'requerimentComponent', component: SolverRequerimentComponent },
       { path: 'showRequested', component: ShowRequestSolverComponent },
-      { path: '**', component: ConfirmMaterialDetailComponent },
+      { path: '**', component: ShowRequestSolverComponent },
     ],
   },
 ];

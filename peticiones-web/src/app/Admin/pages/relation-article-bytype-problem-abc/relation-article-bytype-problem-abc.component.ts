@@ -28,6 +28,9 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     itemsSelecArticles: Item[] =[];
     itemsSelecTypeProblem: Item[]=[];
 
+    itemsTypeproblem: any [] = [];
+    itemsArticles: any [] = [];
+
     response: response | any; //subscripcion de respuesta
     DataArticlePoblemShow: articlebytypeproblem | any; //tipo de dato para buscar  
     enableid : boolean = false; //para poner campo en modo lectura
@@ -75,6 +78,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     //obtener las Tipos de problema
     this.APIAdminPetition.getTypeProblems().subscribe(result =>{                      
       //console.table(this.Arraybranches); 
+      this.itemsTypeproblem = result;
       result.forEach((row:any) => {                                     
           this.itemsSelecTypeProblem.push({_id: row.id_tipo_problema, option: String(row.tipo_problema)});    
       });                                           
@@ -82,6 +86,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     
     //obtener los articulos 
     this.APIAdminPetition.getArticle().subscribe(result =>{                      
+      this.itemsArticles = result
       result.forEach((row:any) => {                           
         this.itemsSelecArticles.push({_id: row.id_codigo_articulo, option: String(row.nombre_articulo)});    
       });                                         
@@ -107,6 +112,30 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     this.idArticle = 0;
     this.idTypeProblem = 0;
   }
+
+
+  getIdTypeProblem(item: any){
+    return item.id_tipo_problema;
+  }
+
+  getLabelTypeProblem(item: any){
+    return item.tipo_problema;
+  }
+
+  getIdArticles(item: any){
+    return item.id_codigo_articulo;
+  }
+
+  getLabelArticles(item: any){
+    return item.nombre_articulo;
+  }
+
+
+
+
+
+
+
 
   onCTypeProblem(data: any){
     this.idTypeProblem = parseInt(data);

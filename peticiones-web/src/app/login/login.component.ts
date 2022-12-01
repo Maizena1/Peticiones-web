@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
             //console.log(this.dataSesion);            
             //console.log(this.dataSesion.id_rol);
             if(this.dataSesion.id_rol == 1){
-              this.router.navigate(["admin/branchAbc"]);     
+              this.router.navigate(["admin/showRequested"]);     
             }
             if(this.dataSesion.id_rol == 2){
               this.router.navigate(["storeManager/createRequest"]);     

@@ -152,7 +152,14 @@ ActionDelete(id: string){
                 duration: 3000,
                 panelClass: ['red-snackbar'],
               });
+        }else if (this.id_sucursal == '16'){
+          this._snackBar.open('No se puede desactivar sucursal oficina', 'X', {                
+            verticalPosition: this.verticalPosition,                
+            duration: 3000,
+            panelClass: ['red-snackbar'],
+          });
         }else{
+
           this.APIAdminPetition.DeleteBranch(parseInt(id)).subscribe(response =>{                    
             this.response = response;                                        
             if(this.response.Estatus == 'Error'){            
@@ -194,14 +201,14 @@ Clearinputs(){
 
 //si es edit
 ActionEdit(id:string){
-  this.butonAddUpdate = 'a';
-  this.enableid = true;      
+  this.butonAddUpdate = 'a';  
   this.dataBranchShow = this.Arraybranches.find(element => 
     element.id_sucursal == parseInt(id)
   );  
   //console.table(this.dataBranchShow);
   //console.table(this.dataBranchShow);
   this.Clearinputs();
+  this.enableid = true;      
   //asignacion de las variables a mostrar
   this.id_sucursal = String(this.dataBranchShow.id_sucursal);  
   this.nombre = this.dataBranchShow.nombre_sucursal;
@@ -357,7 +364,12 @@ CreateBranch() {
               panelClass: ['green-snackbar'],
               //panelClass: ['red-snackbar'],
             });
-            this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: datasend.estatus, col4:'-' });            
+
+            if(datasend.estatus =='A'){
+              this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: 'Activa', col4:'-' });            
+            }else{
+              this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: 'Inactiva', col4:'-' });            
+            }        
             this.ReloadBranches();
             this.Clearinputs();
           }          

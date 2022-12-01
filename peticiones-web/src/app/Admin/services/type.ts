@@ -142,12 +142,30 @@ export interface assignament_problem{
     estatus: string;    
 }
 
+
 export interface estatus_problem {
     id_problema: number;
-    estatus: string;
+    estatus: string;    
+    materials?: materials [];
 }
 
 
+export interface materials {
+    codigo: string;
+    cantidad: number;
+}
+
+
+export interface requeriment {
+    id_requisito_problema?: number;
+    id_problema: number;
+    id_codigo_articulo?: string;
+    nombre_articulo?: string;
+    descripcion_requisito?: string;
+    cantidad: number;
+    unidad: string;
+    precio: number;
+}
 
 export interface table_show {
     col1: string;
@@ -156,3 +174,5 @@ export interface table_show {
     col4: string;
     col5: string;
 }
+
+

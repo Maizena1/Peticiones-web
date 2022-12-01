@@ -24,8 +24,10 @@ export class ShowRequestAdminComponent implements OnInit {
   ItemsTableSlopes : table_show []=[]; 
 //contenido de tabla Revisar
   ItemsTableCheck : table_show []=[]; 
-
   dataShowProblem : problem | any;
+
+  //array de requisitos
+  
   
   //array principal 
   arrayProblems: problem [] = [] ;
@@ -61,10 +63,8 @@ export class ShowRequestAdminComponent implements OnInit {
           this.router.navigate(["login"]);              
       }
     }
-    
     //obtener todos los problemas del servicio
     this.ReloadProblems();    
-
   }
 
   
@@ -90,7 +90,7 @@ export class ShowRequestAdminComponent implements OnInit {
       if ( result == true){                    
             const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                         
 
-            console.log(idproblem);
+            //console.log(idproblem);
               const datasend : estatus_problem = {                      
                 id_problema: this.arrayProblems[idproblem].id_problema,                
                 estatus: 'RECHAZADO',                                                            
@@ -113,23 +113,14 @@ export class ShowRequestAdminComponent implements OnInit {
                   });                
                 }                  
               });      
-              this.ReloadProblems();         
-
-          
-      
-
-              
-                                
+              this.ReloadProblems();                                                                       
         }
-    });
-
-
-    
+    });    
   }
 
 
   ActionAccep(fecha: string){
-    alert('Fecha para asignar: '+ fecha);        
+    //alert('Fecha para asignar: '+ fecha);        
     this.router.navigate([
       'admin/solverAssignament/' + fecha,
     ]);        
@@ -154,6 +145,56 @@ export class ShowRequestAdminComponent implements OnInit {
     ],      
     });  
   }
+
+
+  onChangeActionTableRequirement(data: any){  
+    //alert(data.id+"---"+data.action);
+    if(data.action === 'delete'){
+      this.ActionDeleteRequeriment(data.fecha);
+    }else if(data.action === 'accep'){
+      this.ActionAccepRequeriment(data.fecha);
+    }else if(data.action === 'detail'){
+      this.ActionDetailRequeriment(data.fecha);
+    }  
+  }
+
+  ActionDeleteRequeriment(fecha: string){
+      
+  }
+
+  ActionAccepRequeriment(fecha: string){
+      
+  }
+    
+ //obtener requisitos
+  ActionDetailRequeriment(fecha: string){
+    //obtener los detalles de la sucursal a mostrar
+    const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                         
+    //pendiente????------
+    this.APIPetition.getRequirementProblem(this.arrayProblems[idproblem].id_problema).subscribe(result =>{                 
+      console.log(result);
+    }); 
+
+    this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
+    const dialogRef = this.dialog.open(DialogDetailComponent, {      
+    data: [      
+      {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},
+      {title: 'Descripcion:', data:this.dataShowProblem.descripcion_problema},      
+      {title: 'Nombre Empleado que solicita:', data:this.dataShowProblem.nombre_empleado},      
+      {title: 'Nombre Sucursal:', data:this.dataShowProblem.nombre_sucursal},      
+      {title: 'Solucionador Designado:', data:this.dataShowProblem.nombre_empleado_designado},            
+      {title: 'Fecha Solicitud:', data:this.dataShowProblem.fecha_solicitud},
+      {title: 'Fecha de Aceptado:', data:this.dataShowProblem.fecha_aceptado},            
+      {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
+      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},      
+      {title: 'Requisitos:', data:'----------'},            
+
+    ],      
+    });  
+  }
+
+
+
 
   ReloadProblems(){
     this.arrayProblems = [];

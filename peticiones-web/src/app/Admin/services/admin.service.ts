@@ -149,4 +149,9 @@ export class AdminService {
     return this.http.put(`${this.url}estatus-problema/${id}`,dato);
   }
   
+
+  //requisitos------------------------------------------------
+  getRequirementProblem(id:number):Observable<any>{    
+    return this.http.get(`${this.url}requisitos-problema/${id}`);
+  }
 } 

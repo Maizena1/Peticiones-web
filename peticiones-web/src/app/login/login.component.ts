@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { AdminService } from '../Admin/services/admin.service';
-import { login, response, user } from '../Admin/services/type';
+import { login, response, User } from '../Admin/services/type';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   usuario: string = '';
   password: string = ''
   response: response | any;
-  dataSesion: user | any;
+  dataSesion: User | any;
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
 
   constructor(private router: Router, private APIAdminPetition: AdminService,private _snackBar: MatSnackBar,) { }

@@ -101,7 +101,9 @@ export class AdminBranchAbcComponent implements OnInit {
 
 
 //metodo para la tabla delete,edit, detail
-onChangeActionTable(data: any){  
+onClickAction(data: any){  
+  
+  console.log(data.action)
   //alert(data.id+"---"+data.action);
   if(data.action === 'delete'){
     this.ActionDelete(data.id);
@@ -109,6 +111,7 @@ onChangeActionTable(data: any){
     this.ActionEdit(data.id);
   }else if(data.action === 'detail'){
     this.ActionDatil(data.id);
+    
   }  
 }
 

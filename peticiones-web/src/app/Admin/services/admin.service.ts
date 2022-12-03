@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { article, articlebytypeproblem, branch, employee, estatus_problem, login, problem, store, type_of_problem, User, user_problem } from './type';
+import { article, articlebytypeproblem, assignament_problem, branch, employee, estatus_problem, login, User, store, type_of_problem, user_problem } from './type';
 
 @Injectable({
   providedIn: 'root'
@@ -57,10 +57,6 @@ export class AdminService {
   getRol():Observable<any>{    
     return this.http.get(`${this.url}/roles`);
   }
-
-  // createUser():Observable<any>{    
-  //   return this.http.get(`${this.url}/guardarUsuario`);
-  // }
 
   createUser(user: Omit<User,'id_usuario' | 'login'>):Observable<any>{
     return this.http.post(`${this.url}registrar-usuario`, user);
@@ -156,9 +152,19 @@ export class AdminService {
     return this.http.put(`${this.url}estatus-problema/${id}`,dato);
   }
   
+  assignamentProblem(dato: assignament_problem , id: number):Observable<any>{
+    return this.http.put(`${this.url}estatus-problema/${id}`,dato);
+  }
 
   //requisitos------------------------------------------------
   getRequirementProblem(id:number):Observable<any>{    
     return this.http.get(`${this.url}requisitos-problema/${id}`);
   }
+
+  //obtencion de empleados por tipo de problema
+  getTypeUserProblem(id:number):Observable<any>{    
+    return this.http.get(`${this.url}usuario-tipo-problema/${id}`);
+  }  
+
+
 } 

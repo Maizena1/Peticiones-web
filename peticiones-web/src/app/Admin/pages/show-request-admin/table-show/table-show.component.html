@@ -1,6 +1,6 @@
 <div class="abc-table-container">
 
-    <mat-form-field appearance="standard">
+    <mat-form-field appearance="standard" *ngIf="optionFilter =='si'">
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
     </mat-form-field>
@@ -46,9 +46,12 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      <tr class="mat-row" *matNoDataRow >
+        <td class="mat-cell" colspan="4">No data matching the filter</td>
       </tr>
+      <!--
+        {{input.value}}
+      -->
     </table>
     
     <mat-paginator [pageSizeOptions]="[5, 10, 15]" ></mat-paginator>

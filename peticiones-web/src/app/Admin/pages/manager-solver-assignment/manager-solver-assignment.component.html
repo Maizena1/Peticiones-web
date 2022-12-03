@@ -12,39 +12,49 @@
                 </div>           
 
                 <div class="problem-description">
-                    <div class="date-problem-container">
-                        <p class="date-problem">Tipo de problema:</p>
-                        <p>Eléctrico</p>
+
+                    <div *ngIf="uploadDataProblem()"></div>
+                    
+                    <div class="date-problem-container" >
+                        <p class="date-problem">Tipo de problema: </p>
+                        <p>{{nameTypeProblem}}</p>
                     </div>
                     <div>
                         <p class="date-problem">Descripción: </p>
-                        <p>foco Se fundi foco Se fundi foco Se fundio Se f foco Se fundi foco Se fundi foco Se fundiundi foco Se fundi foco Se fundi foco Se fundie fundi foco Se fundi foco Se fundi foco Se fundi Se fundió el focoSe fundió el focoSe fundió el foco</p>
+                        <p>{{nameDescriptionProblem}}</p>
                     </div>
                     <div class="date-problem-container">
-                        <p class="date-problem">Sucursal:</p>
-                        <p>Sucursal 13</p>
+                        <p class="date-problem">Sucursal: </p>
+                        <p>{{namebranch}}</p>
                     </div>
                     <div class="date-problem-container">
-                        <p class="date-problem">Encargad de tienda:</p>
-                        <p>Guille</p>
+                        <p class="date-problem">Encargado(a) de tienda: </p>
+                        <p>{{nameStoremanger}}</p>
+                    </div>
+                    <div class="date-problem-container">
+                        <p class="date-problem">Fecha de Solicitud: </p>
+                        <p>{{dateSolicitud}}</p>
                     </div>
                 </div>
 
                 <div class="assignament-container">
-                    <div class="assignament">
-                        <app-select class="solver-select"></app-select>
+                    <div class="assignament">                    
+                        <app-select class="solver-select" [label]="'Empleado Solucionador'" [valuenum]="idUser" [items]="arrayUser"  [getId]="getId" [getLabel]="getLabel" (onChange)="onChangeIdUser($event)"></app-select>
                         <div class="button">
-                            <button mat-flat-button color="primary" class="assignament-button">Asignar</button>                                                                                                                                                
+                            <button mat-flat-button color="primary" class="assignament-button" (click)="assignamentSolver()">Asignar</button>                                                                                                                                                
                         </div>
                     </div>
-                    <div class="solver-table">
-                        <app-abc-table></app-abc-table>
+
+                    <div class="title-table">
+                        <h2>Tabla de problemas previos asignados</h2>
                     </div>
+                    
+                    <div class="solver-table" *ngIf="ItemsTableUser.length > 0">
+                        <app-table-show [items]="ItemsTableUser" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" [optionFilter]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>
+                    </div>
+
                 </div>
-
-            </div>
-                
-
+            </div>            
         </div>
     </body>
 </html>

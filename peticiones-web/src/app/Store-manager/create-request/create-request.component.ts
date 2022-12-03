@@ -13,14 +13,11 @@ import { User } from 'src/app/Admin/services/type';
 })
 export class CreateRequestComponent implements OnInit {
 
-  form = {
-    problemType: '',
-    descriptionProblem: ''
-  }
 
+  problemType: number = 0;
   descriptionProblem: string = '';
 
-  problemTypes: [] = [];
+  problemTypes: any [] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
   
@@ -60,8 +57,14 @@ export class CreateRequestComponent implements OnInit {
     return item.tipo_problema;
   }
 
-  getProblemType(type: any){
-    this.form.problemType = type;
+  getProblemType(id: string){
+    this.problemType = parseInt(id);
   }
+
+  getDescriptionProblem(desc : string){
+    this.descriptionProblem = desc;
+  }
+
+  
 
 }

@@ -32,7 +32,7 @@ const routes: Routes = [
       { path: 'userByProblemTypeAbc', component: AdminUserByProblemTypeAbcComponent },
       { path: 'articleByProblem', component: RelationArticleBytypeProblemAbcComponent },
       { path: 'showRequested', component: ShowRequestAdminComponent },
-      { path: 'solverAssignament/:fecha', component: ManagerSolverAssignmentComponent },
+      { path: 'solverAssignament/:fecha/tipoproblema/:idtipo', component: ManagerSolverAssignmentComponent },
       { path: '**', component: ShowRequestAdminComponent },
     ],
   },

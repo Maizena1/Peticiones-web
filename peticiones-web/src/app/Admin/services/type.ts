@@ -136,8 +136,7 @@ export interface add_problem{
     estatus: string;
 }
 
-export interface assignament_problem{
-    id_problema: number;
+export interface assignament_problem{    
     id_usuario_designado:number;
     estatus: string;    
 }

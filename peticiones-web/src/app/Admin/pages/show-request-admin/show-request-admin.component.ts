@@ -121,8 +121,9 @@ export class ShowRequestAdminComponent implements OnInit {
 
   ActionAccep(fecha: string){
     //alert('Fecha para asignar: '+ fecha);        
-    this.router.navigate([
-      'admin/solverAssignament/' + fecha,
+    this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
+    this.router.navigate([      
+      'admin/solverAssignament/' + fecha+'/tipoproblema/'+this.dataShowProblem.id_tipo_problema,
     ]);        
   }
 
@@ -175,6 +176,7 @@ export class ShowRequestAdminComponent implements OnInit {
       console.log(result);
     }); 
 
+    
     this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
     const dialogRef = this.dialog.open(DialogDetailComponent, {      
     data: [      

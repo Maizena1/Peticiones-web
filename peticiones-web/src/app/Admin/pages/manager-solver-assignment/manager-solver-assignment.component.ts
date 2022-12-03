@@ -6,7 +6,7 @@ import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
-import { assignament_problem, problem, response, table_show, user, user_problem } from '../../services/type';
+import { assignament_problem, problem, response, table_show, User, user_problem } from '../../services/type';
 
 
 @Component({
@@ -44,7 +44,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
   }
 
   idRol : number = 0;
-  dataSesion:user|any;
+  dataSesion:User|any;
   ngOnInit(): void {
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        

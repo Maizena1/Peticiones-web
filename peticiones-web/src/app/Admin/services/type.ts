@@ -38,14 +38,14 @@ export interface type_of_problem{
 }
 
 //usuario
-export interface user{
-    id_usuario?: number;
+export interface User{
+    id_usuario: number;
     id_empleado: number;
     id_rol: number;
     usuario: string;
     password: string;
     estatus: string;
-    login?: number;
+    login: number;
 }
 
 
@@ -66,7 +66,7 @@ export interface user_problem{
 export interface response{
     Mensaje: string;
     Estatus: string;
-    usuario? : user [];
+    usuario? : User [];
 }
   
 export interface Item {

@@ -19,11 +19,7 @@ export class SelectComponent<T> implements OnInit {
   
   @Input() label: string = 'sin nombre'; 
   @Input() items: T[] = []; 
-  @Input() valuenum: number = 0;
   @Input() disabled: boolean = false ; 
-  valor : String='';
-  //se envia 
-  @Output() onChange = new EventEmitter<T>();    
   
   constructor() {}
 
@@ -31,7 +27,8 @@ export class SelectComponent<T> implements OnInit {
   
   getdata(item: T){
     //console.log(data);    
-    this.onChange.emit(item);
+    this.valueChange.emit(item);
+    console.log(item)
     //alert(data);
   }
 

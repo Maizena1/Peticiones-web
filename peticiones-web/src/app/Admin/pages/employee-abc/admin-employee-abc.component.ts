@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { employee, response, Item, user } from '../../services/type';
+import { employee, response, Item, User } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import {FormBuilder, Validators} from '@angular/forms';
@@ -19,7 +19,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
   //declaracion de variables para registrar sucursal    
   idEmpleado : string ='';
   nombre: string ='';  
-  idSucursal: number = 0;
+  idSucursal: string = '';
   correo: string ='';
   telefono: string ='';
   estatus: string ='';
@@ -51,7 +51,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
  
   idRol : number = 0;
-  dataSesion:user|any;
+  dataSesion:User|any;
   ngOnInit(): void {
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
@@ -110,7 +110,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
 
   
   onChangeIdBranch(data: string){
-     this.idSucursal = parseInt(data);
+     this.idSucursal = data;
   }
 
   //obtener el id de la sucursal
@@ -138,7 +138,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
     this.enableid = false;  
     this.idEmpleado ='';
     this.nombre ='';    
-    this.idSucursal=0;
+    this.idSucursal = '';
     this.correo ='';
     this.telefono='';
     this.estatus ='';    
@@ -269,7 +269,7 @@ UpdateEmployee(){
     //llenar data a enviar
       const datasend : employee = {                      
         nombre_empleado: this.nombre,
-        id_sucursal: this.idSucursal,
+        id_sucursal: parseInt(this.idSucursal),
         correo: this.correo,
         telefono: this.telefono,
         estatus: this.estatus,                                                                             
@@ -329,7 +329,7 @@ CreateEmployee() {
       //alert(this.estatus);
   }
                           
-  if((this.nombre == '')|| (this.idSucursal == 0)|| (this.idEmpleado == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {                      
+  if((this.nombre == '')|| (this.idSucursal == '')|| (this.idEmpleado == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {                      
     //alert("error faltan datos");      
     //this._snackBar.open('Error faltan datos para actualizar', 'X');          
     this._snackBar.open('Error faltan datos', 'X', {        
@@ -344,7 +344,7 @@ CreateEmployee() {
     const datasend : employee = {     
       id_empleado: parseInt(this.idEmpleado),                 
       nombre_empleado: this.nombre,
-      id_sucursal: this.idSucursal,
+      id_sucursal: parseInt(this.idSucursal),
       correo: this.correo,
       telefono: this.telefono,
       estatus: this.estatus,                                                                             

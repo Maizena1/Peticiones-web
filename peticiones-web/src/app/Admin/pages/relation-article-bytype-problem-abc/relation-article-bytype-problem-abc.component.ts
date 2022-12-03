@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { response, Item, articlebytypeproblem, user } from '../../services/type';
+import { response, Item, articlebytypeproblem, User } from '../../services/type';
 import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import {FormBuilder} from '@angular/forms';
@@ -17,8 +17,8 @@ import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-d
 export class RelationArticleBytypeProblemAbcComponent implements OnInit {
 
     id:string = '';
-    idArticle: number = 0;    
-    idTypeProblem: number =0;
+    idArticle: string = '';    
+    idTypeProblem: string = '';
 
     //arreglo donde de almacenara todos los empleados
     ArrayArticleProblem: articlebytypeproblem[]=[];
@@ -44,7 +44,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
 
    //para validar lo de sesion  y rol  
    idRol : number = 0;
-   dataSesion:user|any;
+   dataSesion:User|any;
   ngOnInit(): void {
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
@@ -109,8 +109,8 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
   Clearinputs(){
     //limpieza    
     this.enableid = false;      
-    this.idArticle = 0;
-    this.idTypeProblem = 0;
+    this.idArticle = '';
+    this.idTypeProblem = '';
   }
 
 
@@ -138,11 +138,11 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
 
 
   onCTypeProblem(data: any){
-    this.idTypeProblem = parseInt(data);
+    this.idTypeProblem = data;
   }
 
   onChangeIdArticle(data: any){
-    this.idArticle = parseInt(data);    
+    this.idArticle = data;    
   }
 
 
@@ -162,14 +162,14 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
   this.Clearinputs();
   //asignacion de las variables a mostrar                
   this.id = id;
-  this.idTypeProblem = parseInt(this.DataArticlePoblemShow.id_tipo_problema);
+  this.idTypeProblem = this.DataArticlePoblemShow.id_tipo_problema;
   this.idArticle = this.DataArticlePoblemShow.id_codigo_articulo;
 
   //console.log(this.idSucursal+'---'+this.idArticle);  
 }
 
 UpdateRelation(){
-  if((this.idTypeProblem == 0)||(String(this.idTypeProblem).length !=10)||( String(this.idArticle).length !=10 ) || (this.idArticle == 0)) {
+  if((this.idTypeProblem == '')||(String(this.idTypeProblem).length !=10)||( String(this.idArticle).length !=10 ) || (this.idArticle == '')) {
                           
     //this._snackBar.open('Error faltan datos para actualizar', 'x');    
     this._snackBar.open('Error faltan datos', 'X', {      
@@ -182,7 +182,7 @@ UpdateRelation(){
     //llenar data a enviar
       const datasend : articlebytypeproblem = {                            
         id_codigo_articulo: String(this.idArticle),
-        id_tipo_problema: this.idTypeProblem,        
+        id_tipo_problema: parseInt(this.idTypeProblem),        
       };      
       //console.log(this.id);
       //console.table(datasend);
@@ -190,8 +190,8 @@ UpdateRelation(){
       this.APIAdminPetition.UpdatedArticleProblem(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
         this.response = response;           
         this.id =this.idupdate ;        // se iguala porque se puedan usar
-        this.idArticle = parseInt(datasend.id_codigo_articulo);
-        this.idTypeProblem = datasend.id_tipo_problema;
+        this.idArticle = datasend.id_codigo_articulo;
+        this.idTypeProblem = datasend.id_tipo_problema.toString();
 
         if(this.response.Estatus == 'Error'){            
           this._snackBar.open(this.response.Mensaje, 'X', {          
@@ -227,7 +227,7 @@ UpdateRelation(){
 }
 
 CreateRelation(){
-  if((this.idTypeProblem == 0)||(String(this.idTypeProblem).length !=10)||( String(this.idArticle).length !=10 ) || (this.idArticle == 0)) {
+  if((this.idTypeProblem == '')||(String(this.idTypeProblem).length !=10)||( String(this.idArticle).length !=10 ) || (this.idArticle == '')) {
                           
     //this._snackBar.open('Error faltan datos para actualizar', 'x');    
     this._snackBar.open('Error faltan datos', 'X', {      
@@ -240,15 +240,15 @@ CreateRelation(){
     //llenar data a enviar
       const datasend : articlebytypeproblem = {                            
         id_codigo_articulo: String(this.idArticle),
-        id_tipo_problema: this.idTypeProblem,        
+        id_tipo_problema: parseInt(this.idTypeProblem),        
       };      
       //console.log(this.id);
       //console.table(datasend);
       this.idupdate = this.id;      
       this.APIAdminPetition.createArticleProblem(datasend).subscribe(response =>{                    
         this.response = response;                           
-        this.idArticle = parseInt(datasend.id_codigo_articulo);
-        this.idTypeProblem = datasend.id_tipo_problema;
+        this.idArticle = datasend.id_codigo_articulo;
+        this.idTypeProblem = datasend.id_tipo_problema.toString();
 
         if(this.response.Estatus == 'Error'){            
           this._snackBar.open(this.response.Mensaje, 'X', {          

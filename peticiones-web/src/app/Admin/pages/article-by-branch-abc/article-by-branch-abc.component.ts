@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { response, Item, store, user } from '../../services/type';
+import { response, Item, store, User } from '../../services/type';
 import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import {FormBuilder} from '@angular/forms';
@@ -21,8 +21,8 @@ export class ArticleByBranchAbcComponent implements OnInit {
 
   //declaracion de variables para registrar sucursal    
   id: string = '';
-  idSucursal : number = 0;
-  idArticle: number = 0;    
+  idSucursal : string = '';
+  idArticle: string = '';    
   totalAmount: string ='';
   totalAvailable: string ='';  
   tipo: string ='';
@@ -53,7 +53,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
 
   idRol : number = 0;
-  dataSesion:user|any;
+  dataSesion: User|any;
   ngOnInit(): void {
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
@@ -132,19 +132,19 @@ export class ArticleByBranchAbcComponent implements OnInit {
     this.isChecked == true;
     this.enableid = false;      
     this.id = '';
-    this.idSucursal=0;
-    this.idArticle=0;    
+    this.idSucursal = '';
+    this.idArticle = '';    
     this.totalAmount = '';
     this.totalAvailable='';
     this.tipo = '';
   }
 
   onChangeIdBranch(data: string){
-    this.idSucursal = parseInt(data);
+    this.idSucursal = (data);
   }
 
   onChangeIdArticle(data: string){
-    this.idArticle = parseInt(data);    
+    this.idArticle = data;    
   }
 
   onChangeTotalAmount(data: string){
@@ -221,7 +221,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
     //alert(this.estatus);
   }
 
-  if((this.idSucursal == 0)||( String(this.idArticle).length !=10 ) || (this.idArticle == 0) || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {
+  if((this.idSucursal == '')||( String(this.idArticle).length !=10 ) || (this.idArticle == '') || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {
                           
     //this._snackBar.open('Error faltan datos para actualizar', 'x');    
     this._snackBar.open('Error faltan datos', 'X', {      
@@ -280,7 +280,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
       //alert(this.estatus);
   }
                           
-  if((this.idSucursal == 0)||( String(this.idArticle).length !=10 ) || (this.idArticle == 0) || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {                              
+  if((this.idSucursal == '')||( String(this.idArticle).length !=10 ) || (this.idArticle == '') || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {                              
     this._snackBar.open('Error faltan datos', 'X', {        
       verticalPosition: this.verticalPosition,
       //panelClass: ['green-snackbar'],
@@ -290,7 +290,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
 
     //llenar data a enviar
     const datasend : store = {                      
-      id_sucursal: this.idSucursal,
+      id_sucursal: parseInt(this.idSucursal),
       id_codigo_articulo: String(this.idArticle),
       cantidad_total: parseInt(this.totalAmount),
       cantidad_disponible:parseInt(this.totalAvailable),

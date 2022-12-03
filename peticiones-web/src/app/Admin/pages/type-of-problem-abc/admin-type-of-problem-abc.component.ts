@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { response, type_of_problem, user } from '../../services/type';
+import { response, type_of_problem, User } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import {FormBuilder, Validators} from '@angular/forms';
@@ -41,7 +41,7 @@ export class AdminTypeOfProblemAbcComponent implements OnInit {
 
   //para validar lo de sesion  y rol  
   idRol : number = 0;
-  dataSesion:user|any;
+  dataSesion:User|any;
   ngOnInit(): void {    
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        

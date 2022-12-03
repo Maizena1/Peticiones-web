@@ -4,9 +4,7 @@ import { AdminService } from 'src/app/Admin/services/admin.service';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
-import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
-import { user } from 'src/app/Admin/services/type';
+import { User } from 'src/app/Admin/services/type';
 
 @Component({
   selector: 'app-create-request',
@@ -27,12 +25,12 @@ export class CreateRequestComponent implements OnInit {
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
   
   idRol : number = 0;
-  dataSesion:user|any;
+  dataSesion:User|any;
   ngOnInit(): void {
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
-        const userJson = localStorage.getItem('dataSesion');
-        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
+        const UserJson = localStorage.getItem('dataSesion');
+        this.dataSesion = UserJson !== null ? JSON.parse(UserJson) : console.log('Estoy devolviendo nulo');                                
         this.idRol = this.dataSesion.id_rol;        
         if(this.idRol != 2){          
           this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      

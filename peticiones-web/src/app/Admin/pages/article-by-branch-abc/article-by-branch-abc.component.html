@@ -18,8 +18,8 @@
 
                         <div class="input-register">                 
                                        
-                            <app-select [label]="'Sucursal'" [valuenum]="idSucursal" [items]="branches" [getId]="getIdBranches" [getLabel]="getLabelBranches" [disabled]="enableid" (onChange)="onChangeIdBranch($event)"></app-select>
-                            <app-select [label]="'Articulo'" [valuenum]="idArticle" [items]="articles"  [getId]="getIdArticle" [getLabel]="getLabelArticle" [disabled]="enableid" (onChange)="onChangeIdArticle($event)"></app-select>
+                            <app-select [label]="'Sucursal'" [(value)]="idSucursal" [items]="branches" [getId]="getIdBranches" [getLabel]="getLabelBranches" [disabled]="enableid"></app-select>
+                            <app-select [label]="'Articulo'" [(value)]="idArticle" [items]="articles"  [getId]="getIdArticle" [getLabel]="getLabelArticle" [disabled]="enableid"></app-select>
                             <app-input [type]="'number'" [label]="'Cantidad total'" [example]="'30'" [value]="totalAmount" (onChange)="onChangeTotalAmount($event)"></app-input>                            
                             <app-input [type]="'number'" [label]="'Cantidad disponible'" [value]="totalAvailable" (onChange)="onChangeTotalAvailable($event)"></app-input>                            
                             <mat-slide-toggle [color]="'primary'" class="slide-toggle" [(ngModel)]="isChecked">Valioso</mat-slide-toggle>

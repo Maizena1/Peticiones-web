@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { branch, response, user } from '../../services/type';
+import { branch, response, User } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { FormBuilder, Validators} from '@angular/forms';
@@ -48,7 +48,7 @@ export class AdminBranchAbcComponent implements OnInit {
   
   //------------------------------------------------  
   idRol : number = 0;
-  dataSesion:user|any;
+  dataSesion:User|any;
   ngOnInit(): void {
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        

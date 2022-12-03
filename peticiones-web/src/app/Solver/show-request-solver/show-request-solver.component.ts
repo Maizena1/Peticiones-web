@@ -6,7 +6,7 @@ import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition}
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
-import { user } from 'src/app/Admin/services/type';
+import { User } from 'src/app/Admin/services/type';
 import { MatTableDataSource } from '@angular/material/table';
 
 import {MatSort} from '@angular/material/sort';
@@ -58,7 +58,7 @@ export class ShowRequestSolverComponent implements OnInit {
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
 
   idRol : number = 0;
-  dataSesion:user|any;
+  dataSesion: User|any;
 
   
   ngOnInit(): void {

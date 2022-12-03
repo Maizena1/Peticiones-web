@@ -1,9 +1,9 @@
 <mat-form-field class="example-full-width select" appearance="fill">
   <mat-label>{{label}}</mat-label>
-  <mat-select  class="size-input-option-select"  [formControl]="SelectFormControl" [ngModel]="valuenum" [disabled]="disabled" (valueChange)="getdata($event)" name="select">
+  <mat-select  class="size-input-option-select"  [formControl]="SelectFormControl" [disabled]="disabled" (valueChange)="getdata($event)" name="select">
       <mat-option *ngFor="let item of items;" [value]="getId(item)">{{getLabel(item)}}</mat-option>      
   </mat-select>  
   <mat-error *ngIf="SelectFormControl.hasError('required')">
-    ingrese {{label}} es <strong>requerid@</strong>
+    Ingrese {{label}} es <strong>requerid@</strong>
   </mat-error>
 </mat-form-field>

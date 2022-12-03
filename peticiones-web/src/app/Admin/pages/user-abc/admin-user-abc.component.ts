@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../../services/type';
-import { user, response } from '../../services/type';
-import { ActivatedRoute, Router } from '@angular/router';
+import { User, response } from '../../services/type';
+import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
-import { FormBuilder, Validators} from '@angular/forms';
+import { FormBuilder, } from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { ThisReceiver } from '@angular/compiler';
+import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-admin-user-abc',
@@ -17,9 +17,10 @@ import { ThisReceiver } from '@angular/compiler';
 export class AdminUserAbcComponent implements OnInit {
 
   form = {
-    user: '',
+    userName: '',
     password: '',
-    employeeId: '',
+    employeeId:'',
+    roleId: '',
     status: false
   }
 
@@ -28,14 +29,14 @@ export class AdminUserAbcComponent implements OnInit {
   roles: [] = [];
 
   response: response | any; //subscripcion de respuesta
-  isChecked = true;     //variable para el toggle  
-  dataUserShow: user | any; //tipo de dato para buscar  
+  toggle = true;     //variable para el toggle  
+  dataUserShow: User | any; //tipo de dato para buscar  
   enableid : boolean = false; //para poner campo en modo lectura
   button : string = 'add'; 
 
   value: string = '';
 
-  arrayUser: user [] = [];
+  arrayUser: User [] = [];
   itemsTable : request_table [] = []; 
 
   nameColum: string[] = ['ID','Usuario','Estatus','Botones'];
@@ -43,10 +44,10 @@ export class AdminUserAbcComponent implements OnInit {
   itemsArray: Item[] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  constructor(public dialog: MatDialog ,private router: Router, private APIPeticion: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
+  constructor(public dialog: MatDialog ,private router: Router, private adminService: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
   
     idRol: number = 0;
-    dataSesion:user|any;
+    dataSesion:User|any;
 
   ngOnInit(): void {
 
@@ -69,7 +70,7 @@ export class AdminUserAbcComponent implements OnInit {
       }
     }        
 
-    this.APIPeticion.getUsers().subscribe(result =>{   
+    this.adminService.getUsers().subscribe(result =>{   
       this.arrayUser = result;
 
       this.arrayUser.forEach((row) => { 
@@ -87,19 +88,30 @@ export class AdminUserAbcComponent implements OnInit {
       });                                      
     }) 
 
-    this.APIPeticion.getRol().subscribe(role => {
+    this.adminService.getRol().subscribe(role => {
       this.roles = role;
     })
 
   }
   
   getId(item: any){
-    return item.id_rol
+    return item.id_rol.toString()
   }
 
   getLabel(item: any){
     return item.nombre_rol
   }
+
+  createUser(){
+
+    const { userName, password, employeeId, roleId } = this.form
+
+    const estatus = this.form.status ? 'A' : 'B';
+
+    this.adminService.createUser({id_empleado: parseInt(employeeId), password, estatus, usuario: userName, id_rol: parseInt(roleId)}).subscribe()
+
+  }
+
 
   onChangeActionTable(data: any){  
     if(data.action === 'delete'){
@@ -112,17 +124,15 @@ export class AdminUserAbcComponent implements OnInit {
       this.ActionDatil(data.id);
     }  
   }
-  ActionDelete(id: string){
 
+
+
+  ActionDelete(id: string){
+   
   }
 
   ActionEdit(id: string){
-    this.clearInput();
-    this.button = 'update';
-    this.enableid = true;
-    this.dataUserShow = this.arrayUser.find(element =>
-      element.id_usuario == parseInt(id)  
-    );    
+
 
   }
 
@@ -131,9 +141,8 @@ export class AdminUserAbcComponent implements OnInit {
   }
 
   clearInput(){
-    this.form.user = '';
+    this.form.userName = '';
     this.form.password = '';
-    this.form.employeeId = '';
     this.idRolSelect = 0;
   }
 

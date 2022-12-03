@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { request_table } from 'src/app/components/services/request-table';
 import { AdminService } from '../../services/admin.service';
-import { response, user, user_problem } from '../../services/type';
+import { response, User, user_problem } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
@@ -10,16 +10,16 @@ import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-d
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
 
 @Component({
-  selector: 'app-admin-user-by-problem-type-abc',
-  templateUrl: './admin-user-by-problem-type-abc.component.html',
-  styleUrls: ['./admin-user-by-problem-type-abc.component.css']
+  selector: 'app-admin-User-by-problem-type-abc',
+  templateUrl: './admin-User-by-problem-type-abc.component.html',
+  styleUrls: ['./admin-User-by-problem-type-abc.component.css']
 })
 export class AdminUserByProblemTypeAbcComponent implements OnInit {
 
   problemType: any [] = [];
 
   id: string = '';
-  idTypeProblem: number = 0;
+  idTypeProblem: string = '';
   idUser: string ='';
   estatus: string = '';
   dataUserByTypeProblem: user_problem | any;
@@ -43,13 +43,13 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
 
   idRol : number = 0;
-  dataSesion:user|any;
+  dataSesion:User|any;
   ngOnInit(): void {
 
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
-        const userJson = localStorage.getItem('dataSesion');
-        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
+        const UserJson = localStorage.getItem('dataSesion');
+        this.dataSesion = UserJson !== null ? JSON.parse(UserJson) : console.log('Estoy devolviendo nulo');                                
         this.idRol = this.dataSesion.id_rol;        
         if(this.idRol != 1){          
           this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
@@ -108,7 +108,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     //limpieza
     this.isChecked == true;
     this.enableid = false;  
-    this.idTypeProblem = 0;
+    this.idTypeProblem = '';
     this.id = '';
     this.idUser = '';
     this.estatus ='';    
@@ -126,7 +126,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
 
 
   onChangeIdTypeProblem(data: string){
-    this.idTypeProblem = parseInt(data);
+    this.idTypeProblem = data;
   }
 
   onChangeIdEmployee(data: string){
@@ -235,7 +235,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
       this.estatus = 'B';
     }
 
-    if((this.idTypeProblem == 0)||(this.idUser == '') || this.estatus == ''){
+    if((this.idTypeProblem == '')||(this.idUser == '') || this.estatus == ''){
                           
       //this._snackBar.open('Error faltan datos para actualizar', 'x');    
       this._snackBar.open('Error faltan datos', 'X', {      
@@ -247,7 +247,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
       
       //llenar data a enviar
         const datasend : user_problem = {                                      
-          id_tipo_problema: this.idTypeProblem,        
+          id_tipo_problema: parseInt(this.idTypeProblem),        
           id_usuario: parseInt(this.idUser),
           estatus: this.estatus
         };      
@@ -258,7 +258,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
           this.response = response;           
           this.id =this.idupdate ;        // se iguala porque se puedan usar
           this.idUser = String(datasend.id_usuario);
-          this.idTypeProblem = datasend.id_tipo_problema;
+          this.idTypeProblem = datasend.id_tipo_problema.toString();
   
           if(this.response.Estatus == 'Error'){            
             this._snackBar.open(this.response.Mensaje, 'X', {          
@@ -290,7 +290,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
       this.estatus = 'B';
     }
 
-    if((this.idTypeProblem == 0)||(this.idUser == '') || this.estatus == ''){
+    if((this.idTypeProblem == '')||(this.idUser == '') || this.estatus == ''){
                           
       //this._snackBar.open('Error faltan datos para actualizar', 'x');    
       this._snackBar.open('Error faltan datos', 'X', {      
@@ -302,7 +302,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
       
       //llenar data a enviar
         const datasend : user_problem = {                                      
-          id_tipo_problema: this.idTypeProblem,        
+          id_tipo_problema: parseInt(this.idTypeProblem),        
           id_usuario: parseInt(this.idUser),
           estatus: this.estatus
         };      

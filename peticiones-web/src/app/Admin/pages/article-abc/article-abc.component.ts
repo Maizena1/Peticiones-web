@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { article, response, user } from '../../services/type';
+import { article, response, User } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { FormBuilder, Validators} from '@angular/forms';
@@ -38,7 +38,7 @@ export class ArticleAbcComponent implements OnInit {
   constructor(public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
   //para validar lo de sesion  y rol  
   idRol : number = 0;
-  dataSesion:user|any;
+  dataSesion: User|any;
   ngOnInit(): void {    
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        

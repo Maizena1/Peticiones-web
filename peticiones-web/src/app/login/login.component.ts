@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { AdminService } from '../Admin/services/admin.service';
-import { login, response, user } from '../Admin/services/type';
+import { login, response, User } from '../Admin/services/type';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   usuario: string = '';
   password: string = ''
   response: response | any;
-  dataSesion: user | any;
+  dataSesion: User | any;
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
 
   constructor(private router: Router, private APIAdminPetition: AdminService,private _snackBar: MatSnackBar,) { }
@@ -24,9 +24,9 @@ export class LoginComponent implements OnInit {
 
   }  
 
-  onChangeUser(user: string){
-    //alert(user);
-    this.usuario = user;
+  onChangeUser(User: string){
+    //alert(User);
+    this.usuario = User;
     //alert(this.usuario);
   }
 
@@ -64,8 +64,8 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('dataSesion', JSON.stringify(this.response.usuario[0]));               
             //solo si ya se inicion sesion             
             //para obtener del local storage --------------------------------------------------                   
-            const userJson = localStorage.getItem('dataSesion');
-            this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Error Estoy Devolviendo nulo');            
+            const UserJson = localStorage.getItem('dataSesion');
+            this.dataSesion = UserJson !== null ? JSON.parse(UserJson) : console.log('Error Estoy Devolviendo nulo');            
             //console.log(this.dataSesion);            
             //console.log(this.dataSesion.id_rol);
             if(this.dataSesion.id_rol == 1){

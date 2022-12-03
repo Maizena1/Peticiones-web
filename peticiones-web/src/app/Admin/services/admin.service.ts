@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { article, articlebytypeproblem, branch, employee, estatus_problem, login, problem, store, type_of_problem, user_problem } from './type';
+import { article, articlebytypeproblem, branch, employee, estatus_problem, login, problem, store, type_of_problem, User, user_problem } from './type';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +56,10 @@ export class AdminService {
 
   getRol():Observable<any>{    
     return this.http.get(`${this.url}roles`);
+  }
+
+  createUser(user: Omit<User,'id_usuario' | 'login'>):Observable<any>{
+    return this.http.post(`${this.url}registrar-usuario`, user);
   }
 
   //Tipo de Problema-----------------------------------------------

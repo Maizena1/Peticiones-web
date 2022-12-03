@@ -3,6 +3,7 @@
   <mat-select  class="size-input-option-select"  [formControl]="SelectFormControl" [disabled]="disabled" (valueChange)="getdata($event)" name="select">
       <mat-option *ngFor="let item of items;" [value]="getId(item)">{{getLabel(item)}}</mat-option>      
   </mat-select>  
+>>>>>>> 60303218eae81f2ad8947ba5cfe6356581460db8
   <mat-error *ngIf="SelectFormControl.hasError('required')">
     Ingrese {{label}} es <strong>requerid@</strong>
   </mat-error>

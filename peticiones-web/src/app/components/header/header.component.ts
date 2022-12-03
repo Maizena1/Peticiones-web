@@ -9,8 +9,8 @@ import { login, response, User } from 'src/app/Admin/services/type';
 })
 export class HeaderComponent implements OnInit {
 
-  idRol : number = 0;
   dataSesion:User|any;
+  idRol : number = 0;
   response: response | any;
   constructor(private router: Router, private APIAdminPetition: AdminService,) { }
 

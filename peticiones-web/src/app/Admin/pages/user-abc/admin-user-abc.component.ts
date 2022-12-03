@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../../services/type';
 import { User, response } from '../../services/type';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { FormBuilder, } from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
 import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+
 
 
 @Component({
@@ -15,6 +16,10 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./admin-user-abc.component.css']
 })
 export class AdminUserAbcComponent implements OnInit {
+  
+  COLUMN_NAMES: string[] = ['ID','Usuario','Estatus','Botones'];
+
+  formAction: "create" | "edit" = "create";
 
   form = {
     userName: '',
@@ -43,6 +48,7 @@ export class AdminUserAbcComponent implements OnInit {
 
   itemsArray: Item[] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top';
+  users: any;
 
   constructor(public dialog: MatDialog ,private router: Router, private adminService: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
   

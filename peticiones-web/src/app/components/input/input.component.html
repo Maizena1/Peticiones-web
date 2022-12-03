@@ -1,6 +1,6 @@
 <mat-form-field class="example-full-width " appearance="fill">
     <mat-label>{{label}}</mat-label>
-    <input (change)="onChangeInput($event)" matInput type={{type}} placeholder={{example}} [readonly]="enable" [formControl]="InputFormControl" [value]="value" #data (change)="getdata(data.value)">
+    <input (change)="onChangeInput($event)" [value]="value" (change)="getdata(data.value)" #data  matInput type={{type}} placeholder={{example}} [readonly]="enable" [formControl]="InputFormControl" >
     <mat-error *ngIf="InputFormControl.hasError('required')">
         ingrese el {{label}} es <strong>requerido</strong>
     </mat-error>

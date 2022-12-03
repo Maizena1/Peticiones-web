@@ -1,0 +1,57 @@
+<div class="abc-table-container">
+
+    <mat-form-field appearance="standard">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+      
+    <div class="mat-elevation-z8">      
+    <table mat-table [dataSource]="dataSource" matSort>
+    
+      <!-- Position Column -->
+      <ng-container matColumnDef="col1" sticky *ngIf="nameColumns[0].length>0">
+        <th mat-header-cell *matHeaderCellDef>{{nameColumns[0]}}</th>
+        <td mat-cell *matCellDef="let row" >{{row.col1}}</td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="col2" *ngIf="nameColumns[1].length>0">
+        <th mat-header-cell *matHeaderCellDef>{{nameColumns[1]}}</th>
+        <td mat-cell *matCellDef="let row" #col2> {{row.col2}} </td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="col3" *ngIf="nameColumns[2].length>1">
+        <th mat-header-cell *matHeaderCellDef>{{nameColumns[2]}}</th>
+        <td mat-cell *matCellDef="let row" #col3> {{row.col3}} </td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="col4" *ngIf="nameColumns[3].length>1">
+        <th mat-header-cell *matHeaderCellDef>{{nameColumns[3]}}</th>
+        <td mat-cell *matCellDef="let row" #col4> {{row.col4}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="col5" stickyEnd>        
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row" >
+            <div class="button-container">
+                <app-button-table-abc [clase]="'button-remove'" [icon]="'delete_forever'" (onClick)="getid(row.col3,'delete')" *ngIf="optionDelete =='si'"></app-button-table-abc>
+                <app-button-table-abc [clase]="'button-accep'" [icon]="'done'" (onClick)="getid(row.col3,'accep')" *ngIf="optionEdit=='si'"></app-button-table-abc>
+                <app-button-table-abc [clase]="'button-detail'" [icon]="'receipt'" (onClick)="getid(row.col3,'detail')" *ngIf="optionDetail=='si'"></app-button-table-abc>
+            </div>
+        </td>        
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+    
+    <mat-paginator [pageSizeOptions]="[5, 10, 15]" ></mat-paginator>
+    
+  </div>
+

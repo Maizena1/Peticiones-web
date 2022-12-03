@@ -7,28 +7,32 @@ import { Item, ItemSelect } from 'src/app/Admin/services/type';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.css']
 })
-export class SelectComponent implements OnInit {
-  // @Input() valuenum: string = '0';  z
+export class SelectComponent<T> implements OnInit {  
 
-  @Input() value: string = '';
   
+  @Input() getId: (item?: T) => string = () => '';
+  @Input() getLabel: (item?: T) => string = () => '';
+
+  @Input() value: string = '';  
   @Output() valueChange = new EventEmitter<any>();
   
   
   @Input() label: string = 'sin nombre'; 
-  @Input() items: Item[] = []; 
-  @Input() valuenum: number = 0;  
+  @Input() items: T[] = []; 
+  @Input() valuenum: number = 0;
+  @Input() disabled: boolean = false ; 
   valor : String='';
   //se envia 
-  @Output() onChange = new EventEmitter<string>();    
+  @Output() onChange = new EventEmitter<T>();    
   
   constructor() {}
 
   SelectFormControl = new FormControl('', [Validators.required]);
   
-  getdata( data: string){
+  getdata(item: T){
     //console.log(data);    
-    this.onChange.emit(data);
+    this.onChange.emit(item);
+    //alert(data);
   }
 
   ngOnInit(): void {    

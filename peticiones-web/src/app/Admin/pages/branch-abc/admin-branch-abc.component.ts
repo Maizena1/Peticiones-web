@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { branch, response } from '../../services/type';
+import { branch, response, user } from '../../services/type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { FormBuilder, Validators} from '@angular/forms';
@@ -46,9 +46,29 @@ export class AdminBranchAbcComponent implements OnInit {
     
   constructor(public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, ) { }
   
-  //------------------------------------------------
-  //obtener sucursales actuales y cagarlos a la tabla
+  //------------------------------------------------  
+  idRol : number = 0;
+  dataSesion:user|any;
   ngOnInit(): void {
+    if (localStorage){    
+      if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
+        const userJson = localStorage.getItem('dataSesion');
+        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
+        this.idRol = this.dataSesion.id_rol;        
+        if(this.idRol != 1){          
+          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
+            verticalPosition: this.verticalPosition,   
+            duration: 3000,   
+            panelClass: ['red-snackbar'],
+          });
+          this.router.navigate(["login"]);              
+        }
+      }else{        
+          //alert("DataSesion no existe en localStorage!!"); 
+          this.router.navigate(["login"]);              
+      }
+    }        
+  
     //obtener los datos de la bd get sucursal y pasarlos a 
     /**/  
     this.APIAdminPetition.getBranches().subscribe(result =>{                
@@ -126,8 +146,7 @@ ActionDelete(id: string){
 
   dialogRef.afterClosed().subscribe(result => {
 
-    if ( result == true){
-          
+    if ( result == true){          
         const inDesc = this.ItemsTable.findIndex((element) => element.col1 == id);
               //agregar a la tabla                        
         if(this.ItemsTable[inDesc].col3 == 'Inactivo'){
@@ -136,7 +155,14 @@ ActionDelete(id: string){
                 duration: 3000,
                 panelClass: ['red-snackbar'],
               });
+        }else if (this.id_sucursal == '16'){
+          this._snackBar.open('No se puede desactivar sucursal oficina', 'X', {                
+            verticalPosition: this.verticalPosition,                
+            duration: 3000,
+            panelClass: ['red-snackbar'],
+          });
         }else{
+
           this.APIAdminPetition.DeleteBranch(parseInt(id)).subscribe(response =>{                    
             this.response = response;                                        
             if(this.response.Estatus == 'Error'){            
@@ -178,12 +204,14 @@ Clearinputs(){
 
 //si es edit
 ActionEdit(id:string){
-  this.butonAddUpdate = 'a';
-  this.enableid = true;      
-  this.dataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
+  this.butonAddUpdate = 'a';  
+  this.dataBranchShow = this.Arraybranches.find(element => 
+    element.id_sucursal == parseInt(id)
+  );  
   //console.table(this.dataBranchShow);
   //console.table(this.dataBranchShow);
   this.Clearinputs();
+  this.enableid = true;      
   //asignacion de las variables a mostrar
   this.id_sucursal = String(this.dataBranchShow.id_sucursal);  
   this.nombre = this.dataBranchShow.nombre_sucursal;
@@ -339,7 +367,12 @@ CreateBranch() {
               panelClass: ['green-snackbar'],
               //panelClass: ['red-snackbar'],
             });
-            this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: datasend.estatus, col4:'-' });            
+
+            if(datasend.estatus =='A'){
+              this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: 'Activa', col4:'-' });            
+            }else{
+              this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: 'Inactiva', col4:'-' });            
+            }        
             this.ReloadBranches();
             this.Clearinputs();
           }          

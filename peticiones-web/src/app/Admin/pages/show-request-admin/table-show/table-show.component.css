@@ -1,0 +1,38 @@
+.abc-table-container{
+    
+    max-width: 100%;
+    overflow: auto;    
+    margin: 0px auto;    
+}
+
+table {    
+    width: 100%;    
+}
+
+
+.mat-elevation-z8{
+    text-align: center;
+    box-shadow: none;
+}
+
+th{    
+    text-align: center !important;
+    color: black !important;
+    font-weight: 500;
+}
+
+.mat-row{
+    height: 32px;
+}
+
+.button-container{
+    display: flex;
+    justify-content:center ;
+    gap: 10px;
+    padding: 0px 8px;        
+}
+
+td{
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}

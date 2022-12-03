@@ -16,23 +16,24 @@
 
                     <div class="register">
 
-                        <div class="input-register">
-                            <app-select [label]="'ID sucursal'" [items]="itemsArray"></app-select>
-                            <app-select [label]="'ID codigo de articulo'" [items]="itemsArray"></app-select>
-                            <app-input [type]="'number'" [label]="'Cantidad total'"></app-input>
-                            <app-input [type]="'number'" [label]="'Cantidad disponible'"></app-input>
-                            <app-select [label]="'Tipo de problema'"></app-select>
-                            <mat-slide-toggle class="slide-toggle">Activo</mat-slide-toggle>
+                        <div class="input-register">                 
+                                       
+                            <app-select [label]="'Sucursal'" [valuenum]="idSucursal" [items]="branches" [getId]="getIdBranches" [getLabel]="getLabelBranches" [disabled]="enableid" (onChange)="onChangeIdBranch($event)"></app-select>
+                            <app-select [label]="'Articulo'" [valuenum]="idArticle" [items]="articles"  [getId]="getIdArticle" [getLabel]="getLabelArticle" [disabled]="enableid" (onChange)="onChangeIdArticle($event)"></app-select>
+                            <app-input [type]="'number'" [label]="'Cantidad total'" [example]="'30'" [value]="totalAmount" (onChange)="onChangeTotalAmount($event)"></app-input>                            
+                            <app-input [type]="'number'" [label]="'Cantidad disponible'" [value]="totalAvailable" (onChange)="onChangeTotalAvailable($event)"></app-input>                            
+                            <mat-slide-toggle [color]="'primary'" class="slide-toggle" [(ngModel)]="isChecked">Valioso</mat-slide-toggle>
                         </div>
 
                         <div class="button-container">
-                            <button mat-flat-button color="primary">Agregar</button>    
+                            <button mat-flat-button color="primary" (click)="CreateStore()" *ngIf="butonAddUpdate.length == 0">Agregar</button>                                                                                                                                                
+                            <button  #update mat-flat-button color="primary" (click)="UpdateStore()" *ngIf="butonAddUpdate.length> 0">Actualizar</button>                                                                                                                
                         </div>
 
                     </div>
 
-                    <div class="table-article-by-branch-container">
-                        <app-abc-table class="table"></app-abc-table>
+                    <div class="table-article-by-branch-container" *ngIf="ItemsTable.length > 0">
+                        <app-abc-table class="table" [items]="ItemsTable" [nameColumn]="nameColum" [optionDelete]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>
                     </div>
 
                 </div>

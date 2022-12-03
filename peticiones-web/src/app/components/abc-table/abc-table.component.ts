@@ -11,9 +11,18 @@ import { request_table } from '../services/request-table';
 })
 export class AbcTableComponent<Row> implements OnInit {
 
+<<<<<<< HEAD
   @Input() rows: Row[] = [];
   @Input() nameColumn: string[] = [];
   @Input() type_table: string = "";
+=======
+  @Input() items: request_table[] = [];
+  @Input() nameColumn: String[] = [];
+  @Input() type_table: String = "";
+  @Input() optionDelete: string = 'si';
+  @Input() optionEdit: string = 'si';
+  @Input() optionDetail: string = 'si';
+>>>>>>> 60303218eae81f2ad8947ba5cfe6356581460db8
 
   @Output() onClickAction = new EventEmitter<{id:string, action:string}>();   
 

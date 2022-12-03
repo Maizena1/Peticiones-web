@@ -21,7 +21,11 @@
       </ng-container>
     
       <!-- Weight Column -->
+<<<<<<< HEAD
       <ng-container matColumnDef="col3" *ngIf="nameColumns[2].length">
+=======
+      <ng-container matColumnDef="col3" *ngIf="nameColumns[2].length>1">
+>>>>>>> 60303218eae81f2ad8947ba5cfe6356581460db8
         <th mat-header-cell *matHeaderCellDef>{{nameColumns[2]}}</th>
         <td mat-cell *matCellDef="let row" #col3> {{row.col3}} </td>
       </ng-container>
@@ -30,9 +34,15 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row" >
             <div class="button-container">
+<<<<<<< HEAD
                 <app-button-table-abc [clase]="'button-delete'" [icon]="'delete'" (onClick)="onClickTableAction('1','delete')"></app-button-table-abc>
                 <app-button-table-abc [clase]="'button-edit'" [icon]="'edit'" (onClick)="onClickTableAction('1','edit')"></app-button-table-abc>
                 <app-button-table-abc [clase]="'button-receipt'" [icon]="'receipt'" (onClick)="onClickTableAction('1','detail')"></app-button-table-abc>
+=======
+                <app-button-table-abc [clase]="'button-delete'" [icon]="'delete'" (onClick)="getid(row.col1,'delete')" *ngIf="optionDelete =='si'"></app-button-table-abc>
+                <app-button-table-abc [clase]="'button-edit'" [icon]="'edit'" (onClick)="getid(row.col1,'edit')" *ngIf="optionEdit=='si'"></app-button-table-abc>
+                <app-button-table-abc [clase]="'button-receipt'" [icon]="'receipt'" (onClick)="getid(row.col1,'detail')" *ngIf="optionDetail=='si'"></app-button-table-abc>
+>>>>>>> 60303218eae81f2ad8947ba5cfe6356581460db8
             </div>
         </td>        
       </ng-container>

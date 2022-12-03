@@ -56,6 +56,8 @@ export interface user_problem{
     tipo_problema?: string;
     id_usuario: number; 
     usuario?: string;
+    id_empleado?: string;
+    nombre_empleado?:string;
     estatus: string;
 }
 
@@ -83,6 +85,94 @@ export interface login {
 }
 
 export interface article{
-    id_codigo_articulo:string;
-    nombre_articulo:string;    
+    id_codigo_articulo?: string;
+    nombre_articulo: string;  
+    descripcion: string;
 }
+
+export interface store {
+    id_almacen?:number;
+    id_sucursal?: number;
+    nombre_sucursal?: string;
+    id_codigo_articulo?: string;
+    nombre_articulo?:string;
+    cantidad_total: number;
+    cantidad_disponible: number;
+    tipo: string;                        
+}
+
+export interface articlebytypeproblem{
+    id_articulo_problema?: number;
+    id_codigo_articulo: string;
+    nombre_articulo?: string;
+    id_tipo_problema: number;
+    tipo_problema?: string;
+}
+
+export interface problem{
+    id_tipo_problema: number;
+    tipo_problema: string;
+    descripcion_problema: string;
+    id_usuario: number;
+    nombre_empleado: number;
+    id_sucursal: number;
+    nombre_sucursal: string;
+    id_usuario_designado: number;
+    nombre_empleado_designado: string;
+    estatus: string;
+    fecha_solicitud: string;
+    fecha_aceptado: string;
+    fecha_revision: string;
+    fecha_enproceso: string;
+    fecha_terminado: string;
+    fecha_rechazado: string;
+    id_problema: number;
+}
+
+export interface add_problem{
+    id_tipo_problema: number;
+    descripcion_problema: string;
+    id_usuario?: number;
+    estatus: string;
+}
+
+export interface assignament_problem{
+    id_problema: number;
+    id_usuario_designado:number;
+    estatus: string;    
+}
+
+
+export interface estatus_problem {
+    id_problema: number;
+    estatus: string;    
+    materials?: materials [];
+}
+
+
+export interface materials {
+    codigo: string;
+    cantidad: number;
+}
+
+
+export interface requeriment {
+    id_requisito_problema?: number;
+    id_problema: number;
+    id_codigo_articulo?: string;
+    nombre_articulo?: string;
+    descripcion_requisito?: string;
+    cantidad: number;
+    unidad: string;
+    precio: number;
+}
+
+export interface table_show {
+    col1: string;
+    col2: string;
+    col3: string;
+    col4: string;
+    col5: string;
+}
+
+

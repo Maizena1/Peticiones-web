@@ -1,15 +1,28 @@
 .header{
+    padding: 0px 30px;
     height: 80px;
     background-color: #201C3D;
-    width: 100%;
+    width: calc(100% - 60px);
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.del-muro-logo{
+    display: flex;
+    align-items: center;
+    width: 240px;
+    text-align: center;
+}
+
+.title{
+    line-height: 24px;
 }
 
 .menu{
-    padding: 0px 24px;
     height: 100%;
     display: flex;
     gap: 32px;
-    justify-content: flex-end;
 }
 
 .menu-option{
@@ -26,9 +39,7 @@
     color: #ffff;
     font-size: 16px;
 }
-.option:hover{
-    font-size: 20px;
-}
+
 
 .icon, .option, .session-menu{
     cursor: pointer;
@@ -39,4 +50,11 @@
 }
 
 
+.title{
+    font-family: 'Cambo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    color: #FFFFFF;
+}
 

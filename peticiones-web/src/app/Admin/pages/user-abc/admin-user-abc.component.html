@@ -18,15 +18,25 @@
                     <div class="register">
 
                         <div class="input-register">
-                            <app-input [label]="'Usuario'" [(value)]="form.user"></app-input><p>{{form.user}}</p>
+                            <app-input [label]="'Usuario'" [(value)]="form.user"></app-input>
                             <app-input [label]="'Contraseña'" [(value)]="form.password"></app-input>
                             <app-input [label]="'ID empleado'" [(value)]="form.employeeId"></app-input>
+<<<<<<< HEAD
                             <app-select [label]="'Rol'" (onChange)="changeRole($event)" [items]="roleSelect"></app-select>
                             <mat-slide-toggle *ngIf="formAction === 'edit'" class="slide-toggle" [(ngModel)]="form.status">Activo</mat-slide-toggle>
                         </div>
 
                         <div class="button-container">
                             <button mat-flat-button color="primary" (click)="createUser()">Agregar</button>
+=======
+                            <app-select [label]="'Rol'" [valuenum]="idRolSelect" [items]="roles" [getId]="getId" [getLabel]="getLabel"></app-select>
+                            <mat-slide-toggle class="slide-toggle" [(ngModel)]="form.status">Activo</mat-slide-toggle>
+                        </div>
+
+                        <div class="button-container">
+                            <button mat-flat-button color="primary" *ngIf="button == 'add'">Agregar</button>
+                            <button #update mat-flat-button color="primary" *ngIf="button == 'update'">Actualizar</button>
+>>>>>>> 60303218eae81f2ad8947ba5cfe6356581460db8
                         </div>
                         
                     </div>

@@ -13,9 +13,14 @@ import { SolverRequerimentComponent } from '../Solver/solver-requeriment/solver-
 import { ArticleAbcComponent } from '../Admin/pages/article-abc/article-abc.component';
 import { ArticleByBranchAbcComponent } from '../Admin/pages/article-by-branch-abc/article-by-branch-abc.component';
 import { LoginComponent } from '../login/login.component';
+import { RelationArticleBytypeProblemAbcComponent } from '../Admin/pages/relation-article-bytype-problem-abc/relation-article-bytype-problem-abc.component';
+import { ShowRequestAdminComponent } from '../Admin/pages/show-request-admin/show-request-admin.component';
+import { ShowRequestSolverComponent } from '../Solver/show-request-solver/show-request-solver.component';
+import { ManagerSolverAssignmentComponent } from '../Admin/pages/manager-solver-assignment/manager-solver-assignment.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  {path: '', redirectTo: '/login', pathMatch: 'full'},    
   { path: 'admin', children: [
       { path: 'createRequest', component: CreateRequestComponent },
       { path: 'articleAbc', component: ArticleAbcComponent },
@@ -25,7 +30,10 @@ const routes: Routes = [
       { path: 'typeOfPRoblemAbc', component: AdminTypeOfProblemAbcComponent },
       { path: 'userAbc', component: AdminUserAbcComponent },
       { path: 'userByProblemTypeAbc', component: AdminUserByProblemTypeAbcComponent },
-      { path: '**', component: AdminBranchAbcComponent },
+      { path: 'articleByProblem', component: RelationArticleBytypeProblemAbcComponent },
+      { path: 'showRequested', component: ShowRequestAdminComponent },
+      { path: 'solverAssignament/:fecha', component: ManagerSolverAssignmentComponent },
+      { path: '**', component: ShowRequestAdminComponent },
     ],
   },
   { path: 'storeManager', children: [
@@ -37,7 +45,8 @@ const routes: Routes = [
   { path: 'solver', children: [
       { path: 'confirmMaterial', component: ConfirmMaterialDetailComponent },
       { path: 'requerimentComponent', component: SolverRequerimentComponent },
-      { path: '**', component: ConfirmMaterialDetailComponent },
+      { path: 'showRequested', component: ShowRequestSolverComponent },
+      { path: '**', component: ShowRequestSolverComponent },
     ],
   },
 ];

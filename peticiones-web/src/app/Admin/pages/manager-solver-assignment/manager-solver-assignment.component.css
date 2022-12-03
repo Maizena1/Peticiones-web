@@ -1,0 +1,51 @@
+.container{
+    width: 80%;
+
+    margin: 0px auto;
+    padding: 20px;
+}
+
+h1{
+    font-weight: 500;
+}
+
+.assignament{
+    display: flex;
+    gap: 40px;
+}
+
+.solver-select{
+    width: 100%;
+}
+
+.button{
+    height: 52px;
+    display: flex;
+    
+    align-items: center;
+
+}
+
+.problem-description{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 400px;
+
+    padding: 12px 0px;
+}
+
+
+.date-problem-container{
+    display: flex;
+
+}
+
+.date-problem{
+    font-weight: 500;
+}
+
+p{
+    
+    color: #878787;
+}

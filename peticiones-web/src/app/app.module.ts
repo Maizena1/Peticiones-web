@@ -47,8 +47,13 @@ import { ButtonTableAbcComponent } from './components/button-table-abc/button-ta
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from './components/dialog-detail/dialog-detail.component';
 import { LoginComponent } from './login/login.component';
+import { RelationArticleBytypeProblemAbcComponent } from './Admin/pages/relation-article-bytype-problem-abc/relation-article-bytype-problem-abc.component';
+import { ShowRequestAdminComponent } from './Admin/pages/show-request-admin/show-request-admin.component';
+import { ShowRequestSolverComponent } from './Solver/show-request-solver/show-request-solver.component';
 
-
+import {MatCardModule} from '@angular/material/card';
+import { TableShowComponent } from './Admin/pages/show-request-admin/table-show/table-show.component';
+import { ManagerSolverAssignmentComponent } from './Admin/pages/manager-solver-assignment/manager-solver-assignment.component';
 
 
 @NgModule({
@@ -77,7 +82,12 @@ import { LoginComponent } from './login/login.component';
     ButtonTableAbcComponent,
     DialogDeleteComponent,
     DialogDetailComponent,
-    LoginComponent
+    LoginComponent,
+    RelationArticleBytypeProblemAbcComponent,
+    ShowRequestAdminComponent,
+    ShowRequestSolverComponent,
+    TableShowComponent,
+    ManagerSolverAssignmentComponent
 
   ],
   imports: [
@@ -101,7 +111,8 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

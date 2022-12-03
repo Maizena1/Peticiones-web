@@ -1,5 +1,3 @@
-
-
 .title{
     text-align: center;
     color: #2698c5;
@@ -13,7 +11,39 @@
 
 .action-container{
     display: flex;
-    justify-content: end;
+    justify-content: center;
 }
 
+.format-button-cancel {
+    background-color: #FFFFFF;
+    border: 1px solid #0A90EF;
+    box-sizing: border-box;
+    border-radius: 8px;
+    width: 160px !important;
+    height: 48px !important;
+    color: #0A90EF;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 16px;
+    color: #000000;
+    
+}
 
+.mat-button{
+    color:#000000;
+}
+
+.format-button-continue {
+    border: transparent;
+    width: 160px !important;
+    height: 48px !important;
+    margin-left: 20px !important;
+    /* Primary_Blue */
+    background: #0A90EF;
+    border-radius: 8px;
+    /* Common_White */    
+    color: #FFFFFF;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 16px;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <app-header></app-header>
+    </header>
+<body class="body">
+
+    <div class="content-container">
+        <div class="mat-tab-group">
+            <mat-tab-group animationDuration="0ms" class="mat-tab-group" (focusChange)="ReloadProblems()" >
+
+                <mat-tab label="General"  >                                                                              
+                    <div class="table-container" *ngIf="ItemsTableGeneric.length > 0">                                            
+                      <app-table-show class="table" [items]="ItemsTableGeneric" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
+                    </div>                                
+                </mat-tab>
+                        
+                <mat-tab label="Pendientes">                  
+                    <div class="table-container" *ngIf="ItemsTableSlopes.length > 0">
+                        <app-table-show class="table" [items]="ItemsTableSlopes" [nameColumn]="nameColums" (onChange)="onChangeActionTable($event)"></app-table-show>                      
+                    </div>
+                </mat-tab> 
+
+                <mat-tab label="Revisión Requisistos">                  
+                    <div class="table-container" *ngIf="ItemsTableCheck.length > 0">
+                        <app-table-show class="table" [items]="ItemsTableCheck" [nameColumn]="nameColums" (onChange)="onChangeActionTableRequirement($event)"></app-table-show>                      
+                    </div>
+                </mat-tab> 
+
+              </mat-tab-group>
+        </div>
+    </div>
+
+</body>
+</html>

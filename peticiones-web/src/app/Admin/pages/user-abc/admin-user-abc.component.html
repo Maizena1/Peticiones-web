@@ -12,26 +12,37 @@
                     <app-abc-module-title [label]="'Registro de usuario'"></app-abc-module-title>
                 </div>
 
+                
                 <div class="module-register-container">
 
                     <div class="register">
 
                         <div class="input-register">
-                            <app-input [label]="'Usuario'" [(value)]="form.user"></app-input><p>{{form.user}}</p>
+                            <app-input [label]="'Usuario'" [(value)]="form.user"></app-input>
                             <app-input [label]="'Contraseña'" [(value)]="form.password"></app-input>
                             <app-input [label]="'ID empleado'" [(value)]="form.employeeId"></app-input>
-                            <app-select [label]="'Rol'" [(value)]="form.rol" [items]="roles" [getId]="getId" [getLabel]="getLabel"></app-select>{{form.rol}}
+<<<<<<< HEAD
+                            <app-select [label]="'Rol'" (onChange)="changeRole($event)" [items]="roleSelect"></app-select>
+                            <mat-slide-toggle *ngIf="formAction === 'edit'" class="slide-toggle" [(ngModel)]="form.status">Activo</mat-slide-toggle>
+                        </div>
+
+                        <div class="button-container">
+                            <button mat-flat-button color="primary" (click)="createUser()">Agregar</button>
+=======
+                            <app-select [label]="'Rol'" [valuenum]="idRolSelect" [items]="roles" [getId]="getId" [getLabel]="getLabel"></app-select>
                             <mat-slide-toggle class="slide-toggle" [(ngModel)]="form.status">Activo</mat-slide-toggle>
                         </div>
 
                         <div class="button-container">
-                            <button mat-flat-button color="primary">Agregar</button>
+                            <button mat-flat-button color="primary" *ngIf="button == 'add'">Agregar</button>
+                            <button #update mat-flat-button color="primary" *ngIf="button == 'update'">Actualizar</button>
+>>>>>>> 60303218eae81f2ad8947ba5cfe6356581460db8
                         </div>
                         
                     </div>
 
                     <div class="table-user-container" *ngIf="itemsTable.length > 0">
-                        <app-abc-table [items]="itemsTable" [nameColumn]="nameColum" (onChange)="onChangeActionTable($event)"></app-abc-table>
+                        <app-abc-table [rows]="users" [nameColumn]="COLUMN_NAMES" (onClickAction)="onClickAction($event)"></app-abc-table>
                     </div>
 
                 </div>

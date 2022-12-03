@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from 'src/app/Admin/services/admin.service';
-import { login, response, user } from 'src/app/Admin/services/type';
+import { login, response, User } from 'src/app/Admin/services/type';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,8 +9,12 @@ import { login, response, user } from 'src/app/Admin/services/type';
 })
 export class HeaderComponent implements OnInit {
 
+<<<<<<< HEAD
+  dataSesion:User|any;
+=======
   idRol : number = 0;
   dataSesion:user|any;
+>>>>>>> 60303218eae81f2ad8947ba5cfe6356581460db8
   response: response | any;
   constructor(private router: Router, private APIAdminPetition: AdminService,) { }
 

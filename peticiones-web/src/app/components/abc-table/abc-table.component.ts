@@ -9,27 +9,22 @@ import { request_table } from '../services/request-table';
   templateUrl: './abc-table.component.html',
   styleUrls: ['./abc-table.component.css']
 })
-export class AbcTableComponent<Row> implements OnInit {
+export class AbcTableComponent implements OnInit {
 
-<<<<<<< HEAD
-  @Input() rows: Row[] = [];
-  @Input() nameColumn: string[] = [];
-  @Input() type_table: string = "";
-=======
   @Input() items: request_table[] = [];
   @Input() nameColumn: String[] = [];
   @Input() type_table: String = "";
   @Input() optionDelete: string = 'si';
   @Input() optionEdit: string = 'si';
   @Input() optionDetail: string = 'si';
->>>>>>> 60303218eae81f2ad8947ba5cfe6356581460db8
 
-  @Output() onClickAction = new EventEmitter<{id:string, action:string}>();   
 
-  // displayedColumns: String[] = ['col1','col2','col3','col4'];
-  displayedColumns = Object.keys(this.rows)
-  dataSource = new MatTableDataSource(this.rows);
-  nameColumns: string [] = [];  
+  @Output() onChange = new EventEmitter<{id:string, action:string}>();   
+  
+
+  displayedColumns: String[] = ['col1','col2','col3','col4'];
+  dataSource = new MatTableDataSource(this.items);
+  nameColumns: String [] = [];  
 
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
@@ -40,17 +35,18 @@ export class AbcTableComponent<Row> implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+
   constructor() { }
 
-  onClickTableAction(id: string, action: string){
-    console.log('asdasd')
-    this.onClickAction.emit({id,action});  
+  getid(id: string, action: string){
+    this.onChange.emit({id: id,action: action});  
     //alert(id +"  "+ action);      
   }
 
   ngOnInit () {  
 
     this.nameColumns = this.nameColumn;
+    this.dataSource = new MatTableDataSource(this.items); 
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
         //console.table(this.items);

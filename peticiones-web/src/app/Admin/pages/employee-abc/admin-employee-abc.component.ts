@@ -145,8 +145,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
   }
 
 //metodo para la tabla delete,edit, detail
-onChangeActionTable(data: any){  
-  //alert(data.id+"---"+data.action);
+onChangeActionTable(data: any){
   if(data.action === 'delete'){
     this.ActionDelete(data.id);
   }else if(data.action === 'edit'){

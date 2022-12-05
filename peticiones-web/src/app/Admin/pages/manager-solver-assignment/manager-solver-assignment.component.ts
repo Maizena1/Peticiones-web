@@ -30,7 +30,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
   //contenido de tabla generico
   ItemsTableUser : table_show []=[]; 
   dataShowProblem : problem | any;
-  idUser: number = 0;
+  idUser: string = '';
   response: response | any;
   //nombres de columnas de tabla General
   nameColums: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Botones'];  
@@ -86,7 +86,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
   }
 
   onChangeIdUser(id: string){
-    this.idUser = parseInt(id);
+    this.idUser = id;
     this.ReloadUserProblems(this.idUser);
   }
 
@@ -133,7 +133,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
 
   assignamentSolver(){
     const datasend :  assignament_problem  = {                            
-      id_usuario_designado: this.idUser,
+      id_usuario_designado: parseInt(this.idUser),
       estatus: 'ACEPTADO',                                                            
     };
 
@@ -159,10 +159,10 @@ export class ManagerSolverAssignmentComponent implements OnInit {
   }
 
 
-  ReloadUserProblems(iduser: number){
+  ReloadUserProblems(iduser: string){
     this.ItemsTableUser = [];
     this.arrayProblems.forEach((row) => {          
-      if(row.id_usuario_designado == iduser){
+      if(row.id_usuario_designado == parseInt(iduser)){
         this.ItemsTableUser.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
       }
     });                  

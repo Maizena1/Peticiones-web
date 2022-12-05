@@ -14,7 +14,7 @@ import { User } from 'src/app/Admin/services/type';
 export class CreateRequestComponent implements OnInit {
 
 
-  problemType: number = 0;
+  problemType: string = '';
   descriptionProblem: string = '';
 
   problemTypes: any [] = [];
@@ -58,7 +58,7 @@ export class CreateRequestComponent implements OnInit {
   }
 
   getProblemType(id: string){
-    this.problemType = parseInt(id);
+    this.problemType = id;
   }
 
   getDescriptionProblem(desc : string){

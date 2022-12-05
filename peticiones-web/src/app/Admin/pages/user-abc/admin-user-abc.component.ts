@@ -87,7 +87,7 @@ export class AdminUserAbcComponent implements OnInit {
         }
         this.itemsTable.push({
           col1: row.id_usuario?.toString() ?? '', 
-          col2: row.usuario , 
+          col2: row.usuario, 
           col3: this.estatusUser,
           col4: '-' 
         });

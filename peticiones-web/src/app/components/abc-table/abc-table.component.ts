@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import  { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { request_table } from '../services/request-table';
+
+export type AbcTableAction = 'edit' | 'delete' | 'detail';
 
 @Component({
   selector: 'app-abc-table',
@@ -18,10 +20,8 @@ export class AbcTableComponent implements OnInit {
   @Input() optionEdit: string = 'si';
   @Input() optionDetail: string = 'si';
 
-
-  @Output() onChange = new EventEmitter<{id:string, action:string}>();   
+  @Output() onChange = new EventEmitter<{id:string, action: AbcTableAction}>();   
   
-
   displayedColumns: String[] = ['col1','col2','col3','col4'];
   dataSource = new MatTableDataSource(this.items);
   nameColumns: String [] = [];  
@@ -38,9 +38,8 @@ export class AbcTableComponent implements OnInit {
 
   constructor() { }
 
-  getid(id: string, action: string){
+  onClickAction(id: string, action: AbcTableAction){
     this.onChange.emit({id: id,action: action});  
-    //alert(id +"  "+ action);      
   }
 
   ngOnInit () {  

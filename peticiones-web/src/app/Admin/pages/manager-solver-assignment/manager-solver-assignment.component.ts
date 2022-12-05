@@ -85,9 +85,13 @@ export class ManagerSolverAssignmentComponent implements OnInit {
     return item.nombre_empleado;
   }
 
-  onChangeIdUser(id: any){
+  onChangeIdUser(id: string){
     this.idUser = id;
-    this.ReloadUserProblems(parseInt(this.idUser));
+    this.ReloadUserProblems(this.idUser);
+    
+  // onChangeIdUser(id: any){
+  //   this.idUser = id;
+  //   this.ReloadUserProblems(parseInt(this.idUser));
   }
 
 
@@ -159,10 +163,10 @@ export class ManagerSolverAssignmentComponent implements OnInit {
   }
 
 
-  ReloadUserProblems(iduser: number){
+  ReloadUserProblems(iduser: string){
     this.ItemsTableUser = [];
     this.arrayProblems.forEach((row) => {          
-      if(row.id_usuario_designado == iduser){
+      if(row.id_usuario_designado == parseInt(iduser)){
         this.ItemsTableUser.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
       }
     });                  

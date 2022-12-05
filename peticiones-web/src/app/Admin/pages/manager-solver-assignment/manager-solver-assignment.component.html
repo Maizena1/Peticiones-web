@@ -39,7 +39,7 @@
 
                 <div class="assignament-container">
                     <div class="assignament">                    
-                        <app-select class="solver-select" [label]="'Empleado Solucionador'" [(value)]="idUser" [items]="arrayUser"  [getId]="getId" [getLabel]="getLabel" (onChange)="onChangeIdUser($event)"></app-select>
+                        <app-select class="solver-select" [label]="'Empleado Solucionador'" [(value)]="idUser" [items]="arrayUser"  [getId]="getId" [getLabel]="getLabel"></app-select>
                         <div class="button">
                             <button mat-flat-button color="primary" class="assignament-button" (click)="assignamentSolver()">Asignar</button>                                                                                                                                                
                         </div>

@@ -14,8 +14,8 @@ import { add_problem, response, User } from 'src/app/Admin/services/type';
 export class CreateRequestComponent implements OnInit {
 
 
-  problemType: number = 0;
-  descriptionProblem: string = '';  
+  problemType: string = '';
+  descriptionProblem: string = '';
 
   problemTypes: any [] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
@@ -61,8 +61,8 @@ export class CreateRequestComponent implements OnInit {
     return item.tipo_problema;
   }
 
-  getProblemType(id: any){
-    this.problemType = parseInt(id);
+  getProblemType(id: string){
+    this.problemType = id;
   }
 
   getDescriptionProblem(desc : string){
@@ -72,7 +72,7 @@ export class CreateRequestComponent implements OnInit {
   
   createPetition(){
 
-    if(this.problemType == 0 || this.descriptionProblem == ''){      
+    if(this.problemType == '' || this.descriptionProblem == '' ){      
       this._snackBar.open('Error faltan datos', 'X', {      
         verticalPosition: this.verticalPosition,  
         duration: 3000,    
@@ -80,7 +80,7 @@ export class CreateRequestComponent implements OnInit {
       });
     }else{
       const datasend : add_problem = {                            
-        id_tipo_problema : this.problemType,
+        id_tipo_problema : parseInt(this.problemType),
         descripcion_problema: this.descriptionProblem, 
         id_usuario: parseInt(this.dataSesion.id_usuario),
         estatus:'ESPERA'             

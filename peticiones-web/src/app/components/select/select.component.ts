@@ -28,7 +28,7 @@ export class SelectComponent<T> implements OnInit {
   getdata(item: T){
     //console.log(data);    
     this.valueChange.emit(item);
-    console.log(item)
+    console.log(item);
     //alert(data);
   }
 

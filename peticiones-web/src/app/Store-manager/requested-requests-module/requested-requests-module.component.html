@@ -7,7 +7,7 @@
 
     <div class="content-container">
         <div class="mat-tab-group">
-            <mat-tab-group animationDuration="0ms" class="mat-tab-group">
+            <mat-tab-group animationDuration="0ms" class="mat-tab-group" (focusChange)="ReloadProblems()">
 
                 <mat-tab label="General" >                    
                     <div class="table-container" *ngIf="ItemsTableGeneric.length > 0">                                            

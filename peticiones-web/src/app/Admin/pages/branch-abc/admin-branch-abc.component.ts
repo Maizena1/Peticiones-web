@@ -121,8 +121,7 @@ export class AdminBranchAbcComponent implements OnInit {
 
 
 //metodo para la tabla delete,edit, detail
-onClickAction(data: any){  
-  
+onChangeActionTable(data: any){    
   console.log(data.action)
   //alert(data.id+"---"+data.action);
   if(data.action === 'delete'){
@@ -208,8 +207,8 @@ ActionEdit(id:string){
   this.dataBranchShow = this.Arraybranches.find(element => 
     element.id_sucursal == parseInt(id)
   );  
-  //console.table(this.dataBranchShow);
-  //console.table(this.dataBranchShow);
+  
+  console.table(this.dataBranchShow);
   this.Clearinputs();
   this.enableid = true;      
   //asignacion de las variables a mostrar

@@ -72,7 +72,7 @@ export class CreateRequestComponent implements OnInit {
   
   createPetition(){
 
-    if(this.problemType == 0 || this.descriptionProblem == '' ||  this.dataSesion == null ){      
+    if(this.problemType == 0 || this.descriptionProblem == ''){      
       this._snackBar.open('Error faltan datos', 'X', {      
         verticalPosition: this.verticalPosition,  
         duration: 3000,    
@@ -85,6 +85,8 @@ export class CreateRequestComponent implements OnInit {
         id_usuario: parseInt(this.dataSesion.id_usuario),
         estatus:'ESPERA'             
       };
+
+      console.log(datasend);
 
       this.APIPetition.addProblem(datasend).subscribe(response =>{                
         this.response = response;          

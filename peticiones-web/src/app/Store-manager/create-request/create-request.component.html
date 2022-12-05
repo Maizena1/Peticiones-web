@@ -9,14 +9,11 @@
             <div class="title-container">
                 <h1>Datos de la peticion</h1>
             </div>
-
             <div class="register-request">
                 <app-select [label]="'Tipo de problema'" [(value)]="problemType"  [items]="problemTypes"  [getId]="getId" [getLabel]="getLabel"></app-select>                            
                 <app-textarea [label]="'Descripcion del problema'" [(value)]="descriptionProblem" ></app-textarea>                
                 <button mat-raised-button color="primary" >Solicitar peticion</button>
             </div>
-
-
         </div>
     </body>
 </html>

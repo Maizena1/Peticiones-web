@@ -88,6 +88,10 @@ export class ManagerSolverAssignmentComponent implements OnInit {
   onChangeIdUser(id: string){
     this.idUser = id;
     this.ReloadUserProblems(this.idUser);
+    
+  // onChangeIdUser(id: any){
+  //   this.idUser = id;
+  //   this.ReloadUserProblems(parseInt(this.idUser));
   }
 
 
@@ -115,7 +119,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
       {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
       {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},      
     ],      
-    });  
+    });      
   }
 
   uploadDataProblem(){

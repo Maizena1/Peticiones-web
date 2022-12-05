@@ -52,8 +52,9 @@ import { ShowRequestAdminComponent } from './Admin/pages/show-request-admin/show
 import { ShowRequestSolverComponent } from './Solver/show-request-solver/show-request-solver.component';
 
 import {MatCardModule} from '@angular/material/card';
-import { TableShowComponent } from './Admin/pages/show-request-admin/table-show/table-show.component';
+import { TableShowComponent } from './components/table-show/table-show.component';
 import { ManagerSolverAssignmentComponent } from './Admin/pages/manager-solver-assignment/manager-solver-assignment.component';
+import { DialogDetailRequirementsComponent } from './components/dialog-detail-requirements/dialog-detail-requirements.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { ManagerSolverAssignmentComponent } from './Admin/pages/manager-solver-a
     ShowRequestAdminComponent,
     ShowRequestSolverComponent,
     TableShowComponent,
-    ManagerSolverAssignmentComponent
+    ManagerSolverAssignmentComponent,
+    DialogDetailRequirementsComponent
 
   ],
   imports: [

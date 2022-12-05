@@ -1,0 +1,46 @@
+<div class="dialog">
+    <div mat-dialog-content class="header-container">    
+        <h1 mat-dialog-title class="dialog-title">Requisitos</h1>
+    </div>
+
+    <div mat-dialog-content class="sub-container">
+    <div class="dialog-content">                          
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">          
+
+            <ng-container matColumnDef="nombre_articulo">
+              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre_articulo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="descripcion_requisito">
+              <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+              <td mat-cell *matCellDef="let element"> {{element.descripcion_requisito}} </td>
+            </ng-container>
+                    
+            <ng-container matColumnDef="cantidad">
+              <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+              <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+            </ng-container>
+                      
+            <ng-container matColumnDef="unidad">
+              <th mat-header-cell *matHeaderCellDef> Unidad </th>
+              <td mat-cell *matCellDef="let element"> {{element.unidad}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="precio">
+                <th mat-header-cell *matHeaderCellDef> Precio </th>
+                <td mat-cell *matCellDef="let element"> {{element.precio}} </td>
+              </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>                                                    
+        </div>        
+    </div>
+    
+    <div mat-dialog-action class="action-container">
+        <button mat-flat-button color="primary" matRipple class="format-button-cancel" class="button" mat-button mat-dialog-close>Cancelar</button>    
+    </div>
+
+</div>    
+

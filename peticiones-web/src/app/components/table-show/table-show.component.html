@@ -39,6 +39,7 @@
                 <app-button-table-abc [clase]="'button-remove'" [icon]="'delete_forever'" (onClick)="getid(row.col3,'delete')" *ngIf="optionDelete =='si'"></app-button-table-abc>
                 <app-button-table-abc [clase]="'button-accep'" [icon]="'done'" (onClick)="getid(row.col3,'accep')" *ngIf="optionEdit=='si'"></app-button-table-abc>
                 <app-button-table-abc [clase]="'button-detail'" [icon]="'receipt'" (onClick)="getid(row.col3,'detail')" *ngIf="optionDetail=='si'"></app-button-table-abc>
+                <app-button-table-abc [clase]="'button-requeriment'" [icon]="'assignment'" (onClick)="getid(row.col3,'detailReq')" *ngIf="optionRequeriment=='si'"></app-button-table-abc>                
             </div>
         </td>        
       </ng-container>

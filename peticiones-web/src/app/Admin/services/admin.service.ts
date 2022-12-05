@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { article, articlebytypeproblem, assignament_problem, branch, employee, estatus_problem, login, User, store, type_of_problem, user_problem } from './type';
+import { article, articlebytypeproblem, assignament_problem, branch, employee, estatus_problem, login, User, store, type_of_problem, user_problem, add_problem } from './type';
 
 @Injectable({
   providedIn: 'root'
@@ -154,6 +154,10 @@ export class AdminService {
   
   assignamentProblem(dato: assignament_problem , id: number):Observable<any>{
     return this.http.put(`${this.url}estatus-problema/${id}`,dato);
+  }
+
+  addProblem(dato: add_problem):Observable<any>{    
+    return this.http.post(`${this.url}registrar-problema`,dato);
   }
 
   //requisitos------------------------------------------------

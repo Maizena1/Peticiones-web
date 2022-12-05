@@ -6,7 +6,8 @@ import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
-import { problem, estatus_problem, response, table_show, User } from '../../services/type';
+import { DialogDetailRequirementsComponent } from 'src/app/components/dialog-detail-requirements/dialog-detail-requirements.component';
+import { problem, estatus_problem, response, table_show, User, requeriment } from '../../services/type';
 
 
 
@@ -24,11 +25,9 @@ export class ShowRequestAdminComponent implements OnInit {
   ItemsTableSlopes : table_show []=[]; 
 //contenido de tabla Revisar
   ItemsTableCheck : table_show []=[]; 
-  dataShowProblem : problem | any;
-
-  //array de requisitos
-  
-  
+  dataShowProblem : problem | any;  
+  //array de requisitos    
+  arrayRequerimentProblem: requeriment []= [];
   //array principal 
   arrayProblems: problem [] = [] ;
   response: response | any; //subscripcion de respuesta
@@ -155,8 +154,12 @@ export class ShowRequestAdminComponent implements OnInit {
     }else if(data.action === 'accep'){
       this.ActionAccepRequeriment(data.fecha);
     }else if(data.action === 'detail'){
-      this.ActionDetailRequeriment(data.fecha);
-    }  
+      this.ActionDetail(data.fecha);
+    }else if(data.action === 'detailReq'){
+      this.ActionDetailRequeriment(data.fecha)
+    }
+
+    
   }
 
   ActionDeleteRequeriment(fecha: string){
@@ -173,26 +176,13 @@ export class ShowRequestAdminComponent implements OnInit {
     const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                         
     //pendiente????------
     this.APIPetition.getRequirementProblem(this.arrayProblems[idproblem].id_problema).subscribe(result =>{                 
-      console.log(result);
-    }); 
+      this.arrayRequerimentProblem = result;
 
-    
-    this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
-    const dialogRef = this.dialog.open(DialogDetailComponent, {      
-    data: [      
-      {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},
-      {title: 'Descripcion:', data:this.dataShowProblem.descripcion_problema},      
-      {title: 'Nombre Empleado que solicita:', data:this.dataShowProblem.nombre_empleado},      
-      {title: 'Nombre Sucursal:', data:this.dataShowProblem.nombre_sucursal},      
-      {title: 'Solucionador Designado:', data:this.dataShowProblem.nombre_empleado_designado},            
-      {title: 'Fecha Solicitud:', data:this.dataShowProblem.fecha_solicitud},
-      {title: 'Fecha de Aceptado:', data:this.dataShowProblem.fecha_aceptado},            
-      {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
-      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},      
-      {title: 'Requisitos:', data:'----------'},            
-
-    ],      
-    });  
+      const dialogRef = this.dialog.open(DialogDetailRequirementsComponent, {      
+      width:'65%',
+      data: this.arrayRequerimentProblem,
+      });  
+    });             
   }
 
 

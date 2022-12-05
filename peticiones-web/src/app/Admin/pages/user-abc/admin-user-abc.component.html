@@ -28,13 +28,14 @@
                         <div class="button-container">
                             <button mat-flat-button color="primary" *ngIf="button == 'add'" (click)="createUser()">Agregar</button>
                             <button #update mat-flat-button color="primary" *ngIf="button == 'update'">Actualizar</button>
->>>>>>> 60303218eae81f2ad8947ba5cfe6356581460db8
                         </div>
                         
                     </div>
 
                     <div class="table-user-container" *ngIf="itemsTable.length > 0">
-                        <app-abc-table [rows]="users" [nameColumn]="COLUMN_NAMES" (onClickAction)="onChangeActionTable($event)"></app-abc-table>
+                        <!--
+                            <app-abc-table [rows]="users" [nameColumn]="COLUMN_NAMES" (onClickAction)="onChangeActionTable($event)"></app-abc-table>
+                        -->
                     </div>
 
                 </div>

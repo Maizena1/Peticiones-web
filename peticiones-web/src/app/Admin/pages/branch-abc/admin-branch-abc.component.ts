@@ -261,7 +261,8 @@ UpdateBranch(){
                           
     //this._snackBar.open('Error faltan datos para actualizar', 'x');    
     this._snackBar.open('Error faltan datos', 'X', {      
-      verticalPosition: this.verticalPosition,      
+      verticalPosition: this.verticalPosition,  
+      duration: 3000,    
       panelClass: ['red-snackbar'],
     });
     
@@ -296,8 +297,7 @@ UpdateBranch(){
           this._snackBar.open(this.response.Mensaje, 'X', {            
             verticalPosition: this.verticalPosition,
             duration: 3000,
-            panelClass: ['green-snackbar'],
-            //panelClass: ['red-snackbar'],
+            panelClass: ['green-snackbar']            
           });          
 
           this.inAct = this.ItemsTable.findIndex( element => element.col1  == this.id_sucursal);                         
@@ -336,7 +336,7 @@ CreateBranch() {
       //this._snackBar.open('Error faltan datos para actualizar', 'X');          
       this._snackBar.open('Error faltan datos', 'X', {        
         verticalPosition: this.verticalPosition,
-        //panelClass: ['green-snackbar'],
+        duration: 3000,    
         panelClass: ['red-snackbar'],
       });
 
@@ -358,14 +358,14 @@ CreateBranch() {
           if(this.response.Estatus == 'Error'){            
             this._snackBar.open(this.response.Mensaje, 'X', {              
               verticalPosition: this.verticalPosition,
-              //panelClass: ['green-snackbar'],
+              duration: 3000,                  
               panelClass: ['red-snackbar'],
             });
           }else{
             this._snackBar.open(this.response.Mensaje, 'X', {              
               verticalPosition: this.verticalPosition,
-              panelClass: ['green-snackbar'],
-              //panelClass: ['red-snackbar'],
+              duration: 3000,    
+              panelClass: ['green-snackbar'],              
             });
 
             if(datasend.estatus =='A'){

@@ -132,7 +132,7 @@ export interface problem{
 export interface add_problem{
     id_tipo_problema: number;
     descripcion_problema: string;
-    id_usuario?: number;
+    id_usuario: number;
     estatus: string;
 }
 
@@ -159,8 +159,8 @@ export interface requeriment {
     id_requisito_problema?: number;
     id_problema: number;
     id_codigo_articulo?: string;
-    nombre_articulo?: string;
-    descripcion_requisito?: string;
+    nombre_articulo: string;
+    descripcion_requisito: string;
     cantidad: number;
     unidad: string;
     precio: number;

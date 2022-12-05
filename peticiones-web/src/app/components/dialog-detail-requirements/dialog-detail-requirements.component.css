@@ -1,0 +1,75 @@
+.title{
+    font-weight: 700;
+}
+
+.header-container{
+    margin: 0px auto;
+    text-align: center;
+
+    
+    border: 1px solid rgba(199, 199, 199, 0.132);
+    border-radius: 4px;
+    box-shadow: rgba(99, 99, 99, 0.169) 0px 2px 8px 0px;
+}
+
+
+.dialog-content{
+    width: 100%;
+}
+
+
+.mat-dialog-content {
+    margin: 0px; 
+    padding: 0px;
+}
+
+.dialog-title{
+    color:#3F51B5;
+    font-weight: 700;
+
+}
+
+.sub-container{
+    display: flex;
+    flex-direction: column;
+    
+    gap: 8px;
+
+    padding: 16px 20px;
+}
+
+.action-container{
+    text-align: center;
+    
+}
+
+.button{
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    overflow: auto;
+}
+
+.mat-elevation-z8{
+    text-align: center;
+}
+
+.mat-row{
+    height: 28px;    
+}
+
+th{    
+    text-align: center !important;
+    color: black !important;
+    font-weight: 500;
+}
+
+td{
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
+
+
+

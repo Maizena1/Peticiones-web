@@ -18,6 +18,7 @@ export class TableShowComponent implements OnInit {
   @Input() optionEdit: string = 'si';
   @Input() optionDetail: string = 'si';
   @Input() optionFilter: string = 'si';
+  @Input() optionRequeriment: string = 'si';
 
 
   @Output() onChange = new EventEmitter<{fecha:string, action:string}>();   

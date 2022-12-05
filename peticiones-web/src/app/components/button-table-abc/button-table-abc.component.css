@@ -25,5 +25,9 @@
 }
 
 .button-detail{
-    background-color: yellow !important;
+    background-color: rgb(200, 200, 42) !important;
+}
+
+.button-requeriment{
+    background-color: rgb(39, 152, 169) !important;
 }

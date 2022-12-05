@@ -160,6 +160,11 @@ export class AdminService {
     return this.http.post(`${this.url}registrar-problema`,dato);
   }
 
+
+  getProblemsOrder():Observable<any>{    
+    return this.http.get(`${this.url}problemas-order`);
+  }
+
   //requisitos------------------------------------------------
   getRequirementProblem(id:number):Observable<any>{    
     return this.http.get(`${this.url}requisitos-problema/${id}`);

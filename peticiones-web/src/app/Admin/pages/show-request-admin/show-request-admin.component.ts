@@ -35,7 +35,6 @@ export class ShowRequestAdminComponent implements OnInit {
   //nombres de columnas de tabla General
   nameColums: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Botones'];  
   
-
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
 
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }

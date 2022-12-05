@@ -9,20 +9,16 @@
         <div class="mat-tab-group">
             <mat-tab-group animationDuration="0ms" class="mat-tab-group">
 
-                <mat-tab label="General" >
-                    <!--
-                        <div class="table-container" *ngIf="ItemsTableGeneric.length > 0">                                            
+                <mat-tab label="General" >                    
+                    <div class="table-container" *ngIf="ItemsTableGeneric.length > 0">                                            
                         <app-table-show class="table" [items]="ItemsTableGeneric" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" [optionRequeriment]="'no'" [optionDetail]="'no'" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
-                    </div>                                
-                    -->                    
+                    </div>                                                    
                 </mat-tab>
                 
-                <mat-tab label="Tu sucursal">
-                    <!--
-                        <div class="table-container" *ngIf="ItemsTableSlopes.length > 0">
+                <mat-tab label="Tu sucursal">                    
+                    <div class="table-container" *ngIf="ItemsTableSlopes.length > 0">
                         <app-table-show class="table" [items]="ItemsTableSlopes" [nameColumn]="nameColums" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
-                    </div>
-                    -->                    
+                    </div>                    
                 </mat-tab> 
 
               </mat-tab-group>

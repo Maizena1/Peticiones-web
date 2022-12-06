@@ -16,10 +16,10 @@ import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-d
 })
 export class AdminUserByProblemTypeAbcComponent implements OnInit {
 
-  problemType: any [] = [];
+  problemType: [] = [];
 
   id: string = '';
-  idTypeProblem: string = '1';
+  idTypeProblem: string = '';
   idUser: string ='';
   estatus: string = '';
   dataUserByTypeProblem: user_problem | any;
@@ -125,8 +125,8 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
   }
 
 
-  onChangeIdTypeProblem(data: string){
-    this.idTypeProblem = data;
+  onChangeIdTypeProblem(data: any){
+    this.idTypeProblem = data.toString();    
   }
 
   onChangeIdEmployee(data: string){
@@ -195,7 +195,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     this.Clearinputs();
     //asignacion de las variables a mostrar                
     this.id = id;
-    this.idTypeProblem = String(this.dataUserByTypeProblem.id_tipo_problema);
+    this.idTypeProblem = this.dataUserByTypeProblem.id_tipo_problema;
     console.log(this.idTypeProblem);
     this.idUser = String(this.dataUserByTypeProblem.id_usuario);      
     if(this.dataUserByTypeProblem.estatus == 'A'){      

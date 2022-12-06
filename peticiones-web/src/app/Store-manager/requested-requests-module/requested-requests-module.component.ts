@@ -92,10 +92,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
   //variable para obtener hasta el id usuario
   usuario: string = "no";
   ReloadProblems(){
-    this.arrayProblems = [];
-    this.ItemsTableGeneric = [];
-    this.ItemsTableSlopes = [];    
-    
+    this.arrayProblems = [];           
     this.APIPetition.getProblemsOrder().subscribe(result =>{              
       if(result.Estatus){
         this._snackBar.open(result.Mensaje, 'X', {      
@@ -104,6 +101,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
           panelClass: ['red-snackbar'],
         });
       }else{
+
         result.forEach((row:any) => {                           
             //console.table(result);                                               
           if(row.estatus == 'ESPERA'){
@@ -231,24 +229,35 @@ export class RequestedRequestsModuleComponent implements OnInit {
           }                      
         }); 
         
-        this.arrayProblems.forEach((row) => {          
-            if(row.estatus == 'ESPERA'){
+        
+        this.reloadArrayGeneric();
 
-              if(this.dataSesion.id_usuario == row.id_usuario ){
-                this.usuario = 'si';              
-              }
 
-              if(this.usuario = 'no'){
-                this.ItemsTableGeneric.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
-              }                            
-            }
-        });                  
+
       }      
     });
   }
 
 
+  reloadArrayGeneric(){
+    this.ItemsTableGeneric = [];
+    this.ItemsTableSlopes = []; 
+    //pila hasta tu problema
+    this.arrayProblems.forEach((row) => {          
+      if(row.estatus == 'ESPERA'){              
+        if(this.usuario == 'no'){
+          this.ItemsTableGeneric.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
+        }                            
+        if(this.dataSesion.id_usuario == row.id_usuario ){
+          this.usuario = 'si';              
+        }
+      }
+    });  
 
-
-
+    this.arrayProblems.forEach((row) => {                        
+        if(this.dataSesion.id_usuario == row.id_usuario ){
+          this.ItemsTableSlopes.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
+        }      
+    });  
+  }
 }

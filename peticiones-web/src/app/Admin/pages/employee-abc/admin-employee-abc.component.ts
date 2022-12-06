@@ -206,13 +206,12 @@ ActionDelete(id: string){
 
 ActionEdit(id:string){
   this.butonAddUpdate = 'a';
-  this.enableid = true;      
   
   this.DataEmployeeShow = this.ArrayEmployees.find(element => 
     element.id_empleado == parseInt(id)
-  );    
-  
+  );      
   this.Clearinputs();
+  this.enableid = true;      
   //asignacion de las variables a mostrar        
   this.idEmpleado = id;  
   this.nombre = this.DataEmployeeShow.nombre_empleado;  

@@ -25,11 +25,11 @@ export class InputComponent implements OnInit {
   @Output() KeyUp = new EventEmitter<string>();    
 
   
-
+//.hasError('required')
   constructor() { }
 
   //para la validacion del input
-  InputFormControl = new FormControl('', [Validators.required]);
+  InputFormControl = new FormControl('', [Validators.required])
   
 
   getdata( data : string ){
@@ -39,12 +39,7 @@ export class InputComponent implements OnInit {
   getTextPress(data: string){
     this.KeyUp.emit(data);
   }
-
-  onChangeInput(event: any){
-    this.valueChange.emit(event.target.value);
-  }
-
-
+  
   ngOnInit(): void {
   }
 

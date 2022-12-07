@@ -21,7 +21,7 @@
                             <app-select [label]="'Sucursal'" [(value)]="idSucursal" [items]="branches" [getId]="getIdBranches" [getLabel]="getLabelBranches" [disabled]="enableid"></app-select>
                             <app-select [label]="'Articulo'" [(value)]="idArticle" [items]="articles"  [getId]="getIdArticle" [getLabel]="getLabelArticle" [disabled]="enableid"></app-select>
                             <app-input [type]="'number'" [label]="'Cantidad total'" [example]="'30'" [value]="totalAmount" (onChange)="onChangeTotalAmount($event)"></app-input>                            
-                            <app-input [type]="'number'" [label]="'Cantidad disponible'" [value]="totalAvailable" (onChange)="onChangeTotalAvailable($event)"></app-input>                            
+                            <app-input [type]="'number'" [label]="'Cantidad disponible'" [value]="totalAvailable" (onChange)="onChangeTotalAvailable($event)" *ngIf="idSucursal == '16'"></app-input>                            
                             <mat-slide-toggle [color]="'primary'" class="slide-toggle" [(ngModel)]="isChecked">Valioso</mat-slide-toggle>
                         </div>
 

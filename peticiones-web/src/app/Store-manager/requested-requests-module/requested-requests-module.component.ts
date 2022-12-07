@@ -75,14 +75,15 @@ export class RequestedRequestsModuleComponent implements OnInit {
       {title: 'ID:', data:  this.dataShowProblem.id_problema},      
       {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},
       {title: 'Descripcion:', data:this.dataShowProblem.descripcion_problema},      
-      {title: 'Nombre Empleado que solicita:', data:this.dataShowProblem.nombre_empleado},      
-      {title: 'Nombre Sucursal:', data:this.dataShowProblem.nombre_sucursal},      
+      {title: 'Tu:', data:this.dataShowProblem.nombre_empleado},      
+      {title: 'Nombre de tu sucursal:', data:this.dataShowProblem.nombre_sucursal},      
       {title: 'Solucionador Designado:', data:this.dataShowProblem.nombre_empleado_designado},
       {title: 'Estado:', data:this.dataShowProblem.estatus},
       {title: 'Fecha Solicitud:', data:this.dataShowProblem.fecha_solicitud},
       {title: 'Fecha de Aceptado:', data:this.dataShowProblem.fecha_aceptado},            
       {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
-      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},      
+      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},   
+      {title: 'Gasto De Mantenimiento:', data:this.dataShowProblem.total},      
     ],      
     });  
   }
@@ -92,10 +93,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
   //variable para obtener hasta el id usuario
   usuario: string = "no";
   ReloadProblems(){
-    this.arrayProblems = [];
-    this.ItemsTableGeneric = [];
-    this.ItemsTableSlopes = [];    
-    
+    this.arrayProblems = [];           
     this.APIPetition.getProblemsOrder().subscribe(result =>{              
       if(result.Estatus){
         this._snackBar.open(result.Mensaje, 'X', {      
@@ -104,6 +102,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
           panelClass: ['red-snackbar'],
         });
       }else{
+
         result.forEach((row:any) => {                           
             //console.table(result);                                               
           if(row.estatus == 'ESPERA'){
@@ -125,6 +124,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              total: 0
             });                      
   
           }else if(row.estatus == 'ACEPTADO'){
@@ -146,6 +146,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              total: 0
             });
           }else if(row.estatus == 'REVISION'){
             this.arrayProblems.push({
@@ -166,6 +167,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              total: 0
             });
           }else if(row.estatus == 'PROCESO'){
             this.arrayProblems.push({
@@ -186,6 +188,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              total: row.total
             });
           }else if(row.estatus == 'TERMINADO'){
             this.arrayProblems.push({
@@ -206,6 +209,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado: row.fecha_terminado,
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              total: row.total
             });
   
           }else if(row.estatus == 'RECHAZADO'){
@@ -227,28 +231,40 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado: row.fecha_terminado,
               fecha_rechazado:row.fecha_rechazado,
               id_problema:row.id_problema,  
+              total: 0
             });
           }                      
         }); 
         
-        this.arrayProblems.forEach((row) => {          
-            if(row.estatus == 'ESPERA'){
+        
+        this.reloadArrayGeneric();
 
-              if(this.dataSesion.id_usuario == row.id_usuario ){
-                this.usuario = 'si';              
-              }
 
-              if(this.usuario = 'no'){
-                this.ItemsTableGeneric.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
-              }                            
-            }
-        });                  
+
       }      
     });
   }
 
 
+  reloadArrayGeneric(){
+    this.ItemsTableGeneric = [];
+    this.ItemsTableSlopes = []; 
+    //pila hasta tu problema
+    this.arrayProblems.forEach((row) => {          
+      if(row.estatus == 'ESPERA'){              
+        if(this.usuario == 'no'){
+          this.ItemsTableGeneric.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
+        }                            
+        if(this.dataSesion.id_usuario == row.id_usuario ){
+          this.usuario = 'si';              
+        }
+      }
+    });  
 
-
-
+    this.arrayProblems.forEach((row) => {                        
+        if(this.dataSesion.id_usuario == row.id_usuario ){
+          this.ItemsTableSlopes.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
+        }      
+    });  
+  }
 }

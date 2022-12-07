@@ -7,17 +7,17 @@
 
     <div class="content-container">
         <div class="mat-tab-group">
-            <mat-tab-group animationDuration="0ms" class="mat-tab-group" (focusChange)="ReloadProblems()">
+            <mat-tab-group animationDuration="0ms" class="mat-tab-group" >
 
-                <mat-tab label="General" >                    
+                <mat-tab label="General" (focusChange)="ReloadProblems()">                    
                     <div class="table-container" *ngIf="ItemsTableGeneric.length > 0">                                            
                         <app-table-show class="table" [items]="ItemsTableGeneric" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" [optionRequeriment]="'no'" [optionDetail]="'no'" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
                     </div>                                                    
                 </mat-tab>
                 
-                <mat-tab label="Tu sucursal">                    
+                <mat-tab label="Tu sucursal" (focusChange)="ReloadProblems()">                    
                     <div class="table-container" *ngIf="ItemsTableSlopes.length > 0">
-                        <app-table-show class="table" [items]="ItemsTableSlopes" [nameColumn]="nameColums" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
+                        <app-table-show class="table" [items]="ItemsTableSlopes" [nameColumn]="nameColums" [optionRequeriment]="'no'" [optionDelete]="'no'" [optionEdit]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
                     </div>                    
                 </mat-tab> 
 

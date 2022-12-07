@@ -16,8 +16,8 @@
 
                     <div class="register">
 
-                        <div class="input-register">
-                            <app-select [label]="'Tipo de problema'" [(value)]="idTypeProblem" [items]="problemType" [getId]="getId" [getLabel]="getLabel" ></app-select>
+                        <div class="input-register">                            
+                            <app-select [label]="'Tipo de problema'" [(value)]="idTypeProblem" [items]="problemType" [getId]="getId" [getLabel]="getLabel"></app-select>
                             <app-input [type]="'number'" [label]="'ID Usuario'" [enable]="enableid" [example]="'13'" [value]="idUser" ></app-input>
                             <mat-slide-toggle class="slide-toggle" [color]="'primary'" [(ngModel)]="isChecked">Activo</mat-slide-toggle>
                         </div>
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="table-user-by-problem-type-container" *ngIf="itemsTable.length > 0">
-                        <app-abc-table class="table" [items]=" itemsTable" [nameColumn]="namecolum" (onChange)="onChangeActionTable($event)"></app-abc-table>
+                        <app-abc-table class="table" [items]=" itemsTable" [nameColumn]="namecolum" [optionDelete]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>
                     </div>
 
                 </div>

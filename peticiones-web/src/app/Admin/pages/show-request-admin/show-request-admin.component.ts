@@ -140,7 +140,8 @@ export class ShowRequestAdminComponent implements OnInit {
       {title: 'Fecha Solicitud:', data:this.dataShowProblem.fecha_solicitud},
       {title: 'Fecha de Aceptado:', data:this.dataShowProblem.fecha_aceptado},            
       {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
-      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},      
+      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},    
+      {title: 'Gasto De Mantenimiento:', data:this.dataShowProblem.total},     
     ],      
     });  
   }
@@ -222,6 +223,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              total: 0
             });                      
   
           }else if(row.estatus == 'ACEPTADO'){
@@ -243,6 +245,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              total: 0
             });
           }else if(row.estatus == 'REVISION'){
             this.arrayProblems.push({
@@ -263,6 +266,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              total: 0
             });
           }else if(row.estatus == 'PROCESO'){
             this.arrayProblems.push({
@@ -283,6 +287,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              total: row.total
             });
           }else if(row.estatus == 'TERMINADO'){
             this.arrayProblems.push({
@@ -301,8 +306,9 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_revision: row.fecha_revision, 
               fecha_enproceso: row.fecha_enproceso,
               fecha_terminado: row.fecha_terminado,
-              fecha_rechazado:'--',
+              fecha_rechazado:'--',              
               id_problema:row.id_problema,  
+              total: row.total
             });
   
           }else if(row.estatus == 'RECHAZADO'){
@@ -324,6 +330,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_terminado: row.fecha_terminado,
               fecha_rechazado:row.fecha_rechazado,
               id_problema:row.id_problema,  
+              total: 0
             });
           }                      
         }); 

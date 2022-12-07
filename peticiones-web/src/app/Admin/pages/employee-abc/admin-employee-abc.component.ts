@@ -101,8 +101,9 @@ export class AdminEmployeeAbcComponent implements OnInit {
   //obtner sucursales actuales
   ReloadEmployees(){
     this.ArrayEmployees = [];
-    this.APIPetition.getEmployees().subscribe(result => {                
-      this.ArrayEmployees = result;      
+    this.APIPetition.getEmployees().subscribe(result =>{                
+      //console.table(result);
+      this.ArrayEmployees = result;            
     })       
   }
 
@@ -204,11 +205,13 @@ ActionDelete(id: string){
 
 ActionEdit(id:string){
   this.butonAddUpdate = 'a';
+  this.enableid = true;      
   
   this.DataEmployeeShow = this.ArrayEmployees.find(element => 
     element.id_empleado == parseInt(id)
   );    
   
+  this.Clearinputs();
   //asignacion de las variables a mostrar        
   this.idEmpleado = id;  
   this.nombre = this.DataEmployeeShow.nombre_empleado;  

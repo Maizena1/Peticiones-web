@@ -16,7 +16,7 @@ import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-d
 })
 export class AdminUserByProblemTypeAbcComponent implements OnInit {
 
-  problemType: any [] = [];
+  problemType: [] = [];
 
   id: string = '';
   idTypeProblem: string = '';
@@ -125,8 +125,8 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
   }
 
 
-  onChangeIdTypeProblem(data: string){
-    this.idTypeProblem = data;
+  onChangeIdTypeProblem(data: any){
+    this.idTypeProblem = data.toString();    
   }
 
   onChangeIdEmployee(data: string){

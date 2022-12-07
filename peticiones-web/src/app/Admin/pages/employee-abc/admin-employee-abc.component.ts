@@ -101,10 +101,9 @@ export class AdminEmployeeAbcComponent implements OnInit {
   //obtner sucursales actuales
   ReloadEmployees(){
     this.ArrayEmployees = [];
-    this.APIPetition.getBranches().subscribe(result =>{                
+    this.APIPetition.getEmployees().subscribe(result =>{                
       //console.table(result);
-      this.ArrayEmployees = result;      
-      //console.table(this.Arraybranches);
+      this.ArrayEmployees = result;            
     })       
   }
 

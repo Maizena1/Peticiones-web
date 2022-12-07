@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="table-user-container" *ngIf="itemsTable.length > 0">
-                        <app-abc-table [items]="itemsTable" [nameColumn]="nameColum" (onChange)="onChangeActionTable($event)"></app-abc-table>                                             
+                        <app-abc-table [items]="itemsTable" [nameColumn]="nameColum" [optionDelete]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>                                             
                     </div>
 
                 </div>

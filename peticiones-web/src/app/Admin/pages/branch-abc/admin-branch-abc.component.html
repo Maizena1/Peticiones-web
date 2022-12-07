@@ -30,7 +30,7 @@
                     </div>
                     
                     <div class="table-branch-container" *ngIf="ItemsTable.length > 0">
-                        <app-abc-table [items]="ItemsTable" [nameColumn]="nameColumn" (onChange)="onChangeActionTable($event)"></app-abc-table>
+                        <app-abc-table [items]="ItemsTable" [nameColumn]="nameColumn" [optionDelete]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>
                     </div>
                 </div>            
             </div>

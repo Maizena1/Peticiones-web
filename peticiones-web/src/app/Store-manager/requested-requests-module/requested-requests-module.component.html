@@ -17,7 +17,7 @@
                 
                 <mat-tab label="Tu sucursal" (focusChange)="ReloadProblems()">                    
                     <div class="table-container" *ngIf="ItemsTableSlopes.length > 0">
-                        <app-table-show class="table" [items]="ItemsTableSlopes" [nameColumn]="nameColums" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
+                        <app-table-show class="table" [items]="ItemsTableSlopes" [nameColumn]="nameColums" [optionRequeriment]="'no'" [optionDelete]="'no'" [optionEdit]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
                     </div>                    
                 </mat-tab> 
 

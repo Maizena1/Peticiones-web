@@ -127,6 +127,7 @@ export interface problem{
     fecha_terminado: string;
     fecha_rechazado: string;
     id_problema: number;
+    total: number;
 }
 
 export interface add_problem{
@@ -142,9 +143,10 @@ export interface assignament_problem{
 }
 
 
-export interface estatus_problem {
+export interface estatus_problem {    
     id_problema: number;
     estatus: string;    
+    id_sucursal?: number;   
     materials?: materials [];
 }
 
@@ -152,6 +154,7 @@ export interface estatus_problem {
 export interface materials {
     codigo: string;
     cantidad: number;
+    tipo: string;
 }
 
 

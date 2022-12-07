@@ -39,13 +39,13 @@ export interface type_of_problem{
 
 //usuario
 export interface User{
-    id_usuario: number;
-    id_empleado: number;
+    id_usuario?: number;
+    id_empleado?: number;
     id_rol: number;
     usuario: string;
     password: string;
     estatus: string;
-    login: number;
+    login?: number;
 }
 
 

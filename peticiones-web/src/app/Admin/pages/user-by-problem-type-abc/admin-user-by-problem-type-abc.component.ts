@@ -19,7 +19,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
   problemType: any [] = [];
 
   id: string = '';
-  idTypeProblem: string = '1';
+  idTypeProblem: string = '';
   idUser: string ='';
   estatus: string = '';
   dataUserByTypeProblem: user_problem | any;
@@ -108,7 +108,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     //limpieza
     this.isChecked == true;
     this.enableid = false;  
-    this.idTypeProblem = '0';
+    this.idTypeProblem = '';
     this.id = '';
     this.idUser = '';
     this.estatus ='';    
@@ -195,8 +195,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     this.Clearinputs();
     //asignacion de las variables a mostrar                
     this.id = id;
-    this.idTypeProblem = String(this.dataUserByTypeProblem.id_tipo_problema);
-    console.log(this.idTypeProblem);
+    this.idTypeProblem = this.dataUserByTypeProblem.id_tipo_problema;
     this.idUser = String(this.dataUserByTypeProblem.id_usuario);      
     if(this.dataUserByTypeProblem.estatus == 'A'){      
       this.isChecked = true;

@@ -110,7 +110,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     this.enableid = false;  
     this.idTypeProblem = '0';
     this.id = '';
-    this.idUser = '';
+    this.idUser = ' ';
     this.estatus ='';    
   }
 

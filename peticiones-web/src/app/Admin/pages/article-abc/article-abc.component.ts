@@ -86,9 +86,9 @@ export class ArticleAbcComponent implements OnInit {
 
   Clearinputs(){
     //limpieza
-    this.idArticle = '';
-    this.name = '';
-    this.description = '';
+    this.idArticle = ' ';
+    this.name = ' ';
+    this.description = ' ';
     this.enableid = false;
   }
 

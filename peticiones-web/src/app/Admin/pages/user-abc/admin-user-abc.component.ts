@@ -22,10 +22,10 @@ export class AdminUserAbcComponent implements OnInit {
   formAction: "create" | "edit" = "create";
 
   form = {
-    userName: '',
-    password: '',
-    employeeId:'',
-    roleId: '',
+    userName: ' ',
+    password: ' ',
+    employeeId:' ',
+    roleId: ' ',
     status: false
   }
 

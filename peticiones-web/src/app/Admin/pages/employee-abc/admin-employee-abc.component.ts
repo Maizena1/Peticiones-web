@@ -135,12 +135,12 @@ export class AdminEmployeeAbcComponent implements OnInit {
     //limpieza
     this.isChecked == true;
     this.enableid = false;  
-    this.idEmpleado ='';
-    this.nombre ='';    
-    this.idSucursal = '';
-    this.correo ='';
-    this.telefono='';
-    this.estatus ='';    
+    this.idEmpleado =' ';
+    this.nombre =' ';    
+    this.idSucursal = ' ';
+    this.correo =' ';
+    this.telefono=' ';
+    this.estatus =' ';    
   }
 
 //metodo para la tabla delete,edit, detail
@@ -331,7 +331,7 @@ CreateEmployee() {
     //this._snackBar.open('Error faltan datos para actualizar', 'X');          
     this._snackBar.open('Error faltan datos', 'X', {        
       verticalPosition: this.verticalPosition,
-      //panelClass: ['green-snackbar'],
+      duration: 3000,
       panelClass: ['red-snackbar'],
     });
 
@@ -352,14 +352,14 @@ CreateEmployee() {
         if(this.response.Estatus == 'Error'){            
           this._snackBar.open(this.response.Mensaje, 'X', {              
             verticalPosition: this.verticalPosition,
-            //panelClass: ['green-snackbar'],
+            duration: 3000,
             panelClass: ['red-snackbar'],
           });
         }else{
           this._snackBar.open(this.response.Mensaje, 'X', {              
             verticalPosition: this.verticalPosition,
-            panelClass: ['green-snackbar'],
-            //panelClass: ['red-snackbar'],
+            duration: 3000,
+            panelClass: ['green-snackbar'],            
           });
 
           if(datasend.estatus == 'A'){

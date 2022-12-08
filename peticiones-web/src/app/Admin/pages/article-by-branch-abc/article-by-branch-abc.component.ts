@@ -134,7 +134,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
     this.id = '';
     this.idSucursal = '';
     this.idArticle = '';    
-    this.totalAmount = '';
+    this.totalAmount = ' ';
     this.totalAvailable='0';
     this.tipo = '';
   }

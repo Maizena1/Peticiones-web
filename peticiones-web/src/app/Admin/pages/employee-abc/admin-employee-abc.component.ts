@@ -205,12 +205,13 @@ ActionDelete(id: string){
 
 ActionEdit(id:string){
   this.butonAddUpdate = 'a';
+  this.enableid = true;      
   
   this.DataEmployeeShow = this.ArrayEmployees.find(element => 
     element.id_empleado == parseInt(id)
-  );      
+  );    
+  
   this.Clearinputs();
-  this.enableid = true;      
   //asignacion de las variables a mostrar        
   this.idEmpleado = id;  
   this.nombre = this.DataEmployeeShow.nombre_empleado;  
@@ -222,6 +223,8 @@ ActionEdit(id:string){
   }else{    
     this.isChecked = false;
   }  
+
+  this.enableid = true;
 }
 
 //si es detail
@@ -259,9 +262,11 @@ UpdateEmployee(){
     this._snackBar.open('Error faltan datos', 'X', {      
       verticalPosition: this.verticalPosition,      
       panelClass: ['red-snackbar'],
+      duration: 3000,
     });
     
   }else{
+
 
     //llenar data a enviar
       const datasend : employee = {                      
@@ -272,13 +277,12 @@ UpdateEmployee(){
         estatus: this.estatus,                                                                             
       };
 
-      //console.table(datasend);
       this.idupdate = this.idEmpleado;      
 
       this.APIPetition.UpdatedEmployee(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
         this.response = response;   
         
-        this.idEmpleado =this.idupdate ;        // se iguala porque se puedan
+        this.idEmpleado = this.idupdate ;        // se iguala porque se puedan
         this.nombre = datasend.nombre_empleado;
         this.estatus = datasend.estatus;
         
@@ -294,7 +298,7 @@ UpdateEmployee(){
             duration: 3000,
             panelClass: ['green-snackbar'],
             //panelClass: ['red-snackbar'],
-          });          
+        });          
 
           this.inAct = this.ItemsTable.findIndex( element => element.col1  == this.idEmpleado);                         
           if( this.inAct != -1){

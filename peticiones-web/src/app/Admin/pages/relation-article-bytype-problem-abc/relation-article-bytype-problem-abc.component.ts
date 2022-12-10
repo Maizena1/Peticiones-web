@@ -2,12 +2,10 @@ import { Component, OnInit} from '@angular/core';
 import { response, Item, articlebytypeproblem, User } from '../../services/type';
 import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
-import {FormBuilder} from '@angular/forms';
+import { FormBuilder} from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
-import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
-import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
+import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-relation-article-bytype-problem-abc',
@@ -112,7 +110,6 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     this.idArticle = '';
     this.idTypeProblem = '';
   }
-
 
   getIdTypeProblem(item: any){
     return item.id_tipo_problema;

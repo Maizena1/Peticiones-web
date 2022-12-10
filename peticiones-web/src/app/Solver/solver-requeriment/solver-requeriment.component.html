@@ -33,18 +33,15 @@
 
                     <div class="register-table-container">
                         <div class="register">
-                            <app-select [label]="'Material'"></app-select>   
-                            <app-textarea [label]="'Descripcion de requisito'"></app-textarea>
-                            <app-input [label]="'Cantidad'"></app-input>
-                            <app-select [label]="'Unidad'"></app-select>
+                            <app-select [label]="'Material'" [items]="item" [(value)]="form.articleId"></app-select>   
+                            <app-textarea [label]="'Descripcion del articulo'" [example]="''"></app-textarea>
+                            <app-input [label]="'askdjasd'" [example]="'5111100000'"></app-input>                         
+                            <app-input [label]="'Unidad'"></app-input>                        
                             <app-input [label]="'Precio'"></app-input>
 
                             <div class="button-container">
-                                <button mat-stroked-button color="primary">Quitar</button>
                                 <button mat-flat-button color="primary">Agregar</button>
                             </div>
-                            
-
                         </div>
 
                         <div class="table">                            

@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../../services/type';
 import { User, response } from '../../services/type';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { FormBuilder, } from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
 import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { Element, ThisReceiver } from '@angular/compiler';
-import { empty, throwIfEmpty } from 'rxjs';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
 
 

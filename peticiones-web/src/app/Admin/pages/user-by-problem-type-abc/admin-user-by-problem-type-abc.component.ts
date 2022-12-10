@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { request_table } from 'src/app/components/services/request-table';
 import { AdminService } from '../../services/admin.service';
 import { response, User, user_problem } from '../../services/type';
-import { ActivatedRoute, Router } from '@angular/router';
-import {FormBuilder, Validators} from '@angular/forms';
-import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
+import { MatSnackBar , MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
 

@@ -58,27 +58,19 @@ export class ArticleAbcComponent implements OnInit {
     }        
 
 
-    this.APIAdminPetition.getArticle().subscribe(result =>{                
-      this.ArrayArticles = result;
-      //console.table(this.Arraybranches); 
-      this.ArrayArticles.forEach((row) => {                   
-        /*
-        "id_codigo_articulo": "5111100000",
-        "nombre_articulo": "Monitor LG 27 pulgadas"
-        */      
-        this.ItemsTable.push({ col1: String(row.id_codigo_articulo), col2: row.nombre_articulo , col3: row.descripcion , col4:'-' });                
-      });                                     
-      //console.table(this.ItemsTable);      
-    })        
+    this.ReloadArticles();
   }
 
 
   ReloadArticles(){
     this.ArrayArticles = [];
-    this.APIAdminPetition.getArticle().subscribe(result =>{                
+    this.ItemsTable=[];
+    this.APIAdminPetition.getArticle().subscribe(result =>{                      
       //console.table(result);
       this.ArrayArticles = result;      
-      //console.log(this.ArrayArticles);
+      this.ArrayArticles.forEach((row) => {                           
+        this.ItemsTable.push({ col1: String(row.id_codigo_articulo), col2: row.nombre_articulo , col3: row.descripcion , col4:'-' });                
+      });                                     
     })       
   }
 
@@ -164,14 +156,7 @@ export class ArticleAbcComponent implements OnInit {
               panelClass: ['green-snackbar'],
               //panelClass: ['red-snackbar'],
             });          
-  
-
-            this.inAct = this.ItemsTable.findIndex( element => element.col1  == this.idArticle);                         
-            if( this.inAct != -1){
-              this.ItemsTable[this.inAct].col2 = this.name;
-              this.ItemsTable[this.inAct].col3 = this.description;              
-            }                                
-            
+                                      
             //actualizar 
             this.ReloadArticles();                    
             this.Clearinputs();
@@ -217,7 +202,7 @@ export class ArticleAbcComponent implements OnInit {
               panelClass: ['green-snackbar'],
               //panelClass: ['red-snackbar'],
             });
-            this.ItemsTable.push({col1: String(datasend.id_codigo_articulo), col2:datasend.nombre_articulo , col3: datasend.descripcion, col4:'-' });            
+          
             this.ReloadArticles();
             this.Clearinputs();
           }          

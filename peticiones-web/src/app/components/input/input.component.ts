@@ -41,6 +41,12 @@ export class InputComponent implements OnInit {
     this.KeyUp.emit(data);
   }
   
+  ChangeValue(){
+    if(this.value.trim().length == 0){
+      this.value = '';
+    }
+  }
+  
   ngOnInit(): void {
   }
 

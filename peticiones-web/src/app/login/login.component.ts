@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           usuario: this.usuario,
           password: this.password                                                                      
         };
-        
+                
         this.APIAdminPetition.createSesion(datasend).subscribe(response =>{                    
           this.response = response;          
           if(this.response.Estatus == 'Error'){            
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
               this.router.navigate(["admin/"]);     
             }*/
             if(this.dataSesion.id_rol == 4){
-              this.router.navigate(["solver/confirmMaterial"]);     
+              this.router.navigate(["solver/showRequested"]);     
             }
             //localStorage.removeItem('dataSesion');
           }                    

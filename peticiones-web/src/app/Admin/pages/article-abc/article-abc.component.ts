@@ -68,7 +68,7 @@ export class ArticleAbcComponent implements OnInit {
         */      
         this.ItemsTable.push({ col1: String(row.id_codigo_articulo), col2: row.nombre_articulo , col3: row.descripcion , col4:'-' });                
       });                                     
-      console.table(this.ItemsTable);      
+      //console.table(this.ItemsTable);      
     })        
   }
 
@@ -78,7 +78,7 @@ export class ArticleAbcComponent implements OnInit {
     this.APIAdminPetition.getArticle().subscribe(result =>{                
       //console.table(result);
       this.ArrayArticles = result;      
-      console.table(this.ArrayArticles);
+      //console.log(this.ArrayArticles);
     })       
   }
 
@@ -142,7 +142,7 @@ export class ArticleAbcComponent implements OnInit {
           descripcion: this.description,                                                                    
         };
   
-        console.table(datasend);          
+        //console.table(datasend);          
         this.updated = this.idArticle;
         this.APIAdminPetition.UpdatedArticle(datasend, this.idArticle).subscribe(response =>{                    
           this.response = response;   
@@ -195,7 +195,8 @@ export class ArticleAbcComponent implements OnInit {
 
       //llenar data a enviar
         
-        const datasend : article = {                                
+        const datasend : article = {    
+          id_codigo_articulo: this.idArticle,                            
           nombre_articulo: this.name,
           descripcion: this.description,                                                                    
         };

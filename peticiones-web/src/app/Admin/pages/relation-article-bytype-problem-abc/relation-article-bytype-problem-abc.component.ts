@@ -92,16 +92,16 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
   }
 
 
-  ReloadArticleProblems(option: string){
+  ReloadArticleProblems(){
     this.ArrayArticleProblem = [];
-    this.APIAdminPetition.getStores().subscribe(result =>{                      
+    this.ItemsTable = [];
+    this.APIAdminPetition.getArticlesProblems().subscribe(result =>{                      
       this.ArrayArticleProblem = result;      
       //console.table(this.Arraybranches);
-      if(option == 'c'){                        
-        this.ItemsTable.push({col1: String(this.ArrayArticleProblem[this.ArrayArticleProblem.length -1].id_articulo_problema), col2: String(this.ArrayArticleProblem[this.ArrayArticleProblem.length -1].nombre_articulo) , col3: String(this.ArrayArticleProblem[this.ArrayArticleProblem.length -1].tipo_problema), col4:'-' });                                  
-      }            
-      this.Clearinputs();      
-    }) 
+      this.ArrayArticleProblem.forEach((row) => {                           
+        this.ItemsTable.push({col1: String(row.id_articulo_problema), col2: String(row.nombre_articulo) , col3: String(row.tipo_problema), col4:'-' });                                    
+      });                               
+    })       
   }
 
   Clearinputs(){
@@ -126,12 +126,6 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
   getLabelArticles(item: any){
     return item.nombre_articulo;
   }
-
-
-
-
-
-
 
 
   onCTypeProblem(data: any){
@@ -206,17 +200,7 @@ UpdateRelation(){
 
           this.Clearinputs();
           //actualizar 
-          this.ReloadArticleProblems('u');     
-
-          this.inAct = this.ItemsTable.findIndex( element => element.col1  == this.id);              
-
-          const indexPrblem =  this.itemsSelecTypeProblem.findIndex( element => element._id  == String(this.idTypeProblem))
-          const indexArticle = this.itemsSelecArticles.findIndex( element => element._id  == String(this.idArticle))
-          
-            if( this.inAct != -1){
-              this.ItemsTable[this.inAct].col2 = this.itemsSelecArticles[indexArticle].option;
-              this.ItemsTable[this.inAct].col3 = this.itemsSelecTypeProblem[indexPrblem].option;                       
-            }                                            
+          this.ReloadArticleProblems();               
           }                  
       });            
       this.butonAddUpdate = '';  
@@ -224,7 +208,7 @@ UpdateRelation(){
 }
 
 CreateRelation(){
-  if((this.idTypeProblem == '')||(String(this.idTypeProblem).length !=10)||( String(this.idArticle).length !=10 ) || (this.idArticle == '')) {
+  if((this.idTypeProblem == '')||( String(this.idArticle).length !=10 ) || (this.idArticle == '')) {
                           
     //this._snackBar.open('Error faltan datos para actualizar', 'x');    
     this._snackBar.open('Error faltan datos', 'X', {      
@@ -262,7 +246,8 @@ CreateRelation(){
           });          
           
           //actualizar 
-          this.ReloadArticleProblems('c');               
+          this.ReloadArticleProblems();               
+          this.Clearinputs();
         }                  
       });            
       

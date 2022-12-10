@@ -234,13 +234,8 @@ export class RequestedRequestsModuleComponent implements OnInit {
               total: 0
             });
           }                      
-        }); 
-        
-        
+        });                 
         this.reloadArrayGeneric();
-
-
-
       }      
     });
   }

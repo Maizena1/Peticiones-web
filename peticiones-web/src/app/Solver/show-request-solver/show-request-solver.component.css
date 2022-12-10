@@ -1,12 +1,8 @@
 .content-container{
-    max-width: 80%;
     width: 100%;
 }
 
-
 .table-container{
-    margin: 0px auto;
-    width: 100%;
     padding: 20px 0px;
 }
 
@@ -25,7 +21,7 @@
 }
 
 .modules-tab{
-    max-width: 70%;
     margin: 0px auto;
+    width: 80%;
     padding: 20px 0px;
 }

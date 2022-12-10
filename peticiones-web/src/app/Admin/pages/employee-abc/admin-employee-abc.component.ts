@@ -72,6 +72,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
       }
     }        
 
+    
     this.APIPetition.getEmployees().subscribe(result =>{                
       this.ArrayEmployees = result;
       //console.table(this.Arraybranches); 

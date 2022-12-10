@@ -10,8 +10,8 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
   
-  //url ='http://peticionesdelmuro.ddns.net:3600/api/';
-  url = 'http://localhost:5000/api/';
+  url ='http://peticionesdelmuro.ddns.net:3600/api/';
+  //url = 'http://localhost:5000/api/';
 
   createBranch(dato: branch):Observable<any>{
     return this.http.post(`${this.url}registrar-sucursal`,dato);
@@ -34,6 +34,10 @@ export class AdminService {
   getEmployees():Observable<any>{    
     return this.http.get(`${this.url}empleados`);
   }
+
+  getEmployee(id:number):Observable<any>{    
+    return this.http.get(`${this.url}empleado/${id}`);
+  }
   
   DeleteEmployee(id:number):Observable<any>{
     return this.http.delete(`${this.url}eliminar-empleado/${id}`);
@@ -46,6 +50,8 @@ export class AdminService {
   createEmployee(dato: employee):Observable<any>{    
     return this.http.post(`${this.url}registrar-empleado`,dato);
   }
+
+
 
   //users ---------------------------------------------------------
   

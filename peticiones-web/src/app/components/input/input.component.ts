@@ -32,13 +32,16 @@ export class InputComponent implements OnInit {
   InputFormControl = new FormControl('', [Validators.required])
   
 
-  getdata( data : string ){
+  getdata(data : string ){
+    this.valueChange.emit(data);
     this.onChange.emit(data);
   }
 
   getTextPress(data: string){
     this.KeyUp.emit(data);
   }
+
+
   
   ngOnInit(): void {
   }

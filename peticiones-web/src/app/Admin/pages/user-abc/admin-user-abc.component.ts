@@ -8,7 +8,8 @@ import { request_table } from 'src/app/components/services/request-table';
 import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Element, ThisReceiver } from '@angular/compiler';
-import { throwIfEmpty } from 'rxjs';
+import { empty, throwIfEmpty } from 'rxjs';
+import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
 
 
 
@@ -18,12 +19,9 @@ import { throwIfEmpty } from 'rxjs';
   styleUrls: ['./admin-user-abc.component.css']
 })
 export class AdminUserAbcComponent implements OnInit {
-
-  
   
   COLUMN_NAMES: string[] = ['ID','Usuario','Estatus','Botones'];
 
-  formAction: "create" | "edit" = "create";
 
   form = {
     userId: '',
@@ -38,7 +36,7 @@ export class AdminUserAbcComponent implements OnInit {
 
   estatusUser: string ='';
   idRolSelect: number = 0;
-  roles: [] = [];
+  roles: any [] = [];
 
   response: response | any; //subscripcion de respuesta
   dataUserShow: User | any; //tipo de dato para buscar  
@@ -76,30 +74,13 @@ export class AdminUserAbcComponent implements OnInit {
           });
           this.router.navigate(["login"]);              
         }
-      }else{        
-          //alert("DataSesion no existe en localStorage!!"); 
+      }else{
           this.router.navigate(["login"]);              
       }
     }        
 
-    this.adminService.getUsers().subscribe(result =>{   
-      this.arrayUser = result;
-
+    this.updateTable()
     
-      this.arrayUser.forEach((row) => { 
-        if(row.estatus === 'A'){
-          this.estatusUser = 'Activo';
-        }else{
-          this.estatusUser = 'Inactivo';
-        }
-        this.itemsTable.push({
-          col1: row.id_usuario?.toString() ?? '', 
-          col2: row.usuario, 
-          col3: this.estatusUser,
-          col4: '-' 
-        });
-      });                                      
-    }) 
 
     this.adminService.getRol().subscribe(role => {
       this.roles = role;
@@ -135,11 +116,11 @@ export class AdminUserAbcComponent implements OnInit {
 
   ClearInput(){
     this.form = {
-      userId: '',
-      userName: '',
-      password: '',
-      employeeId:'',
-      roleId: '',
+      userId: ' ',
+      userName: ' ',
+      password: ' ',
+      employeeId:' ',
+      roleId: ' ',
       status: false,
     }
   }
@@ -168,21 +149,21 @@ export class AdminUserAbcComponent implements OnInit {
 
   
   CreateUser(){
-
+    console.log(this.form)
     const { userName, password, employeeId, roleId } = this.form
 
     const estatus = this.form.status ? 'A' : 'B';
-    console.log(this.form)
 
-    this.adminService.createUser({
-       id_empleado: parseInt(employeeId),
-       password, 
-       estatus, 
-       usuario: userName, 
-       id_rol: parseInt(roleId)
-      }).subscribe(response =>{
-        console.log(response)
-      })
+    this.adminService.createUser({id_empleado: parseInt(employeeId),password, estatus, usuario: userName, id_rol: parseInt(roleId)}).subscribe(response => {
+      this.response = response;
+
+      if(this.response.Estatus == 'Error'){
+        this.SnackBarError(this.response.Mensaje, 'X')
+      }else{
+        this.SnackBarSuccessful(this.response.Mensaje, 'X')
+        this.ReloadUsers();
+      }
+    })
 
   }
   
@@ -204,15 +185,13 @@ export class AdminUserAbcComponent implements OnInit {
     this.form.employeeId = this.dataUserShow.id_empleado;
     this.form.roleId = String(this.dataUserShow.id_rol);
     
-    if(this.dataUserShow.estatus === 'A'){
+    if(this.dataUserShow.estatus == 'A'){
       this.form.status = true;
     }else{
       this.form.status = false;
     }
-
   }
 
- 
 
   UpdateUser(){
     if(this.form.status){
@@ -247,39 +226,73 @@ export class AdminUserAbcComponent implements OnInit {
         }else{
           this.SnackBarSuccessful(this.response.Mensaje, 'X');
 
-          const currentIndex = this.itemsTable.findIndex(element => element.col1 == this.form.userId);
-
-          if(currentIndex >= 0){
-            this.itemsTable[currentIndex].col2 = this.form.userName;
-
-            if(this.estatusUser === 'A'){
-              this.itemsTable[currentIndex].col3 = 'Activo';
-            }else{
-              this.itemsTable[currentIndex].col3 = 'Inactivo'
-            }
-
-          }
-
+          this.updateTable();
           this.ClearInput();
           this.ReloadUsers();
-
-
 
         }
       });
       
-      
+      this.button = 'add';
      
     }
 
   }
 
+  employee: string = '';
+
   ActionDatil(id: string){
+
+    this.dataUserShow = this.arrayUser.find(element => element.id_usuario == parseInt(id));
+
+    this.adminService.getEmployee(parseInt(this.dataUserShow.id_empleado)).subscribe(result => {
+      this.employee = result[0].nombre_empleado;
+
+      const currentIndex = this.roles.findIndex((element: any) => element.id_rol == String(this.dataUserShow.id_rol));
     
+      console.log(this.dataUserShow)
+
+
+      const dialogRef = this.dialog.open(DialogDetailComponent, {
+        width: '300px',
+        data: [{title: 'ID:', data: id},
+        {title: 'Usuario:', data: this.dataUserShow.usuario},
+        {title: 'Contraseña:', data: this.dataUserShow.password},
+        {title: 'Rol:', data: this.roles[currentIndex].nombre_rol},
+        {title: 'Empleado:', data: this.employee},
+        ]
+      })
+    })
+
+    
+
+    
+  
   }
 
 
+  updateTable(){
+    this.itemsTable = [];
 
+    this.adminService.getUsers().subscribe(result =>{   
+      this.arrayUser = result;
+
+    
+      this.arrayUser.forEach((row) => { 
+        if(row.estatus === 'A'){
+          this.estatusUser = 'Activo';
+        }else{
+          this.estatusUser = 'Inactivo';
+        }
+        this.itemsTable.push({
+          col1: row.id_usuario?.toString() ?? '', 
+          col2: row.usuario, 
+          col3: this.estatusUser,
+          col4: '-' 
+        });
+      });                                      
+    }) 
+  }
 
   
 }

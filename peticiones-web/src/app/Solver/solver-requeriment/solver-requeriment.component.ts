@@ -1,13 +1,10 @@
 import { Component, OnInit} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Admin/services/admin.service';
-import {FormBuilder, Validators} from '@angular/forms';
-import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
-import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
+import { FormBuilder, } from '@angular/forms';
+import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/Admin/services/type';
-
 
 @Component({
   selector: 'app-solver-requeriment',
@@ -16,12 +13,23 @@ import { User } from 'src/app/Admin/services/type';
 })
 export class SolverRequerimentComponent implements OnInit {
 
+  form = {
+    articleId: '',
+    description: '',
+    amount: '',
+    unit: '',
+    price: ''
+  }
+
   problemArticle: any [] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
-  constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
+  constructor(public dialog: MatDialog ,private router: Router, private adminService: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
 
   idRol : number = 0;
   dataSesion: User|any;
+
+  item: [] = [];
+
   ngOnInit(): void {
     // if (localStorage){    
     //   if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
@@ -43,9 +51,9 @@ export class SolverRequerimentComponent implements OnInit {
     // }        
 
 
-    this.APIPetition.getArticlesProblems().subscribe(article => { 
-      this.problemArticle = article;
-    });
+    this.adminService.getArticleForProblemType(4).subscribe(article => {
+      this.item = article;
+    })
 
     
   }

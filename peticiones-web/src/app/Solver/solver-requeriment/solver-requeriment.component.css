@@ -12,6 +12,7 @@
     font-weight: 500;
 }
 
+
 .order-title{
     display: flex;
     gap: 12px;
@@ -30,6 +31,11 @@
 
 .type-problem{
     display: flex;
+}
+
+.register{
+    width: 100%;
+    max-width: 300px;
 }
 
 .register-table-container{

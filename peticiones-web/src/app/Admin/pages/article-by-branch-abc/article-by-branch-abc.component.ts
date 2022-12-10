@@ -5,8 +5,7 @@ import { AdminService } from '../../services/admin.service';
 import {FormBuilder} from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
 import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
+import {MatDialog } from '@angular/material/dialog';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
 
 @Component({

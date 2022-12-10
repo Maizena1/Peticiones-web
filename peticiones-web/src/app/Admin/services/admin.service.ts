@@ -51,8 +51,6 @@ export class AdminService {
     return this.http.post(`${this.url}registrar-empleado`,dato);
   }
 
-
-
   //users ---------------------------------------------------------
   
   getUsers():Observable<any>{
@@ -189,6 +187,12 @@ export class AdminService {
   //obtencion de empleados por tipo de problema
   getTypeUserProblem(id:number):Observable<any>{    
     return this.http.get(`${this.url}usuario-tipo-problema/${id}`);
+  }  
+
+  
+  //solver------------------------------------------------
+  getArticleForProblemType(id:number):Observable<any>{    
+    return this.http.get(`${this.url}almacen-problema/${id}`);
   }  
 
 

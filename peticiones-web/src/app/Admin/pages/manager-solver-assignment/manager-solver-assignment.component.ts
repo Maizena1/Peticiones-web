@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder } from '@angular/forms';
 import {MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
+import {MatDialog } from '@angular/material/dialog';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
-import { assignament_problem, problem, response, table_show, User, user_problem } from '../../services/type';
+import { assignament_problem, problem, response, table_show, User } from '../../services/type';
 
 
 @Component({

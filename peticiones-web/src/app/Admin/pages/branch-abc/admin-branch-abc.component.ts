@@ -1,14 +1,13 @@
 import { Component, OnInit} from '@angular/core';
 import { branch, response, User } from '../../services/type';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
-import { FormBuilder, Validators} from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
-import { elementAt } from 'rxjs';
 
 @Component({
   selector: 'app-admin-branch-abc',

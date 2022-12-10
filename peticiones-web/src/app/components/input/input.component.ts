@@ -40,8 +40,6 @@ export class InputComponent implements OnInit {
   getTextPress(data: string){
     this.KeyUp.emit(data);
   }
-
-
   
   ngOnInit(): void {
   }

@@ -193,12 +193,12 @@ Clearinputs(){
   //limpieza
   this.isChecked == true;
   this.enableid = false;  
-  this.id_sucursal ='';
-  this.nombre ='';
-  this.domicilio ='';
-  this.correo ='';
-  this.telefono='';
-  this.estatus ='';    
+  this.id_sucursal =' ';
+  this.nombre =' ';
+  this.domicilio =' ';
+  this.correo =' ';
+  this.telefono=' ';
+  this.estatus =' ';    
 }
 
 //si es edit

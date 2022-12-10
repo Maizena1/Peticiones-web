@@ -103,8 +103,8 @@ export class AdminTypeOfProblemAbcComponent implements OnInit {
   Clearinputs(){
     //limpieza
     this.isChecked == true;
-    this.typeProblem  = ''
-    this.descriptionProblem = '';        
+    this.typeProblem  = ' '
+    this.descriptionProblem = ' ';        
   }
 
 

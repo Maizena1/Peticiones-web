@@ -10,8 +10,8 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
   
-  //url ='http://peticionesdelmuro.ddns.net:3600/api/';
-  url = 'http://localhost:5000/api/';
+  url ='http://peticionesdelmuro.ddns.net:3600/api/';
+  //url = 'http://localhost:5000/api/';
 
   createBranch(dato: branch):Observable<any>{
     return this.http.post(`${this.url}registrar-sucursal`,dato);

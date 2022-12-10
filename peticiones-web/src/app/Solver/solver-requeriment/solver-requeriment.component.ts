@@ -42,7 +42,6 @@ export class SolverRequerimentComponent implements OnInit {
     //   }
     // }        
 
-
     this.APIPetition.getArticlesProblems().subscribe(article => { 
       this.problemArticle = article;
     });

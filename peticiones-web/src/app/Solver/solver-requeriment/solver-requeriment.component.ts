@@ -6,6 +6,8 @@ import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/Admin/services/type';
 
+
+
 @Component({
   selector: 'app-solver-requeriment',
   templateUrl: './solver-requeriment.component.html',
@@ -20,6 +22,9 @@ export class SolverRequerimentComponent implements OnInit {
     unit: '',
     price: ''
   }
+
+  unit: any [] = [];
+
 
   problemArticle: any [] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
@@ -50,12 +55,35 @@ export class SolverRequerimentComponent implements OnInit {
     //   }
     // }        
 
+    this.unit.push({
+      id: 1, titulo: 'pieza',
+    });
+
+    this.unit.push({
+      id: 2, titulo: 'pieza',
+    });
+
+    this.unit.push({
+      id: 3, titulo: 'pieza',
+    });
+
+    this.unit.push({
+      id: 4, titulo: 'pieza',
+    });
 
     this.adminService.getArticleForProblemType(4).subscribe(article => {
       this.item = article;
     })
-
     
   }
+
+  getId(item: any){
+    return item.unit.toString()
+  }
+
+  getLabel(item: any){
+    return item.nombre_rol
+  }
+
 
 }

@@ -116,6 +116,11 @@ export class AdminService {
     return this.http.get(`${this.url}codigos-articulos`);
   }
 
+  getArticleForId(id: string):Observable<any>{
+    //console.log(dato);
+    return this.http.get(`${this.url}codigo-articulo/${id}`);
+  }
+
   UpdatedArticle(dato: article, id: string):Observable<any>{
     return this.http.put(`${this.url}modificar-codigo-articulo/${id}`,dato);
   }

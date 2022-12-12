@@ -4,7 +4,10 @@ import { AdminService } from 'src/app/Admin/services/admin.service';
 import { FormBuilder, } from '@angular/forms';
 import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { requeriment, User } from 'src/app/Admin/services/type';
+import { requeriment, table_show, User } from 'src/app/Admin/services/type';
+import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
+import { of } from 'rxjs';
+import { ResourceLoader } from '@angular/compiler';
 
 
 
@@ -27,6 +30,8 @@ export class SolverRequerimentComponent implements OnInit {
     price: ''
   }
 
+  idProblem : number =0;
+
   unit: any [] = [{
     id: 1, title: 'Metros'
   },{
@@ -38,6 +43,8 @@ export class SolverRequerimentComponent implements OnInit {
   },];
 
 
+  articleTable: requeriment | any;
+  dataArticleShow: requeriment | any;
   problemArticle: any [] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
 
@@ -51,7 +58,8 @@ export class SolverRequerimentComponent implements OnInit {
   idRol : number = 0;
   dataSesion: User|any;
 
-  item:  [] = [];
+  item: any [] = [];
+  itemsTable: table_show [] = [];
 
   ngOnInit(): void {
     // if (localStorage){    
@@ -73,27 +81,178 @@ export class SolverRequerimentComponent implements OnInit {
     //   }
     // }        
     
-    this.adminService.getArticleForProblemType(1).subscribe(article => {
+    if(this.dataidProblema != null)
+    this.adminService.getArticleForProblemType(parseInt(this.dataidProblema)).subscribe(article => {
       this.item = article;
-    });
+
+      console.log(article);
+    })
     
-    console.log(this.dataidProblema);
-    console.log(this.dataidTipo);
+    
     
     
   }
 
+  unidad: string = '';
+
+  SnackBarError(mensaje: string, icon: string){
+    this._snackBar.open(mensaje, icon, {
+      verticalPosition: this.verticalPosition,
+      panelClass: ['red-snackbar'],
+      duration: 3000,
+    });
+  }
+
+  SnackBarSuccessful(mensaje: string, icon: string){
+    this._snackBar.open(mensaje, icon, {
+      verticalPosition: this.verticalPosition,
+      panelClass: ['green-snackbar'],
+      duration: 1000,
+    });
+  }
+
+  clearInput(){    
+    this.form.articleId= '0';
+    this.form.description= '';
+    this.form.amount= ' ';
+    this.form.unit= '0';
+    this.form.price= ' ';    
+  }
+
   add(){
-    this.arrayRequeriment.push({
-      id_problema: 1,
+
+    if(this.form.unit == '1'){
+      this.unidad = 'Metros';
+    }else if(this.form.unit == '2'){
+      this.unidad = 'Metros cuadrado';
+    }else if(this.form.unit == '3'){
+      this.unidad = 'Kilogramos';
+    }else if(this.form.unit == '4'){
+      this.unidad = 'Piezas'
+    }
+
+
+    if(this.dataidProblema != null){
+      this.idProblem = parseInt(this.dataidProblema);
+    }
+
+    this.arrayRequeriment.push({      
+      id_problema: this.idProblem,
       id_codigo_articulo: this.form.articleId,
       descripcion_requisito: this.form.description, 
       cantidad: parseInt(this.form.amount),
       unidad: this.form.unit,
       precio: parseInt(this.form.price)
+    });
+
+    this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
+      let articleName = result[0].nombre_articulo;
+      this.itemsTable.push({
+        col1: articleName,
+        col2: this.form.amount,
+        col3: this.unidad,
+        col4: this.form.price,
+        col5: this.form.articleId
+      })
     })
+
+    this.clearInput();
+    this.SnackBarSuccessful('Articulo agregado.','X')
+
+//-----------------------------------------------------------------------------------------------------------
+
+/*
+    if(this.arrayRequeriment.find(element => this.form.articleId == element.id_codigo_articulo)){
+      this.SnackBarError('Error. Este articulo ya ha sido agregado.','X')
+    }else{
+      this.arrayRequeriment.push({
+        id_problema: 1,
+        id_codigo_articulo: this.form.articleId,
+        descripcion_requisito: this.form.description, 
+        cantidad: parseInt(this.form.amount),
+        unidad: this.form.unit,
+        precio: parseInt(this.form.price)
+      });
+
+      if(this.form.unit == '1'){
+        this.unidad = 'Metros';
+      }else if(this.form.unit == '2'){
+        this.unidad = 'Metros cuadrado';
+      }else if(this.form.unit == '3'){
+        this.unidad = 'Kilogramos';
+      }else if(this.form.unit == '4'){
+        this.unidad = 'Piezas'
+      }
+
+      
+      this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
+        let articleName = result[0].nombre_articulo;
+        this.itemsTable.push({
+          col1: articleName,
+          col2: this.form.amount,
+          col3: this.unidad,
+          col4: this.form.price,
+          col5: this.form.articleId
+        })
+      })
+
+      console.log(this.arrayRequeriment)
+      this.SnackBarSuccessful('Articulo agregado.','X')
+    }
+
+  */
+    
   }
 
+  
+  updateTable: any;
+  removeArticle(data: any){
+    if(data.action === 'delete'){
+
+      this.updateTable = this.itemsTable.filter(element => element.col5 !== String(data.id))
+      this.itemsTable = [];
+      this.itemsTable = this.updateTable;
+      this.arrayRequeriment = this.updateTable;
+      
+    }
+
+
+  }
+
+  onChangeActionTable(data: any){  
+    if(data.action === 'detail'){
+      this.ActionDatil(data.id);
+    }else if(data.action == 'delete'){
+      this.ActionRemoveRequeriment(data.id);
+    }
+  }
+
+  ActionRemoveRequeriment(id: string){
+
+  }
+
+  description: any;
+  ActionDatil(id: string){
+
+    if(id == '5000000000'){
+      this.dataArticleShow = this.arrayRequeriment.find(element => element.id_codigo_articulo == id);
+      console.log(this.dataArticleShow)
+    }else{
+      this.adminService.getArticleForId(id).subscribe(result => {
+        console.log(this.description = result[0])
+      })  
+    }
+
+
+    const dialogRef = this.dialog.open(DialogDetailComponent, {
+        width: '300px',
+        data: [{title: 'ID:', data: id},
+        {title: 'Descripcion:', data: this.description},
+        ]
+      })
+    
+    
+  }
 
   getUnitId(item: any){
     return item.id.toString()

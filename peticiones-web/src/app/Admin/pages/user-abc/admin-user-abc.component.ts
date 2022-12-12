@@ -77,7 +77,7 @@ export class AdminUserAbcComponent implements OnInit {
       }
     }        
 
-    this.updateTable()
+    this.updateTable();
     
 
     this.adminService.getRol().subscribe(role => {
@@ -107,9 +107,7 @@ export class AdminUserAbcComponent implements OnInit {
     this.arrayUser = [];
     this.adminService.getUsers().subscribe(result => {
       this.arrayUser = result;
-      console.log(result);
     });
-    
   }
 
   ClearInput(){

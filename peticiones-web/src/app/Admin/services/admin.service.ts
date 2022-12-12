@@ -10,9 +10,16 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
   
-  url ='http://peticionesdelmuro.ddns.net:3600/api/';
-  //url = 'http://localhost:5000/api/';
+  //url ='http://peticionesdelmuro.ddns.net:3600/api/';
+  url = 'http://localhost:5000/api/';
 
+  //para el header------------------------------------------------
+  getUser(id: number):Observable<any>{
+    //console.log(dato);
+    return this.http.get(`${this.url}usuario/${id}`);
+  }
+
+  //para sucursales-----------------------------------------------
   createBranch(dato: branch):Observable<any>{
     return this.http.post(`${this.url}registrar-sucursal`,dato);
   }
@@ -145,6 +152,10 @@ export class AdminService {
     return this.http.get(`${this.url}usuarios-problemas`);
   }
 
+  getUsersSolevers():Observable<any>{    
+    return this.http.get(`${this.url}usuarios-solvers`);
+  }
+  
   deleteUserByPoblem(id:number):Observable<any>{
     return this.http.delete(`${this.url}eliminar-usuario-problema/${id}`);
   }
@@ -188,6 +199,11 @@ export class AdminService {
   getTypeUserProblem(id:number):Observable<any>{    
     return this.http.get(`${this.url}usuario-tipo-problema/${id}`);
   }  
+
+
+  deleteRequestProblems(id:number):Observable<any>{    
+    return this.http.delete(`${this.url}requisito-problema/${id}`);
+  }
 
   
   //solver------------------------------------------------

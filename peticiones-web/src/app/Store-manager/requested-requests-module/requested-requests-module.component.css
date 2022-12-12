@@ -1,9 +1,11 @@
 .content-container{
-    max-width: 800px;
+    max-width: 80%;
+    width: 100%;
     padding: 20px;
     margin: 0px auto;    
 }
 
 .table-container{
-    padding: 16px 12px;
+    width: 100%;        
+    padding: 20px 0px 0px 0px;   
 }

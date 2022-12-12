@@ -72,16 +72,8 @@ export class ArticleByBranchAbcComponent implements OnInit {
           this.router.navigate(["login"]);              
       }
     }        
-  
-
-    
-    this.APIPetition.getStores().subscribe(result =>{                
-      this.ArrayStore = result;
-      //console.table(this.Arraybranches); 
-      this.ArrayStore.forEach((row) => {                           
-          this.ItemsTable.push({col1: String(row.id_almacen), col2: String(row.nombre_sucursal) , col3: String(row.nombre_articulo), col4:'-' });                                    
-      });                         
-    })
+      
+    this.ReloadStores();
 
     this.APIPetition.getBranches().subscribe(branch => {
       this.branches = branch;
@@ -114,15 +106,16 @@ export class ArticleByBranchAbcComponent implements OnInit {
 
 
   //obtner empleados actuales
-  ReloadStores(option: string){
+  ReloadStores(){
     this.ArrayStore = [];
+    this.ItemsTable = [];
     this.APIPetition.getStores().subscribe(result =>{                      
       this.ArrayStore = result;      
-      //console.table(this.Arraybranches);
-      if(option == 'c'){                
-        this.ItemsTable.push({col1: String(this.ArrayStore[this.ArrayStore.length -1].id_almacen), col2: String(this.ArrayStore[this.ArrayStore.length -1].nombre_sucursal) , col3: String(this.ArrayStore[this.ArrayStore.length -1].nombre_articulo), col4:'-' });                                  
-      }            
-      this.Clearinputs();      
+      if(this.ArrayStore.length > 0){
+        this.ArrayStore.forEach((row) => {                           
+          this.ItemsTable.push({col1: String(row.id_almacen), col2: String(row.nombre_sucursal) , col3: String(row.nombre_articulo), col4:'-' });                                    
+        });                  
+      }                
     })       
   }
 
@@ -131,8 +124,8 @@ export class ArticleByBranchAbcComponent implements OnInit {
     this.isChecked == true;
     this.enableid = false;      
     this.id = '';
-    this.idSucursal = '';
-    this.idArticle = '';    
+    this.idSucursal = ' ';
+    this.idArticle = ' ';    
     this.totalAmount = ' ';
     this.totalAvailable='0';
     this.tipo = '';
@@ -260,9 +253,8 @@ export class ArticleByBranchAbcComponent implements OnInit {
             //panelClass: ['red-snackbar'],
           });          
 
-          this.Clearinputs();
-          //actualizar 
-          this.ReloadStores('u');          
+          this.Clearinputs();          
+          this.ReloadStores();          
         }                  
       });            
       this.butonAddUpdate = '';  
@@ -296,6 +288,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
       tipo: this.tipo,
     };
 
+    console.log(datasend);
       //console.table(datasend);        
       this.APIPetition.createStore(datasend).subscribe(response =>{                    
         this.response = response;          
@@ -311,7 +304,8 @@ export class ArticleByBranchAbcComponent implements OnInit {
             panelClass: ['green-snackbar'],
             //panelClass: ['red-snackbar'],
           });          
-          this.ReloadStores('c');          
+          this.ReloadStores();               
+          this.Clearinputs();      
         }          
         //this.router.navigate(["admin/tournament/list"]);
       })        

@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from 'src/app/Admin/services/admin.service';
 import { FormBuilder, } from '@angular/forms';
 import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
@@ -28,7 +28,13 @@ export class SolverRequerimentComponent implements OnInit {
 
   problemArticle: any [] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
-  constructor(public dialog: MatDialog ,private router: Router, private adminService: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
+
+  dataFecha: string | null;
+  dataidTipo: string | null;  
+  constructor(private routerAc: ActivatedRoute,public dialog: MatDialog ,private router: Router, private adminService: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) {
+    this.dataFecha = this.routerAc.snapshot.paramMap.get('fecha');
+    this.dataidTipo = this.routerAc.snapshot.paramMap.get('idtipo');
+  }
 
   idRol : number = 0;
   dataSesion: User|any;
@@ -54,6 +60,9 @@ export class SolverRequerimentComponent implements OnInit {
     //       this.router.navigate(["login"]);              
     //   }
     // }        
+
+    console.log(this.dataFecha);
+    console.log(this.dataidTipo);
 
     this.unit.push({
       id: 1, titulo: 'pieza',

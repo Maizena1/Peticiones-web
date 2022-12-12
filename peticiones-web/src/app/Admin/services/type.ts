@@ -147,7 +147,7 @@ export interface estatus_problem {
     id_problema: number;
     estatus: string;    
     id_sucursal?: number;   
-    materials?: materials [];
+    materials?: requeriment [];
 }
 
 

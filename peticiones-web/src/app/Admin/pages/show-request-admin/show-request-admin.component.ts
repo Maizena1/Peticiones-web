@@ -25,6 +25,15 @@ export class ShowRequestAdminComponent implements OnInit {
   ItemsTableSlopes : table_show []=[]; 
 //contenido de tabla Revisar
   ItemsTableCheck : table_show []=[]; 
+//Contenido de tabla Aceptados
+  ItemsTableAccepted : table_show []=[];  
+//Contenido de tabla Terminados
+  ItemsTableRefused : table_show []=[]; 
+//Contenido de tabla Rechazados
+  ItemsTableFinished : table_show []=[];
+//Contenido de tabla Rechazados
+  ItemsTableProcess:table_show []=[];
+  
   dataShowProblem : problem | any;  
   //array de requisitos    
   arrayRequerimentProblem: requeriment []= [];
@@ -116,7 +125,6 @@ export class ShowRequestAdminComponent implements OnInit {
     });    
   }
 
-
   ActionAccep(fecha: string){
     //alert('Fecha para asignar: '+ fecha);        
     this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
@@ -138,7 +146,8 @@ export class ShowRequestAdminComponent implements OnInit {
       {title: 'Solucionador Designado:', data:this.dataShowProblem.nombre_empleado_designado},
       {title: 'Estado:', data:this.dataShowProblem.estatus},
       {title: 'Fecha Solicitud:', data:this.dataShowProblem.fecha_solicitud},
-      {title: 'Fecha de Aceptado:', data:this.dataShowProblem.fecha_aceptado},            
+      {title: 'Fecha de Asignado:', data:this.dataShowProblem.fecha_aceptado},            
+      {title: 'Fecha de Inicio:', data:this.dataShowProblem.fecha_enproceso},            
       {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
       {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},    
       {title: 'Gasto De Mantenimiento:', data:this.dataShowProblem.total},     
@@ -157,13 +166,42 @@ export class ShowRequestAdminComponent implements OnInit {
       this.ActionDetail(data.fecha);
     }else if(data.action === 'detailReq'){
       this.ActionDetailRequeriment(data.fecha)
-    }
-
-    
+    }    
   }
 
   ActionDeleteRequeriment(fecha: string){
-      
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
+      width: '420px',
+      height: '200px',
+      data: { name: 'Rechazar requisitos', subname: '¿Estas seguro que desea rechazar los requisitos?'},
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {  
+      if ( result == true){          
+        const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                         
+        
+        this.arrayProblems[idproblem].id_problema
+        this.APIPetition.deleteRequestProblems(this.arrayProblems[idproblem].id_problema).subscribe(response =>{  
+          this.response= response;          
+          if(this.response.Estatus == 'Error'){            
+            this._snackBar.open(this.response.Mensaje, 'X', {          
+              verticalPosition: this.verticalPosition,            
+              duration: 3000,
+              panelClass: ['red-snackbar'],
+            });          
+          }else{
+            this._snackBar.open(this.response.Mensaje, 'X', {            
+              verticalPosition: this.verticalPosition,
+              duration: 5000,
+              panelClass:['green-snackbar']            
+            });  
+            this.ReloadProblems();          
+          }
+        });
+             
+      }
+    });
+
   }
 
   ActionAccepRequeriment(fecha: string){
@@ -174,10 +212,9 @@ export class ShowRequestAdminComponent implements OnInit {
   ActionDetailRequeriment(fecha: string){
     //obtener los detalles de la sucursal a mostrar
     const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                         
-    //pendiente????------
+    //pendiente????------    
     this.APIPetition.getRequirementProblem(this.arrayProblems[idproblem].id_problema).subscribe(result =>{                 
       this.arrayRequerimentProblem = result;
-
       const dialogRef = this.dialog.open(DialogDetailRequirementsComponent, {      
       width:'65%',
       data: this.arrayRequerimentProblem,
@@ -193,6 +230,10 @@ export class ShowRequestAdminComponent implements OnInit {
     this.ItemsTableGeneric = [];
     this.ItemsTableSlopes = [];
     this.ItemsTableCheck = [];
+    this.ItemsTableFinished = [];
+    this.ItemsTableRefused = [];
+    this.ItemsTableProcess = [];
+    
     this.APIPetition.getProblems().subscribe(result =>{        
       
       if(result.Estatus){
@@ -223,7 +264,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
-              total: 0
+              total: row.total
             });                      
   
           }else if(row.estatus == 'ACEPTADO'){
@@ -245,7 +286,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
-              total: 0
+              total: row.total
             });
           }else if(row.estatus == 'REVISION'){
             this.arrayProblems.push({
@@ -266,7 +307,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
-              total: 0
+              total: row.total
             });
           }else if(row.estatus == 'PROCESO'){
             this.arrayProblems.push({
@@ -330,7 +371,7 @@ export class ShowRequestAdminComponent implements OnInit {
               fecha_terminado: row.fecha_terminado,
               fecha_rechazado:row.fecha_rechazado,
               id_problema:row.id_problema,  
-              total: 0
+              total: row.total
             });
           }                      
         }); 
@@ -341,6 +382,14 @@ export class ShowRequestAdminComponent implements OnInit {
               this.ItemsTableSlopes.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
             }else if(row.estatus == 'REVISION'){
               this.ItemsTableCheck.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
+            }else if(row.estatus == 'ACEPTADO'){
+              this.ItemsTableAccepted.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
+            }else if(row.estatus == 'RECHAZADO'){
+              this.ItemsTableRefused.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
+            }else if(row.estatus == 'TERMINADO'){
+              this.ItemsTableFinished.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
+            }else if(row.estatus == 'PROCESO'){
+              this.ItemsTableProcess.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
             }
         });                  
       }      

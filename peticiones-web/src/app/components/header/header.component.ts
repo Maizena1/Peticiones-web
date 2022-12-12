@@ -9,17 +9,25 @@ import { login, response, User } from 'src/app/Admin/services/type';
 })
 export class HeaderComponent implements OnInit {
 
+  nameEmlployee: string = 'No reconocido';
+
   dataSesion:User|any;
   idRol : number = 0;
   response: response | any;
   constructor(private router: Router, private APIAdminPetition: AdminService,) { }
-
   ngOnInit(): void {
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
         const userJson = localStorage.getItem('dataSesion');
-        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
-        this.idRol = this.dataSesion.id_rol;        
+        this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                        
+        this.idRol = this.dataSesion.id_rol;     
+        
+        
+
+          this.APIAdminPetition.getUser(this.dataSesion.id_usuario).subscribe(result =>{                          
+            this.nameEmlployee = result[0].nombre_empleado;            
+          });
+        
       }else{        
           //alert("DataSesion no existe en localStorage!!"); 
           this.router.navigate(["login"]);              

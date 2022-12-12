@@ -30,11 +30,12 @@ export class SelectComponent<T> implements OnInit {
     //console.log(data);    
     this.valueChange.emit(item);
     this.onChange.emit(String(item));
-
     //console.log(item);
     //alert(data);
   }
 
+
+  
   ngOnInit(): void {    
     
   }  

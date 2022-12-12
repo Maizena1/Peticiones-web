@@ -29,10 +29,10 @@ export class SolverRequerimentComponent implements OnInit {
   problemArticle: any [] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
 
-  dataFecha: string | null;
+  dataidProblema: string | null;
   dataidTipo: string | null;  
   constructor(private routerAc: ActivatedRoute,public dialog: MatDialog ,private router: Router, private adminService: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) {
-    this.dataFecha = this.routerAc.snapshot.paramMap.get('fecha');
+    this.dataidProblema = this.routerAc.snapshot.paramMap.get('idproblema');
     this.dataidTipo = this.routerAc.snapshot.paramMap.get('idtipo');
   }
 
@@ -61,7 +61,7 @@ export class SolverRequerimentComponent implements OnInit {
     //   }
     // }        
 
-    console.log(this.dataFecha);
+    console.log(this.dataidProblema);
     console.log(this.dataidTipo);
 
     this.unit.push({

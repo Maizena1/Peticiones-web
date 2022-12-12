@@ -82,7 +82,7 @@ export class ShowRequestSolverComponent implements OnInit {
     //alert('Fecha para asignar: '+ fecha);        
     this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
     this.router.navigate([      
-      'solver/requerimentComponent/'+ fecha+'/tipoproblema/'+this.dataShowProblem.id_tipo_problema,
+      'solver/requerimentComponent/'+this.dataShowProblem.id_problema+'/tipoproblema/'+this.dataShowProblem.id_tipo_problema,
     ]);        
   }
 

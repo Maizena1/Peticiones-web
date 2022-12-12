@@ -46,7 +46,7 @@ const routes: Routes = [
   },
   { path: 'solver', children: [
       { path: 'confirmMaterial', component: ConfirmMaterialDetailComponent },
-      { path: 'requerimentComponent/:fecha/tipoproblema/:idtipo', component: SolverRequerimentComponent },
+      { path: 'requerimentComponent/:idproblema/tipoproblema/:idtipo', component: SolverRequerimentComponent },
       { path: 'showRequested', component: ShowRequestSolverComponent },
       { path: '**', component: ShowRequestSolverComponent },
     ],

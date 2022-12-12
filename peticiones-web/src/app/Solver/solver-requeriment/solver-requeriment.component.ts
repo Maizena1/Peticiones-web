@@ -4,7 +4,7 @@ import { AdminService } from 'src/app/Admin/services/admin.service';
 import { FormBuilder, } from '@angular/forms';
 import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { User } from 'src/app/Admin/services/type';
+import { requeriment, User } from 'src/app/Admin/services/type';
 
 
 
@@ -14,6 +14,10 @@ import { User } from 'src/app/Admin/services/type';
   styleUrls: ['./solver-requeriment.component.css']
 })
 export class SolverRequerimentComponent implements OnInit {
+
+  nameColumn: string[] = ['Material','Cantidad','Unidad', 'Precio','Botones'];  
+
+  arrayRequeriment: requeriment [] = [];
 
   form = {
     articleId: '',
@@ -65,10 +69,21 @@ export class SolverRequerimentComponent implements OnInit {
 
     this.adminService.getArticleForProblemType(2).subscribe(article => {
       this.item = article;
-      
-    console.log(article)
+    })
+
+    
+  }
+  add(){
+    this.arrayRequeriment.push({
+      id_problema: 1,
+      id_codigo_articulo: this.form.articleId,
+      descripcion_requisito: this.form.description, 
+      cantidad: parseInt(this.form.amount),
+      unidad: this.form.unit,
+      precio: parseInt(this.form.price)
     })
   }
+
 
   getUnitId(item: any){
     return item.id.toString()

@@ -162,7 +162,7 @@ export interface requeriment {
     id_requisito_problema?: number;
     id_problema: number;
     id_codigo_articulo?: string;
-    nombre_articulo: string;
+    nombre_articulo?: string;
     descripcion_requisito: string;
     cantidad: number;
     unidad: string;

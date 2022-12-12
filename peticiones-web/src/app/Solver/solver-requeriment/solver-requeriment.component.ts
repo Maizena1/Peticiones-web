@@ -79,12 +79,12 @@ export class SolverRequerimentComponent implements OnInit {
     //   }
     // }        
     
-    if(this.dataidTipo != null){
-      this.dataArticleShow = this.adminService.getArticleForProblemType(parseInt(this.dataidTipo)).subscribe(article => {
-        this.item = article;
-      })
-
-    }
+    this.adminService.getArticleForProblemType(1).subscribe(article => {
+      this.item = article;
+    })
+    console.log(this.dataidProblema);
+    console.log(this.dataidTipo);
+    
     
   }
 

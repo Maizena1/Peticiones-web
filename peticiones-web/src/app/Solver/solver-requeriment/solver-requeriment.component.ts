@@ -23,7 +23,15 @@ export class SolverRequerimentComponent implements OnInit {
     price: ''
   }
 
-  unit: any [] = [];
+  unit: any [] = [{
+    id: 1, title: 'Metros'
+  },{
+    id: 2, title: 'Metros cuadrados'
+  },{
+    id: 3, title: 'Kilogramos'
+  },{
+    id: 4, title: 'Piezas'
+  },];
 
 
   problemArticle: any [] = [];
@@ -55,34 +63,28 @@ export class SolverRequerimentComponent implements OnInit {
     //   }
     // }        
 
-    this.unit.push({
-      id: 1, titulo: 'pieza',
-    });
-
-    this.unit.push({
-      id: 2, titulo: 'pieza',
-    });
-
-    this.unit.push({
-      id: 3, titulo: 'pieza',
-    });
-
-    this.unit.push({
-      id: 4, titulo: 'pieza',
-    });
-
-    this.adminService.getArticleForProblemType(4).subscribe(article => {
+    this.adminService.getArticleForProblemType(2).subscribe(article => {
       this.item = article;
+      
+    console.log(article)
     })
-    
   }
 
-  getId(item: any){
-    return item.unit.toString()
+  getUnitId(item: any){
+    return item.id.toString()
   }
 
-  getLabel(item: any){
-    return item.nombre_rol
+  getUnitLabel(item: any){
+    return item.title
+  }
+  
+
+  getArticleId(item: any){
+    return item.id_codigo_articulo
+  }
+
+  getArticleLabel(item: any){
+    return item.nombre_articulo
   }
 
 

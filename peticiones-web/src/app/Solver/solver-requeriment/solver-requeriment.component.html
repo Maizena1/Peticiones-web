@@ -33,11 +33,11 @@
 
                     <div class="register-table-container">
                         <div class="register">
-                            <app-select [label]="'Material'" [items]="item" [(value)]="form.articleId"></app-select>   
-                            <app-textarea [label]="'Descripcion del articulo'" [example]="''"></app-textarea>
-                            <app-input [type]="'number'" [label]="'Cantidad'" [example]="'4'"></app-input>                         
-                            <app-select [label]="'Material'" [items]="unit" ></app-select>                         
-                            <app-input [type]="'number'" [label]="'Precio'" [example]="'5111100000'"></app-input>
+                            <app-select [label]="'Material'" [items]="item" [(value)]="form.articleId" [getId]="getArticleId" [getLabel]="getArticleLabel"></app-select>
+                            <app-textarea [label]="'Descripcion del articulo'" [example]="'Foco de 10w'" [(value)]="form.description"></app-textarea>
+                            <app-input [type]="'number'" [label]="'Cantidad'" [example]="'4'" [(value)]="form.amount"></app-input>{{form.amount}}            
+                            <app-select [label]="'Unidad'" [items]="unit" [getId]="getUnitId" [getLabel]="getUnitLabel" [(value)]="form.unit"></app-select>              
+                            <app-input [type]="'number'" [label]="'Precio'" [example]="'5111100000'" [(value)]="form.price"></app-input>
 
                             <div class="button-container">
                                 <button mat-flat-button color="primary">Agregar</button>

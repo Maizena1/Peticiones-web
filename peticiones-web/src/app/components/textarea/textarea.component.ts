@@ -23,6 +23,7 @@ export class TextareaComponent implements OnInit {
   constructor() { }    
 
   getdata(data: string){
+    this.valueChange.emit(data);
     this.onChange.emit(data);
   }
 

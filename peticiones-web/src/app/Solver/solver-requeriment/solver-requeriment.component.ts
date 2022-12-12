@@ -51,7 +51,7 @@ export class SolverRequerimentComponent implements OnInit {
   idRol : number = 0;
   dataSesion: User|any;
 
-  item: [] = [];
+  item:  [] = [];
 
   ngOnInit(): void {
     // if (localStorage){    
@@ -75,7 +75,8 @@ export class SolverRequerimentComponent implements OnInit {
     
     this.adminService.getArticleForProblemType(1).subscribe(article => {
       this.item = article;
-    })
+    });
+    
     console.log(this.dataidProblema);
     console.log(this.dataidTipo);
     

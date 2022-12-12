@@ -51,7 +51,7 @@ export class SolverRequerimentComponent implements OnInit {
     // }        
 
 
-    this.adminService.getArticleForProblemType(4).subscribe(article => {
+    this.adminService.getArticleForProblemType(2).subscribe(article => {
       this.item = article;
     })
 

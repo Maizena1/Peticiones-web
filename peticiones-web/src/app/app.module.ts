@@ -56,6 +56,7 @@ import { TableShowComponent } from './components/table-show/table-show.component
 import { ManagerSolverAssignmentComponent } from './Admin/pages/manager-solver-assignment/manager-solver-assignment.component';
 import { DialogDetailRequirementsComponent } from './components/dialog-detail-requirements/dialog-detail-requirements.component';
 import { ReportComponent } from './Admin/pages/report/report.component';
+import { TableRequerimentComponent } from './components/table-requeriment/table-requeriment.component';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { ReportComponent } from './Admin/pages/report/report.component';
     TableShowComponent,
     ManagerSolverAssignmentComponent,
     DialogDetailRequirementsComponent,
-    ReportComponent
+    ReportComponent,
+    TableRequerimentComponent
 
   ],
   imports: [

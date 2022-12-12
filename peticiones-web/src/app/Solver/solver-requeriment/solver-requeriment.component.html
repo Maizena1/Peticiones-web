@@ -44,8 +44,11 @@
                             </div>
                         </div>
 
-                        <div class="table">                     
-                            <app-table-show [optionFilter]="'no'" [nameColumn]="nameColumn"></app-table-show>
+                        <div class="table" *ngIf="itemsTable.length > 0">   
+                            <app-table-requeriment [optionFilter]="'no'" [nameColumn]="nameColumn" [items]="itemsTable" [optionRequeriment]="'no'" [optionEdit]="'no'" (onChange)="removeArticle($event)" (onChange)="onChangeActionTable($event)"></app-table-requeriment>                  
+                        </div>
+                        <div class="table" *ngIf="itemsTable.length == 0" >                     
+                            <p>No ha agregado ningun material</p>
                         </div>
                     </div>
 

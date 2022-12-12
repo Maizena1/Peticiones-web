@@ -61,41 +61,26 @@ export class AdminTypeOfProblemAbcComponent implements OnInit {
           this.router.navigate(["login"]);              
       }
     }        
-
-    this.APIAdminPetition.getTypeProblems().subscribe(result =>{                
-      this.ArrayTypeProblem = result;
-      //console.table(this.Arraybranches); 
-      this.ArrayTypeProblem.forEach((row) => {                   
-        if(row.estatus == 'A'){          
-          this.ItemsTable.push({col1: String(row.id_tipo_problema), col2: row.tipo_problema , col3:'Activo', col4:'-' });        
-        }else{          
-          this.ItemsTable.push({col1: String(row.id_tipo_problema), col2: row.tipo_problema , col3:'Inactivo', col4:'-' });        
-        }        
-      });                                     
-      //console.table(this.ItemsTable);      
-    })      
+    this,this.ReloadTypeProblem();    
   }
 
-  //u  = updated
-  //c = create
-  //d = delete
-
+ 
   //obtner sucursales actuales
-  ReloadTypeProblem(option: string){
+  ReloadTypeProblem(){
     this.ArrayTypeProblem = [];
+    this.ItemsTable= [];
     this.APIAdminPetition.getTypeProblems().subscribe(result =>{                
       //console.table(result);
       this.ArrayTypeProblem = result;            
-
-      if(option == 'c'){        
-          this.id = String(this.ArrayTypeProblem[this.ArrayTypeProblem.length -1].id_tipo_problema);          
-          if(this.estatus == 'A'){          
-            this.ItemsTable.push({col1: this.id , col2:this.typeProblem , col3:'Activo', col4:'-' });                                
+      if(this.ArrayTypeProblem.length>0){
+        this.ArrayTypeProblem.forEach((row) => {                   
+          if(row.estatus == 'A'){          
+            this.ItemsTable.push({col1: String(row.id_tipo_problema), col2: row.tipo_problema , col3:'Activo', col4:'-' });        
           }else{          
-            this.ItemsTable.push({col1: this.id , col2:this.typeProblem , col3:'Inactivo', col4:'-' });                                          
-          }                  
-        }            
-        this.Clearinputs();                    
+            this.ItemsTable.push({col1: String(row.id_tipo_problema), col2: row.tipo_problema , col3:'Inactivo', col4:'-' });        
+          }        
+        });       
+      }              
     })  
   }
 
@@ -173,7 +158,7 @@ ActionDelete(id: string){
               this.ItemsTable[inAct].col3 = 'Inactivo';          //cambiamos a B si se elimino
             }                  
           });      
-          this.ReloadTypeProblem('d');
+          this.ReloadTypeProblem();
           this.Clearinputs();
         }                      
       }
@@ -257,19 +242,9 @@ UpdateTypeProblem(){
             duration: 3000,
             panelClass: ['green-snackbar'],
             //panelClass: ['red-snackbar'],
-          });          
-
-          this.inAct = this.ItemsTable.findIndex( element => element.col1  == this.id);                         
-          if( this.inAct != -1){
-            this.ItemsTable[this.inAct].col2 = this.typeProblem;
-            if(this.estatus == 'A'){
-              this.ItemsTable[this.inAct].col3 = 'Activo';          
-            }else{
-              this.ItemsTable[this.inAct].col3 = 'Inactivo';          
-            }            
-          }                    
+          });                                   
           
-          this.ReloadTypeProblem('u');          
+          this.ReloadTypeProblem();          
           this.Clearinputs();
           //actualizar 
           
@@ -322,7 +297,8 @@ if((this.typeProblem == '')|| (this.descriptionProblem == '')||(this.estatus == 
           panelClass: ['green-snackbar'],
           //panelClass: ['red-snackbar'],
         });                                     
-        this.ReloadTypeProblem('c');        
+        this.ReloadTypeProblem();        
+        this.Clearinputs();                    
       }             
     })            
   }

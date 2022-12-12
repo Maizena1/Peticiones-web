@@ -15,6 +15,23 @@
     text-align: center;
 }
 
+.welcome{
+    display: flex;
+    align-items: center;
+    width: 200px;
+    text-align: center;
+}
+
+.nameEmployee{
+    font-family: 'Cambo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+
+}
+
+
 .title{
     line-height: 24px;
 }

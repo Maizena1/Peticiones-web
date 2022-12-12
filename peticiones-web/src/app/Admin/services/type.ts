@@ -147,7 +147,7 @@ export interface estatus_problem {
     id_problema: number;
     estatus: string;    
     id_sucursal?: number;   
-    materials?: materials [];
+    requeriment?: requeriment [];
 }
 
 
@@ -160,10 +160,10 @@ export interface materials {
 
 export interface requeriment {
     id_requisito_problema?: number;
-    id_problema: number;
-    id_codigo_articulo?: string;
+    id_problema?: number;
+    id_codigo_articulo: string;
     nombre_articulo?: string;
-    descripcion_requisito: string;
+    descripcion_requisito?: string;
     cantidad: number;
     unidad: string;
     precio: number;

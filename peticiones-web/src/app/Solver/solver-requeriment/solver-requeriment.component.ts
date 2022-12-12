@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from 'src/app/Admin/services/admin.service';
 import { FormBuilder, } from '@angular/forms';
 import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
@@ -40,7 +40,13 @@ export class SolverRequerimentComponent implements OnInit {
 
   problemArticle: any [] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
-  constructor(public dialog: MatDialog ,private router: Router, private adminService: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
+
+  dataidProblema: string | null;
+  dataidTipo: string | null;  
+  constructor(private routerAc: ActivatedRoute,public dialog: MatDialog ,private router: Router, private adminService: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) {
+    this.dataidProblema = this.routerAc.snapshot.paramMap.get('idproblema');
+    this.dataidTipo = this.routerAc.snapshot.paramMap.get('idtipo');
+  }
 
   idRol : number = 0;
   dataSesion: User|any;
@@ -70,7 +76,8 @@ export class SolverRequerimentComponent implements OnInit {
     this.adminService.getArticleForProblemType(2).subscribe(article => {
       this.item = article;
     })
-
+    console.log(this.dataidProblema);
+    console.log(this.dataidTipo);
     
   }
   add(){

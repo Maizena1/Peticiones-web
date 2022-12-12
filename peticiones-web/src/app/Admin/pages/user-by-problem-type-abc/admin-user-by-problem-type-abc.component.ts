@@ -36,6 +36,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
   idupdate: any;
 
   arrayUser: user_problem [] = [];
+  arrayUserSolvers: any [] = [];
   itemsTable : request_table [] = []; 
 
   namecolum: string[] = ['ID','Tipo Problema','Usuario','Botones'];
@@ -63,15 +64,17 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
           //alert("DataSesion no existe en localStorage!!"); 
           this.router.navigate(["login"]);              
       }
-    }        
+    }    
+    
+    this.ReloadUserProblem();
+
+    this.APIPetition.getUsersSolevers().subscribe(result =>{                      
+      this.arrayUserSolvers = result;                   
+    }); 
+    
 
     this.APIPetition.getUserByTypeProblem().subscribe(result =>{                
-      this.arrayUser = result;
-      //console.table(this.Arraybranches); 
-      this.arrayUser.forEach((row) => {                   
-        this.itemsTable.push({col1: String(row.id_usuario_problema), col2: String(row.tipo_problema) , col3:String(row.usuario), col4:'-' });                
-      });                                     
-      //console.table(this.itemsTable);      
+      this.arrayUser = result;        
     }) 
 
     this.APIPetition.getTypeProblems().subscribe(types => { 
@@ -80,26 +83,18 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
   }
 
  //obtner sucursales actuales
- ReloadUserProblem( option: string){
+ ReloadUserProblem(){
   this.arrayUser = [];
+  this.itemsTable = [];
 
   this.APIPetition.getUserByTypeProblem().subscribe(result =>{                
     //console.table(result);
-    this.arrayUser= result;      
-    //console.table(this.Arraybranches);    
-    if(option == 'u'){ 
-      this.inAct = this.itemsTable.findIndex( element => element.col1  == this.id);                
-      const indexUserProblem =  this.arrayUser.findIndex( element => element.id_usuario_problema  == parseInt(this.id));                        
-      if( this.inAct != -1){
-        this.itemsTable[this.inAct].col2 = String(this.arrayUser[indexUserProblem].tipo_problema);
-        this.itemsTable[this.inAct].col3 = String(this.arrayUser[indexUserProblem].usuario);                               
-      }                            
-    }
-    
-    if(option == 'c'){                        
-      this.itemsTable.push({col1: String(this.arrayUser[this.arrayUser.length -1].id_usuario_problema), col2: String(this.arrayUser[this.arrayUser.length -1].tipo_problema) , col3: String(this.arrayUser[this.arrayUser.length -1].usuario), col4:'-' });                                        
-    }     
-    this.Clearinputs();      
+    this.arrayUser= result;          
+    if(this.arrayUser.length>0){
+      this.arrayUser.forEach((row) => {                   
+        this.itemsTable.push({col1: String(row.id_usuario_problema), col2: String(row.tipo_problema) , col3:String(row.usuario), col4:'-' });                
+      });  
+    }      
   });
 }
 
@@ -108,31 +103,36 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     //limpieza
     this.isChecked == true;
     this.enableid = false;  
-    this.idTypeProblem = '';
+    this.idTypeProblem = '0';
     this.id = '';
     this.idUser = ' ';
     this.estatus ='';    
   }
 
 
-
+//tipo de problema
   getId(item: any){
     return item.id_tipo_problema;
   }
 
   getLabel(item: any){
     return item.tipo_problema;
-  }
-
-
+  }  
   onChangeIdTypeProblem(data: any){
     this.idTypeProblem = data.toString();    
   }
 
-  onChangeIdEmployee(data: string){
-    this.idUser = data;    
+//usuario
+  getIdUser(item: any){
+    return item.id_usuario;
   }
-
+  getLabelUser(item: any){
+    return item.nombre_empleado;
+  }  
+  onChangeIdUser(data: any){
+    this.idUser = data.toString();        
+  }
+  
   //metodo para la tabla delete,edit, detail
   onChangeActionTable(data: any){  
     //alert(data.id+"---"+data.action);
@@ -179,7 +179,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
                 });                
               }                  
             });      
-            this.ReloadUserProblem('u');
+            this.ReloadUserProblem();
             this.Clearinputs();
           }                      
         }
@@ -208,7 +208,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
 
   ActionDetail(id: string){
       this.dataUserByTypeProblem = this.arrayUser.find(element => element.id_usuario_problema == parseInt(id));  
-
+      console.log(this.dataUserByTypeProblem);
       if(this.dataUserByTypeProblem.estatus == 'A'){
         this.estatus = 'Activo';
       }else{
@@ -220,7 +220,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     data: [{ title: 'ID:', data: id },
       {title: 'Tipo de Problema:', data: this.dataUserByTypeProblem.tipo_problema},    
       {title: 'Ususario Solver:', data: this.dataUserByTypeProblem.usuario},
-      {title: 'Pertenece a:', data: this.dataUserByTypeProblem.nombre_empleado},
+      {title: 'Pertenece a:', data: this.dataUserByTypeProblem.id_empleado +'-'+ this.dataUserByTypeProblem.nombre_empleado},
       {title: 'Estado:', data: this.estatus}
     ],      
     });  
@@ -250,8 +250,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
           id_tipo_problema: parseInt(this.idTypeProblem),        
           id_usuario: parseInt(this.idUser),
           estatus: this.estatus
-        };      
-        //console.log(this.id);
+        };              
         //console.table(datasend);
         this.idupdate = this.id;      
         this.APIPetition.updatedUserByProblem(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
@@ -274,7 +273,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
                 //panelClass: ['red-snackbar'],
               });                          
               //actualizar 
-              this.ReloadUserProblem('u');                     
+              this.ReloadUserProblem();                     
           }                  
         });            
         this.butonAddUpdate = '';  
@@ -325,7 +324,8 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
                 //panelClass: ['red-snackbar'],
               });                          
               //actualizar 
-              this.ReloadUserProblem('c');                     
+              this.ReloadUserProblem();      
+              this.Clearinputs();                     
           }                  
         });                    
       }    

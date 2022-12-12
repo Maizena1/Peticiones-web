@@ -8,6 +8,7 @@ import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-admin-branch-abc',
@@ -67,30 +68,26 @@ export class AdminBranchAbcComponent implements OnInit {
           this.router.navigate(["login"]);              
       }
     }        
-  
-    //obtener los datos de la bd get sucursal y pasarlos a 
-    /**/  
-    this.APIAdminPetition.getBranches().subscribe(result =>{                
-      this.Arraybranches = result;
-      //console.table(this.Arraybranches); 
-      this.Arraybranches.forEach((row) => {                   
-        if(row.estatus == 'A'){          
-          this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_sucursal , col3:'Activo', col4:'-' });        
-        }else{          
-          this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_sucursal , col3:'Inactivo', col4:'-' });        
-        }        
-      });                                     
-      //console.table(this.ItemsTable);      
-    })        
+    
+    this.ReloadBranches();
   }
 
   //obtner sucursales actuales
   ReloadBranches(){
     this.Arraybranches = [];
-    this.APIAdminPetition.getBranches().subscribe(result =>{                
+    this.ItemsTable = [];
+    this.APIAdminPetition.getBranches().subscribe(result =>{                      
       //console.table(result);
-      this.Arraybranches = result;      
-      //console.table(this.Arraybranches);
+      this.Arraybranches = result;            
+      if(this.Arraybranches.length > 0){
+        this.Arraybranches.forEach((row) => {                   
+          if(row.estatus == 'A'){          
+            this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_sucursal , col3:'Activo', col4:'-' });        
+          }else{          
+            this.ItemsTable.push({col1: String(row.id_sucursal), col2: row.nombre_sucursal , col3:'Inactivo', col4:'-' });        
+          }        
+        });   
+      }
     })       
   }
 
@@ -240,8 +237,6 @@ ActionDatil(id:string){
 
 verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-
-inAct : number = 0;
 idupdate: any;
 //Metodo de actualizacion de sucursal
 UpdateBranch(){
@@ -296,18 +291,7 @@ UpdateBranch(){
             verticalPosition: this.verticalPosition,
             duration: 3000,
             panelClass: ['green-snackbar']            
-          });          
-
-          this.inAct = this.ItemsTable.findIndex( element => element.col1  == this.id_sucursal);                         
-          if( this.inAct != -1){
-            this.ItemsTable[this.inAct].col2 = this.nombre;
-            if(this.estatus == 'A'){
-              this.ItemsTable[this.inAct].col3 = 'Activo';          
-            }else{
-              this.ItemsTable[this.inAct].col3 = 'Inactivo';          
-            }            
-          }                    
-          
+          });                                
           this.Clearinputs();
           //actualizar 
           this.ReloadBranches();          
@@ -365,12 +349,7 @@ CreateBranch() {
               duration: 3000,    
               panelClass: ['green-snackbar'],              
             });
-
-            if(datasend.estatus =='A'){
-              this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: 'Activa', col4:'-' });            
-            }else{
-              this.ItemsTable.push({col1: String(datasend.id_sucursal), col2:datasend.nombre_sucursal , col3: 'Inactiva', col4:'-' });            
-            }        
+                                   
             this.ReloadBranches();
             this.Clearinputs();
           }          

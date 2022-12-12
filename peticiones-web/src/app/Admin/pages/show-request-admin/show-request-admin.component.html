@@ -11,19 +11,64 @@
 
                 <mat-tab label="General"  >                                                                              
                     <div class="table-container" *ngIf="ItemsTableGeneric.length > 0">                                            
-                      <app-table-show class="table" [items]="ItemsTableGeneric" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
-                    </div>                                
+                      <app-table-show class="table" [items]="ItemsTableGeneric" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                                            
+                    </div>   
+                    <div class="table-container" *ngIf="ItemsTableGeneric.length == 0">                                            
+                        <p>No hay problemas!!</p>
+                    </div>   
                 </mat-tab>
                         
                 <mat-tab label="Pendientes">                  
                     <div class="table-container" *ngIf="ItemsTableSlopes.length > 0">
                         <app-table-show class="table" [items]="ItemsTableSlopes" [nameColumn]="nameColums" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
                     </div>
+                    <div class="table-container" *ngIf="ItemsTableSlopes.length == 0">
+                        <p>No hay problemas pendientes!!</p>
+                    </div>
+                </mat-tab> 
+
+                <mat-tab label="Asignados">                  
+                    <div class="table-container" *ngIf="ItemsTableAccepted.length > 0">
+                        <app-table-show class="table" [items]="ItemsTableAccepted" [nameColumn]="nameColums" [optionRequeriment]="'no'" [optionDelete]="'no'" [optionEdit]="'no'" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
+                    </div>
+                    <div class="table-container" *ngIf="ItemsTableAccepted.length == 0">
+                        <p>No hay problemas asignados!!</p>
+                    </div>
                 </mat-tab> 
 
                 <mat-tab label="Revisión Requisistos">                  
                     <div class="table-container" *ngIf="ItemsTableCheck.length > 0">
                         <app-table-show class="table" [items]="ItemsTableCheck" [nameColumn]="nameColums" (onChange)="onChangeActionTableRequirement($event)"></app-table-show>                      
+                    </div>
+                    <div class="table-container" *ngIf="ItemsTableCheck.length == 0">
+                        <p>No hay problemas que Revisar!!</p>
+                    </div>
+                </mat-tab>                 
+
+                <mat-tab label="En proceso">                  
+                    <div class="table-container" *ngIf="ItemsTableProcess.length > 0">
+                        <app-table-show class="table" [items]="ItemsTableProcess" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" (onChange)="onChangeActionTableRequirement($event)"></app-table-show>                      
+                    </div>
+                    <div class="table-container" *ngIf="ItemsTableProcess.length == 0">
+                        <p>No hay problemas que terminados!!</p>
+                    </div>
+                </mat-tab> 
+
+                <mat-tab label="Terminados">                  
+                    <div class="table-container" *ngIf="ItemsTableFinished.length > 0">
+                        <app-table-show class="table" [items]="ItemsTableFinished" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" (onChange)="onChangeActionTableRequirement($event)"></app-table-show>                      
+                    </div>
+                    <div class="table-container" *ngIf="ItemsTableFinished.length == 0">
+                        <p>No hay problemas que terminados!!</p>
+                    </div>
+                </mat-tab> 
+
+                <mat-tab label="Rechazados">                  
+                    <div class="table-container" *ngIf="ItemsTableRefused.length > 0">
+                        <app-table-show class="table" [items]="ItemsTableRefused" [nameColumn]="nameColums" [optionRequeriment]="'no'" [optionDelete]="'no'" [optionEdit]="'no'" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
+                    </div>
+                    <div class="table-container" *ngIf="ItemsTableRefused.length == 0">
+                        <p>No hay problemas que rechazados!!</p>
                     </div>
                 </mat-tab> 
 

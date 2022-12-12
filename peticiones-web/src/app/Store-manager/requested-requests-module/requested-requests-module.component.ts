@@ -80,7 +80,8 @@ export class RequestedRequestsModuleComponent implements OnInit {
       {title: 'Solucionador Designado:', data:this.dataShowProblem.nombre_empleado_designado},
       {title: 'Estado:', data:this.dataShowProblem.estatus},
       {title: 'Fecha Solicitud:', data:this.dataShowProblem.fecha_solicitud},
-      {title: 'Fecha de Aceptado:', data:this.dataShowProblem.fecha_aceptado},            
+      {title: 'Fecha de Asignado:', data:this.dataShowProblem.fecha_aceptado},            
+      {title: 'Fecha de Inicio:', data:this.dataShowProblem.fecha_enproceso},            
       {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
       {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},   
       {title: 'Gasto De Mantenimiento:', data:this.dataShowProblem.total},      
@@ -146,7 +147,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
-              total: 0
+              total: row.total
             });
           }else if(row.estatus == 'REVISION'){
             this.arrayProblems.push({
@@ -167,7 +168,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
-              total: 0
+              total: row.total
             });
           }else if(row.estatus == 'PROCESO'){
             this.arrayProblems.push({
@@ -231,7 +232,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado: row.fecha_terminado,
               fecha_rechazado:row.fecha_rechazado,
               id_problema:row.id_problema,  
-              total: 0
+              total: row.total
             });
           }                      
         });                 

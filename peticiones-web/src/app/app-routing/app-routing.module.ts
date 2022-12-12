@@ -17,6 +17,7 @@ import { RelationArticleBytypeProblemAbcComponent } from '../Admin/pages/relatio
 import { ShowRequestAdminComponent } from '../Admin/pages/show-request-admin/show-request-admin.component';
 import { ShowRequestSolverComponent } from '../Solver/show-request-solver/show-request-solver.component';
 import { ManagerSolverAssignmentComponent } from '../Admin/pages/manager-solver-assignment/manager-solver-assignment.component';
+import { ReportComponent } from '../Admin/pages/report/report.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
       { path: 'articleByProblem', component: RelationArticleBytypeProblemAbcComponent },
       { path: 'showRequested', component: ShowRequestAdminComponent },
       { path: 'solverAssignament/:fecha/tipoproblema/:idtipo', component: ManagerSolverAssignmentComponent },
+      { path: 'reports', component: ReportComponent },
       { path: '**', component: ShowRequestAdminComponent },
     ],
   },
@@ -44,7 +46,7 @@ const routes: Routes = [
   },
   { path: 'solver', children: [
       { path: 'confirmMaterial', component: ConfirmMaterialDetailComponent },
-      { path: 'requerimentComponent', component: SolverRequerimentComponent },
+      { path: 'requerimentComponent/:idproblema/tipoproblema/:idtipo', component: SolverRequerimentComponent },
       { path: 'showRequested', component: ShowRequestSolverComponent },
       { path: '**', component: ShowRequestSolverComponent },
     ],

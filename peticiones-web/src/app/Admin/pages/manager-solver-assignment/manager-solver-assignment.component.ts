@@ -86,11 +86,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
 
   onChangeIdUser(id: any){
     this.idUser = id;
-    this.ReloadUserProblems(this.idUser);
-    
-  // onChangeIdUser(id: any){
-  //   this.idUser = id;
-  //   this.ReloadUserProblems(parseInt(this.idUser));
+    this.ReloadUserProblems(this.idUser);      
   }
 
 
@@ -126,9 +122,9 @@ export class ManagerSolverAssignmentComponent implements OnInit {
   uploadDataProblem(){
     if(this.arrayProblems.length > 0){      
       this.dataShowProblem  = this.arrayProblems.find(element => element.fecha_solicitud == this.dataFecha);                                 
-      console.table(this.dataShowProblem);    
+      //console.table(this.dataShowProblem);    
         this.nameTypeProblem = this.dataShowProblem.tipo_problema;
-        console.log(this.nameTypeProblem);
+        //console.log(this.nameTypeProblem);
         this.nameDescriptionProblem = this.dataShowProblem.descripcion_problema;
         this.namebranch = this.dataShowProblem.nombre_sucursal;
         this.nameStoremanger=this.dataShowProblem.nombre_empleado;
@@ -175,8 +171,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
 
   ReloadProblems(){
     this.arrayProblems = [];    
-    this.APIPetition.getProblems().subscribe(result =>{        
-      
+    this.APIPetition.getProblems().subscribe(result =>{              
       if(result.Estatus){
         this._snackBar.open(result.Mensaje, 'X', {      
           verticalPosition: this.verticalPosition,   
@@ -205,7 +200,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
-              total:0
+              total: row.total
             });                      
   
           }else if(row.estatus == 'ACEPTADO'){
@@ -227,7 +222,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
-              total:0
+              total: row.total
             });
           }else if(row.estatus == 'REVISION'){
             this.arrayProblems.push({
@@ -248,7 +243,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
-              total:0
+              total: row.total
             });
           }else if(row.estatus == 'PROCESO'){
             this.arrayProblems.push({
@@ -312,7 +307,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
               fecha_terminado: row.fecha_terminado,
               fecha_rechazado:row.fecha_rechazado,
               id_problema:row.id_problema,  
-              total:0
+              total: row.total
             });
           }                      
         });                 

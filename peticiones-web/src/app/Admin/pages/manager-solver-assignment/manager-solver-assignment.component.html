@@ -50,7 +50,10 @@
                     </div>
                     
                     <div class="solver-table" *ngIf="ItemsTableUser.length > 0">
-                        <app-table-show [items]="ItemsTableUser" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" [optionFilter]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>
+                        <app-table-show [items]="ItemsTableUser" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" [optionFilter]="'no'" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>
+                    </div>
+                    <div class="solver-table" *ngIf="ItemsTableUser.length == 0">
+                        <p>Solucionador sin Historial de problemas</p>
                     </div>
 
                 </div>

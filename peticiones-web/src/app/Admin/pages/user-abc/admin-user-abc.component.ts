@@ -202,39 +202,43 @@ export class AdminUserAbcComponent implements OnInit {
       this.SnackBarError('Error faltan datos', 'X')
     }else{
 
-      const updateUser: User = {
-        id_rol: parseInt(this.form.roleId),
-        usuario: this.form.userName,
-        password: this.form.password,
-        estatus: this.toggle,
-      };
-      console.table(updateUser)
-      const actualizar = this.form.userId;
-
-      this.adminService.updateUser(updateUser, parseInt(actualizar)).subscribe(response =>{
-        this.response = response;
-        this.form.userId = actualizar;
-        console.log(this.form.userId )
-        this.form.userName = updateUser.usuario;
-        this.form.password = updateUser.password;
-        this.form.roleId = String(updateUser.id_rol);
-
-        if(this.response.Estatus === 'Error'){
-          this.SnackBarError(this.response.Mensaje, 'X');
-        }else{
-          this.SnackBarSuccessful(this.response.Mensaje, 'X');
-
-          this.updateTable();
-          this.ClearInput();
-          this.ReloadUsers();
-
-        }
-      });
       
-      this.button = 'add';
-     
-    }
 
+      if(this.form.roleId == '1'){
+        this.SnackBarError('Error no puede desabilitar al administrador', 'X')
+      }else{
+        const updateUser: User = {
+          id_rol: parseInt(this.form.roleId),
+          usuario: this.form.userName,
+          password: this.form.password,
+          estatus: this.toggle,
+        };
+        console.table(updateUser)
+        const actualizar = this.form.userId;
+  
+        this.adminService.updateUser(updateUser, parseInt(actualizar)).subscribe(response =>{
+          this.response = response;
+          this.form.userId = actualizar;
+          console.log(this.form.userId )
+          this.form.userName = updateUser.usuario;
+          this.form.password = updateUser.password;
+          this.form.roleId = String(updateUser.id_rol);
+  
+          if(this.response.Estatus === 'Error'){
+            this.SnackBarError(this.response.Mensaje, 'X');
+          }else{
+            this.SnackBarSuccessful(this.response.Mensaje, 'X');
+  
+            this.updateTable();
+            this.ClearInput();
+            this.updateTable();
+  
+          }
+        });
+        
+        this.button = 'add';
+      }          
+    }
   }
 
   employee: string = '';
@@ -271,6 +275,7 @@ export class AdminUserAbcComponent implements OnInit {
 
   updateTable(){
     this.itemsTable = [];
+    this.arrayUser = [];
 
     this.adminService.getUsers().subscribe(result =>{   
       this.arrayUser = result;

@@ -13,7 +13,7 @@ export class SelectComponent<T> implements OnInit {
   @Input() getId: (item?: T) => string = () => '';
   @Input() getLabel: (item?: T) => string = () => '';
 
-  @Input() value: string = '';  
+  @Input() value: string = '0';  
   @Output() valueChange = new EventEmitter<any>();
   @Output() onChange = new EventEmitter<string>();
   
@@ -30,11 +30,12 @@ export class SelectComponent<T> implements OnInit {
     //console.log(data);    
     this.valueChange.emit(item);
     this.onChange.emit(String(item));
-
     //console.log(item);
     //alert(data);
   }
 
+
+  
   ngOnInit(): void {    
     
   }  

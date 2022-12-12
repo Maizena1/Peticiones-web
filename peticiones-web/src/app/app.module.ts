@@ -55,6 +55,7 @@ import {MatCardModule} from '@angular/material/card';
 import { TableShowComponent } from './components/table-show/table-show.component';
 import { ManagerSolverAssignmentComponent } from './Admin/pages/manager-solver-assignment/manager-solver-assignment.component';
 import { DialogDetailRequirementsComponent } from './components/dialog-detail-requirements/dialog-detail-requirements.component';
+import { ReportComponent } from './Admin/pages/report/report.component';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import { DialogDetailRequirementsComponent } from './components/dialog-detail-re
     ShowRequestSolverComponent,
     TableShowComponent,
     ManagerSolverAssignmentComponent,
-    DialogDetailRequirementsComponent
+    DialogDetailRequirementsComponent,
+    ReportComponent
 
   ],
   imports: [

@@ -57,20 +57,20 @@ export class ArticleAbcComponent implements OnInit {
       }
     }        
 
-
     this.ReloadArticles();
   }
-
 
   ReloadArticles(){
     this.ArrayArticles = [];
     this.ItemsTable=[];
     this.APIAdminPetition.getArticle().subscribe(result =>{                      
       //console.table(result);
-      this.ArrayArticles = result;      
-      this.ArrayArticles.forEach((row) => {                           
-        this.ItemsTable.push({ col1: String(row.id_codigo_articulo), col2: row.nombre_articulo , col3: row.descripcion , col4:'-' });                
-      });                                     
+      this.ArrayArticles = result;   
+      if(this.ArrayArticles.length > 0){
+        this.ArrayArticles.forEach((row) => {                           
+          this.ItemsTable.push({ col1: String(row.id_codigo_articulo), col2: row.nombre_articulo , col3: row.descripcion , col4:'-' });                
+        });                                     
+      }      
     })       
   }
 
@@ -106,16 +106,14 @@ export class ArticleAbcComponent implements OnInit {
     this.enableid = true;      
     this.dataArticleShow = this.ArrayArticles.find(element => element.id_codigo_articulo == id);      
     this.Clearinputs();
+    console.log(this.dataArticleShow)
     //asignacion de las variables a mostrar
     this.idArticle = this.dataArticleShow.id_codigo_articulo;
     this.name = this.dataArticleShow.nombre_articulo;
-    this.description =  this.dataArticleShow.descricpion;          
+    this.description =  this.dataArticleShow.descripcion;          
   }
 
-
-  updated : string = '';
-  inAct: number = 0;
-  
+  updated : string = '';  
   UpdateArticle(){
 
     if((this.name == '')|| (this.idArticle == '')||(this.description == '')) {                          
@@ -186,7 +184,6 @@ export class ArticleAbcComponent implements OnInit {
           descripcion: this.description,                                                                    
         };
         
-
         //console.table(datasend);        
         this.APIAdminPetition.createCodeArticle(datasend).subscribe(response =>{                    
           this.response = response;          

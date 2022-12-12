@@ -18,7 +18,7 @@
                         <div class="request">
                             <div class="type-problem">
                                 <p class="subtitle">Tipo:</p>
-                                <p>Electrico</p>
+                                <p></p>
                             </div>
                             <div class="description-problem">
                                 <p class="subtitle">Descripcion:</p>
@@ -33,21 +33,19 @@
 
                     <div class="register-table-container">
                         <div class="register">
-                            <app-select [label]="'Material'" [items]="item" [(value)]="form.articleId"></app-select>   
-                            <app-textarea [label]="'Descripcion del articulo'" [example]="''"></app-textarea>
-                            <app-input [label]="'askdjasd'" [example]="'5111100000'"></app-input>                         
-                            <app-input [label]="'Unidad'"></app-input>                        
-                            <app-input [label]="'Precio'"></app-input>
+                            <app-select [label]="'Material'" [items]="item" [(value)]="form.articleId" [getId]="getArticleId" [getLabel]="getArticleLabel"></app-select>
+                            <app-textarea [label]="'Descripcion del articulo'" [example]="'Foco de 10w'" [(value)]="form.description"></app-textarea>
+                            <app-input [type]="'number'" [label]="'Cantidad'" [example]="'4'" [(value)]="form.amount"></app-input>
+                            <app-select [label]="'Unidad'" [items]="unit" [getId]="getUnitId" [getLabel]="getUnitLabel" [(value)]="form.unit"></app-select>              
+                            <app-input [type]="'number'" [label]="'Precio'" [example]="'5111100000'" [(value)]="form.price"></app-input>
 
                             <div class="button-container">
-                                <button mat-flat-button color="primary">Agregar</button>
+                                <button mat-flat-button color="primary" (click)="add()">Agregar</button>
                             </div>
                         </div>
 
-                        <div class="table">                            
-                            <!--
-                                <app-abc-table></app-abc-table>
-                            -->                            
+                        <div class="table">                     
+                            <app-table-show [optionFilter]="'no'" [nameColumn]="nameColumn"></app-table-show>
                         </div>
                     </div>
 

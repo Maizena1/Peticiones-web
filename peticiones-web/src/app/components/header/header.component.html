@@ -3,14 +3,19 @@
             <p class="title">ALMACENES DEL MURO</p>
         </div>
 
+        <div class="welcome">
+            <p class="nameEmployee">Bienvenido: {{nameEmlployee}}</p>
+        </div>
+
         <div class="menu">        
 
-        <!--  Para Store manager -->
-
+            <!--  Para Store manager -->
             <div class="menu-option" *ngIf="idRol == 2">
                 <mat-icon class="icon" [routerLink]="['/storeManager/createRequest']">note_add</mat-icon>
                 <p class="option" [routerLink]="['/storeManager/createRequest']">Crear peticion</p>   
             </div>
+
+            <!--  Para Store manager -->
             <div class="menu-option" *ngIf="idRol == 2">
                 <mat-icon class="icon" [routerLink]="['/storeManager/requestedRequestModule']">storage</mat-icon>
                 <p class="option" [routerLink]="['/storeManager/requestedRequestModule']">Peticiones solicitadas</p>
@@ -18,21 +23,22 @@
     
             <!--  Para Admin-->
             <div class="menu-option" *ngIf="idRol == 1">
-                <mat-icon class="icon" [routerLink]="['/storeManager/requestedRequestModule']">storage</mat-icon>
+                <mat-icon class="icon" [routerLink]="['/admin/showRequested']">storage</mat-icon>
                 <p class="option" [routerLink]="['/admin/showRequested']">Peticiones</p>
+            </div>
+
+            <div class="menu-option" *ngIf="idRol == 1">
+                <mat-icon class="icon" [routerLink]="['/admin/reports']" >assignment</mat-icon>
+                <p class="option" [routerLink]="['/admin/reports']">Reportes</p> 
             </div>
 
             <!--  Para Solver-->
             <div class="menu-option" *ngIf="idRol == 4">
-                <mat-icon class="icon" [routerLink]="['/storeManager/requestedRequestModule']">storage</mat-icon>
+                <mat-icon class="icon" [routerLink]="['/solver/showRequested']">storage</mat-icon>
                 <p class="option" [routerLink]="['/solver/showRequested']">Peticiones</p>
             </div>
 
-            <div class="menu-option" *ngIf="idRol == 1">
-                <mat-icon class="icon">assignment</mat-icon>
-                <p class="option">Reportes</p> 
-            </div>
-
+            
             <div class="menu-option">
                 <button mat-icon-button class="session-menu" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                     <mat-icon>more_vert</mat-icon>

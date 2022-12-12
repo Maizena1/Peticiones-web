@@ -10,9 +10,16 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
   
-  url ='http://peticionesdelmuro.ddns.net:3600/api/';
-  //url = 'http://localhost:5000/api/';
+  //url ='http://peticionesdelmuro.ddns.net:3600/api/';
+  url = 'http://localhost:5000/api/';
 
+  //para el header------------------------------------------------
+  getUser(id: number):Observable<any>{
+    //console.log(dato);
+    return this.http.get(`${this.url}usuario/${id}`);
+  }
+
+  //para sucursales-----------------------------------------------
   createBranch(dato: branch):Observable<any>{
     return this.http.post(`${this.url}registrar-sucursal`,dato);
   }
@@ -145,6 +152,10 @@ export class AdminService {
     return this.http.get(`${this.url}usuarios-problemas`);
   }
 
+  getUsersSolevers():Observable<any>{    
+    return this.http.get(`${this.url}usuarios-solvers`);
+  }
+  
   deleteUserByPoblem(id:number):Observable<any>{
     return this.http.delete(`${this.url}eliminar-usuario-problema/${id}`);
   }
@@ -165,7 +176,7 @@ export class AdminService {
   deleteProblem(dato: estatus_problem , id: number):Observable<any>{
     return this.http.put(`${this.url}estatus-problema/${id}`,dato);
   }
-  
+    
   assignamentProblem(dato: assignament_problem , id: number):Observable<any>{
     return this.http.put(`${this.url}estatus-problema/${id}`,dato);
   }
@@ -189,9 +200,14 @@ export class AdminService {
     return this.http.get(`${this.url}usuario-tipo-problema/${id}`);
   }  
 
+
+  deleteRequestProblems(id:number):Observable<any>{    
+    return this.http.delete(`${this.url}requisito-problema/${id}`);
+  }
+
   
   //solver------------------------------------------------
-  getArticleForProblemType(id:number):Observable<any>{    
+  getArticleForProblemType(id: number):Observable<any>{    
     return this.http.get(`${this.url}almacen-problema/${id}`);
   }  
 

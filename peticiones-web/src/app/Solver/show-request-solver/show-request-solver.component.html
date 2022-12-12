@@ -7,19 +7,53 @@
 
     <div class="content-container">
       <mat-tab-group class="modules-tab">
-
-        <mat-tab label="Revisión">
-          <div class="table-container">
-                         
-          </div>
+        <mat-tab label="Todos" (focusChange)="ReloadProblems()">
+          <div class="table-container" *ngIf="ItemsTableGeneric.length > 0">                                            
+              <app-table-show class="table" [items]="ItemsTableGeneric" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" [optionRequeriment]="'no'"  [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
+          </div>                                                    
+          <div class="table-container" *ngIf="ItemsTableGeneric.length == 0">                                            
+            <p>No hay problemas!!</p>
+          </div>                                                    
         </mat-tab>
         
-        <mat-tab label="En proceso">
-          <div class="table-container">            
-          </div>
+        <mat-tab label="Pendientes de Requisitos" (focusChange)="ReloadProblems()">
+          <div class="table-container" *ngIf="ItemsTableAsignament.length > 0">
+            <app-table-show class="table" [items]="ItemsTableAsignament" [nameColumn]="nameColums" [optionRequeriment]="'no'" [optionDelete]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
+          </div>   
+          <div class="table-container" *ngIf="ItemsTableAsignament.length == 0">
+            <p>No tienes problemas asignados!!</p>
+          </div>   
         </mat-tab>
-      </mat-tab-group>
 
+        <mat-tab label="Espera de Aprobacion" (focusChange)="ReloadProblems()">
+          <div class="table-container" *ngIf="ItemsTableSlopes.length > 0">
+            <app-table-show class="table" [items]="ItemsTableSlopes" [nameColumn]="nameColums" [optionFilter]="'no'" [optionDelete]="'no'" [optionEdit]="'no'" (onChange)="onChangeActionTableRequirement($event)"></app-table-show>                      
+          </div>   
+          <div class="table-container" *ngIf="ItemsTableSlopes.length == 0">
+            <p>No tienes problemas pendientes de aprobacion de requisitos!!</p>
+          </div>   
+        </mat-tab>
+
+        <mat-tab label="Aprobados" (focusChange)="ReloadProblems()">
+          <div class="table-container" *ngIf="ItemsTableProceess.length > 0">
+            <app-table-show class="table" [items]="ItemsTableProceess" [nameColumn]="nameColums"  [optionDelete]="'no'"  (onChange)="onChangeActionTableRequirement($event)"></app-table-show>                      
+          </div>
+          <div class="table-container" *ngIf="ItemsTableProceess.length == 0">
+            <p>No tienes problemas aprobados!!</p>
+          </div>      
+        </mat-tab>
+
+
+        <mat-tab label="Terminados" (focusChange)="ReloadProblems()">
+          <div class="table-container" *ngIf="ItemsTableFinished.length > 0">
+            <app-table-show class="table" [items]="ItemsTableFinished" [nameColumn]="nameColums" [optionFilter]="'no'" [optionDelete]="'no'" [optionEdit]="'no'" (onChange)="onChangeActionTableRequirement($event)"></app-table-show>                      
+          </div>   
+          <div class="table-container" *ngIf="ItemsTableFinished.length == 0">
+            <p>No tienes problemas Terminados!!</p>
+          </div>   
+        </mat-tab>
+
+      </mat-tab-group>
     </div>
 </body>
 </html>

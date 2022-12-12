@@ -64,14 +64,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     }        
 
 
-    this.APIAdminPetition.getArticlesProblems().subscribe(result =>{                
-      this.ArrayArticleProblem = result;
-      //console.table(this.Arraybranches); 
-      this.ArrayArticleProblem.forEach((row) => {                           
-          this.ItemsTable.push({col1: String(row.id_articulo_problema), col2: String(row.nombre_articulo) , col3: String(row.tipo_problema), col4:'-' });                                    
-      });                         
-      //console.table(this.ItemsTable);      
-    })
+   this.ReloadArticleProblems();
     
     //obtener las Tipos de problema
     this.APIAdminPetition.getTypeProblems().subscribe(result =>{                      
@@ -98,17 +91,19 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     this.APIAdminPetition.getArticlesProblems().subscribe(result =>{                      
       this.ArrayArticleProblem = result;      
       //console.table(this.Arraybranches);
+     if(this.ArrayArticleProblem.length>0){
       this.ArrayArticleProblem.forEach((row) => {                           
         this.ItemsTable.push({col1: String(row.id_articulo_problema), col2: String(row.nombre_articulo) , col3: String(row.tipo_problema), col4:'-' });                                    
       });                               
+     }           
     })       
   }
 
   Clearinputs(){
     //limpieza    
     this.enableid = false;      
-    this.idArticle = '';
-    this.idTypeProblem = '';
+    this.idArticle = '0';
+    this.idTypeProblem = '0';
   }
 
   getIdTypeProblem(item: any){
@@ -127,7 +122,6 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     return item.nombre_articulo;
   }
 
-
   onCTypeProblem(data: any){
     this.idTypeProblem = data;
   }
@@ -135,7 +129,6 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
   onChangeIdArticle(data: any){
     this.idArticle = data;    
   }
-
 
   onChangeActionTable(data: {id:string, action:string}){
     //alert(data.id+"---"+data.action);    
@@ -154,9 +147,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
   //asignacion de las variables a mostrar                
   this.id = id;
   this.idTypeProblem = this.DataArticlePoblemShow.id_tipo_problema;
-  this.idArticle = this.DataArticlePoblemShow.id_codigo_articulo;
-
-  //console.log(this.idSucursal+'---'+this.idArticle);  
+  this.idArticle = this.DataArticlePoblemShow.id_codigo_articulo;  
 }
 
 UpdateRelation(){

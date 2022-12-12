@@ -72,14 +72,16 @@ export class SolverRequerimentComponent implements OnInit {
     //       this.router.navigate(["login"]);              
     //   }
     // }        
-
-    this.adminService.getArticleForProblemType(2).subscribe(article => {
+    
+    this.adminService.getArticleForProblemType(1).subscribe(article => {
       this.item = article;
     })
     console.log(this.dataidProblema);
     console.log(this.dataidTipo);
     
+    
   }
+
   add(){
     this.arrayRequeriment.push({
       id_problema: 1,

@@ -89,6 +89,10 @@ export class AdminService {
     return this.http.get(`${this.url}tipos-problemas`);
   }
 
+  getProblem(id:number):Observable<any>{    
+    return this.http.get(`${this.url}problema/${id}`);
+  }
+
   DeleteTypeProblem(id:number):Observable<any>{
     return this.http.delete(`${this.url}eliminar-tipo-problema/${id}`);
   }
@@ -178,7 +182,7 @@ export class AdminService {
     return this.http.get(`${this.url}problemas`);
   }
 
-  deleteProblem(dato: estatus_problem , id: number):Observable<any>{
+  estatusProblem(dato: estatus_problem , id: number):Observable<any>{
     return this.http.put(`${this.url}estatus-problema/${id}`,dato);
   }
     
@@ -209,8 +213,12 @@ export class AdminService {
   deleteRequestProblems(id:number):Observable<any>{    
     return this.http.delete(`${this.url}requisito-problema/${id}`);
   }
-
   
+  
+  createRequeriments(dato:estatus_problem):Observable<any>{    
+    return this.http.post(`${this.url}registrar-requsito-problema`,dato);
+  }
+
   //solver------------------------------------------------
   getArticleForProblemType(id: number):Observable<any>{    
     return this.http.get(`${this.url}almacen-problema/${id}`);

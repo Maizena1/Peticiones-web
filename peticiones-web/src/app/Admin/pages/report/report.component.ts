@@ -3,6 +3,7 @@ import { User } from '../../services/type';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 
+
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -15,6 +16,9 @@ export class ReportComponent implements OnInit {
   dataSesion: User|any;  
 
   constructor(private _snackBar: MatSnackBar,private router: Router,) { }  
+
+
+
   ngOnInit(): void {
     if (localStorage){    
       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
@@ -34,8 +38,5 @@ export class ReportComponent implements OnInit {
           this.router.navigate(["login"]);              
       }
     }        
-  }  
-
-
-
+  }    
 }

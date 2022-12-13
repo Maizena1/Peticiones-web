@@ -4,10 +4,8 @@ import { AdminService } from 'src/app/Admin/services/admin.service';
 import { FormBuilder, } from '@angular/forms';
 import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { requeriment, table_show, User } from 'src/app/Admin/services/type';
+import { estatus_problem, requeriment, response, table_show, User } from 'src/app/Admin/services/type';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
-import { elementAt, of } from 'rxjs';
-import { ResourceLoader } from '@angular/compiler';
 
 
 
@@ -30,8 +28,15 @@ export class SolverRequerimentComponent implements OnInit {
     price: ''
   }
 
-  idProblem : number =0;
+  nameTypeProblem: string  = '';
+  nameDescriptionProblem: string = '';
+  namebranch:string = "";
+  nameStoremanger: string = "";
+  dateSolicitud:string = "";
 
+  response : response | any
+;
+  idProblem : number =0;
   unit: any [] = [{
     id: 1, title: 'Metros'
   },{
@@ -48,11 +53,25 @@ export class SolverRequerimentComponent implements OnInit {
   problemArticle: any [] = [];
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
 
+
   dataidProblema: string | null;
   dataidTipo: string | null;  
   constructor(private routerAc: ActivatedRoute,public dialog: MatDialog ,private router: Router, private adminService: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) {
     this.dataidProblema = this.routerAc.snapshot.paramMap.get('idproblema');
     this.dataidTipo = this.routerAc.snapshot.paramMap.get('idtipo');
+
+    if(this.dataidProblema != null){    
+      this.adminService.getProblem(parseInt(this.dataidProblema)).subscribe(result => {
+        //console.table(result);    
+        this.nameTypeProblem = result[0].tipo_problema;
+        //console.log(this.nameTypeProblem);
+        this.nameDescriptionProblem = result[0].descripcion_problema;
+        this.namebranch = result[0].nombre_sucursal;
+        this.nameStoremanger= result[0].nombre_empleado;
+        this.dateSolicitud= result[0].fecha_solicitud;                
+      })            
+    }
+    
   }
 
   idRol : number = 0;
@@ -62,35 +81,35 @@ export class SolverRequerimentComponent implements OnInit {
   itemsTable: table_show [] = [];
 
   ngOnInit(): void {
-    // if (localStorage){    
-    //   if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
-    //     const userJson = localStorage.getItem('dataSesion');
-    //     this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
-    //     this.idRol = this.dataSesion.id_rol;        
-    //     if(this.idRol != 4){          
-    //       this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
-    //         verticalPosition: this.verticalPosition,   
-    //         duration: 3000,   
-    //         panelClass: ['red-snackbar'],
-    //       });
-    //       this.router.navigate(["login"]);              
-    //     }
-    //   }else{        
-    //       //alert("DataSesion no existe en localStorage!!"); 
-    //       this.router.navigate(["login"]);              
-    //   }
-    // }        
-    
+     if (localStorage){    
+       if(localStorage.getItem('dataSesion') !== undefined && localStorage.getItem('dataSesion')){        
+         const userJson = localStorage.getItem('dataSesion');
+         this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
+         this.idRol = this.dataSesion.id_rol;        
+         if(this.idRol != 4){          
+           this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
+             verticalPosition: this.verticalPosition,   
+             duration: 3000,   
+             panelClass: ['red-snackbar'],
+           });
+           this.router.navigate(["login"]);              
+         }
+       }else{        
+           //alert("DataSesion no existe en localStorage!!"); 
+           this.router.navigate(["login"]);              
+       }
+     }        
+
     if(this.dataidTipo != null)
     this.adminService.getArticleForProblemType(parseInt(this.dataidTipo)).subscribe(article => {
       this.item = article;
       console.log(article);
     })
-    
-    
-    
-    
+                
   }
+
+  
+
 
   unidad: string = '';
 
@@ -129,55 +148,64 @@ export class SolverRequerimentComponent implements OnInit {
     }else if(this.form.unit == '4'){
       this.unidad = 'Piezas'
     }
-
             
     if(this.arrayRequeriment.find(element => element.id_codigo_articulo == this.form.articleId)){
       this.SnackBarError('Error articulo ya registrado.','X') ;
     }else{
 
-      if(this.form.articleId == '0'){
+      if(this.form.articleId == '0' || this.form.amount == '' || this.form.amount == '0' || this.form.price == '' ||this.form.price == '0'){
         this.SnackBarError('Error no hay datos para agregar.','X')          
       }else{
         if(this.dataidProblema != null){
           this.idProblem = parseInt(this.dataidProblema);
         }
-        this.arrayRequeriment.push({      
-          id_problema: this.idProblem,
-          id_codigo_articulo: this.form.articleId,
-          descripcion_requisito: this.form.description, 
-          cantidad: parseInt(this.form.amount),
-          unidad: this.form.unit,
-          precio: parseInt(this.form.price)
-        });            
-        this.clearInput();
-        this.SnackBarSuccessful('Articulo agregado.','X')
-        this.reloadTable();
+        
+        if(this.form.articleId != '5000000000'){
+          this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
+            this.form.description = result[0].descripcion;                
+
+            this.arrayRequeriment.push({      
+              id_problema: this.idProblem,
+              id_codigo_articulo: this.form.articleId,
+              descripcion_requisito: this.form.description, 
+              cantidad: parseInt(this.form.amount),
+              unidad: this.form.unit,
+              precio: parseInt(this.form.price)
+            });            
+            this.clearInput();
+            this.SnackBarSuccessful('Articulo agregado.','X')
+            this.reloadTable();
+          })          
+        }else{
+          this.arrayRequeriment.push({      
+            id_problema: this.idProblem,
+            id_codigo_articulo: this.form.articleId,
+            descripcion_requisito: this.form.description, 
+            cantidad: parseInt(this.form.amount),
+            unidad: this.form.unit,
+            precio: parseInt(this.form.price)
+          });  
+          this.clearInput();
+          this.SnackBarSuccessful('Articulo agregado.','X')
+          this.reloadTable();          
+        }
+
+        
+        
       }
     }
 }
-  
-  updateTable: any;
-  removeArticle(id: any){    
-    console.log('Antes'+this.arrayRequeriment);
-      this.updateTable = this.itemsTable.filter(element => element.col5 !== String(id))
-      this.itemsTable = [];
-      this.itemsTable = this.updateTable;
-      this.arrayRequeriment = this.updateTable;          
-      console.log('Despues'+this.arrayRequeriment);
-  }
-
+   
   onChangeActionTable(data: any){  
     if(data.action === 'detail'){
       this.ActionDatil(data.id);
-    }else if(data.action == 'delete'){
-      //this.removeArticle(data.id);
+    }else if(data.action == 'delete'){      
       this.ActionRemoveRequeriment(data.id);
     }
   }
 
-arrayAUX: any []= [];
-  ActionRemoveRequeriment(id: string){        
-     
+  arrayAUX: any []= [];
+  ActionRemoveRequeriment(id: string){             
      this.arrayAUX =this.arrayRequeriment.filter(element => element.id_codigo_articulo != id);
      this.arrayRequeriment = [];
      this.arrayRequeriment = this.arrayAUX;
@@ -202,30 +230,105 @@ arrayAUX: any []= [];
           });
         });         
     });
+    }else if(this.arrayRequeriment.length == 0){
+      this.itemsTable=[];
     }    
   }
 
   description: any;
   ActionDatil(id: string){
     if(id == '5000000000'){
-      this.dataArticleShow = this.arrayRequeriment.find(element => element.id_codigo_articulo == id);
-      console.log(this.dataArticleShow)
-    }else{
-      this.adminService.getArticleForId(id).subscribe(result => {
-        console.log(this.description = result[0])
-      })  
-    }
-
-
-    const dialogRef = this.dialog.open(DialogDetailComponent, {
+      this.dataArticleShow = this.arrayRequeriment.find(element => element.id_codigo_articulo == id);      
+      const dialogRef = this.dialog.open(DialogDetailComponent, {
         width: '300px',
         data: [{title: 'ID:', data: id},
-        {title: 'Descripcion:', data: this.description},
+        {title: 'Descripcion:', data: this.dataArticleShow.descripcion_requisito},
         ]
-      })
-    
-    
+    });
+    }else{
+      this.adminService.getArticleForId(id).subscribe(result => {
+        this.description = result[0].descripcion;                
+        const dialogRef = this.dialog.open(DialogDetailComponent, {
+          width: '300px',
+          data: [{title: 'ID:', data: id},
+          {title: 'Descripcion:', data: String(this.description)},
+          ]
+        });
+      })  
+    }        
   }
+
+
+  bandOverflow : string ='n'
+  ConfirRequest(){    
+    this.bandOverflow = 'n'
+    this.item.forEach(element => {      
+      this.arrayRequeriment.forEach(elementl => {                
+        if(element.id_codigo_articulo != '5000000000' && elementl.id_codigo_articulo != '5000000000'){
+          if(element.id_codigo_articulo == elementl.id_codigo_articulo){          
+            if(elementl.cantidad > element.cantidad_disponible){
+              this.SnackBarError('Error uno de los requisitos sobrepasa la cantidad en stock.','X')                    
+              this.bandOverflow ='s'
+            }
+          }        
+        }        
+      });
+    });
+
+    console.log(this.arrayRequeriment);
+    
+    if(this.bandOverflow =='n'){
+      if(this.dataidProblema != null){
+        const datasend : estatus_problem = {                              
+          id_problema: parseInt(this.dataidProblema),                        
+          estatus: 'REVISION',        
+          requeriment: this.arrayRequeriment
+        };
+        
+        
+        //creacion de requisitos        
+        this.adminService.createRequeriments(datasend).subscribe(response =>{           
+          this.response = response;                                        
+          if(this.response.Estatus == 'Error'){            
+            this._snackBar.open(this.response.Mensaje, 'X', {                
+              verticalPosition: this.verticalPosition,                
+              duration: 3000,
+              panelClass: ['red-snackbar'],
+            });
+          }else{
+            this._snackBar.open(this.response.Mensaje, 'X', {                
+              verticalPosition: this.verticalPosition,
+              duration: 3000,
+              panelClass: ['green-snackbar'],                
+            }); 
+                                    
+            this.adminService.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
+              this.response = response;                                        
+              if(this.response.Estatus == 'Error'){            
+                this._snackBar.open(this.response.Mensaje, 'X', {                
+                  verticalPosition: this.verticalPosition,                
+                  duration: 3000,
+                  panelClass: ['red-snackbar'],
+                });
+              }else{
+                this._snackBar.open(this.response.Mensaje, 'X', {                
+                  verticalPosition: this.verticalPosition,
+                  duration: 3000,
+                  panelClass: ['green-snackbar'],                
+                });   
+                //regresa a las tablas de rutas
+                this.router.navigate([      
+                  'solver/showRequested',
+                ]);        
+                //this.ReloadProblems();                                                                       
+              }                  
+            });                
+          }                  
+        });                   
+      }      
+    }
+  }
+
 
   getUnitId(item: any){
     return item.id.toString()
@@ -241,7 +344,7 @@ arrayAUX: any []= [];
   }
 
   getArticleLabel(item: any){
-    return item.nombre_articulo
+    return item.nombre_articulo+'-#'+item.cantidad_disponible
   }
 
 

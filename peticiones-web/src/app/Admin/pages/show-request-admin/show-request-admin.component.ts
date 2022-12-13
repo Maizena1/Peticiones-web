@@ -104,7 +104,7 @@ export class ShowRequestAdminComponent implements OnInit {
               };
 
               console.table(datasend);
-              this.APIPetition.deleteProblem(datasend,datasend.id_problema).subscribe(response =>{           
+              this.APIPetition.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
                 this.response = response;                                        
                 if(this.response.Estatus == 'Error'){            
                   this._snackBar.open(this.response.Mensaje, 'X', {                
@@ -218,7 +218,7 @@ export class ShowRequestAdminComponent implements OnInit {
           requeriment: this.arrayRequerimentProblem
         };
         //console.log(datasend);
-        this.APIPetition.deleteProblem(datasend,datasend.id_problema).subscribe(response =>{           
+        this.APIPetition.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
           this.response = response;                                        
           if(this.response.Estatus == 'Error'){            
             this._snackBar.open(this.response.Mensaje, 'X', {                

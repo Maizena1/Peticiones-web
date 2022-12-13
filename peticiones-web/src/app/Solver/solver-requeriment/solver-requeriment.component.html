@@ -14,27 +14,32 @@
     
                 <div class="secondary-container">  
     
+                    
+                    
                     <div class="request-container">
                         <div class="request">
                             <div class="type-problem">
                                 <p class="subtitle">Tipo:</p>
-                                <p></p>
+                                <p>{{nameTypeProblem}}</p>
                             </div>
                             <div class="description-problem">
                                 <p class="subtitle">Descripcion:</p>
-                                <p>Hay focos en vídeos que están parpadeando</p>
+                                <p>{{nameDescriptionProblem}}</p>
                             </div>
                         </div>
                         
                         <div class="send-request-button-container">
-                            <button mat-flat-button color="primary" [routerLink]="'/solver/confirmMaterial'">Confirmar material</button>
+                            <!--
+                                [routerLink]="'/solver/confirmMaterial'"
+                            -->
+                            <button mat-flat-button color="primary" (click)="ConfirRequest()">Confirmar material</button>
                         </div>
                     </div>
 
                     <div class="register-table-container">
                         <div class="register">
                             <app-select [label]="'Material'" [items]="item" [(value)]="form.articleId" [getId]="getArticleId" [getLabel]="getArticleLabel"></app-select>
-                            <app-textarea [label]="'Descripcion del articulo'" [example]="'Foco de 10w'" [(value)]="form.description"></app-textarea>
+                            <app-textarea [label]="'Descripcion del articulo'" [example]="'Foco de 10w'" [(value)]="form.description" *ngIf="this.form.articleId == '5000000000'"></app-textarea>
                             <app-input [type]="'number'" [label]="'Cantidad'" [example]="'4'" [(value)]="form.amount"></app-input>
                             <app-select [label]="'Unidad'" [items]="unit" [getId]="getUnitId" [getLabel]="getUnitLabel" [(value)]="form.unit"></app-select>              
                             <app-input [type]="'number'" [label]="'Precio'" [example]="'5111100000'" [(value)]="form.price"></app-input>
@@ -45,7 +50,7 @@
                         </div>
 
                         <div class="table" *ngIf="itemsTable.length > 0">   
-                            <app-table-requeriment [optionFilter]="'no'" [nameColumn]="nameColumn" [items]="itemsTable" [optionRequeriment]="'no'" [optionEdit]="'no'" (onChange)="removeArticle($event)" (onChange)="onChangeActionTable($event)"></app-table-requeriment>                  
+                            <app-table-requeriment [optionFilter]="'no'" [nameColumn]="nameColumn" [items]="itemsTable" [optionRequeriment]="'no'" [optionEdit]="'no'" (onChange)="onChangeActionTable($event)"></app-table-requeriment>                  
                         </div>
                         <div class="table" *ngIf="itemsTable.length == 0" >                     
                             <p>No ha agregado ningun material</p>

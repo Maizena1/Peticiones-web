@@ -6,7 +6,7 @@ import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack
 import { MatDialog } from '@angular/material/dialog';
 import { requeriment, table_show, User } from 'src/app/Admin/services/type';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
-import { of } from 'rxjs';
+import { elementAt, of } from 'rxjs';
 import { ResourceLoader } from '@angular/compiler';
 
 
@@ -81,10 +81,9 @@ export class SolverRequerimentComponent implements OnInit {
     //   }
     // }        
     
-    if(this.dataidProblema != null)
-    this.adminService.getArticleForProblemType(parseInt(this.dataidProblema)).subscribe(article => {
+    if(this.dataidTipo != null)
+    this.adminService.getArticleForProblemType(parseInt(this.dataidTipo)).subscribe(article => {
       this.item = article;
-
       console.log(article);
     })
     
@@ -131,109 +130,83 @@ export class SolverRequerimentComponent implements OnInit {
       this.unidad = 'Piezas'
     }
 
-
-    if(this.dataidProblema != null){
-      this.idProblem = parseInt(this.dataidProblema);
-    }
-
-    this.arrayRequeriment.push({      
-      id_problema: this.idProblem,
-      id_codigo_articulo: this.form.articleId,
-      descripcion_requisito: this.form.description, 
-      cantidad: parseInt(this.form.amount),
-      unidad: this.form.unit,
-      precio: parseInt(this.form.price)
-    });
-
-    this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
-      let articleName = result[0].nombre_articulo;
-      this.itemsTable.push({
-        col1: articleName,
-        col2: this.form.amount,
-        col3: this.unidad,
-        col4: this.form.price,
-        col5: this.form.articleId
-      })
-    })
-
-    this.clearInput();
-    this.SnackBarSuccessful('Articulo agregado.','X')
-
-//-----------------------------------------------------------------------------------------------------------
-
-/*
-    if(this.arrayRequeriment.find(element => this.form.articleId == element.id_codigo_articulo)){
-      this.SnackBarError('Error. Este articulo ya ha sido agregado.','X')
+            
+    if(this.arrayRequeriment.find(element => element.id_codigo_articulo == this.form.articleId)){
+      this.SnackBarError('Error articulo ya registrado.','X') ;
     }else{
-      this.arrayRequeriment.push({
-        id_problema: 1,
-        id_codigo_articulo: this.form.articleId,
-        descripcion_requisito: this.form.description, 
-        cantidad: parseInt(this.form.amount),
-        unidad: this.form.unit,
-        precio: parseInt(this.form.price)
-      });
 
-      if(this.form.unit == '1'){
-        this.unidad = 'Metros';
-      }else if(this.form.unit == '2'){
-        this.unidad = 'Metros cuadrado';
-      }else if(this.form.unit == '3'){
-        this.unidad = 'Kilogramos';
-      }else if(this.form.unit == '4'){
-        this.unidad = 'Piezas'
+      if(this.form.articleId == '0'){
+        this.SnackBarError('Error no hay datos para agregar.','X')          
+      }else{
+        if(this.dataidProblema != null){
+          this.idProblem = parseInt(this.dataidProblema);
+        }
+        this.arrayRequeriment.push({      
+          id_problema: this.idProblem,
+          id_codigo_articulo: this.form.articleId,
+          descripcion_requisito: this.form.description, 
+          cantidad: parseInt(this.form.amount),
+          unidad: this.form.unit,
+          precio: parseInt(this.form.price)
+        });            
+        this.clearInput();
+        this.SnackBarSuccessful('Articulo agregado.','X')
+        this.reloadTable();
       }
-
-      
-      this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
-        let articleName = result[0].nombre_articulo;
-        this.itemsTable.push({
-          col1: articleName,
-          col2: this.form.amount,
-          col3: this.unidad,
-          col4: this.form.price,
-          col5: this.form.articleId
-        })
-      })
-
-      console.log(this.arrayRequeriment)
-      this.SnackBarSuccessful('Articulo agregado.','X')
     }
-
-  */
-    
-  }
-
+}
   
   updateTable: any;
-  removeArticle(data: any){
-    if(data.action === 'delete'){
-
-      this.updateTable = this.itemsTable.filter(element => element.col5 !== String(data.id))
+  removeArticle(id: any){    
+    console.log('Antes'+this.arrayRequeriment);
+      this.updateTable = this.itemsTable.filter(element => element.col5 !== String(id))
       this.itemsTable = [];
       this.itemsTable = this.updateTable;
-      this.arrayRequeriment = this.updateTable;
-      
-    }
-
-
+      this.arrayRequeriment = this.updateTable;          
+      console.log('Despues'+this.arrayRequeriment);
   }
 
   onChangeActionTable(data: any){  
     if(data.action === 'detail'){
       this.ActionDatil(data.id);
     }else if(data.action == 'delete'){
+      //this.removeArticle(data.id);
       this.ActionRemoveRequeriment(data.id);
     }
   }
 
-  ActionRemoveRequeriment(id: string){
+arrayAUX: any []= [];
+  ActionRemoveRequeriment(id: string){        
+     
+     this.arrayAUX =this.arrayRequeriment.filter(element => element.id_codigo_articulo != id);
+     this.arrayRequeriment = [];
+     this.arrayRequeriment = this.arrayAUX;
+     this.arrayAUX= [];
+    this.reloadTable();
+    this.clearInput();
 
+  }
+
+  reloadTable(){
+    if(this.arrayRequeriment.length > 0){
+      this.itemsTable =[];    
+      this.arrayRequeriment.forEach(element =>{      
+        this.adminService.getArticleForId(element.id_codigo_articulo).subscribe(result => {
+          let articleName = result[0].nombre_articulo;
+          this.itemsTable.push({
+            col1: articleName, //nombre
+            col2: String(element.cantidad),
+            col3: element.unidad,
+            col4: String(element.precio),
+            col5: element.id_codigo_articulo
+          });
+        });         
+    });
+    }    
   }
 
   description: any;
   ActionDatil(id: string){
-
     if(id == '5000000000'){
       this.dataArticleShow = this.arrayRequeriment.find(element => element.id_codigo_articulo == id);
       console.log(this.dataArticleShow)

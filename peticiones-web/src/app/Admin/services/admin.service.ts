@@ -199,6 +199,17 @@ export class AdminService {
     return this.http.get(`${this.url}problemas-order`);
   }
 
+
+  getProblemsSucursalOrder(id:number):Observable<any>{    
+    return this.http.get(`${this.url}problemas-sucursal-order/${id}`);
+  }
+
+  getGastoTotalSucursal(id:number):Observable<any>{    
+    return this.http.get(`${this.url}gasto-sucursal/${id}`);
+  }
+  
+  
+
   //requisitos------------------------------------------------
   getRequirementProblem(id:number):Observable<any>{    
     return this.http.get(`${this.url}requisitos-problema/${id}`);

@@ -30,9 +30,9 @@
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row" >
           <div class="button-container">
-              <app-button-table-abc [clase]="'button-delete'" [icon]="'delete'" (onClick)="onClickAction(row.col1,'delete')" *ngIf="optionDelete =='si'"></app-button-table-abc>
-              <app-button-table-abc [clase]="'button-edit'" [icon]="'edit'" (onClick)="onClickAction(row.col1,'edit')" *ngIf="optionEdit == 'si'"></app-button-table-abc>
-              <app-button-table-abc [clase]="'button-receipt'" [icon]="'receipt'" (onClick)="onClickAction(row.col1,'detail')" *ngIf="optionDetail == 'si'"></app-button-table-abc>
+              <app-button-table-abc [clase]="'button-delete'" [icon]="'delete'" [tooltip]="'Eliminar'" (onClick)="onClickAction(row.col1,'delete')" *ngIf="optionDelete =='si'"></app-button-table-abc>
+              <app-button-table-abc [clase]="'button-edit'" [icon]="'edit'" [tooltip]="'Editar'" (onClick)="onClickAction(row.col1,'edit')" *ngIf="optionEdit == 'si'"></app-button-table-abc>
+              <app-button-table-abc [clase]="'button-receipt'" [icon]="'receipt'" [tooltip]="'Detalles'" (onClick)="onClickAction(row.col1,'detail')" *ngIf="optionDetail == 'si'"></app-button-table-abc>
           </div>
       </td>        
     </ng-container>

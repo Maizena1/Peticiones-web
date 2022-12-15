@@ -9,7 +9,7 @@ import { login, response, User } from 'src/app/Admin/services/type';
 })
 export class HeaderComponent implements OnInit {
 
-  nameEmlployee: string = 'No reconocido';
+  nameEmlployee: string = '';
 
   dataSesion:User|any;
   idRol : number = 0;

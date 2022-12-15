@@ -11,6 +11,7 @@ export class ButtonTableAbcComponent implements OnInit {
   @Input() icon: string;
   @Input() clase: string;
   @Input() disable: boolean;
+  @Input() tooltip: string = '';
   users = [];
 
   constructor() {

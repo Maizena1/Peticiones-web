@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import  { MatTableDataSource } from '@angular/material/table';
@@ -52,5 +52,12 @@ export class TableShowComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
         //console.table(this.items);
   }
-
+  
+  ngOnChanges(changes: SimpleChanges) {
+    //console.log('Mensaje desde Compnente Tabla: "Cambio Arreglo de Tabla"');
+    this.nameColumns = this.nameColumn;
+    this.dataSource = new MatTableDataSource(this.items); 
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }  
 }

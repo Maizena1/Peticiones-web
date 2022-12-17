@@ -13,7 +13,7 @@ export class SelectComponent<T> implements OnInit {
   @Input() getId: (item?: T) => string = () => '';
   @Input() getLabel: (item?: T) => string = () => '';
 
-  @Input() value: string = '0';  
+  @Input() value: string | any;  
   @Output() valueChange = new EventEmitter<any>();
   @Output() onChange = new EventEmitter<string>();
   
@@ -26,12 +26,13 @@ export class SelectComponent<T> implements OnInit {
 
   SelectFormControl = new FormControl('', [Validators.required]);
   
-  getdata(item: T){
-    //console.log(data);    
+  getdata(item: T){    
+    this.value = String(item);
+
     this.valueChange.emit(item);
-    this.onChange.emit(String(item));
-    //console.log(item);
-    //alert(data);
+    this.onChange.emit(String(item));    
+
+    
   }
 
 

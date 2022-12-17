@@ -19,7 +19,7 @@
                         <div class="input-register">
                             <app-input [type]="'number'" disabled [label]="'ID Empleado'" [example]="'13'" [enable]="enableid" [value]="idEmpleado" (onChange)="onChangeIdEmployee($event)"></app-input>                                                        
                             <app-input [label]="'Nombre Empleado'" [example]="'Jesus Rodrigez sdSmith'" [value]="nombre" (onChange)="onChangeNameEmployee($event)"></app-input>                                                                                                                
-                            <app-select [label]="'Sucursal'" [(value)]="idSucursal" [items]="branches" [getId]="getId" [getLabel]="getLabel"></app-select>                            
+                            <app-select [label]="'Sucursal'" [value]="idSucursal" [items]="branches" [getId]="getId" [getLabel]="getLabel" (onChange)="onChangeIdBranch($event)"></app-select>                            
                             <app-input [label]="'Correo'" [example]="'JesusRodrigez@gmail.com'" [value]="correo" (onChange)="onChangeEmailEmployee($event)"></app-input>                            
                             <app-input [label]="'Número telefónico'" [example]="'6681843221'" [value]="telefono" (onChange)="onChangePhoneNumberEmployee($event)"></app-input>                                                        
                             <mat-slide-toggle [color]="'primary'" [(ngModel)]="isChecked">Activo</mat-slide-toggle>                                                                                

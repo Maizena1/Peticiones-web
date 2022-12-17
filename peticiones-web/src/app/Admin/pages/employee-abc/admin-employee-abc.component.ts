@@ -107,11 +107,12 @@ export class AdminEmployeeAbcComponent implements OnInit {
   }
 
   
+  //obtener el id de la sucursal
   onChangeIdBranch(data: string){
      this.idSucursal = data;
   }
 
-  //obtener el id de la sucursal
+  //obtenr el id del empleado  
   onChangeIdEmployee(data: string){
     this.idEmpleado = data;       
   }

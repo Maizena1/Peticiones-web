@@ -75,7 +75,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
       {title: 'ID:', data:  this.dataShowProblem.id_problema},      
       {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},
       {title: 'Descripcion:', data:this.dataShowProblem.descripcion_problema},      
-      {title: 'Tu:', data:this.dataShowProblem.nombre_empleado},      
+      {title: 'Nombre de Encargada de tienda:', data:this.dataShowProblem.nombre_empleado},      
       {title: 'Nombre de tu sucursal:', data:this.dataShowProblem.nombre_sucursal},      
       {title: 'Solucionador Designado:', data:this.dataShowProblem.nombre_empleado_designado},
       {title: 'Estado:', data:this.dataShowProblem.estatus},

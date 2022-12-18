@@ -96,14 +96,16 @@ export class CreateRequestComponent implements OnInit {
             duration: 3000,    
             panelClass: ['red-snackbar'],
           });
+
         }else{
           this._snackBar.open(this.response.Mensaje, 'X', {              
             verticalPosition: this.verticalPosition,
             duration: 3000,    
             panelClass: ['green-snackbar'],            
           });          
+          this.router.navigate(["storeManager/requestedRequestModule"]);
         }          
-        this.router.navigate(["storeManager/requestedRequestModule"]);
+        
       });     
 
 

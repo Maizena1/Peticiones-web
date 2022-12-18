@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Item, ItemSelect } from 'src/app/Admin/services/type';
 
@@ -25,17 +25,11 @@ export class SelectComponent<T> implements OnInit {
   constructor() {}
 
   SelectFormControl = new FormControl('', [Validators.required]);
-  
-  getdata(item: T){    
-    this.value = String(item);
-
-    this.valueChange.emit(item);
-    this.onChange.emit(String(item));    
-
     
+  getdata(item: T){            
+    this.valueChange.emit(item);
+    this.onChange.emit(String(item));            
   }
-
-
   
   ngOnInit(): void {    
     

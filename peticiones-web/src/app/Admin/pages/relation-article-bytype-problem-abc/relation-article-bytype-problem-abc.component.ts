@@ -112,15 +112,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
   getLabelArticles(item: any){
     return item.nombre_articulo;
   }
-
-  onCTypeProblem(data: string){
-    this.idTypeProblem = data;
-  }
-
-  onChangeIdArticle(data: string){
-    this.idArticle = data;    
-  }
-
+  
   onChangeActionTable(data: {id:string, action:string}){
     //alert(data.id+"---"+data.action);    
    if(data.action === 'edit'){

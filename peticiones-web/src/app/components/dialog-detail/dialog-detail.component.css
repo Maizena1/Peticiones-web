@@ -5,17 +5,8 @@
 .header-container{
     margin: 0px auto;
     text-align: center;    
-    height: 50px;
+    height: 32px;
     overflow: hidden;
-}
-
-.dialog{
-    display:flex;
-    flex-direction: column;
-    min-width: 252px;
-    max-width: 650px;
-    min-height: 340px;
-    max-height: 450px;
 }
 
 .dialog-title{
@@ -23,20 +14,22 @@
     font-weight: 700;
 }
 
+.sub-grid-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 16px 20px;
+}
+
 .sub-container{
-    width: auto;
     display: flex;
-    flex-direction: row;    
-    gap: 8px;
-    padding: 16px 40px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 12px;
 }
 
-
-.dialog-content{
-    width: 50%;
+.second-dialog-content{
+    background-color: red;
 }
-
 
 .action-container{    
     text-align: center;    

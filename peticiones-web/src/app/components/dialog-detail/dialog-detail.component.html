@@ -4,14 +4,26 @@
     </div>
 
     <div mat-dialog-content class="sub-container">
-        <div *ngFor="let item of data" class="dialog-content">
+       
+        <div *ngFor="let item of arrayData" class="dialog-content">
             <p class="title">{{item.title}}</p>
             <p class="data">{{item.data}}</p>                       
         </div>        
+
+        <div class="dialog-content" *ngIf="arrayFecha.length > 0">
+            <div *ngFor="let item of arrayFecha">            
+                <p class="title">{{item.title}}</p>
+                <p class="data">{{item.data}}</p>                       
+            </div>        
+        </div>
+        
+        
+        
+
     </div>
     
     <div mat-dialog-action class="action-container">
-        <button mat-flat-button color="primary" matRipple class="format-button-cancel" class="button" mat-button mat-dialog-close>Cancelar</button>    
+        <button mat-flat-button color="primary" matRipple class="format-button-cancel" class="button" mat-button mat-dialog-close>Cerrar</button>    
     </div>
 
 </div>    

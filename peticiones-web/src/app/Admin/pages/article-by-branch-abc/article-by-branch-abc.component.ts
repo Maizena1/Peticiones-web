@@ -183,7 +183,8 @@ export class ArticleByBranchAbcComponent implements OnInit {
     //alert(this.inAct);
     const dialogRef = this.dialog.open(DialogDetailComponent, {
       width: '300px',
-      data: [{ title: 'ID:', data: id },
+      data: [
+      //{ title: 'ID:', data: id },
       {title: 'Id Sucursal:', data: this.DataStoreShow.id_sucursal},    
       {title: 'Nombre Sucursal: ', data: this.DataStoreShow.nombre_sucursal},    
       {title: 'Codigo Articulo:', data: this.DataStoreShow.id_codigo_articulo },
@@ -195,7 +196,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
     });  
   }
   
-
+  
   UpdateStore(){    
      //obtencion del estatus
   if (this.isChecked == true){

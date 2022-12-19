@@ -5,7 +5,7 @@
 .header-container{
     margin: 0px auto;
     text-align: center;    
-    height: 80px;
+    height: 50px;
     overflow: hidden;
 }
 
@@ -13,7 +13,9 @@
     display:flex;
     flex-direction: column;
     min-width: 252px;
-    max-height: 340px;
+    max-width: 650px;
+    min-height: 340px;
+    max-height: 450px;
 }
 
 .dialog-title{
@@ -23,19 +25,21 @@
 
 .sub-container{
     width: auto;
-
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: row;    
     gap: 8px;
-
     padding: 16px 40px;
-
+    flex-wrap: wrap;
 }
 
-.action-container{
-    text-align: center;
-    
+
+.dialog-content{
+    width: 50%;
+}
+
+
+.action-container{    
+    text-align: center;    
 }
 
 .button{

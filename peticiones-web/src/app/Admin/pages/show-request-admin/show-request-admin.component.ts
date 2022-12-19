@@ -136,7 +136,8 @@ export class ShowRequestAdminComponent implements OnInit {
   ActionDetail(fecha: string){    
     //obtener los detalles de la sucursal a mostrar
     this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
-    const dialogRef = this.dialog.open(DialogDetailComponent, {      
+    const dialogRef = this.dialog.open(DialogDetailComponent, { 
+      width: '650px',     
     data: [
       {title: 'ID:', data:  this.dataShowProblem.id_problema},      
       {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},

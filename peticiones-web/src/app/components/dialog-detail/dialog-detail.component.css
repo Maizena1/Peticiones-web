@@ -27,9 +27,10 @@
     gap: 12px;
 }
 
-.second-dialog-content{
-    background-color: red;
+.path-sub-container{
+    padding: 16px 40px;
 }
+
 
 .action-container{    
     text-align: center;    

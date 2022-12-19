@@ -12,19 +12,17 @@
     
         </div>
     
-        <div mat-dialog-content class="sub-container">
-            <div  class="dialog-content">
-                <div *ngFor="let item of arrayFecha">            
+            <div mat-dialog-content class="sub-container">
+                <div *ngFor="let item of arrayFecha" class="dialog-content">            
                     <p class="title">{{item.title}}</p>
                     <p class="data">{{item.data}}</p>                       
                 </div>        
             </div>
-        </div>
     </div>
     
 
-    <div mat-dialog-content class="sub-container" *ngIf="arrayFecha.length == 0">
-        <div *ngFor="let item of arrayData" class="dialog-content second-dialog-content">
+    <div mat-dialog-content class="sub-container path-sub-container" *ngIf="arrayFecha.length == 0">
+        <div *ngFor="let item of arrayData" class="dialog-content">
             <p class="title">{{item.title}}</p>
             <p class="data">{{item.data}}</p>                       
         </div>        

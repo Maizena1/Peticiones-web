@@ -35,6 +35,7 @@ export class AdminUserAbcComponent implements OnInit {
   estatusUser: string ='';
   idRolSelect: number = 0;
   roles: any [] = [];
+  employeeItem: any [] = [];
 
   response: response | any; //subscripcion de respuesta
   dataUserShow: User | any; //tipo de dato para buscar  
@@ -77,11 +78,14 @@ export class AdminUserAbcComponent implements OnInit {
       }
     }        
 
-    this.updateTable();
+    this.UpdateTable();
     
-
     this.adminService.getRol().subscribe(role => {
       this.roles = role;
+    })
+
+    this.adminService.getEmployees().subscribe(employee => {
+      this.employeeItem = employee;
     })
 
 
@@ -120,12 +124,19 @@ export class AdminUserAbcComponent implements OnInit {
       status: false,
     }
   }
+
+  getEmployeeId(item: any){
+    return item.id_empleado.toString()
+  }
+  getEmployeeLabel(item: any){
+    return item.nombre_empleado
+  }
   
-  getId(item: any){
+  getRoleId(item: any){
     return item.id_rol.toString()
   }
 
-  getLabel(item: any){
+  getRoleLabel(item: any){
     return item.nombre_rol
   }
 
@@ -143,7 +154,8 @@ export class AdminUserAbcComponent implements OnInit {
     }  
   }
 
-  
+  ActionDelete(id: any){}
+
   CreateUser(){
     console.log(this.form)
     const { userName, password, employeeId, roleId } = this.form
@@ -158,15 +170,13 @@ export class AdminUserAbcComponent implements OnInit {
       }else{
         this.SnackBarSuccessful(this.response.Mensaje, 'X')
         this.ReloadUsers();
+        this.UpdateTable();
+        this.ClearInput();
       }
     })
 
   }
   
-  ActionDelete(id: string){
-  
-  }
-
   ActionEdit(id: string){
 
     this.button = 'update';
@@ -227,9 +237,8 @@ export class AdminUserAbcComponent implements OnInit {
           }else{
             this.SnackBarSuccessful(this.response.Mensaje, 'X');
   
-            this.updateTable();
+            this.UpdateTable();
             this.ClearInput();
-            this.updateTable();
   
           }
         });
@@ -271,7 +280,7 @@ export class AdminUserAbcComponent implements OnInit {
   }
 
 
-  updateTable(){
+  UpdateTable(){
     this.itemsTable = [];
     this.arrayUser = [];
 

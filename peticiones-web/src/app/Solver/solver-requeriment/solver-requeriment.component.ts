@@ -171,10 +171,11 @@ export class SolverRequerimentComponent implements OnInit {
               cantidad: parseInt(this.form.amount),
               unidad: this.form.unit,
               precio: parseInt(this.form.price)
-            });            
-            this.clearInput();
-            this.SnackBarSuccessful('Articulo agregado.','X')
-            this.reloadTable();
+            });     
+          this.clearInput();
+          this.SnackBarSuccessful('Articulo agregado.','X')
+          this.reloadTable();        
+            
           })          
         }else{
           this.arrayRequeriment.push({      
@@ -184,12 +185,11 @@ export class SolverRequerimentComponent implements OnInit {
             cantidad: parseInt(this.form.amount),
             unidad: this.form.unit,
             precio: parseInt(this.form.price)
-          });  
-          this.clearInput();
-          this.SnackBarSuccessful('Articulo agregado.','X')
-          this.reloadTable();          
+          });         
+        this.clearInput();
+        this.SnackBarSuccessful('Articulo agregado.','X')
+        this.reloadTable();    
         }
-
         
         
       }

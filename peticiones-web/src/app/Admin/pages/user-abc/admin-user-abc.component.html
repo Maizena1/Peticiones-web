@@ -20,8 +20,8 @@
                         <div class="input-register">
                             <app-input [label]="'Usuario'" [(value)]="form.userName"></app-input>
                             <app-input [label]="'Contraseña'" [(value)]="form.password"></app-input>
-                            <app-input [label]="'ID empleado'" [(value)]="form.employeeId"></app-input>
-                            <app-select [label]="'Rol'" [(value)]="form.roleId" [items]="roles" [getId]="getId" [getLabel]="getLabel"></app-select>
+                            <app-select [label]="'Empleado'" [(value)]="form.employeeId" [items]="employeeItem" [getId]="getEmployeeId" [getLabel]="getEmployeeLabel"></app-select>
+                            <app-select [label]="'Rol'" [(value)]="form.roleId" [items]="roles" [getId]="getRoleId" [getLabel]="getRoleLabel"></app-select>
                             <mat-slide-toggle class="slide-toggle" [(ngModel)]="form.status">Activo</mat-slide-toggle>
                         </div>
 

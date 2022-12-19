@@ -29,10 +29,10 @@
 
                 <mat-tab label="Proceso" (focusChange)="ReloadProblems()">
                     <div class="table-container" *ngIf="ItemsTableProcess.length > 0">
-                      <app-table-show class="table" [items]="ItemsTableProcess" [nameColumn]="nameColums"  [optionDelete]="'no'"  (onChange)="onChangeActionTable($event)"></app-table-show>                      
+                      <app-table-show class="table" [items]="ItemsTableProcess" [nameColumn]="nameColums"  [optionDelete]="'no'" [optionRequeriment]="'no'"  (onChange)="onChangeActionTable($event)"></app-table-show>                      
                     </div>
                     <div class="table-container" *ngIf="ItemsTableProcess.length == 0">
-                      <p>No tienes problemas aprobados!!</p>
+                      <p>No tienes problemas en proceso!!</p>
                     </div>      
                 </mat-tab>
 

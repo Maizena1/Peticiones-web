@@ -28,6 +28,9 @@
                     <div class="table-article-container" *ngIf="ItemsTable.length > 0">
                         <app-abc-table class="table" [items]="ItemsTable" [nameColumn]="nameColum"  [optionDelete]="'no'" [optionDetail]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>                        
                     </div>
+                    <div class="table-article-container" *ngIf="ItemsTable.length == 0">
+                        <p>No hay articulos asociados a algun tipo de problema para mostrar!!</p>
+                    </div>
 
                 </div>            
             </div>

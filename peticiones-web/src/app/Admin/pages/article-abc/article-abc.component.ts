@@ -67,8 +67,10 @@ export class ArticleAbcComponent implements OnInit {
       //console.table(result);
       this.ArrayArticles = result;   
       if(this.ArrayArticles.length > 0){
-        this.ArrayArticles.forEach((row) => {                           
-          this.ItemsTable.push({ col1: String(row.id_codigo_articulo), col2: row.nombre_articulo , col3: row.descripcion , col4:'-' });                
+        this.ArrayArticles.forEach((row) => { 
+          if(row.id_codigo_articulo != '5000000000'){
+            this.ItemsTable.push({ col1: String(row.id_codigo_articulo), col2: row.nombre_articulo , col3: row.descripcion , col4:'-' });                
+          }          
         });                                     
       }      
     })       

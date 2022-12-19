@@ -48,7 +48,7 @@ export class CreateRequestComponent implements OnInit {
       }
     }
 
-    this.APIPetition.getTypeProblems().subscribe(types => { 
+    this.APIPetition.getTypeProblemsAct().subscribe(types => { 
       this.problemTypes = types;
     });        
   }

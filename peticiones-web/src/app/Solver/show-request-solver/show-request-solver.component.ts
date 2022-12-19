@@ -111,46 +111,14 @@ export class ShowRequestSolverComponent implements OnInit {
 
   onChangeActionTableRequirement(data: any){  
     //alert(data.id+"---"+data.action);
-    if(data.action === 'accep'){
-      this.ActionTerminateProblem(data.fecha);
-    }else if(data.action === 'detail'){
+    if(data.action === 'detail'){
       this.ActionDetail(data.fecha);
     }else if(data.action === 'detailReq'){
       this.ActionDetailRequeriment(data.fecha)
     }    
   }
 
-  ActionTerminateProblem(fecha:string){
-      //pendiente terminar el problema
-      const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                         
-
-            //console.log(idproblem);
-              const datasend : estatus_problem = {                      
-                id_problema: this.arrayProblems[idproblem].id_problema,                
-                estatus: 'TERMINADO',                                                  
-              };
-
-              console.table(datasend);
-              this.APIPetition.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
-                this.response = response;                                        
-                if(this.response.Estatus == 'Error'){            
-                  this._snackBar.open(this.response.Mensaje, 'X', {                
-                    verticalPosition: this.verticalPosition,                
-                    duration: 3000,
-                    panelClass: ['red-snackbar'],
-                  });
-                }else{
-                  this._snackBar.open(this.response.Mensaje, 'X', {                
-                    verticalPosition: this.verticalPosition,
-                    duration: 3000,
-                    panelClass: ['green-snackbar'],                
-                  });                
-                }                  
-              });      
-              this.ReloadProblems();                                                                       
-
-  }
-
+  
  //obtener requisitos
  ActionDetailRequeriment(fecha: string){
   //obtener los detalles de la sucursal a mostrar

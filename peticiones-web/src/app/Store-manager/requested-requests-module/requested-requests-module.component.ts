@@ -1,5 +1,5 @@
 
-import { ItemSelect, problem, response, table_show } from 'src/app/Admin/services/type';
+import { estatus_problem, ItemSelect, problem, response, table_show } from 'src/app/Admin/services/type';
 import { Component, OnInit, Input} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from 'src/app/Admin/services/admin.service';
@@ -23,6 +23,9 @@ export class RequestedRequestsModuleComponent implements OnInit {
   ItemsTableGeneric : table_show []=[]; 
   //contenido de tabla Pendientes
   ItemsTableSlopes : table_show []=[];   
+  //contenido de la tabla en proceso para que puede dar como temrinado la tarea
+  ItemsTableProcess: table_show [] = [];
+
   //array principal 
   arrayProblems: problem [] = [] ;
   response: response | any; //subscripcion de respuesta
@@ -61,10 +64,40 @@ export class RequestedRequestsModuleComponent implements OnInit {
 
   onChangeActionTable(data: any){  
     //alert(data.id+"---"+data.action);  
-    if(data.action === 'detail'){
+    if(data.action === 'accep'){
+      this.ActionTerminateProblem(data.fecha);
+    }else if(data.action === 'detail'){
       this.ActionDetail(data.fecha);
     }  
   }
+
+  ActionTerminateProblem(fecha:string){
+    //pendiente terminar el problema
+    const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                         
+          //console.log(idproblem);
+            const datasend : estatus_problem = {                      
+              id_problema: this.arrayProblems[idproblem].id_problema,                
+              estatus: 'TERMINADO',                                                  
+            };
+            console.table(datasend);
+            this.APIPetition.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
+              this.response = response;                                        
+              if(this.response.Estatus == 'Error'){            
+                this._snackBar.open(this.response.Mensaje, 'X', {                
+                  verticalPosition: this.verticalPosition,                
+                  duration: 3000,
+                  panelClass: ['red-snackbar'],
+                });
+              }else{
+                this._snackBar.open(this.response.Mensaje, 'X', {                
+                  verticalPosition: this.verticalPosition,
+                  duration: 3000,
+                  panelClass: ['green-snackbar'],                
+                });                
+              }                  
+            });      
+            this.ReloadProblems();                                                                       
+}
 
 
   ActionDetail(fecha: string){
@@ -94,7 +127,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
   //variable para obtener hasta el id usuario
   usuario: string = "no";
   ReloadProblems(){
-    this.arrayProblems = [];           
+    this.arrayProblems = [];         
     this.APIPetition.getProblemsOrder().subscribe(result =>{              
       if(result.Estatus){
         this._snackBar.open(result.Mensaje, 'X', {      
@@ -245,6 +278,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
   reloadArrayGeneric(){
     this.ItemsTableGeneric = [];
     this.ItemsTableSlopes = []; 
+    this.ItemsTableProcess = [];      
     //pila hasta tu problema
     this.arrayProblems.forEach((row) => {          
       if(row.estatus == 'ESPERA'){              
@@ -257,10 +291,20 @@ export class RequestedRequestsModuleComponent implements OnInit {
       }
     });  
 
+    //los problemas de tu sucursal
     this.arrayProblems.forEach((row) => {                        
         if(this.dataSesion.id_usuario == row.id_usuario ){
           this.ItemsTableSlopes.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
         }      
     });  
+
+
+    //los problemas de para que los finalices
+    this.arrayProblems.forEach((row) => {                        
+      if(this.dataSesion.id_usuario == row.id_usuario && row.estatus =='PROCESO'){
+        this.ItemsTableProcess.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
+      }      
+  });  
+
   }
 }

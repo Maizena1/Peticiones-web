@@ -81,12 +81,16 @@ export class AdminService {
   }
 
 
-  
 
   //Tipo de Problema-----------------------------------------------
   getTypeProblems():Observable<any>{
     //console.log(dato);
     return this.http.get(`${this.url}tipos-problemas`);
+  }
+
+  getTypeProblemsAct():Observable<any>{
+    //console.log(dato);
+    return this.http.get(`${this.url}tipos-problemas-act`);
   }
 
   getProblem(id:number):Observable<any>{    

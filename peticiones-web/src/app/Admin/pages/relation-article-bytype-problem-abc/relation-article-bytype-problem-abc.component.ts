@@ -67,7 +67,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
    this.ReloadArticleProblems();
     
     //obtener las Tipos de problema
-    this.APIAdminPetition.getTypeProblems().subscribe(result =>{                      
+    this.APIAdminPetition.getTypeProblemsAct().subscribe(result =>{                      
       //console.table(this.Arraybranches); 
       this.itemsTypeproblem = result;
       result.forEach((row:any) => {                                     
@@ -93,7 +93,9 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
       //console.table(this.Arraybranches);
      if(this.ArrayArticleProblem.length>0){
       this.ArrayArticleProblem.forEach((row) => {                           
-        this.ItemsTable.push({col1: String(row.id_articulo_problema), col2: String(row.nombre_articulo) , col3: String(row.tipo_problema), col4:'-' });                                    
+        if(row.id_codigo_articulo != '5000000000'){
+          this.ItemsTable.push({col1: String(row.id_articulo_problema), col2: String(row.nombre_articulo) , col3: String(row.tipo_problema), col4:'-' });                                    
+        }        
       });                               
      }           
     })       

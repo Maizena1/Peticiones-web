@@ -77,7 +77,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
       this.arrayUser = result;        
     }) 
 
-    this.APIPetition.getTypeProblems().subscribe(types => { 
+    this.APIPetition.getTypeProblemsAct().subscribe(types => { 
       this.problemType = types;
     });  
   }

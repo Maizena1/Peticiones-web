@@ -225,7 +225,7 @@ ActionDatil(id:string){
   //obtener los detalles de la sucursal a mostrar
   this.dataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
   const dialogRef = this.dialog.open(DialogDetailComponent, {
-    
+    width: '300px',
     data: [{ title: 'ID:', data: id },
     {title: 'Nombre:', data: this.dataBranchShow.nombre_sucursal},
     {title: 'Domicilio:', data: this.dataBranchShow.domicilio },

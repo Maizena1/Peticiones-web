@@ -124,20 +124,13 @@ export class ArticleByBranchAbcComponent implements OnInit {
     this.isChecked == true;
     this.enableid = false;      
     this.id = '';
-    this.idSucursal = ' ';
-    this.idArticle = ' ';    
+    this.idSucursal = '0';
+    this.idArticle = '0';    
     this.totalAmount = ' ';
     this.totalAvailable='0';
     this.tipo = '';
   }
 
-  onChangeIdBranch(data: string){
-    this.idSucursal = (data);
-  }
-
-  onChangeIdArticle(data: string){
-    this.idArticle = data;    
-  }
 
   onChangeTotalAmount(data: string){
     this.totalAmount = data;

@@ -4,19 +4,21 @@
 
 .header-container{
     margin: 0px auto;
-    text-align: center;
-
-    
+    text-align: center;    
+    height: 80px;
+    overflow: hidden;
 }
 
 .dialog{
+    display:flex;
+    flex-direction: column;
     min-width: 252px;
+    max-height: 340px;
 }
 
 .dialog-title{
     color:#3F51B5;
     font-weight: 700;
-
 }
 
 .sub-container{

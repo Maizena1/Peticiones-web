@@ -17,8 +17,8 @@
                     <div class="register">
 
                         <div class="input-register">                            
-                            <app-select [label]="'Tipo de problema'" [(value)]="idTypeProblem" [items]="problemType" [getId]="getId" [getLabel]="getLabel" (onChange)="onChangeIdTypeProblem($event)"></app-select>
-                            <app-select [label]="'Empleado'" [(value)]="idUser" [items]="arrayUserSolvers" [getId]="getIdUser" [getLabel]="getLabelUser" (onChange)="onChangeIdUser($event)"></app-select>                            
+                            <app-select [label]="'Tipo de problema'" [(value)]="idTypeProblem" [items]="problemType" [getId]="getId" [getLabel]="getLabel"></app-select>
+                            <app-select [label]="'Empleado'" [(value)]="idUser" [items]="arrayUserSolvers" [getId]="getIdUser" [getLabel]="getLabelUser"></app-select>                            
                             <mat-slide-toggle class="slide-toggle" [color]="'primary'" [(ngModel)]="isChecked">Activo</mat-slide-toggle>
                         </div>
                         

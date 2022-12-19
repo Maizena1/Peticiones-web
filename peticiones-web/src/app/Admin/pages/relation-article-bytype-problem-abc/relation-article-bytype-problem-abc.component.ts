@@ -21,10 +21,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     //arreglo donde de almacenara todos los empleados
     ArrayArticleProblem: articlebytypeproblem[]=[];
     //arreglo donde se almacenara solo los datos de la tabla de la tabla 
-    ItemsTable : request_table[]=[]; 
-    //Arreglo donde se almacena la informacion de id sucursal y nombre sucursal    
-    itemsSelecArticles: Item[] =[];
-    itemsSelecTypeProblem: Item[]=[];
+    ItemsTable : request_table[]=[];     
 
     itemsTypeproblem: any [] = [];
     itemsArticles: any [] = [];
@@ -69,18 +66,12 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     //obtener las Tipos de problema
     this.APIAdminPetition.getTypeProblemsAct().subscribe(result =>{                      
       //console.table(this.Arraybranches); 
-      this.itemsTypeproblem = result;
-      result.forEach((row:any) => {                                     
-          this.itemsSelecTypeProblem.push({_id: row.id_tipo_problema, option: String(row.tipo_problema)});    
-      });                                           
+      this.itemsTypeproblem = result;      
     })      
     
     //obtener los articulos 
     this.APIAdminPetition.getArticle().subscribe(result =>{                      
-      this.itemsArticles = result
-      result.forEach((row:any) => {                           
-        this.itemsSelecArticles.push({_id: row.id_codigo_articulo, option: String(row.nombre_articulo)});    
-      });                                         
+      this.itemsArticles = result      
     })        
   }
 
@@ -123,15 +114,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
   getLabelArticles(item: any){
     return item.nombre_articulo;
   }
-
-  onCTypeProblem(data: any){
-    this.idTypeProblem = data;
-  }
-
-  onChangeIdArticle(data: any){
-    this.idArticle = data;    
-  }
-
+  
   onChangeActionTable(data: {id:string, action:string}){
     //alert(data.id+"---"+data.action);    
    if(data.action === 'edit'){
@@ -144,16 +127,17 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
   this.DataArticlePoblemShow = this.ArrayArticleProblem.find(element => 
     element.id_articulo_problema == parseInt(id)
   );    
-  console.table(this.DataArticlePoblemShow);
+  //console.table(this.DataArticlePoblemShow);
   this.Clearinputs();
   //asignacion de las variables a mostrar                
   this.id = id;
-  this.idTypeProblem = this.DataArticlePoblemShow.id_tipo_problema;
-  this.idArticle = this.DataArticlePoblemShow.id_codigo_articulo;  
+  this.idTypeProblem = String(this.DataArticlePoblemShow.id_tipo_problema);
+  console.log(this.idTypeProblem)
+  //this.idArticle = String(this.DataArticlePoblemShow.id_codigo_articulo);  
 }
 
 UpdateRelation(){
-  if((this.idTypeProblem == '')||(String(this.idTypeProblem).length !=10)||( String(this.idArticle).length !=10 ) || (this.idArticle == '')) {
+  if((this.idTypeProblem == '')||(this.idTypeProblem.length !=10)||( this.idArticle.length !=10 ) || (this.idArticle == '')) {
                           
     //this._snackBar.open('Error faltan datos para actualizar', 'x');    
     this._snackBar.open('Error faltan datos', 'X', {      

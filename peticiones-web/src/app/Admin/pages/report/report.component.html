@@ -3,12 +3,51 @@
     <header>
         <app-header></app-header>
     </header>
-<body class="body">
+<body>
     <div class="content-container">
-        <div class="info">
-            <p>EL DEPARTAMETO DE TI DEL MURO SIGUE DESARROLANDO ESTE APARTADO, CUANDO ESTE LISTO PODRA UTILIZARLO :)</p>
+        <div class="content">
+            <div class="mat-tab-group">
+                <mat-tab-group animationDuration="0ms" class="mat-tab-group" (focusChange)="ReloadProblems()">
+    
+                    <mat-tab label="Sucursal">                    
+                        <div class="mat-content-container">
+                            <div class="select-container">
+                                <app-select [label]="'Sucursal'" [items]="arrayBranches" [getId]="getIdSucursal" [getLabel]="getLabelSucursal" (onChange)="onChangeIdBranch($event)"></app-select>                                                            
+                            </div>
+                            <div class="table-container" *ngIf="ItemsTableBranch.length > 0">
+                                <app-table-show [items]="ItemsTableBranch" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" [optionFilter]="'no'" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                                
+                            </div>
+                            <div class="table-container" *ngIf="ItemsTableBranch.length == 0">
+                                <p>Sucursal sin historial de problemas</p>
+                            </div>
+                            <div class="total-container">
+                                <p>Total:</p>
+                                <p>{{gastoProblemaSucursal}}</p>
+                            </div>
+                        </div>                        
+                    </mat-tab>
+                    
+                    <mat-tab label="Solucionador">        
+                        <div class="mat-content-container">
+                            <div class="select-container">
+                                <app-select [label]="'Empleado Solucionador'"  [items]="arrayUserSolvers"  [getId]="getId" [getLabel]="getLabel" (onChange)="onChangeIdUser($event)"></app-select>
+                            </div>                            
+                            <div class="table-container" *ngIf="ItemsTableUser.length > 0">                                
+                                    <app-table-show [items]="ItemsTableUser" [nameColumn]="nameColums" [optionDelete]="'no'" [optionEdit]="'no'" [optionFilter]="'no'" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                                
+                            </div>                                                                                      
+                            <div class="table-container" *ngIf="ItemsTableUser.length == 0">
+                                <p>Solucionador sin historial de problemas</p>
+                            </div>
+                            <div class="total-container">
+                                <p>Total:</p>
+                                <p>{{gastoProlbemaUsuario}}</p>
+                            </div>                            
+                        </div>            
+                    </mat-tab> 
+                    
+                </mat-tab-group>
+            </div>
         </div>
-        
     </div>
 </body>
 </html>

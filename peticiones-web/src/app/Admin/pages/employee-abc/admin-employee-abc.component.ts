@@ -23,7 +23,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
   correo: string ='';
   telefono: string ='';
   estatus: string ='';
-
+  
   response: response | any; //subscripcion de respuesta
   isChecked = true;     //variable para el toggle  
   DataEmployeeShow: employee | any; //tipo de dato para buscar  
@@ -106,12 +106,13 @@ export class AdminEmployeeAbcComponent implements OnInit {
     })       
   }
 
-  
+  /*
+  //obtener el id de la sucursal
   onChangeIdBranch(data: string){
      this.idSucursal = data;
   }
-
-  //obtener el id de la sucursal
+*/
+  //obtenr el id del empleado  
   onChangeIdEmployee(data: string){
     this.idEmpleado = data;       
   }
@@ -136,7 +137,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
     this.enableid = false;  
     this.idEmpleado =' ';
     this.nombre =' ';    
-    this.idSucursal = ' ';
+    this.idSucursal = '0';
     this.correo =' ';
     this.telefono=' ';
     this.estatus =' ';    
@@ -316,6 +317,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
         //alert(this.estatus);
     }
                             
+    console.log(this.idSucursal);
     if((this.nombre == '')|| (this.idSucursal == '')|| (this.idEmpleado == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {                      
       //alert("error faltan datos");      
       //this._snackBar.open('Error faltan datos para actualizar', 'X');          

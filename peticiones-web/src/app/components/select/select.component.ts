@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Item, ItemSelect } from 'src/app/Admin/services/type';
 
@@ -13,7 +13,7 @@ export class SelectComponent<T> implements OnInit {
   @Input() getId: (item?: T) => string = () => '';
   @Input() getLabel: (item?: T) => string = () => '';
 
-  @Input() value: string = '0';  
+  @Input() value: string | any;  
   @Output() valueChange = new EventEmitter<any>();
   @Output() onChange = new EventEmitter<string>();
   
@@ -25,16 +25,11 @@ export class SelectComponent<T> implements OnInit {
   constructor() {}
 
   SelectFormControl = new FormControl('', [Validators.required]);
-  
-  getdata(item: T){
-    //console.log(data);    
+    
+  getdata(item: T){            
     this.valueChange.emit(item);
-    this.onChange.emit(String(item));
-    //console.log(item);
-    //alert(data);
+    this.onChange.emit(String(item));            
   }
-
-
   
   ngOnInit(): void {    
     

@@ -24,7 +24,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
   dateSolicitud:string = "";
 
   arrayUser: any [] = [];
-  arrayUsuario: any [] = [];
+  //arrayUsuario: any [] = [];
   arrayProblems: problem [] = [];
   //contenido de tabla generico
   ItemsTableUser : table_show []=[]; 

@@ -1,15 +1,32 @@
 .content-container{
-    max-width: 80%;
-    width: 100%;
-    padding: 20px;
-    margin: 0px auto;    
+    padding: 20px 0px;
 
+    width: 100%;
 }
 
-.info{
-    
-    line-height: 250px;
-    margin: 0px auto;        
-    text-align: center;
-    width: 100%;
+.content{
+    margin: 0px auto;
+    max-width: 80%;
+}
+
+.select-container{
+    width: 200px;
+}
+
+.total-container{
+    display: flex;
+}
+
+.table-container{
+    width: auto;    
+}
+
+.mat-content-container{
+    padding: 20px 0px;
+}
+
+.total-container{
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
 }

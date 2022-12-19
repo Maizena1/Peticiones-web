@@ -57,7 +57,7 @@ import { ManagerSolverAssignmentComponent } from './Admin/pages/manager-solver-a
 import { DialogDetailRequirementsComponent } from './components/dialog-detail-requirements/dialog-detail-requirements.component';
 import { ReportComponent } from './Admin/pages/report/report.component';
 import { TableRequerimentComponent } from './components/table-requeriment/table-requeriment.component';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -118,7 +118,8 @@ import { TableRequerimentComponent } from './components/table-requeriment/table-
     MatSnackBarModule,
     MatMenuModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -105,7 +105,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     this.enableid = false;  
     this.idTypeProblem = '0';
     this.id = '';
-    this.idUser = ' ';
+    this.idUser = '0';
     this.estatus ='';    
   }
 
@@ -118,9 +118,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
   getLabel(item: any){
     return item.tipo_problema;
   }  
-  onChangeIdTypeProblem(data: any){
-    this.idTypeProblem = data.toString();    
-  }
+  
 
 //usuario
   getIdUser(item: any){
@@ -129,10 +127,8 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
   getLabelUser(item: any){
     return item.nombre_empleado;
   }  
-  onChangeIdUser(data: any){
-    this.idUser = data.toString();        
-  }
   
+
   //metodo para la tabla delete,edit, detail
   onChangeActionTable(data: any){  
     //alert(data.id+"---"+data.action);
@@ -196,7 +192,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     //asignacion de las variables a mostrar                
     this.id = id;
     this.idTypeProblem = this.dataUserByTypeProblem.id_tipo_problema;
-    this.idUser = String(this.dataUserByTypeProblem.id_usuario);      
+    this.idUser = this.dataUserByTypeProblem.id_usuario;      
     if(this.dataUserByTypeProblem.estatus == 'A'){      
       this.isChecked = true;
       this.estatus = 'A'

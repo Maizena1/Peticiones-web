@@ -35,6 +35,8 @@ export class SolverRequerimentComponent implements OnInit {
   namebranch:string = "";
   nameStoremanger: string = "";
   dateSolicitud:string = "";
+  //variable para recargar el componente
+  reload : boolean = false;
 
   response : response | any
 ;
@@ -135,9 +137,12 @@ export class SolverRequerimentComponent implements OnInit {
     this.form.amount= ' ';
     this.form.unit= '0';
     this.form.price= ' ';    
+    this.reload = true;
   }
 
   add(){
+
+    this.reload = false;
 
     if(this.form.unit == '1'){
       this.unidad = 'Metros';
@@ -172,12 +177,22 @@ export class SolverRequerimentComponent implements OnInit {
                 descripcion_requisito: this.form.description, 
                 cantidad: parseInt(this.form.amount),
                 unidad: this.form.unit,
-                precio: parseInt(this.form.price)
+                precio: parseInt(this.form.price)                
               });            
-              this.itemsTable = [];    
-              this.clearInput();
+              
+              this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
+                let articleName = result[0].nombre_articulo;
+                this.itemsTable.push({
+                  col1: articleName, //nombre
+                  col2: this.form.amount,
+                  col3: this.unidad,
+                  col4: this.form.price,
+                  col5: this.form.articleId
+                });
+                this.clearInput();
+              });                       
               this.SnackBarSuccessful('Articulo agregado.','X')
-              this.reloadTable();
+              //this.reloadTable();
             })          
           }else{
   
@@ -189,10 +204,20 @@ export class SolverRequerimentComponent implements OnInit {
               unidad: this.form.unit,
               precio: parseInt(this.form.price)
             });  
-            this.itemsTable = [];    
-            this.clearInput();
+            
+            this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
+              let articleName = result[0].nombre_articulo;
+              this.itemsTable.push({
+                col1: articleName, //nombre
+                col2: this.form.amount,
+                col3: this.unidad,
+                col4: this.form.price,
+                col5: this.form.articleId
+              });
+              this.clearInput();
+            });                     
             this.SnackBarSuccessful('Articulo agregado.','X')
-            this.reloadTable();          
+            //this.reloadTable();          
           }
                       
         }
@@ -216,10 +241,21 @@ export class SolverRequerimentComponent implements OnInit {
             precio: parseInt(this.form.price)
           });            
           
-          this.itemsTable = [];    
-          this.clearInput();
+
+          this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
+            let articleName = result[0].nombre_articulo;
+            this.itemsTable.push({
+              col1: articleName, //nombre
+              col2: this.form.amount,
+              col3: this.unidad,
+              col4: this.form.price,
+              col5: this.form.articleId
+            });
+            this.clearInput();
+          });         
+          
           this.SnackBarSuccessful('Articulo agregado.','X')
-          this.reloadTable();
+          //this.reloadTable();
         })          
       }else{
 
@@ -231,11 +267,21 @@ export class SolverRequerimentComponent implements OnInit {
           unidad: this.form.unit,
           precio: parseInt(this.form.price)
         });  
-        
-        this.itemsTable = [];    
-        this.clearInput();
+
+        this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
+          let articleName = result[0].nombre_articulo;
+          this.itemsTable.push({
+            col1: articleName, //nombre
+            col2: this.form.amount,
+            col3: this.unidad,
+            col4: this.form.price,
+            col5: this.form.articleId
+          });
+          this.clearInput();
+        });         
+                        
         this.SnackBarSuccessful('Articulo agregado.','X')
-        this.reloadTable();          
+        //this.reloadTable();          
       }                  
     }
     
@@ -243,34 +289,53 @@ export class SolverRequerimentComponent implements OnInit {
    
   onChangeActionTable(data: any){  
     if(data.action === 'detail'){
-      this.ActionDatil(data.id,data.cantidad);
+      this.ActionDatil(data.id,data.cantidad,data.precio);
     }else if(data.action == 'delete'){      
-      this.ActionRemoveRequeriment(data.id, data.cantidad);
+      this.ActionRemoveRequeriment(data.id, data.cantidad,data.precio);
     }
   }
 
   arrayAUX: any []= [];
-  ActionRemoveRequeriment(id: string, cantidad:string){             
-
-//pediente desarrollar metodo de eliminar un otros en base a si cantidad y descripcion---------------------------------------------------------------
-
+  arrayAuxTable: any []=[];
+  ActionRemoveRequeriment(id: string, cantidad:string, precio:string){        
+    this.reload = false;
+    
     if(id == '5000000000'){
-      this.arrayAUX =this.arrayRequeriment.filter(element => element.id_codigo_articulo != id && element.cantidad != parseInt(cantidad));
+      //limpiar de arreglo
+      this.arrayAUX = this.arrayRequeriment.filter(element =>  element.precio != parseInt(precio) );
       this.arrayRequeriment = [];
       this.arrayRequeriment = this.arrayAUX;
       this.arrayAUX= [];    
-      this.itemsTable = [];    
-      this.reloadTable();
-    }else{
-      this.arrayAUX =this.arrayRequeriment.filter(element => element.id_codigo_articulo != id && element.cantidad != parseInt(cantidad));
+      
+      //limpiar de tabla
+      this.arrayAuxTable = this.itemsTable.filter(element => element.col4 != precio);
+      this.itemsTable = [];          
+      this.itemsTable = this.arrayAuxTable;
+      this.arrayAuxTable = [];
+
+      if(this.itemsTable.length > 0){
+        this.reload = true;
+      }
+
+    }else{      
+      this.arrayAUX =this.arrayRequeriment.filter(element => element.id_codigo_articulo != id );
       this.arrayRequeriment = [];
       this.arrayRequeriment = this.arrayAUX;
       this.arrayAUX= [];    
-      this.itemsTable = [];    
-      this.reloadTable();
+
+      //limpiar de tabla
+      this.arrayAuxTable = this.itemsTable.filter(element => element.col5 != id );
+      this.itemsTable = [];          
+      this.itemsTable = this.arrayAuxTable;
+      this.arrayAuxTable = [];
+
+      if(this.itemsTable.length > 0){
+        this.reload = true;
+      }      
     }        
   }
 
+  /*
   reloadTable(){
           
       this.arrayRequeriment.forEach(element =>{      
@@ -286,12 +351,12 @@ export class SolverRequerimentComponent implements OnInit {
         });                 
       });      
   }
-
+*/
   description: any;
-  ActionDatil(id: string, cantidad:string){
+  ActionDatil(id: string, cantidad:string, precio:string){
 
     if(id == '5000000000'){
-      this.dataArticleShow = this.arrayRequeriment.find(element => element.id_codigo_articulo == id && element.cantidad == parseInt(cantidad));      
+      this.dataArticleShow = this.arrayRequeriment.find(element => element.id_codigo_articulo == id && element.cantidad == parseInt(cantidad) && element.precio == parseInt(precio));      
       const dialogRef = this.dialog.open(DialogDetailComponent, {
         width: '300px',
         data: [{title: 'ID:', data: id},

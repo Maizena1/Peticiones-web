@@ -49,7 +49,7 @@
                             </div>
                         </div>
 
-                        <div class="table" *ngIf="itemsTable.length > 0">   
+                        <div class="table" *ngIf="reload">   
                             <app-table-requeriment  [items]="itemsTable" [nameColumn]="nameColumn" [optionRequeriment]="'no'" [optionEdit]="'no'" (onChange)="onChangeActionTable($event)"></app-table-requeriment>                  
                         </div>
                         <div class="table" *ngIf="itemsTable.length == 0" >                     

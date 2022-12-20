@@ -12,22 +12,20 @@ import { table_show } from 'src/app/Admin/services/type';
 export class TableRequerimentComponent implements OnInit {
 
   @Input() items: table_show [] = [];
-  @Input() nameColumn: String[] = [];
-  @Input() type_table: String = "";
+  @Input() nameColumn: String[] = [];  
   @Input() optionDelete: string = 'si';
   @Input() optionEdit: string = 'si';
   @Input() optionDetail: string = 'si';  
   @Input() optionRequeriment: string = 'si';  
 
 
-  @Output() onChange = new EventEmitter<{id:string, action:string, cantidad:string}>();   
+  @Output() onChange = new EventEmitter<{id:string, action:string, cantidad:string, precio:string}>();   
   
 
   displayedColumns: String[] = ['col1','col2','col3','col4','col5'];
   dataSource = new MatTableDataSource(this.items);
   nameColumns: String [] = [];  
-
-  @ViewChild(MatSort, {static: true}) sort!: MatSort;
+  
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
     
@@ -38,14 +36,13 @@ export class TableRequerimentComponent implements OnInit {
   
   constructor() { }
 
-  getid(id: string, action: string, cantidad:string){
-    this.onChange.emit({id: id,action: action, cantidad: cantidad});    
+  getid(id: string, action: string, cantidad:string, precio:string){
+    this.onChange.emit({id: id,action: action, cantidad: cantidad, precio: precio});    
   }
 
   ngOnInit(){  
     this.nameColumns = this.nameColumn;
-    this.dataSource = new MatTableDataSource(this.items); 
-    this.dataSource.sort = this.sort;
+    this.dataSource = new MatTableDataSource(this.items);     
     this.dataSource.paginator = this.paginator;
     //console.table(this.items);
   }

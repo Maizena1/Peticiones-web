@@ -66,7 +66,7 @@ export class SolverRequerimentComponent implements OnInit {
       this.adminService.getProblem(parseInt(this.dataidProblema)).subscribe(result => {
         //console.table(result);    
         this.dataProblem = result[0];
-        console.table(this.dataProblem);    
+        //console.table(this.dataProblem);    
         this.nameTypeProblem = result[0].tipo_problema;
         //console.log(this.nameTypeProblem);
         this.nameDescriptionProblem = result[0].descripcion_problema;
@@ -174,6 +174,7 @@ export class SolverRequerimentComponent implements OnInit {
                 unidad: this.form.unit,
                 precio: parseInt(this.form.price)
               });            
+              this.itemsTable = [];    
               this.clearInput();
               this.SnackBarSuccessful('Articulo agregado.','X')
               this.reloadTable();
@@ -188,7 +189,7 @@ export class SolverRequerimentComponent implements OnInit {
               unidad: this.form.unit,
               precio: parseInt(this.form.price)
             });  
-  
+            this.itemsTable = [];    
             this.clearInput();
             this.SnackBarSuccessful('Articulo agregado.','X')
             this.reloadTable();          
@@ -214,6 +215,8 @@ export class SolverRequerimentComponent implements OnInit {
             unidad: this.form.unit,
             precio: parseInt(this.form.price)
           });            
+          
+          this.itemsTable = [];    
           this.clearInput();
           this.SnackBarSuccessful('Articulo agregado.','X')
           this.reloadTable();
@@ -228,7 +231,8 @@ export class SolverRequerimentComponent implements OnInit {
           unidad: this.form.unit,
           precio: parseInt(this.form.price)
         });  
-
+        
+        this.itemsTable = [];    
         this.clearInput();
         this.SnackBarSuccessful('Articulo agregado.','X')
         this.reloadTable();          
@@ -239,25 +243,38 @@ export class SolverRequerimentComponent implements OnInit {
    
   onChangeActionTable(data: any){  
     if(data.action === 'detail'){
-      this.ActionDatil(data.id);
+      this.ActionDatil(data.id,data.cantidad);
     }else if(data.action == 'delete'){      
-      this.ActionRemoveRequeriment(data.id);
+      this.ActionRemoveRequeriment(data.id, data.cantidad);
     }
   }
 
   arrayAUX: any []= [];
-  ActionRemoveRequeriment(id: string){             
-     this.arrayAUX =this.arrayRequeriment.filter(element => element.id_codigo_articulo != id);
-     this.arrayRequeriment = [];
-     this.arrayRequeriment = this.arrayAUX;
-     this.arrayAUX= [];
-    this.reloadTable();
-    this.clearInput();
+  ActionRemoveRequeriment(id: string, cantidad:string){             
+
+//pediente desarrollar metodo de eliminar un otros en base a si cantidad y descripcion---------------------------------------------------------------
+
+    if(id == '5000000000'){
+      this.arrayAUX =this.arrayRequeriment.filter(element => element.id_codigo_articulo != id && element.cantidad != parseInt(cantidad));
+      this.arrayRequeriment = [];
+      this.arrayRequeriment = this.arrayAUX;
+      this.arrayAUX= [];    
+      this.itemsTable = [];    
+      this.reloadTable();
+    }else{
+      this.arrayAUX =this.arrayRequeriment.filter(element => element.id_codigo_articulo != id && element.cantidad != parseInt(cantidad));
+      this.arrayRequeriment = [];
+      this.arrayRequeriment = this.arrayAUX;
+      this.arrayAUX= [];    
+      this.itemsTable = [];    
+      this.reloadTable();
+    }
+    
+    
   }
 
   reloadTable(){
-    
-      this.itemsTable = [];    
+          
       this.arrayRequeriment.forEach(element =>{      
         this.adminService.getArticleForId(element.id_codigo_articulo).subscribe(result => {
           let articleName = result[0].nombre_articulo;
@@ -269,15 +286,14 @@ export class SolverRequerimentComponent implements OnInit {
             col5: element.id_codigo_articulo
           });
         });                 
-
-      });
-    
+      });      
   }
 
   description: any;
-  ActionDatil(id: string){
+  ActionDatil(id: string, cantidad:string){
+
     if(id == '5000000000'){
-      this.dataArticleShow = this.arrayRequeriment.find(element => element.id_codigo_articulo == id);      
+      this.dataArticleShow = this.arrayRequeriment.find(element => element.id_codigo_articulo == id && element.cantidad == parseInt(cantidad));      
       const dialogRef = this.dialog.open(DialogDetailComponent, {
         width: '300px',
         data: [{title: 'ID:', data: id},
@@ -314,7 +330,7 @@ export class SolverRequerimentComponent implements OnInit {
       });
     });
 
-    console.log(this.arrayRequeriment);
+    //console.log(this.arrayRequeriment);
     
     if(this.bandOverflow =='n'){
 

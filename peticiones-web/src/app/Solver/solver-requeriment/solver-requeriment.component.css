@@ -46,8 +46,9 @@
 }
 
 .table{
-    width: 100%;
-    min-width: 200px;
+    margin: 0px auto;
+    width: 100%;   
+    text-align: center;
 }
 
 .button-container{
@@ -59,12 +60,9 @@
 
 .request-container{
     display: flex;
-    gap: 8px;
-
-    
+    gap: 8px;    
     justify-content: space-between;
-    align-items: flex-end;
-    
+    align-items: flex-end;    
 }
 
 .request-container{

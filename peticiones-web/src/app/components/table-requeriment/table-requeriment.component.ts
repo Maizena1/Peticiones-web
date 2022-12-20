@@ -16,12 +16,11 @@ export class TableRequerimentComponent implements OnInit {
   @Input() type_table: String = "";
   @Input() optionDelete: string = 'si';
   @Input() optionEdit: string = 'si';
-  @Input() optionDetail: string = 'si';
-  @Input() optionFilter: string = 'si';
-  @Input() optionRequeriment: string = 'si';
+  @Input() optionDetail: string = 'si';  
+  @Input() optionRequeriment: string = 'si';  
 
 
-  @Output() onChange = new EventEmitter<{id:string, action:string}>();   
+  @Output() onChange = new EventEmitter<{id:string, action:string, cantidad:string}>();   
   
 
   displayedColumns: String[] = ['col1','col2','col3','col4','col5'];
@@ -39,8 +38,8 @@ export class TableRequerimentComponent implements OnInit {
   
   constructor() { }
 
-  getid(id: string, action: string){
-    this.onChange.emit({id: id,action: action});    
+  getid(id: string, action: string, cantidad:string){
+    this.onChange.emit({id: id,action: action, cantidad: cantidad});    
   }
 
   ngOnInit(){  
@@ -55,7 +54,7 @@ export class TableRequerimentComponent implements OnInit {
     //console.log('Mensaje desde Compnente Tabla: "Cambio Arreglo de Tabla"');
     this.nameColumns = this.nameColumn;
     this.dataSource = new MatTableDataSource(this.items); 
-    this.dataSource.sort = this.sort;
+    //this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }  
 

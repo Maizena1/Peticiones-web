@@ -268,9 +268,7 @@ export class SolverRequerimentComponent implements OnInit {
       this.arrayAUX= [];    
       this.itemsTable = [];    
       this.reloadTable();
-    }
-    
-    
+    }        
   }
 
   reloadTable(){

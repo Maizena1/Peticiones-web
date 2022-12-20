@@ -126,11 +126,21 @@ export class ShowRequestAdminComponent implements OnInit {
   }
 
   ActionAccep(fecha: string){
-    //alert('Fecha para asignar: '+ fecha);        
-    this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
-    this.router.navigate([      
-      'admin/solverAssignament/' +fecha+'/tipoproblema/'+this.dataShowProblem.id_tipo_problema,
-    ]);        
+
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
+      width: '420px',
+      height: '200px',
+      data: { name: 'Asignar', subname: '¿Estas seguro que desea Asignar este problema?'},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if ( result == true){        
+        this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
+        this.router.navigate([      
+        'admin/solverAssignament/' +fecha+'/tipoproblema/'+this.dataShowProblem.id_tipo_problema,
+        ]);        
+      }
+    })    
   }
 
   ActionDetail(fecha: string){    
@@ -206,41 +216,50 @@ export class ShowRequestAdminComponent implements OnInit {
 
   ActionAccepRequeriment(fecha: string){
     
-    this.arrayRequerimentProblem = [];
-    const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                             
-    this.APIPetition.getRequirementProblem(this.arrayProblems[idproblem].id_problema).subscribe(result =>{                 
-      
-      if(result.Mensaje){
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
+      width: '420px',
+      height: '200px',
+      data: { name: 'Terminar', subname: '¿Estas seguro que desea terminar el problema?'},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if ( result == true){
         this.arrayRequerimentProblem = [];
-      }else{
-        this.arrayRequerimentProblem = result;      
-      }
-                
-        const datasend : estatus_problem = {                      
-          id_problema: this.arrayProblems[idproblem].id_problema,                
-          id_sucursal: this.arrayProblems[idproblem].id_sucursal,
-          estatus: 'PROCESO',        
-          requeriment: this.arrayRequerimentProblem
-        };
-        //console.log(datasend);
-        this.APIPetition.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
-          this.response = response;                                        
-          if(this.response.Estatus == 'Error'){            
-            this._snackBar.open(this.response.Mensaje, 'X', {                
-              verticalPosition: this.verticalPosition,                
-              duration: 3000,
-              panelClass: ['red-snackbar'],
-            });
+        const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                             
+        this.APIPetition.getRequirementProblem(this.arrayProblems[idproblem].id_problema).subscribe(result =>{                 
+          
+          if(result.Mensaje){
+            this.arrayRequerimentProblem = [];
           }else{
-            this._snackBar.open(this.response.Mensaje, 'X', {                
-              verticalPosition: this.verticalPosition,
-              duration: 3000,
-              panelClass: ['green-snackbar'],                
-            });   
-            this.ReloadProblems();                                                                       
-          }                  
-        });                              
-    });                    
+            this.arrayRequerimentProblem = result;      
+          }                    
+            const datasend : estatus_problem = {                      
+              id_problema: this.arrayProblems[idproblem].id_problema,                
+              id_sucursal: this.arrayProblems[idproblem].id_sucursal,
+              estatus: 'PROCESO',        
+              requeriment: this.arrayRequerimentProblem
+            };
+            //console.log(datasend);
+            this.APIPetition.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
+              this.response = response;                                        
+              if(this.response.Estatus == 'Error'){            
+                this._snackBar.open(this.response.Mensaje, 'X', {                
+                  verticalPosition: this.verticalPosition,                
+                  duration: 3000,
+                  panelClass: ['red-snackbar'],
+                });
+              }else{
+                this._snackBar.open(this.response.Mensaje, 'X', {                
+                  verticalPosition: this.verticalPosition,
+                  duration: 3000,
+                  panelClass: ['green-snackbar'],                
+                });   
+                this.ReloadProblems();                                                                       
+              }                  
+            });                              
+        }); 
+      }
+    })                           
   }
     
  //obtener requisitos

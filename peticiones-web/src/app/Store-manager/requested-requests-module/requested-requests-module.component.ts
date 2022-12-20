@@ -72,8 +72,17 @@ export class RequestedRequestsModuleComponent implements OnInit {
   }
 
   ActionTerminateProblem(fecha:string){
-    //pendiente terminar el problema
-    const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                         
+
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
+      width: '420px',
+      height: '200px',
+      data: { name: 'Terminar', subname: '¿Estas seguro que desea terminar el problema?'},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if ( result == true){
+        const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                         
           //console.log(idproblem);
             const datasend : estatus_problem = {                      
               id_problema: this.arrayProblems[idproblem].id_problema,                
@@ -96,7 +105,9 @@ export class RequestedRequestsModuleComponent implements OnInit {
                 });                
               }                  
             });      
-            this.ReloadProblems();                                                                       
+            this.ReloadProblems();   
+      }
+    });                                                                            
 }
 
 
@@ -274,11 +285,14 @@ export class RequestedRequestsModuleComponent implements OnInit {
     });
   }
 
-
+arraySlopesOrder: table_show [] = [];
   reloadArrayGeneric(){
+    this.usuario='no';
     this.ItemsTableGeneric = [];
     this.ItemsTableSlopes = []; 
     this.ItemsTableProcess = [];      
+
+    this.arraySlopesOrder = [];
     //pila hasta tu problema
     this.arrayProblems.forEach((row) => {          
       if(row.estatus == 'ESPERA'){              
@@ -296,10 +310,10 @@ export class RequestedRequestsModuleComponent implements OnInit {
         if(this.dataSesion.id_usuario == row.id_usuario ){
           this.ItemsTableSlopes.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
         }      
-    });  
-
-
-    //los problemas de para que los finalices
+    });    
+    this.ItemsTableSlopes.reverse();
+             
+  //los problemas de para que los finalices
     this.arrayProblems.forEach((row) => {                        
       if(this.dataSesion.id_usuario == row.id_usuario && row.estatus =='PROCESO'){
         this.ItemsTableProcess.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        

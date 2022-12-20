@@ -38,7 +38,7 @@ export class TableShowComponent implements OnInit {
   }
 
 
-  constructor() { }
+  constructor() {}
 
   getid(fecha: string, action: string){
     this.onChange.emit({fecha: fecha,action: action});  

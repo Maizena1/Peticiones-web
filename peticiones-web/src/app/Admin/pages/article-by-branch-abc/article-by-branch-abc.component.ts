@@ -211,7 +211,8 @@ export class ArticleByBranchAbcComponent implements OnInit {
                           
     //this._snackBar.open('Error faltan datos para actualizar', 'x');    
     this._snackBar.open('Error faltan datos', 'X', {      
-      verticalPosition: this.verticalPosition,      
+      verticalPosition: this.verticalPosition,   
+      duration: 3000,   
       panelClass: ['red-snackbar'],
     });
     
@@ -268,7 +269,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
   if((this.idSucursal == '')||( String(this.idArticle).length !=10 ) || (this.idArticle == '') || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {                              
     this._snackBar.open('Error faltan datos', 'X', {        
       verticalPosition: this.verticalPosition,
-      //panelClass: ['green-snackbar'],
+      duration: 3000,
       panelClass: ['red-snackbar'],
     });
   }else{
@@ -289,14 +290,15 @@ export class ArticleByBranchAbcComponent implements OnInit {
         if(this.response.Estatus == 'Error'){            
           this._snackBar.open(this.response.Mensaje, 'X', {              
             verticalPosition: this.verticalPosition,
-            //panelClass: ['green-snackbar'],
+            duration: 3000,
             panelClass: ['red-snackbar'],
           });
         }else{
           this._snackBar.open(this.response.Mensaje, 'X', {              
             verticalPosition: this.verticalPosition,
+            duration: 3000,
             panelClass: ['green-snackbar'],
-            //panelClass: ['red-snackbar'],
+            
           });          
           this.ReloadStores();               
           this.Clearinputs();      

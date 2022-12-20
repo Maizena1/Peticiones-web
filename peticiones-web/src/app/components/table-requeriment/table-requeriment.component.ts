@@ -19,10 +19,10 @@ export class TableRequerimentComponent implements OnInit {
   @Input() optionRequeriment: string = 'si';  
 
 
-  @Output() onChange = new EventEmitter<{id:string, action:string, cantidad:string, precio:string}>();   
+  @Output() onChange = new EventEmitter<{id:string, action:string, descripcion:string}>();   
   
 
-  displayedColumns: String[] = ['col1','col2','col3','col4','col5'];
+  displayedColumns: String[] = ['col1','col2','col3','col4','col5','col6'];
   dataSource = new MatTableDataSource(this.items);
   nameColumns: String [] = [];  
   
@@ -36,8 +36,8 @@ export class TableRequerimentComponent implements OnInit {
   
   constructor() { }
 
-  getid(id: string, action: string, cantidad:string, precio:string){
-    this.onChange.emit({id: id,action: action, cantidad: cantidad, precio: precio});    
+  getid(id: string, action: string, descripcion:string){
+    this.onChange.emit({id: id,action: action, descripcion: descripcion});    
   }
 
   ngOnInit(){  

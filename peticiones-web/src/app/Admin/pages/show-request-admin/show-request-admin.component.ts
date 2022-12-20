@@ -209,8 +209,13 @@ export class ShowRequestAdminComponent implements OnInit {
     this.arrayRequerimentProblem = [];
     const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                             
     this.APIPetition.getRequirementProblem(this.arrayProblems[idproblem].id_problema).subscribe(result =>{                 
-      this.arrayRequerimentProblem = result;      
-          
+      
+      if(result.Mensaje){
+        this.arrayRequerimentProblem = [];
+      }else{
+        this.arrayRequerimentProblem = result;      
+      }
+                
         const datasend : estatus_problem = {                      
           id_problema: this.arrayProblems[idproblem].id_problema,                
           id_sucursal: this.arrayProblems[idproblem].id_sucursal,

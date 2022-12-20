@@ -28,6 +28,8 @@ export class SolverRequerimentComponent implements OnInit {
     price: ''
   }
 
+  dataProblem : any;
+
   nameTypeProblem: string  = '';
   nameDescriptionProblem: string = '';
   namebranch:string = "";
@@ -63,6 +65,8 @@ export class SolverRequerimentComponent implements OnInit {
     if(this.dataidProblema != null){    
       this.adminService.getProblem(parseInt(this.dataidProblema)).subscribe(result => {
         //console.table(result);    
+        this.dataProblem = result[0];
+        console.table(this.dataProblem);    
         this.nameTypeProblem = result[0].tipo_problema;
         //console.log(this.nameTypeProblem);
         this.nameDescriptionProblem = result[0].descripcion_problema;
@@ -103,16 +107,12 @@ export class SolverRequerimentComponent implements OnInit {
     if(this.dataidTipo != null)
     this.adminService.getArticleForProblemType(parseInt(this.dataidTipo)).subscribe(article => {
       this.item = article;
-      console.log(article);
+      //console.log(article);
     })
                 
   }
-
   
-
-
   unidad: string = '';
-
   SnackBarError(mensaje: string, icon: string){
     this._snackBar.open(mensaje, icon, {
       verticalPosition: this.verticalPosition,
@@ -148,22 +148,38 @@ export class SolverRequerimentComponent implements OnInit {
     }else if(this.form.unit == '4'){
       this.unidad = 'Piezas'
     }
-            
-    if(this.arrayRequeriment.find(element => element.id_codigo_articulo == this.form.articleId)){
-      this.SnackBarError('Error articulo ya registrado.','X') ;
-    }else{
-
-      if(this.form.articleId == '0' || this.form.amount == '' || this.form.amount == '0' || this.form.price == '' ||this.form.price == '0'){
-        this.SnackBarError('Error no hay datos para agregar.','X')          
+       
+    if(this.form.articleId != '5000000000'){
+      if(this.arrayRequeriment.find(element => element.id_codigo_articulo == this.form.articleId)){
+      
+        this.SnackBarError('Error articulo ya registrado.','X') ;
       }else{
-        if(this.dataidProblema != null){
-          this.idProblem = parseInt(this.dataidProblema);
-        }
-        
-        if(this.form.articleId != '5000000000'){
-          this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
-            this.form.description = result[0].descripcion;                
-
+  
+        if(this.form.articleId == '0' || this.form.amount == '' || this.form.amount == '0' || this.form.price == '' ||this.form.price == '0'){
+          this.SnackBarError('Error no hay datos para agregar.','X')          
+        }else{
+          if(this.dataidProblema != null){
+            this.idProblem = parseInt(this.dataidProblema);
+          }
+          
+          if(this.form.articleId != '5000000000'){
+            this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
+              this.form.description = result[0].descripcion;                
+  
+              this.arrayRequeriment.push({      
+                id_problema: this.idProblem,
+                id_codigo_articulo: this.form.articleId,
+                descripcion_requisito: this.form.description, 
+                cantidad: parseInt(this.form.amount),
+                unidad: this.form.unit,
+                precio: parseInt(this.form.price)
+              });            
+              this.clearInput();
+              this.SnackBarSuccessful('Articulo agregado.','X')
+              this.reloadTable();
+            })          
+          }else{
+  
             this.arrayRequeriment.push({      
               id_problema: this.idProblem,
               id_codigo_articulo: this.form.articleId,
@@ -171,12 +187,25 @@ export class SolverRequerimentComponent implements OnInit {
               cantidad: parseInt(this.form.amount),
               unidad: this.form.unit,
               precio: parseInt(this.form.price)
-            });            
+            });  
+  
             this.clearInput();
             this.SnackBarSuccessful('Articulo agregado.','X')
-            this.reloadTable();
-          })          
-        }else{
+            this.reloadTable();          
+          }
+                      
+        }
+      }
+    }else{
+
+      if(this.dataidProblema != null){
+        this.idProblem = parseInt(this.dataidProblema);
+      }
+      
+      if(this.form.articleId != '5000000000'){
+        this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
+          this.form.description = result[0].descripcion;                
+
           this.arrayRequeriment.push({      
             id_problema: this.idProblem,
             id_codigo_articulo: this.form.articleId,
@@ -184,16 +213,28 @@ export class SolverRequerimentComponent implements OnInit {
             cantidad: parseInt(this.form.amount),
             unidad: this.form.unit,
             precio: parseInt(this.form.price)
-          });  
+          });            
           this.clearInput();
           this.SnackBarSuccessful('Articulo agregado.','X')
-          this.reloadTable();          
-        }
+          this.reloadTable();
+        })          
+      }else{
 
-        
-        
-      }
+        this.arrayRequeriment.push({      
+          id_problema: this.idProblem,
+          id_codigo_articulo: this.form.articleId,
+          descripcion_requisito: this.form.description, 
+          cantidad: parseInt(this.form.amount),
+          unidad: this.form.unit,
+          precio: parseInt(this.form.price)
+        });  
+
+        this.clearInput();
+        this.SnackBarSuccessful('Articulo agregado.','X')
+        this.reloadTable();          
+      }                  
     }
+    
 }
    
   onChangeActionTable(data: any){  
@@ -212,12 +253,11 @@ export class SolverRequerimentComponent implements OnInit {
      this.arrayAUX= [];
     this.reloadTable();
     this.clearInput();
-
   }
 
   reloadTable(){
-    if(this.arrayRequeriment.length > 0){
-      this.itemsTable =[];    
+    
+      this.itemsTable = [];    
       this.arrayRequeriment.forEach(element =>{      
         this.adminService.getArticleForId(element.id_codigo_articulo).subscribe(result => {
           let articleName = result[0].nombre_articulo;
@@ -228,11 +268,10 @@ export class SolverRequerimentComponent implements OnInit {
             col4: String(element.precio),
             col5: element.id_codigo_articulo
           });
-        });         
-    });
-    }else if(this.arrayRequeriment.length == 0){
-      this.itemsTable=[];
-    }    
+        });                 
+
+      });
+    
   }
 
   description: any;
@@ -278,14 +317,15 @@ export class SolverRequerimentComponent implements OnInit {
     console.log(this.arrayRequeriment);
     
     if(this.bandOverflow =='n'){
+
       if(this.dataidProblema != null){
+
         const datasend : estatus_problem = {                              
           id_problema: parseInt(this.dataidProblema),                        
           estatus: 'REVISION',        
           requeriment: this.arrayRequeriment
         };
-        
-        
+                
         //creacion de requisitos        
         this.adminService.createRequeriments(datasend).subscribe(response =>{           
           this.response = response;                                        
@@ -301,7 +341,8 @@ export class SolverRequerimentComponent implements OnInit {
               duration: 3000,
               panelClass: ['green-snackbar'],                
             }); 
-                                    
+            
+            //Cambiar el estatus del problema a revison
             this.adminService.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
               this.response = response;                                        
               if(this.response.Estatus == 'Error'){            
@@ -316,6 +357,37 @@ export class SolverRequerimentComponent implements OnInit {
                   duration: 3000,
                   panelClass: ['green-snackbar'],                
                 });   
+
+                //si los requisitos son vacios este poner en proceso directo
+                if(this.arrayRequeriment.length == 0){
+
+                  //this.arrayRequerimentProblem = [];
+
+                  const datasend : estatus_problem = {                      
+                    id_problema: this.dataProblem.id_problema,                
+                    id_sucursal: this.dataProblem.id_sucursal,
+                    estatus: 'PROCESO',        
+                    requeriment: this.arrayRequeriment
+                  };
+                  //console.log(datasend);
+                  this.adminService.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
+                    this.response = response;                                        
+                    if(this.response.Estatus == 'Error'){            
+                      this._snackBar.open(this.response.Mensaje, 'X', {                
+                        verticalPosition: this.verticalPosition,                
+                        duration: 3000,
+                        panelClass: ['red-snackbar'],
+                      });
+                    }else{
+                      this._snackBar.open(this.response.Mensaje, 'X', {                
+                        verticalPosition: this.verticalPosition,
+                        duration: 3000,
+                        panelClass: ['green-snackbar'],                
+                      });                         
+                    }                  
+                  }); 
+                }
+
                 //regresa a las tablas de rutas
                 this.router.navigate([      
                   'solver/showRequested',

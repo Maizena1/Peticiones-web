@@ -36,7 +36,7 @@
 
         <mat-tab label="Aprobados" (focusChange)="ReloadProblems()">
           <div class="table-container" *ngIf="ItemsTableProceess.length > 0">
-            <app-table-show class="table" [items]="ItemsTableProceess" [nameColumn]="nameColums"  [optionDelete]="'no'"  (onChange)="onChangeActionTableRequirement($event)"></app-table-show>                      
+            <app-table-show class="table" [items]="ItemsTableProceess" [nameColumn]="nameColums"  [optionDelete]="'no'" [optionEdit]="'no'"  (onChange)="onChangeActionTableRequirement($event)"></app-table-show>                      
           </div>
           <div class="table-container" *ngIf="ItemsTableProceess.length == 0">
             <p>No tienes problemas aprobados!!</p>

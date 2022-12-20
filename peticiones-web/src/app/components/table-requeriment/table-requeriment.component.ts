@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import  { MatTableDataSource } from '@angular/material/table';
@@ -36,13 +36,11 @@ export class TableRequerimentComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-
+  
   constructor() { }
 
   getid(id: string, action: string){
-    this.onChange.emit({id: id,action: action});  
-    //alert(id +"  "+ action);      
+    this.onChange.emit({id: id,action: action});    
   }
 
   ngOnInit(){  
@@ -50,7 +48,15 @@ export class TableRequerimentComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.items); 
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-        //console.table(this.items);
+    //console.table(this.items);
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    //console.log('Mensaje desde Compnente Tabla: "Cambio Arreglo de Tabla"');
+    this.nameColumns = this.nameColumn;
+    this.dataSource = new MatTableDataSource(this.items); 
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }  
 
 }

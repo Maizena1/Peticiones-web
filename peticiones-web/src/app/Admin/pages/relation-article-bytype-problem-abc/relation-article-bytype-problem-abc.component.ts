@@ -16,15 +16,15 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
 
     id:string = '';
     idArticle: string = '';    
-    idTypeProblem: string = '';
+    idTipoProblema: string = '';
 
     //arreglo donde de almacenara todos los empleados
     ArrayArticleProblem: articlebytypeproblem[]=[];
     //arreglo donde se almacenara solo los datos de la tabla de la tabla 
     ItemsTable : request_table[]=[];     
-
-    itemsTypeproblem: any [] = [];
-    itemsArticles: any [] = [];
+    
+    itemsArticles: any [] = [];    
+    problemType: any [] = [];
 
     response: response | any; //subscripcion de respuesta
     DataArticlePoblemShow: articlebytypeproblem | any; //tipo de dato para buscar  
@@ -59,11 +59,10 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
 
    this.ReloadArticleProblems();
     
-    //obtener las Tipos de problema
-    this.APIAdminPetition.getTypeProblemsAct().subscribe(result =>{                      
-      //console.table(this.Arraybranches); 
-      this.itemsTypeproblem = result;      
-    })      
+    //obtener las Tipos de problema      
+    this.APIAdminPetition.getTypeProblemsAct().subscribe(types => { 
+      this.problemType = types;
+    }); 
     
     //obtener los articulos 
     this.APIAdminPetition.getArticle().subscribe(result =>{                      
@@ -92,7 +91,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     //limpieza    
     this.enableid = false;      
     this.idArticle = '0';
-    this.idTypeProblem = '0';
+    this.idTipoProblema = '0';
   }
 
   getIdTypeProblem(item: any){
@@ -119,28 +118,26 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
  }
 
  ActionEdit(id:string){
+
   this.butonAddUpdate = 'a';    
-  this.DataArticlePoblemShow = this.ArrayArticleProblem.find(element => 
-    element.id_articulo_problema == parseInt(id)
-  );    
-  //console.table(this.DataArticlePoblemShow);
+  this.DataArticlePoblemShow = this.ArrayArticleProblem.find(element => element.id_articulo_problema == parseInt(id));    
+  console.log(this.DataArticlePoblemShow);
   this.Clearinputs();
-  //asignacion de las variables a mostrar                
+  
   this.id = id;
-  this.idTypeProblem = String(this.DataArticlePoblemShow.id_tipo_problema);
-  console.log(this.idTypeProblem)
-  //this.idArticle = String(this.DataArticlePoblemShow.id_codigo_articulo);  
+  this.idTipoProblema = String(this.DataArticlePoblemShow.id_tipo_problema);  
+  this.idArticle = this.DataArticlePoblemShow.id_codigo_articulo;  
 }
 
 UpdateRelation(){
-  if((this.idTypeProblem == '')||(this.idTypeProblem.length !=10)||( this.idArticle.length !=10 ) || (this.idArticle == '')) {
+  if((this.idTipoProblema == '')||( this.idArticle.length !=10 ) || (this.idArticle == '')) {
     this.APIAdminPetition.SnackBarError('Error, faltan datos', 'X');
   }else{
     
     //llenar data a enviar
       const datasend : articlebytypeproblem = {                            
         id_codigo_articulo: String(this.idArticle),
-        id_tipo_problema: parseInt(this.idTypeProblem),        
+        id_tipo_problema: parseInt(this.idTipoProblema),        
       };      
       //console.log(this.id);
       //console.table(datasend);
@@ -149,7 +146,7 @@ UpdateRelation(){
         this.response = response;           
         this.id =this.idupdate ;        // se iguala porque se puedan usar
         this.idArticle = datasend.id_codigo_articulo;
-        this.idTypeProblem = datasend.id_tipo_problema.toString();
+        this.idTipoProblema = datasend.id_tipo_problema.toString();
 
         if(this.response.Estatus == 'Error'){ 
           this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');     
@@ -165,7 +162,7 @@ UpdateRelation(){
 }
 
 CreateRelation(){
-  if((this.idTypeProblem == '')||(this.idArticle == '')|| (this.idArticle == '')) {
+  if((this.idTipoProblema == '')||(this.idArticle == '')) {
     this.APIAdminPetition.SnackBarError('Error, faltan datos', 'X');              
   }else if( String(this.idArticle).length !=10 ){
     this.APIAdminPetition.SnackBarError('Error, mínimo 10 dígitos en el artículo.','X')
@@ -173,7 +170,7 @@ CreateRelation(){
     //llenar data a enviar
       const datasend : articlebytypeproblem = {                            
         id_codigo_articulo: String(this.idArticle),
-        id_tipo_problema: parseInt(this.idTypeProblem),        
+        id_tipo_problema: parseInt(this.idTipoProblema),        
       };      
       //console.log(this.id);
       //console.table(datasend);
@@ -181,7 +178,7 @@ CreateRelation(){
       this.APIAdminPetition.createArticleProblem(datasend).subscribe(response =>{                    
         this.response = response;                           
         this.idArticle = datasend.id_codigo_articulo;
-        this.idTypeProblem = datasend.id_tipo_problema.toString();
+        this.idTipoProblema = datasend.id_tipo_problema.toString();
 
         if(this.response.Estatus == 'Error'){            
           this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');  

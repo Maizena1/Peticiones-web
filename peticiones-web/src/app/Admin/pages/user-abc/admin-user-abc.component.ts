@@ -141,24 +141,29 @@ export class AdminUserAbcComponent implements OnInit {
   ActionDelete(id: any){}
 
   CreateUser(){
-    console.log(this.form)
-    const { userName, password, employeeId, roleId } = this.form
 
-    const estatus = this.form.status ? 'A' : 'B';
 
-    this.adminService.createUser({id_empleado: parseInt(employeeId),password, estatus, usuario: userName, id_rol: parseInt(roleId)}).subscribe(response => {
-      this.response = response;
+    if((this.form.userName == '') || (this.form.password == '') || (this.form.employeeId == '') || (this.form.roleId == '')){
+      this.adminService.SnackBarError('Error, faltan datos', 'X')
+    }else{
+      console.log(this.form)
+      const { userName, password, employeeId, roleId } = this.form
 
-      if(this.response.Estatus == 'Error'){
-        this.adminService.SnackBarError(this.response.Mensaje, 'X')
-      }else{
-        this.adminService.SnackBarSuccessful(this.response.Mensaje, 'X')
-        this.ReloadUsers();
-        this.UpdateTable();
-        this.ClearInput();
-      }
-    })
+      const estatus = this.form.status ? 'A' : 'B';
 
+      this.adminService.createUser({id_empleado: parseInt(employeeId),password, estatus, usuario: userName, id_rol: parseInt(roleId)}).subscribe(response => {
+        this.response = response;
+
+        if(this.response.Estatus == 'Error'){
+          this.adminService.SnackBarError(this.response.Mensaje, 'X')
+        }else{
+          this.adminService.SnackBarSuccessful(this.response.Mensaje, 'X')
+          this.ReloadUsers();
+          this.UpdateTable();
+          this.ClearInput();
+        }
+      })
+    }    
   }
   
   ActionEdit(id: string){
@@ -172,7 +177,7 @@ export class AdminUserAbcComponent implements OnInit {
     this.form.userId = id;
     this.form.userName = this.dataUserShow.usuario;
     this.form.password = this.dataUserShow.password;
-    this.form.employeeId = this.dataUserShow.id_empleado;
+    this.form.employeeId = String(this.dataUserShow.id_empleado);
     this.form.roleId = String(this.dataUserShow.id_rol);
     
     if(this.dataUserShow.estatus == 'A'){
@@ -257,13 +262,12 @@ export class AdminUserAbcComponent implements OnInit {
       })
     })
   }
+
+  
   UpdateTable(){
     this.itemsTable = [];
     this.arrayUser = [];
-
-    if((this.form.userName == '') || (this.form.password == '') || (this.form.employeeId == '') || (this.form.roleId == '')){
-      this.adminService.SnackBarError('Error, faltan datos', 'X')
-    }else{
+    
       this.adminService.getUsers().subscribe(result =>{   
         this.arrayUser = result;
         this.arrayUser.forEach((row) => { 
@@ -280,7 +284,7 @@ export class AdminUserAbcComponent implements OnInit {
           });
         });                                      
       }) 
-    }
+    
   }
 
   

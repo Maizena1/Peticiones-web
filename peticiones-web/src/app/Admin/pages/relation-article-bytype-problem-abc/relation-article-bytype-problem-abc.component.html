@@ -17,8 +17,8 @@
                     <div class="register">
 
                         <div class="input-register">                            
-                            <app-select [label]="'Artículo'" [(value)]="idArticle"  [items]="itemsArticles" [getId]="getIdArticles" [getLabel]="getLabelArticles" [disabled]="enableid"></app-select>
-                            <app-select [label]="'Tipo Problema'" [(value)]="idTypeProblem" [items]="itemsTypeproblem" [getId]="getIdTypeProblem" [getLabel]="getLabelTypeProblem" [disabled]="enableid"></app-select>
+                            <app-select [label]="'Tipo Problema'" [(value)]="idTipoProblema" [items]="problemType" [getId]="getIdTypeProblem" [getLabel]="getLabelTypeProblem" ></app-select>
+                            <app-select [label]="'Artículo'" [(value)]="idArticle"  [items]="itemsArticles" [getId]="getIdArticles" [getLabel]="getLabelArticles"></app-select>                            
                         </div>
                         <div class="button-container">                            
                             <button mat-flat-button color="primary" (click)="CreateRelation()" *ngIf="butonAddUpdate.length == 0">Agregar</button>                                                                                                                                                

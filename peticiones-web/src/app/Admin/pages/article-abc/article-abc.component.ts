@@ -55,6 +55,7 @@ export class ArticleAbcComponent implements OnInit {
     this.ReloadArticles();
   }
 
+  
   ReloadArticles(){
     this.ArrayArticles = [];
     this.ItemsTable=[];
@@ -101,10 +102,10 @@ export class ArticleAbcComponent implements OnInit {
   }
 
   ActionEdit(id:string){
-    this.butonAddUpdate = 'a';
-    this.enableid = true;      
+    this.butonAddUpdate = 'a';    
     this.dataArticleShow = this.ArrayArticles.find(element => element.id_codigo_articulo == id);      
     this.Clearinputs();
+    this.enableid = true;      
     console.log(this.dataArticleShow)
     //asignacion de las variables a mostrar
     this.idArticle = this.dataArticleShow.id_codigo_articulo;

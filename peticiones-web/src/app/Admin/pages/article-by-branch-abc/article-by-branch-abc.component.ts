@@ -23,7 +23,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
   idSucursal : string = '';
   idArticle: string = '';    
   totalAmount: string ='';
-  totalAvailable: string ='0';  
+  totalAvailable: string ='';  
   tipo: string ='';
 
   response: response | any; //subscripcion de respuesta

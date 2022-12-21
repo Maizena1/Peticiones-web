@@ -16,7 +16,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
 
     id:string = '';
     idArticle: string = '';    
-    idTipoProblema: string = '';
+    idTypeProblem: string = '';
 
     //arreglo donde de almacenara todos los empleados
     ArrayArticleProblem: articlebytypeproblem[]=[];
@@ -91,7 +91,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     //limpieza    
     this.enableid = false;      
     this.idArticle = '0';
-    this.idTipoProblema = '0';
+    this.idTypeProblem = '0';
   }
 
   getIdTypeProblem(item: any){
@@ -125,19 +125,19 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
   this.Clearinputs();
   
   this.id = id;
-  this.idTipoProblema = String(this.DataArticlePoblemShow.id_tipo_problema);  
-  this.idArticle = this.DataArticlePoblemShow.id_codigo_articulo;  
+  this.idTypeProblem = this.DataArticlePoblemShow.id_tipo_problema;
+   this.idArticle = String(this.DataArticlePoblemShow.id_codigo_articulo);  
 }
 
 UpdateRelation(){
-  if((this.idTipoProblema == '')||( this.idArticle.length !=10 ) || (this.idArticle == '')) {
+  if((this.idTypeProblem == '')|| (this.idArticle == '')) {
     this.APIAdminPetition.SnackBarError('Error, faltan datos', 'X');
   }else{
     
     //llenar data a enviar
       const datasend : articlebytypeproblem = {                            
         id_codigo_articulo: String(this.idArticle),
-        id_tipo_problema: parseInt(this.idTipoProblema),        
+        id_tipo_problema: parseInt(this.idTypeProblem),        
       };      
       //console.log(this.id);
       //console.table(datasend);
@@ -146,7 +146,7 @@ UpdateRelation(){
         this.response = response;           
         this.id =this.idupdate ;        // se iguala porque se puedan usar
         this.idArticle = datasend.id_codigo_articulo;
-        this.idTipoProblema = datasend.id_tipo_problema.toString();
+        this.idTypeProblem = datasend.id_tipo_problema.toString();
 
         if(this.response.Estatus == 'Error'){ 
           this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');     
@@ -157,12 +157,12 @@ UpdateRelation(){
           this.ReloadArticleProblems();               
           }                  
       });            
-      this.butonAddUpdate = '';  
+      this.butonAddUpdate = '';
     }
 }
 
 CreateRelation(){
-  if((this.idTipoProblema == '')||(this.idArticle == '')) {
+  if((this.idTypeProblem == '')||(this.idArticle == '')) {
     this.APIAdminPetition.SnackBarError('Error, faltan datos', 'X');              
   }else if( String(this.idArticle).length !=10 ){
     this.APIAdminPetition.SnackBarError('Error, mínimo 10 dígitos en el artículo.','X')
@@ -170,7 +170,7 @@ CreateRelation(){
     //llenar data a enviar
       const datasend : articlebytypeproblem = {                            
         id_codigo_articulo: String(this.idArticle),
-        id_tipo_problema: parseInt(this.idTipoProblema),        
+        id_tipo_problema: parseInt(this.idTypeProblem),        
       };      
       //console.log(this.id);
       //console.table(datasend);
@@ -178,7 +178,7 @@ CreateRelation(){
       this.APIAdminPetition.createArticleProblem(datasend).subscribe(response =>{                    
         this.response = response;                           
         this.idArticle = datasend.id_codigo_articulo;
-        this.idTipoProblema = datasend.id_tipo_problema.toString();
+        this.idTypeProblem = datasend.id_tipo_problema.toString();
 
         if(this.response.Estatus == 'Error'){            
           this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');  

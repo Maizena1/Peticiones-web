@@ -196,7 +196,7 @@ export class AdminUserAbcComponent implements OnInit {
     }
 
     if((this.form.userName == '') || (this.form.password == '') || (this.form.employeeId == '') || (this.form.roleId == '')){
-      this.adminService.SnackBarError('Error, faltan datos', 'X')
+      this.adminService.SnackBarError('Error, faltan datos.', 'X')
     }else{
 
       
@@ -267,7 +267,6 @@ export class AdminUserAbcComponent implements OnInit {
   UpdateTable(){
     this.itemsTable = [];
     this.arrayUser = [];
-    
       this.adminService.getUsers().subscribe(result =>{   
         this.arrayUser = result;
         this.arrayUser.forEach((row) => { 

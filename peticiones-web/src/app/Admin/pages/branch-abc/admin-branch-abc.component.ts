@@ -278,6 +278,8 @@ CreateBranch() {
       
       this.APIAdminPetition.SnackBarError('Error, faltan datos.', 'X');        
 
+    }else if(this.telefono.length != 10){
+      this.APIAdminPetition.SnackBarError('Error, mínimo 10 dígitos en el teléfono.','X')
     }else{
 
       //llenar data a enviar

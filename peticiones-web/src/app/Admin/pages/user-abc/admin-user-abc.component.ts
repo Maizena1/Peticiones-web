@@ -172,7 +172,7 @@ export class AdminUserAbcComponent implements OnInit {
     this.form.userId = id;
     this.form.userName = this.dataUserShow.usuario;
     this.form.password = this.dataUserShow.password;
-    this.form.employeeId = this.dataUserShow.id_empleado;
+    this.form.employeeId = String(this.dataUserShow.id_empleado);
     this.form.roleId = String(this.dataUserShow.id_rol);
     
     if(this.dataUserShow.estatus == 'A'){
@@ -191,7 +191,7 @@ export class AdminUserAbcComponent implements OnInit {
     }
 
     if((this.form.userName == '') || (this.form.password == '') || (this.form.employeeId == '') || (this.form.roleId == '')){
-      this.adminService.SnackBarError('Error, faltan datos', 'X')
+      this.adminService.SnackBarError('Error, faltan datos.', 'X')
     }else{
 
       
@@ -261,9 +261,6 @@ export class AdminUserAbcComponent implements OnInit {
     this.itemsTable = [];
     this.arrayUser = [];
 
-    if((this.form.userName == '') || (this.form.password == '') || (this.form.employeeId == '') || (this.form.roleId == '')){
-      this.adminService.SnackBarError('Error, faltan datos', 'X')
-    }else{
       this.adminService.getUsers().subscribe(result =>{   
         this.arrayUser = result;
         this.arrayUser.forEach((row) => { 
@@ -280,7 +277,7 @@ export class AdminUserAbcComponent implements OnInit {
           });
         });                                      
       }) 
-    }
+    
   }
 
   

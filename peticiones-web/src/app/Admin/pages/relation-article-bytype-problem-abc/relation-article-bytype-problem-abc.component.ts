@@ -127,13 +127,12 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
   this.Clearinputs();
   //asignacion de las variables a mostrar                
   this.id = id;
-  this.idTypeProblem = String(this.DataArticlePoblemShow.id_tipo_problema);
-  console.log(this.idTypeProblem)
-  //this.idArticle = String(this.DataArticlePoblemShow.id_codigo_articulo);  
+  this.idTypeProblem = this.DataArticlePoblemShow.id_tipo_problema;
+   this.idArticle = String(this.DataArticlePoblemShow.id_codigo_articulo);  
 }
 
 UpdateRelation(){
-  if((this.idTypeProblem == '')||(this.idTypeProblem.length !=10)||( this.idArticle.length !=10 ) || (this.idArticle == '')) {
+  if((this.idTypeProblem == '')|| (this.idArticle == '')) {
     this.APIAdminPetition.SnackBarError('Error, faltan datos', 'X');
   }else{
     
@@ -160,7 +159,7 @@ UpdateRelation(){
           this.ReloadArticleProblems();               
           }                  
       });            
-      this.butonAddUpdate = '';  
+      this.butonAddUpdate = '';
     }
 }
 

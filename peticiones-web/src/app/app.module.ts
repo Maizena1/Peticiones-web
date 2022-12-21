@@ -59,6 +59,7 @@ import { ReportComponent } from './Admin/pages/report/report.component';
 import { TableRequerimentComponent } from './components/table-requeriment/table-requeriment.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -6,7 +6,6 @@ import {FormBuilder } from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
 import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
 
 @Component({
@@ -58,12 +57,8 @@ export class AdminEmployeeAbcComponent implements OnInit {
         const userJson = localStorage.getItem('dataSesion');
         this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
         this.idRol = this.dataSesion.id_rol;        
-        if(this.idRol != 1){          
-          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
-            verticalPosition: this.verticalPosition,   
-            duration: 3000,   
-            panelClass: ['red-snackbar'],
-          });
+        if(this.idRol != 1){        
+          this.APIPetition.SnackBarError('Error, no tiene permisos o no inició sesión','X');
           this.router.navigate(["login"]);              
         }
       }else{        
@@ -146,7 +141,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
   //metodo para la tabla delete,edit, detail
   onChangeActionTable(data: any){
     if(data.action === 'delete'){
-      this.ActionDelete(data.id);
+      // this.ActionDelete(data.id);
     }else if(data.action === 'edit'){
       this.ActionEdit(data.id);
     }else if(data.action === 'detail'){
@@ -155,53 +150,49 @@ export class AdminEmployeeAbcComponent implements OnInit {
   }
 
 //si es delete
-  ActionDelete(id: string){
+    // ActionDelete(id: string){
 
-    const dialogRef = this.dialog.open(DialogDeleteComponent, {
-      width: '420px',
-      height: '200px',
-      data: { name: 'Eliminar', subname: '¿Estas seguro que desea Deshabilitar?'},
-    });
+    //   const dialogRef = this.dialog.open(DialogDeleteComponent, {
+    //     width: '420px',
+    //     height: '200px',
+    //     data: { name: 'Eliminar', subname: '¿Estas seguro que desea Deshabilitar?'},
+    //   });
 
-    dialogRef.afterClosed().subscribe(result => {
+    //   dialogRef.afterClosed().subscribe(result => {
 
-      if ( result == true){
-            
-          const inDesc = this.ItemsTable.findIndex((element) => element.col1 == id);
-                //agregar a la tabla                        
-          if(this.ItemsTable[inDesc].col3 == 'Inactivo'){
-                this._snackBar.open('No se puede desactivar porque ya esta inactiva', 'X', {                
-                  verticalPosition: this.verticalPosition,                
-                  duration: 3000,
-                  panelClass: ['red-snackbar'],
-                });
-          }else{
-            this.APIPetition.DeleteEmployee(parseInt(id)).subscribe(response =>{                    
-              this.response = response;                                        
-              if(this.response.Estatus == 'Error'){            
-                this._snackBar.open(this.response.Mensaje, 'X', {                
-                  verticalPosition: this.verticalPosition,                
-                  duration: 3000,
-                  panelClass: ['red-snackbar'],
-                });
-              }else{
-                this._snackBar.open(this.response.Mensaje, 'X', {                
-                  verticalPosition: this.verticalPosition,
-                  duration: 3000,
-                  panelClass: ['green-snackbar'],                
-                });
-                //buscar el index
-                const inAct = this.ItemsTable.findIndex((element) => element.col1 == id);
-                //agregar a la tabla                        
-                this.ItemsTable[inAct].col3 = 'Inactivo';          //cambiamos a B si se elimino
-              }                  
-            });      
-            this.ReloadEmployees();
-            this.Clearinputs();
-          }                      
-        }
-    });
-  }
+    //     if ( result == true){
+              
+    //         const inDesc = this.ItemsTable.findIndex((element) => element.col1 == id);
+    //               //agregar a la tabla                        
+    //         if(this.ItemsTable[inDesc].col3 == 'Inactivo'){
+    //           this.snackbar.SnackBarError('Error, ', 'X');
+    //         }else{
+    //           this.APIPetition.DeleteEmployee(parseInt(id)).subscribe(response =>{                    
+    //             this.response = response;                                        
+    //             if(this.response.Estatus == 'Error'){            
+    //               this._snackBar.open(this.response.Mensaje, 'X', {                
+    //                 verticalPosition: this.verticalPosition,                
+    //                 duration: 3000,
+    //                 panelClass: ['red-snackbar'],
+    //               });
+    //             }else{
+    //               this._snackBar.open(this.response.Mensaje, 'X', {                
+    //                 verticalPosition: this.verticalPosition,
+    //                 duration: 3000,
+    //                 panelClass: ['green-snackbar'],                
+    //               });
+    //               //buscar el index
+    //               const inAct = this.ItemsTable.findIndex((element) => element.col1 == id);
+    //               //agregar a la tabla                        
+    //               this.ItemsTable[inAct].col3 = 'Inactivo';          //cambiamos a B si se elimino
+    //             }                  
+    //           });      
+    //           this.ReloadEmployees();
+    //           this.Clearinputs();
+    //         }                      
+    //       }
+    //   });
+    // }
 
   ActionEdit(id:string){
     this.butonAddUpdate = 'a';
@@ -229,11 +220,10 @@ export class AdminEmployeeAbcComponent implements OnInit {
 
   //si es detail
   ActionDatil(id:string){
-    //obtener los detalles de la sucursal a mostrar  
     this.DataEmployeeShow = this.ArrayEmployees.find(element => element.id_empleado == parseInt(id)); 
     
     this.inAct = this.branches.findIndex( (element: any) => element.id_sucursal  == String(this.DataEmployeeShow.id_sucursal));                         
-    //alert(this.inAct);
+
     const dialogRef = this.dialog.open(DialogDetailComponent, {
       width: '300px',
       data: [{ title: 'ID:', data: id },
@@ -247,28 +237,17 @@ export class AdminEmployeeAbcComponent implements OnInit {
 
   UpdateEmployee(){
 
-    //obtencion del estatus
     if (this.isChecked == true){
       this.estatus = 'A'
-      //alert(this.estatus);
     }else{
       this.estatus = 'B'
-      //alert(this.estatus);
     }
 
-    if((this.nombre == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {
-                            
-      //this._snackBar.open('Error faltan datos para actualizar', 'x');    
-      this._snackBar.open('Error faltan datos', 'X', {      
-        verticalPosition: this.verticalPosition,      
-        panelClass: ['red-snackbar'],
-        duration: 3000,
-      });
-      
+    if((this.nombre == '') || (this.correo == '') || (this.telefono == '') || (this.estatus == '')) {
+      this.APIPetition.SnackBarError('Error, faltan datos', 'X')
+    }else if(this.telefono.length != 10){
+      this.APIPetition.SnackBarError('Error, mínimo 10 dígitos en el teléfono.','X')
     }else{
-
-
-      //llenar data a enviar
         const datasend : employee = {                      
           nombre_empleado: this.nombre,
           id_sucursal: parseInt(this.idSucursal),
@@ -282,23 +261,14 @@ export class AdminEmployeeAbcComponent implements OnInit {
         this.APIPetition.UpdatedEmployee(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
           this.response = response;   
           
-          this.idEmpleado = this.idupdate ;        // se iguala porque se puedan
+          this.idEmpleado = this.idupdate ;
           this.nombre = datasend.nombre_empleado;
           this.estatus = datasend.estatus;
           
           if(this.response.Estatus == 'Error'){            
-            this._snackBar.open(this.response.Mensaje, 'X', {          
-              verticalPosition: this.verticalPosition,            
-              duration: 3000,
-              panelClass: ['red-snackbar'],
-            });          
+            this.APIPetition.SnackBarError(this.response.Mensaje, 'X');          
           }else{
-            this._snackBar.open(this.response.Mensaje, 'X', {            
-              verticalPosition: this.verticalPosition,
-              duration: 3000,
-              panelClass: ['green-snackbar'],
-              //panelClass: ['red-snackbar'],
-          });                                    
+            this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X');                                   
             this.ReloadEmployees();  
             this.Clearinputs();        
           }                  
@@ -308,25 +278,17 @@ export class AdminEmployeeAbcComponent implements OnInit {
   }
 
   CreateEmployee() {     
-    //obtencion del estatus
     if (this.isChecked == true){
         this.estatus = 'A'
-        //alert(this.estatus);
     }else{
         this.estatus = 'B'
-        //alert(this.estatus);
     }
                             
     console.log(this.idSucursal);
     if((this.nombre == '')|| (this.idSucursal == '')|| (this.idEmpleado == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {                      
-      //alert("error faltan datos");      
-      //this._snackBar.open('Error faltan datos para actualizar', 'X');          
-      this._snackBar.open('Error faltan datos', 'X', {        
-        verticalPosition: this.verticalPosition,
-        duration: 3000,
-        panelClass: ['red-snackbar'],
-      });
-
+      this.APIPetition.SnackBarError('Error, faltan datos', 'X');
+    }else if(this.telefono.length != 10){
+      this.APIPetition.SnackBarError('Error, mínimo 10 dígitos en el teléfono.','X')
     }else{
 
       //llenar data a enviar
@@ -338,26 +300,18 @@ export class AdminEmployeeAbcComponent implements OnInit {
         telefono: this.telefono,
         estatus: this.estatus,                                                                             
       };
-        //console.table(datasend);        
-        this.APIPetition.createEmployee(datasend).subscribe(response =>{                    
-          this.response = response;          
-          if(this.response.Estatus == 'Error'){            
-            this._snackBar.open(this.response.Mensaje, 'X', {              
-              verticalPosition: this.verticalPosition,
-              duration: 3000,
-              panelClass: ['red-snackbar'],
-            });
-          }else{
-            this._snackBar.open(this.response.Mensaje, 'X', {              
-              verticalPosition: this.verticalPosition,
-              duration: 3000,
-              panelClass: ['green-snackbar'],            
-            });                    
-            this.ReloadEmployees();
-            this.Clearinputs();
-          }                  
-        })        
-      }
+           
+      this.APIPetition.createEmployee(datasend).subscribe(response =>{                    
+        this.response = response;          
+        if(this.response.Estatus == 'Error'){            
+          this.APIPetition.SnackBarError(this.response.Mensaje, 'X');   
+        }else{
+          this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X');                    
+          this.ReloadEmployees();
+          this.Clearinputs();
+        }                  
+      })        
+    }
   }
 }
 

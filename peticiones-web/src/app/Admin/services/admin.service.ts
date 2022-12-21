@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+import { MatSnackBar, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
 import { article, articlebytypeproblem, assignament_problem, branch, employee, estatus_problem, login, User, store, type_of_problem, user_problem, add_problem } from './type';
 
 @Injectable({
@@ -8,7 +10,7 @@ import { article, articlebytypeproblem, assignament_problem, branch, employee, e
 })
 export class AdminService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
   
   //url ='http://peticionesdelmuro.ddns.net:3600/api/';
   url = 'http://localhost:5000/api/';
@@ -239,5 +241,28 @@ export class AdminService {
     return this.http.get(`${this.url}almacen-problema/${id}`);
   }  
 
+  
+
+
+
+  
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  
+  SnackBarError(mensaje: string, icon: string){
+    this._snackBar.open(mensaje, icon, {
+      verticalPosition: this.verticalPosition,
+      panelClass: ['red-snackbar'],
+      duration: 3000,
+    });
+  }
+      
+  SnackBarSuccessful(mensaje: string, icon: string){
+    this._snackBar.open(mensaje, icon, {
+      verticalPosition: this.verticalPosition,
+      panelClass: ['green-snackbar'],
+      duration: 3000,
+    });
+  }
+      
 
 } 

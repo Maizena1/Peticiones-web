@@ -46,12 +46,8 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
         const userJson = localStorage.getItem('dataSesion');
         this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
         this.idRol = this.dataSesion.id_rol;        
-        if(this.idRol != 1){          
-          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
-            verticalPosition: this.verticalPosition,   
-            duration: 3000,   
-            panelClass: ['red-snackbar'],
-          });
+        if(this.idRol != 1){       
+          this.APIAdminPetition.SnackBarError('Error no tiene permisos o no inicio sesión', 'X'); 
           this.router.navigate(["login"]);              
         }
       }else{        
@@ -138,13 +134,7 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
 
 UpdateRelation(){
   if((this.idTypeProblem == '')||(this.idTypeProblem.length !=10)||( this.idArticle.length !=10 ) || (this.idArticle == '')) {
-                          
-    //this._snackBar.open('Error faltan datos para actualizar', 'x');    
-    this._snackBar.open('Error faltan datos', 'X', {      
-      verticalPosition: this.verticalPosition,      
-      panelClass: ['red-snackbar'],
-    });
-    
+    this.APIAdminPetition.SnackBarError('Error, faltan datos', 'X');
   }else{
     
     //llenar data a enviar
@@ -161,22 +151,12 @@ UpdateRelation(){
         this.idArticle = datasend.id_codigo_articulo;
         this.idTypeProblem = datasend.id_tipo_problema.toString();
 
-        if(this.response.Estatus == 'Error'){            
-          this._snackBar.open(this.response.Mensaje, 'X', {          
-            verticalPosition: this.verticalPosition,            
-            duration: 3000,
-            panelClass: ['red-snackbar'],
-          });          
+        if(this.response.Estatus == 'Error'){ 
+          this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');     
+                   
         }else{
-          this._snackBar.open(this.response.Mensaje, 'X', {            
-            verticalPosition: this.verticalPosition,
-            duration: 3000,
-            panelClass: ['green-snackbar'],
-            //panelClass: ['red-snackbar'],
-          });          
-
+          this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X');
           this.Clearinputs();
-          //actualizar 
           this.ReloadArticleProblems();               
           }                  
       });            
@@ -185,16 +165,11 @@ UpdateRelation(){
 }
 
 CreateRelation(){
-  if((this.idTypeProblem == '')||( String(this.idArticle).length !=10 ) || (this.idArticle == '')) {
-                          
-    //this._snackBar.open('Error faltan datos para actualizar', 'x');    
-    this._snackBar.open('Error faltan datos', 'X', {      
-      verticalPosition: this.verticalPosition,      
-      panelClass: ['red-snackbar'],
-    });
-    
+  if((this.idTypeProblem == '')||(this.idArticle == '')|| (this.idArticle == '')) {
+    this.APIAdminPetition.SnackBarError('Error, faltan datos', 'X');              
+  }else if( String(this.idArticle).length !=10 ){
+    this.APIAdminPetition.SnackBarError('Error, mínimo 10 dígitos en el artículo.','X')
   }else{
-    
     //llenar data a enviar
       const datasend : articlebytypeproblem = {                            
         id_codigo_articulo: String(this.idArticle),
@@ -209,18 +184,10 @@ CreateRelation(){
         this.idTypeProblem = datasend.id_tipo_problema.toString();
 
         if(this.response.Estatus == 'Error'){            
-          this._snackBar.open(this.response.Mensaje, 'X', {          
-            verticalPosition: this.verticalPosition,            
-            duration: 3000,
-            panelClass: ['red-snackbar'],
-          });          
+          this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');  
+               
         }else{
-          this._snackBar.open(this.response.Mensaje, 'X', {            
-            verticalPosition: this.verticalPosition,
-            duration: 3000,
-            panelClass: ['green-snackbar'],
-            //panelClass: ['red-snackbar'],
-          });          
+          this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X');      
           
           //actualizar 
           this.ReloadArticleProblems();               

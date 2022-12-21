@@ -58,11 +58,7 @@ export class ShowRequestAdminComponent implements OnInit {
         this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
         this.idRol = this.dataSesion.id_rol;        
         if(this.idRol != 1){          
-          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
-            verticalPosition: this.verticalPosition,   
-            duration: 3000,   
-            panelClass: ['red-snackbar'],
-          });
+          this.APIPetition.SnackBarError('Error no tiene permisos o no inicio sesión', 'X'); 
           this.router.navigate(["login"]);                        
         }
       }else{        
@@ -106,18 +102,10 @@ export class ShowRequestAdminComponent implements OnInit {
               console.table(datasend);
               this.APIPetition.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
                 this.response = response;                                        
-                if(this.response.Estatus == 'Error'){            
-                  this._snackBar.open(this.response.Mensaje, 'X', {                
-                    verticalPosition: this.verticalPosition,                
-                    duration: 3000,
-                    panelClass: ['red-snackbar'],
-                  });
+                if(this.response.Estatus == 'Error'){     
+                  this.APIPetition.SnackBarError(this.response.Mensaje, 'X');   
                 }else{
-                  this._snackBar.open(this.response.Mensaje, 'X', {                
-                    verticalPosition: this.verticalPosition,
-                    duration: 3000,
-                    panelClass: ['green-snackbar'],                
-                  });                
+                  this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X');        
                 }                  
               });      
               this.ReloadProblems();                                                                       
@@ -173,7 +161,7 @@ export class ShowRequestAdminComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogDeleteComponent, {
       width: '420px',
       height: '200px',
-      data: { name: 'Rechazar requisitos', subname: '¿Estas seguro que desea rechazar los requisitos?'},
+      data: { name: 'Rechazar requisitos', subname: '¿Estás seguro que desea rechazar los requisitos?'},
     });
   
     dialogRef.afterClosed().subscribe(result => {  
@@ -183,18 +171,10 @@ export class ShowRequestAdminComponent implements OnInit {
         this.arrayProblems[idproblem].id_problema
         this.APIPetition.deleteRequestProblems(this.arrayProblems[idproblem].id_problema).subscribe(response =>{  
           this.response= response;          
-          if(this.response.Estatus == 'Error'){            
-            this._snackBar.open(this.response.Mensaje, 'X', {          
-              verticalPosition: this.verticalPosition,            
-              duration: 3000,
-              panelClass: ['red-snackbar'],
-            });          
+          if(this.response.Estatus == 'Error'){        
+            this.APIPetition.SnackBarError(this.response.Mensaje, 'X');         
           }else{
-            this._snackBar.open(this.response.Mensaje, 'X', {            
-              verticalPosition: this.verticalPosition,
-              duration: 5000,
-              panelClass:['green-snackbar']            
-            });  
+            this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X');
             this.ReloadProblems();          
           }
         });
@@ -226,17 +206,9 @@ export class ShowRequestAdminComponent implements OnInit {
         this.APIPetition.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
           this.response = response;                                        
           if(this.response.Estatus == 'Error'){            
-            this._snackBar.open(this.response.Mensaje, 'X', {                
-              verticalPosition: this.verticalPosition,                
-              duration: 3000,
-              panelClass: ['red-snackbar'],
-            });
+            this.APIPetition.SnackBarError(this.response.Mensaje, 'X')
           }else{
-            this._snackBar.open(this.response.Mensaje, 'X', {                
-              verticalPosition: this.verticalPosition,
-              duration: 3000,
-              panelClass: ['green-snackbar'],                
-            });   
+            this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X')
             this.ReloadProblems();                                                                       
           }                  
         });                              

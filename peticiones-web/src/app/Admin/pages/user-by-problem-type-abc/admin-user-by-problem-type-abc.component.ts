@@ -145,7 +145,7 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogDeleteComponent, {
       width: '420px',
       height: '200px',
-      data: { name: 'Eliminar', subname: '¿Estas seguro que desea Deshabilitar?'},
+      data: { name: 'Eliminar', subname: '¿Estás seguro que desea deshabilitar?'},
     });
   
     dialogRef.afterClosed().subscribe(result => {  
@@ -153,26 +153,15 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
           const inDesc = this.arrayUser.findIndex((element) => element.id_usuario_problema == parseInt(id));
                 //agregar a la tabla                        
           if(this.arrayUser[inDesc].estatus == 'B'){
-                this._snackBar.open('No se puede desactivar porque ya esta inactivo', 'X', {                
-                  verticalPosition: this.verticalPosition,                
-                  duration: 3000,
-                  panelClass: ['red-snackbar'],
-                });
+            this.APIPetition.SnackBarError('Error, no se puede desactivar porque ya está inactivo', 'X');
           }else{
             this.APIPetition.deleteUserByPoblem(parseInt(id)).subscribe(response =>{                    
               this.response = response;                                        
-              if(this.response.Estatus == 'Error'){            
-                this._snackBar.open(this.response.Mensaje, 'X', {                
-                  verticalPosition: this.verticalPosition,
-                  duration: 3000,
-                  panelClass: ['red-snackbar'],
-                });
+              if(this.response.Estatus == 'Error'){        
+                this.APIPetition.SnackBarError(this.response.Mensaje, 'X');
+                
               }else{
-                this._snackBar.open(this.response.Mensaje, 'X', {                
-                  verticalPosition: this.verticalPosition,
-                  duration: 3000,
-                  panelClass: ['green-snackbar'],                
-                });                
+                this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X');
               }                  
             });      
             this.ReloadUserProblem();
@@ -234,10 +223,8 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
     if((this.idTypeProblem == '')||(this.idUser == '') || this.estatus == ''){
                           
       //this._snackBar.open('Error faltan datos para actualizar', 'x');    
-      this._snackBar.open('Error faltan datos', 'X', {      
-        verticalPosition: this.verticalPosition,      
-        panelClass: ['red-snackbar'],
-      });
+      this.APIPetition.SnackBarError('Error, faltan datos.', 'X');
+     
       
     }else{
       
@@ -255,21 +242,13 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
           this.idUser = String(datasend.id_usuario);
           this.idTypeProblem = datasend.id_tipo_problema.toString();
   
-          if(this.response.Estatus == 'Error'){            
-            this._snackBar.open(this.response.Mensaje, 'X', {          
-              verticalPosition: this.verticalPosition,            
-              duration: 3000,
-              panelClass: ['red-snackbar'],
-            });          
+          if(this.response.Estatus == 'Error'){      
+            this.APIPetition.SnackBarError(this.response.Mensaje, 'X');      
+          
           }else{
-              this._snackBar.open(this.response.Mensaje, 'X', {            
-                verticalPosition: this.verticalPosition,
-                duration: 3000,
-                panelClass: ['green-snackbar'],
-                //panelClass: ['red-snackbar'],
-              });                          
-              //actualizar 
-              this.ReloadUserProblem();                     
+            this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X');
+            //actualizar 
+            this.ReloadUserProblem();                     
           }                  
         });            
         this.butonAddUpdate = '';  
@@ -287,11 +266,8 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
 
     if((this.idTypeProblem == '')||(this.idUser == '') || this.estatus == ''){
                           
-      //this._snackBar.open('Error faltan datos para actualizar', 'x');    
-      this._snackBar.open('Error faltan datos', 'X', {      
-        verticalPosition: this.verticalPosition,      
-        panelClass: ['red-snackbar'],
-      });
+      this.APIPetition.SnackBarError('Error, faltan datos.', 'X');
+     
       
     }else{
       
@@ -301,27 +277,16 @@ export class AdminUserByProblemTypeAbcComponent implements OnInit {
           id_usuario: parseInt(this.idUser),
           estatus: this.estatus
         };      
-        //console.log(this.id);
-        //console.table(datasend);
         this.idupdate = this.id;      
         this.APIPetition.createUserByProblem(datasend).subscribe(response =>{                    
           this.response = response;                                 
           if(this.response.Estatus == 'Error'){            
-            this._snackBar.open(this.response.Mensaje, 'X', {          
-              verticalPosition: this.verticalPosition,            
-              duration: 3000,
-              panelClass: ['red-snackbar'],
-            });          
+            this.APIPetition.SnackBarError(this.response.Mensaje, 'X')
           }else{
-              this._snackBar.open(this.response.Mensaje, 'X', {            
-                verticalPosition: this.verticalPosition,
-                duration: 3000,
-                panelClass: ['green-snackbar'],
-                //panelClass: ['red-snackbar'],
-              });                          
-              //actualizar 
-              this.ReloadUserProblem();      
-              this.Clearinputs();                     
+            this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X')
+            //actualizar 
+            this.ReloadUserProblem();      
+            this.Clearinputs();                     
           }                  
         });                    
       }    

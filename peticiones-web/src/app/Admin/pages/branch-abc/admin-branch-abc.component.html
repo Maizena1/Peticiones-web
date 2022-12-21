@@ -17,10 +17,10 @@
                     <div class="register">
                         <div class="input-register">
                             <app-input [type]="'number'" [label]="'ID sucursal'" [example]="'13'" [enable]="enableid" [value]="id_sucursal" (onChange)="onChangeIdBranch($event)"></app-input>                            
-                            <app-input [label]="'Nombre Sucursal'" [example]="'Sucursal Zaragoza'" [value]="nombre" (onChange)="onChangeNameBranch($event)"></app-input>
-                            <app-input [label]="'Direccion'" [example]="'Entre Independencia y  Zaragoza'" [value]="domicilio" (onChange)="onChangeDirectionBranch($event)"></app-input>
+                            <app-input [label]="'Nombre sucursal'" [example]="'Sucursal Zaragoza'" [value]="nombre" (onChange)="onChangeNameBranch($event)"></app-input>
+                            <app-input [label]="'Dirección'" [example]="'Entre Independencia y Zaragoza'" [value]="domicilio" (onChange)="onChangeDirectionBranch($event)"></app-input>
                             <app-input [label]="'Correo electrónico'" [example]="'Sucursal@delmuro.com'" [value]="correo" (onChange)="onChangeEmailBranch($event)"></app-input>
-                            <app-input [label]="'Número telefónico'" [example]="'018003312'" [value]="telefono" (onChange)="onChangePhoneNumberBranch($event)"></app-input>                                                        
+                            <app-input [type]="'number'" [label]="'Número telefónico'" [example]="'018003312'" [value]="telefono" (onChange)="onChangePhoneNumberBranch($event)"></app-input>                                                        
                             <mat-slide-toggle [color]="'primary'" [(ngModel)]="isChecked">Activo</mat-slide-toggle>                                                                                    
                         </div>
                         <div class="button-container">                                                                                    

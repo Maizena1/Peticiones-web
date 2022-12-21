@@ -60,11 +60,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
         this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
         this.idRol = this.dataSesion.id_rol;        
         if(this.idRol != 1){          
-          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
-            verticalPosition: this.verticalPosition,   
-            duration: 3000,   
-            panelClass: ['red-snackbar'],
-          });
+          this.APIPetition.SnackBarError('Error no tiene permisos o no inicio sesión', 'X');
           this.router.navigate(["login"]);              
         }
       }else{        
@@ -75,6 +71,8 @@ export class ArticleByBranchAbcComponent implements OnInit {
       
     this.ReloadStores();
 
+    
+
     this.APIPetition.getBranches().subscribe(branch => {
       this.branches = branch;
     })
@@ -84,6 +82,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
     })
 
   }
+
 
   getIdBranches(item: any){
     return item.id_sucursal
@@ -207,15 +206,12 @@ export class ArticleByBranchAbcComponent implements OnInit {
     //alert(this.estatus);
   }
 
-  if((this.idSucursal == '')||( String(this.idArticle).length !=10 ) || (this.idArticle == '') || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {
-                          
-    //this._snackBar.open('Error faltan datos para actualizar', 'x');    
-    this._snackBar.open('Error faltan datos', 'X', {      
-      verticalPosition: this.verticalPosition,      
-      panelClass: ['red-snackbar'],
-    });
-    
-  }else{
+  if((this.idSucursal == '')|| (this.idArticle == '') || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {                
+    this.APIPetition.SnackBarError('Error, faltan datos.','X');
+  }else if(String(this.idArticle).length != 10){
+    this.APIPetition.SnackBarError('Error, mínimo 10 dígitos en el ID.','X');
+  }
+  else{
     
     //llenar data a enviar
       const datasend : store = {                            
@@ -234,18 +230,9 @@ export class ArticleByBranchAbcComponent implements OnInit {
         this.tipo = datasend.tipo;
         
         if(this.response.Estatus == 'Error'){            
-          this._snackBar.open(this.response.Mensaje, 'X', {          
-            verticalPosition: this.verticalPosition,            
-            duration: 3000,
-            panelClass: ['red-snackbar'],
-          });          
+          this.APIPetition.SnackBarError(this.response.Mensaje, 'X');         
         }else{
-          this._snackBar.open(this.response.Mensaje, 'X', {            
-            verticalPosition: this.verticalPosition,
-            duration: 3000,
-            panelClass: ['green-snackbar'],
-            //panelClass: ['red-snackbar'],
-          });          
+          this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X');      
 
           this.Clearinputs();          
           this.ReloadStores();          
@@ -265,13 +252,16 @@ export class ArticleByBranchAbcComponent implements OnInit {
       //alert(this.estatus);
   }
                           
-  if((this.idSucursal == '')||( String(this.idArticle).length !=10 ) || (this.idArticle == '') || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {                              
+  if((this.idSucursal == '') || (this.idArticle == '') || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {                              
     this._snackBar.open('Error faltan datos', 'X', {        
       verticalPosition: this.verticalPosition,
       //panelClass: ['green-snackbar'],
       panelClass: ['red-snackbar'],
     });
-  }else{
+  }else if( String(this.idArticle).length !=10 ){
+    this.APIPetition.SnackBarError('Error, mínimo 10 dígitos en el ID.','X')
+  }
+  else{
 
     //llenar data a enviar
     const datasend : store = {                      
@@ -286,18 +276,10 @@ export class ArticleByBranchAbcComponent implements OnInit {
       //console.table(datasend);        
       this.APIPetition.createStore(datasend).subscribe(response =>{                    
         this.response = response;          
-        if(this.response.Estatus == 'Error'){            
-          this._snackBar.open(this.response.Mensaje, 'X', {              
-            verticalPosition: this.verticalPosition,
-            //panelClass: ['green-snackbar'],
-            panelClass: ['red-snackbar'],
-          });
+        if(this.response.Estatus == 'Error'){  
+          this.APIPetition.SnackBarError(this.response.Mensaje, 'X');     
         }else{
-          this._snackBar.open(this.response.Mensaje, 'X', {              
-            verticalPosition: this.verticalPosition,
-            panelClass: ['green-snackbar'],
-            //panelClass: ['red-snackbar'],
-          });          
+          this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X');     
           this.ReloadStores();               
           this.Clearinputs();      
         }          

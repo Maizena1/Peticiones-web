@@ -8,7 +8,6 @@ import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from 'src/app/components/dialog-delete/dialog-delete.component';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
-import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-admin-branch-abc',
@@ -20,6 +19,7 @@ export class AdminBranchAbcComponent implements OnInit {
 
   /**/  
   //declaracion de variables para registrar sucursal    
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   id_sucursal : string ='';
   nombre: string ='';
   domicilio: string ='';
@@ -44,7 +44,7 @@ export class AdminBranchAbcComponent implements OnInit {
   nameColumn: string[] = ['ID','Nombre','Estado','Botones'];
   ItemSend: String = "";  
     
-  constructor(public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, ) { }
+  constructor( public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, ) { }
   
   //------------------------------------------------  
   idRol : number = 0;
@@ -55,12 +55,9 @@ export class AdminBranchAbcComponent implements OnInit {
         const userJson = localStorage.getItem('dataSesion');
         this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
         this.idRol = this.dataSesion.id_rol;        
-        if(this.idRol != 1){          
-          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
-            verticalPosition: this.verticalPosition,   
-            duration: 3000,   
-            panelClass: ['red-snackbar'],
-          });
+        if(this.idRol != 1){        
+          this.APIAdminPetition .SnackBarError('Error, no tiene permisos o no inicio sesión.', 'X');
+         
           this.router.navigate(["login"]);              
         }
       }else{        
@@ -90,6 +87,8 @@ export class AdminBranchAbcComponent implements OnInit {
       }
     })       
   }
+
+
 
   //obtener el id de la sucursal
   onChangeIdBranch(idsucursal: string){
@@ -136,46 +135,28 @@ ActionDelete(id: string){
   const dialogRef = this.dialog.open(DialogDeleteComponent, {
     width: '420px',
     height: '200px',
-    data: { name: 'Eliminar', subname: '¿Estas seguro que desea Deshabilitar?'},
+    data: { name: 'Eliminar', subname: '¿Estás seguro que deseas deshabilitar?'},
   });
 
   dialogRef.afterClosed().subscribe(result => {
 
     if ( result == true){          
         const inDesc = this.ItemsTable.findIndex((element) => element.col1 == id);
-              //agregar a la tabla                        
         if(this.ItemsTable[inDesc].col3 == 'Inactivo'){
-              this._snackBar.open('No se puede desactivar porque ya esta inactiva', 'X', {                
-                verticalPosition: this.verticalPosition,                
-                duration: 3000,
-                panelClass: ['red-snackbar'],
-              });
+          this.APIAdminPetition.SnackBarError('Error, no se puede desactivar porque ya está inactiva', 'X');
+            
         }else if (this.id_sucursal == '16'){
-          this._snackBar.open('No se puede desactivar sucursal oficina', 'X', {                
-            verticalPosition: this.verticalPosition,                
-            duration: 3000,
-            panelClass: ['red-snackbar'],
-          });
+          this.APIAdminPetition.SnackBarError('Error, no se puede desactivar sucursal almacén', 'X');
         }else{
 
           this.APIAdminPetition.DeleteBranch(parseInt(id)).subscribe(response =>{                    
             this.response = response;                                        
-            if(this.response.Estatus == 'Error'){            
-              this._snackBar.open(this.response.Mensaje, 'X', {                
-                verticalPosition: this.verticalPosition,                
-                duration: 3000,
-                panelClass: ['red-snackbar'],
-              });
+            if(this.response.Estatus == 'Error'){   
+              this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');         
             }else{
-              this._snackBar.open(this.response.Mensaje, 'X', {                
-                verticalPosition: this.verticalPosition,
-                duration: 3000,
-                panelClass: ['green-snackbar'],                
-              });
-              //buscar el index
+              this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X');
               const inAct = this.ItemsTable.findIndex((element) => element.col1 == id);
-              //agregar a la tabla                        
-              this.ItemsTable[inAct].col3 = 'Inactivo';          //cambiamos a B si se elimino
+              this.ItemsTable[inAct].col3 = 'Inactivo';     
             }                  
           });      
           this.ReloadBranches();
@@ -186,7 +167,6 @@ ActionDelete(id: string){
 }
 
 Clearinputs(){
-  //limpieza
   this.isChecked == true;
   this.enableid = false;  
   this.id_sucursal =' ';
@@ -197,7 +177,6 @@ Clearinputs(){
   this.estatus =' ';    
 }
 
-//si es edit
 ActionEdit(id:string){
   this.butonAddUpdate = 'a';  
   this.dataBranchShow = this.Arraybranches.find(element => 
@@ -207,7 +186,6 @@ ActionEdit(id:string){
   console.table(this.dataBranchShow);
   this.Clearinputs();
   this.enableid = true;      
-  //asignacion de las variables a mostrar
   this.id_sucursal = String(this.dataBranchShow.id_sucursal);  
   this.nombre = this.dataBranchShow.nombre_sucursal;
   this.domicilio =  this.dataBranchShow.domicilio;  
@@ -220,9 +198,7 @@ ActionEdit(id:string){
   }  
 }
 
-//si es detail
 ActionDatil(id:string){
-  //obtener los detalles de la sucursal a mostrar
   this.dataBranchShow = this.Arraybranches.find(element => element.id_sucursal == parseInt(id));  
   const dialogRef = this.dialog.open(DialogDetailComponent, {
     width: '300px',
@@ -235,39 +211,30 @@ ActionDatil(id:string){
   });  
 }
 
-verticalPosition: MatSnackBarVerticalPosition = 'top';
+
 
 idupdate: any;
-//Metodo de actualizacion de sucursal
+
 UpdateBranch(){
 
-  //obtencion del estatus
   if (this.isChecked == true){
     this.estatus = 'A'
-    //alert(this.estatus);
   }else{
     this.estatus = 'B'
-    //alert(this.estatus);
   }
 
   if((this.nombre == '')|| (this.domicilio == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {
-                          
-    //this._snackBar.open('Error faltan datos para actualizar', 'x');    
-    this._snackBar.open('Error faltan datos', 'X', {      
-      verticalPosition: this.verticalPosition,  
-      duration: 3000,    
-      panelClass: ['red-snackbar'],
-    });
-    
+    this.APIAdminPetition.SnackBarError('Error, faltan datos.', 'X');
+  }else if(this.telefono.length != 10){
+    this.APIAdminPetition.SnackBarError('Error, mínimo 10 dígitos en el teléfono.','X')
   }else{
 
-    //llenar data a enviar
-      const datasend : branch = {                      
-        nombre_sucursal: this.nombre,
-        domicilio: this.domicilio,
-        correo: this.correo,
-        telefono: this.telefono,
-        estatus: this.estatus,                                                            
+    const datasend : branch = {                      
+      nombre_sucursal: this.nombre,
+      domicilio: this.domicilio,
+      correo: this.correo,
+      telefono: this.telefono,
+      estatus: this.estatus,                                                            
       };
 
       //console.table(datasend);
@@ -280,18 +247,12 @@ UpdateBranch(){
         this.nombre = datasend.nombre_sucursal;
         this.estatus = datasend.estatus;
         
-        if(this.response.Estatus == 'Error'){            
-          this._snackBar.open(this.response.Mensaje, 'X', {          
-            verticalPosition: this.verticalPosition,            
-            duration: 3000,
-            panelClass: ['red-snackbar'],
-          });          
+        if(this.response.Estatus == 'Error'){      
+          this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');           
+               
         }else{
-          this._snackBar.open(this.response.Mensaje, 'X', {            
-            verticalPosition: this.verticalPosition,
-            duration: 3000,
-            panelClass: ['green-snackbar']            
-          });                                
+          this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X');     
+                                        
           this.Clearinputs();
           //actualizar 
           this.ReloadBranches();          
@@ -314,13 +275,8 @@ CreateBranch() {
     }
                             
     if((this.nombre == '')|| (this.id_sucursal == '')|| (this.domicilio == '')||(this.correo == '')||(this.telefono == '')||(this.estatus == '')) {                      
-      //alert("error faltan datos");      
-      //this._snackBar.open('Error faltan datos para actualizar', 'X');          
-      this._snackBar.open('Error faltan datos', 'X', {        
-        verticalPosition: this.verticalPosition,
-        duration: 3000,    
-        panelClass: ['red-snackbar'],
-      });
+      
+      this.APIAdminPetition.SnackBarError('Error, faltan datos.', 'X');        
 
     }else{
 
@@ -337,19 +293,12 @@ CreateBranch() {
         //console.table(datasend);        
         this.APIAdminPetition.createBranch(datasend).subscribe(response =>{                    
           this.response = response;          
-          if(this.response.Estatus == 'Error'){            
-            this._snackBar.open(this.response.Mensaje, 'X', {              
-              verticalPosition: this.verticalPosition,
-              duration: 3000,                  
-              panelClass: ['red-snackbar'],
-            });
+          if(this.response.Estatus == 'Error'){     
+            this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');            
+           
           }else{
-            this._snackBar.open(this.response.Mensaje, 'X', {              
-              verticalPosition: this.verticalPosition,
-              duration: 3000,    
-              panelClass: ['green-snackbar'],              
-            });
-                                   
+            this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X');     
+      
             this.ReloadBranches();
             this.Clearinputs();
           }          

@@ -66,7 +66,7 @@ export class AdminUserAbcComponent implements OnInit {
         this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
         this.idRol = this.dataSesion.id_rol;        
         if(this.idRol != 1){          
-          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
+          this._snackBar.open('Error, no tiene permisos o no inició sesión', 'X', {      
             verticalPosition: this.verticalPosition,   
             duration: 3000,   
             panelClass: ['red-snackbar'],
@@ -89,22 +89,6 @@ export class AdminUserAbcComponent implements OnInit {
     })
 
 
-  }
-
-  SnackBarError(mensaje: string, icon: string){
-    this._snackBar.open(mensaje, icon, {
-      verticalPosition: this.verticalPosition,
-      panelClass: ['red-snackbar'],
-      duration: 3000,
-    });
-  }
-
-  SnackBarSuccessful(mensaje: string, icon: string){
-    this._snackBar.open(mensaje, icon, {
-      verticalPosition: this.verticalPosition,
-      panelClass: ['green-snackbar'],
-      duration: 3000,
-    });
   }
 
   ReloadUsers(){
@@ -166,9 +150,9 @@ export class AdminUserAbcComponent implements OnInit {
       this.response = response;
 
       if(this.response.Estatus == 'Error'){
-        this.SnackBarError(this.response.Mensaje, 'X')
+        this.adminService.SnackBarError(this.response.Mensaje, 'X')
       }else{
-        this.SnackBarSuccessful(this.response.Mensaje, 'X')
+        this.adminService.SnackBarSuccessful(this.response.Mensaje, 'X')
         this.ReloadUsers();
         this.UpdateTable();
         this.ClearInput();
@@ -207,13 +191,13 @@ export class AdminUserAbcComponent implements OnInit {
     }
 
     if((this.form.userName == '') || (this.form.password == '') || (this.form.employeeId == '') || (this.form.roleId == '')){
-      this.SnackBarError('Error faltan datos', 'X')
+      this.adminService.SnackBarError('Error, faltan datos', 'X')
     }else{
 
       
 
       if(this.form.roleId == '1'){
-        this.SnackBarError('Error no puede desabilitar al administrador', 'X')
+        this.adminService.SnackBarError('Error, no puede desabilitar al administrador', 'X')
       }else{
         const updateUser: User = {
           id_rol: parseInt(this.form.roleId),
@@ -233,9 +217,9 @@ export class AdminUserAbcComponent implements OnInit {
           this.form.roleId = String(updateUser.id_rol);
   
           if(this.response.Estatus === 'Error'){
-            this.SnackBarError(this.response.Mensaje, 'X');
+            this.adminService.SnackBarError(this.response.Mensaje, 'X');
           }else{
-            this.SnackBarSuccessful(this.response.Mensaje, 'X');
+            this.adminService.SnackBarSuccessful(this.response.Mensaje, 'X');
   
             this.UpdateTable();
             this.ClearInput();
@@ -272,36 +256,31 @@ export class AdminUserAbcComponent implements OnInit {
         ]
       })
     })
-
-    
-
-    
-  
   }
-
-
   UpdateTable(){
     this.itemsTable = [];
     this.arrayUser = [];
 
-    this.adminService.getUsers().subscribe(result =>{   
-      this.arrayUser = result;
-
-    
-      this.arrayUser.forEach((row) => { 
-        if(row.estatus === 'A'){
-          this.estatusUser = 'Activo';
-        }else{
-          this.estatusUser = 'Inactivo';
-        }
-        this.itemsTable.push({
-          col1: row.id_usuario?.toString() ?? '', 
-          col2: row.usuario, 
-          col3: this.estatusUser,
-          col4: '-' 
-        });
-      });                                      
-    }) 
+    if((this.form.userName == '') || (this.form.password == '') || (this.form.employeeId == '') || (this.form.roleId == '')){
+      this.adminService.SnackBarError('Error, faltan datos', 'X')
+    }else{
+      this.adminService.getUsers().subscribe(result =>{   
+        this.arrayUser = result;
+        this.arrayUser.forEach((row) => { 
+          if(row.estatus === 'A'){
+            this.estatusUser = 'Activo';
+          }else{
+            this.estatusUser = 'Inactivo';
+          }
+          this.itemsTable.push({
+            col1: row.id_usuario?.toString() ?? '', 
+            col2: row.usuario, 
+            col3: this.estatusUser,
+            col4: '-' 
+          });
+        });                                      
+      }) 
+    }
   }
 
   

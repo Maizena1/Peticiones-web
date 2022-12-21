@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { FormBuilder } from '@angular/forms';
 import { request_table } from 'src/app/components/services/request-table';
-import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -18,11 +17,11 @@ export class ArticleAbcComponent implements OnInit {
   name: string = '';
   description: string = '';
 
+
   dataArticleShow: article | any; //tipo de dato para buscar  
   response: response | any; //subscripcion de respuesta
   butonAddUpdate : string = ''; 
   enableid: boolean = false;
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   //arreglo donde de almacenara todas las sucursales
   ArrayArticles: article[]=[];
@@ -33,7 +32,7 @@ export class ArticleAbcComponent implements OnInit {
   //nombres de columnas de tabla
   nameColumn: string[] = ['ID','Nombre','Descripción','Botones'];
 
-  constructor(public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
+  constructor(public dialog: MatDialog ,private router: Router, private APIAdminPetition: AdminService, private _formBuilder: FormBuilder) { }
   //para validar lo de sesion  y rol  
   idRol : number = 0;
   dataSesion: User|any;
@@ -44,11 +43,7 @@ export class ArticleAbcComponent implements OnInit {
         this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
         this.idRol = this.dataSesion.id_rol;        
         if(this.idRol != 1){          
-          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
-            verticalPosition: this.verticalPosition,   
-            duration: 3000,   
-            panelClass: ['red-snackbar'],
-          });
+          this.APIAdminPetition.SnackBarError('Error no tiene permisos o no inicio sesión', 'X')
           this.router.navigate(["login"]);              
         }
       }else{        
@@ -75,6 +70,8 @@ export class ArticleAbcComponent implements OnInit {
       }      
     })       
   }
+
+ 
 
   Clearinputs(){
     //limpieza
@@ -119,13 +116,9 @@ export class ArticleAbcComponent implements OnInit {
   UpdateArticle(){
 
     if((this.name == '')|| (this.idArticle == '')||(this.description == '')) {                          
-      //this._snackBar.open('Error faltan datos para actualizar', 'x');    
-      this._snackBar.open('Error faltan datos', 'X', {      
-        verticalPosition: this.verticalPosition,   
-        duration: 3000,   
-        panelClass: ['red-snackbar'],
-      });
-      
+      this.APIAdminPetition.SnackBarError('Error, faltan datos.','X');
+    }else if(this.idArticle.length != 10){
+      this.APIAdminPetition.SnackBarError('Error, mínimo 10 dígito en el ID.','X');
     }else{
   
       //llenar data a enviar
@@ -143,20 +136,10 @@ export class ArticleAbcComponent implements OnInit {
           this.name = datasend.nombre_articulo;
           this.description = datasend.descripcion;
           
-          if(this.response.Estatus == 'Error'){            
-            this._snackBar.open(this.response.Mensaje, 'X', {          
-              verticalPosition: this.verticalPosition,            
-              duration: 3000,
-              panelClass: ['red-snackbar'],
-            });          
+          if(this.response.Estatus == 'Error'){       
+            this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');          
           }else{
-            this._snackBar.open(this.response.Mensaje, 'X', {            
-              verticalPosition: this.verticalPosition,
-              duration: 3000,
-              panelClass: ['green-snackbar'],
-              //panelClass: ['red-snackbar'],
-            });          
-                                      
+            this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X');        
             //actualizar 
             this.ReloadArticles();                    
             this.Clearinputs();
@@ -167,16 +150,14 @@ export class ArticleAbcComponent implements OnInit {
   }
   
   CreateArticle(){
-    if((this.name == '')|| (this.idArticle == '')||(this.idArticle.length != 10 ) ||(this.description == '')) {                      
-      //alert("error faltan datos");      
-      //this._snackBar.open('Error faltan datos para actualizar', 'X');          
-      this._snackBar.open('Error faltan datos', 'X', {        
-        verticalPosition: this.verticalPosition,
-        //panelClass: ['green-snackbar'],
-        panelClass: ['red-snackbar'],
-      });
+    if((this.name == '')|| (this.idArticle == '') ||(this.description == '')) {                      
+           
+      this.APIAdminPetition.SnackBarError('Error, faltan datos.','X');
 
-    }else{
+    }else if((this.idArticle.length != 10 )){
+      this.APIAdminPetition.SnackBarError('Error, mínimo 10 dígitos en el ID.','X');
+    }
+    else{
 
       //llenar data a enviar
         
@@ -189,19 +170,11 @@ export class ArticleAbcComponent implements OnInit {
         //console.table(datasend);        
         this.APIAdminPetition.createCodeArticle(datasend).subscribe(response =>{                    
           this.response = response;          
-          if(this.response.Estatus == 'Error'){            
-            this._snackBar.open(this.response.Mensaje, 'X', {              
-              verticalPosition: this.verticalPosition,
-              //panelClass: ['green-snackbar'],
-              panelClass: ['red-snackbar'],
-            });
+          if(this.response.Estatus == 'Error'){  
+            this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');   
           }else{
-            this._snackBar.open(this.response.Mensaje, 'X', {              
-              verticalPosition: this.verticalPosition,
-              panelClass: ['green-snackbar'],
-              //panelClass: ['red-snackbar'],
-            });
-          
+            this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X'); 
+
             this.ReloadArticles();
             this.Clearinputs();
           }          

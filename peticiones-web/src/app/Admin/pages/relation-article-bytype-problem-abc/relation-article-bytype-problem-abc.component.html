@@ -17,7 +17,7 @@
                     <div class="register">
 
                         <div class="input-register">                            
-                            <app-select [label]="'Articulo'" [(value)]="idArticle"  [items]="itemsArticles" [getId]="getIdArticles" [getLabel]="getLabelArticles" [disabled]="enableid"></app-select>
+                            <app-select [label]="'Artículo'" [(value)]="idArticle"  [items]="itemsArticles" [getId]="getIdArticles" [getLabel]="getLabelArticles" [disabled]="enableid"></app-select>
                             <app-select [label]="'Tipo Problema'" [(value)]="idTypeProblem" [items]="itemsTypeproblem" [getId]="getIdTypeProblem" [getLabel]="getLabelTypeProblem" [disabled]="enableid"></app-select>
                         </div>
                         <div class="button-container">                            
@@ -29,7 +29,7 @@
                         <app-abc-table class="table" [items]="ItemsTable" [nameColumn]="nameColum"  [optionDelete]="'no'" [optionDetail]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>                        
                     </div>
                     <div class="table-article-container" *ngIf="ItemsTable.length == 0">
-                        <p>No hay articulos asociados a algun tipo de problema para mostrar!!</p>
+                        <p>No hay artículos asociados a algun tipo de problema para mostrar.</p>
                     </div>
 
                 </div>            

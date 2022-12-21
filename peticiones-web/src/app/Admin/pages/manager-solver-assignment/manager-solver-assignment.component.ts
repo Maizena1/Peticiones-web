@@ -50,12 +50,8 @@ export class ManagerSolverAssignmentComponent implements OnInit {
         const userJson = localStorage.getItem('dataSesion');
         this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
         this.idRol = this.dataSesion.id_rol;        
-        if(this.idRol != 1){          
-          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
-            verticalPosition: this.verticalPosition,   
-            duration: 3000,   
-            panelClass: ['red-snackbar'],
-          });
+        if(this.idRol != 1){   
+          this.APIPetition.SnackBarError('Error, no tiene permisos o no inicio sesión', 'X');      
           this.router.navigate(["login"]);                        
         }
       }else{        
@@ -139,19 +135,11 @@ export class ManagerSolverAssignmentComponent implements OnInit {
     };
 
     this.APIPetition.assignamentProblem(datasend,this.dataShowProblem.id_problema).subscribe(response =>{           
-      this.response = response;                                        
-      if(this.response.Estatus == 'Error'){            
-        this._snackBar.open(this.response.Mensaje, 'X', {                
-          verticalPosition: this.verticalPosition,                
-          duration: 3000,
-          panelClass: ['red-snackbar'],
-        });
+      this.response = response;                                   
+      if(this.response.Estatus == 'Error'){     
+        this.APIPetition.SnackBarError(this.response.Mensaje, 'X');           
       }else{
-        this._snackBar.open(this.response.Mensaje, 'X', {                
-          verticalPosition: this.verticalPosition,
-          duration: 3000,
-          panelClass: ['green-snackbar'],                
-        });                
+        this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X');           
         this.router.navigate([      
           'admin/showRequested',
         ]);        
@@ -173,11 +161,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
     this.arrayProblems = [];    
     this.APIPetition.getProblems().subscribe(result =>{              
       if(result.Estatus){
-        this._snackBar.open(result.Mensaje, 'X', {      
-          verticalPosition: this.verticalPosition,   
-          duration: 3000,   
-          panelClass: ['red-snackbar'],
-        });
+        this.APIPetition.SnackBarError(result.Mensaje, 'X');
       }else{
         result.forEach((row:any) => {                           
             //console.table(result);                                               

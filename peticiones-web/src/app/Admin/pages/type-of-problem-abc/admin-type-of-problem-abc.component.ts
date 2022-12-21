@@ -49,11 +49,7 @@ export class AdminTypeOfProblemAbcComponent implements OnInit {
         this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
         this.idRol = this.dataSesion.id_rol;        
         if(this.idRol != 1){          
-          this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
-            verticalPosition: this.verticalPosition,   
-            duration: 3000,   
-            panelClass: ['red-snackbar'],
-          });
+          this.APIAdminPetition.SnackBarError('Error no tiene permisos o no inicio sesión', 'X')
           this.router.navigate(["login"]);              
         }
       }else{        
@@ -132,26 +128,14 @@ ActionDelete(id: string){
         const inDesc = this.ItemsTable.findIndex((element) => element.col1 == id);
               //agregar a la tabla                        
         if(this.ItemsTable[inDesc].col3 == 'Inactivo'){
-              this._snackBar.open('No se puede desactivar porque ya esta inactiva', 'X', {                
-                verticalPosition: this.verticalPosition,                
-                duration: 3000,
-                panelClass: ['red-snackbar'],
-              });
+          this.APIAdminPetition.SnackBarError('No se puede desactivar porque ya esta inactiva', 'X');
         }else{
           this.APIAdminPetition.DeleteTypeProblem(parseInt(id)).subscribe(response =>{                    
             this.response = response;                                        
-            if(this.response.Estatus == 'Error'){            
-              this._snackBar.open(this.response.Mensaje, 'X', {                
-                verticalPosition: this.verticalPosition,                
-                duration: 3000,
-                panelClass: ['red-snackbar'],
-              });
+            if(this.response.Estatus == 'Error'){       
+              this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');  
             }else{
-              this._snackBar.open(this.response.Mensaje, 'X', {                
-                verticalPosition: this.verticalPosition,
-                duration: 3000,
-                panelClass: ['green-snackbar'],                
-              });
+              this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X'); 
               //buscar el index
               const inAct = this.ItemsTable.findIndex((element) => element.col1 == id);
               //agregar a la tabla                        
@@ -204,12 +188,9 @@ UpdateTypeProblem(){
   }
 
   if((this.typeProblem == '')||(this.descriptionProblem == '')||(this.estatus == '')) {
-                          
+    this.APIAdminPetition.SnackBarError('Error, faltan datos.', 'X');
     //this._snackBar.open('Error faltan datos para actualizar', 'x');    
-    this._snackBar.open('Error faltan datos', 'X', {      
-      verticalPosition: this.verticalPosition,      
-      panelClass: ['red-snackbar'],
-    });
+    
     
   }else{
 
@@ -230,20 +211,10 @@ UpdateTypeProblem(){
         this.typeProblem = datasend.tipo_problema;
         this.estatus = datasend.estatus;
         
-        if(this.response.Estatus == 'Error'){            
-          this._snackBar.open(this.response.Mensaje, 'X', {          
-            verticalPosition: this.verticalPosition,            
-            duration: 3000,
-            panelClass: ['red-snackbar'],
-          });          
+        if(this.response.Estatus == 'Error'){  
+          this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X'); 
         }else{
-          this._snackBar.open(this.response.Mensaje, 'X', {            
-            verticalPosition: this.verticalPosition,
-            duration: 3000,
-            panelClass: ['green-snackbar'],
-            //panelClass: ['red-snackbar'],
-          });                                   
-          
+          this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X'); 
           this.ReloadTypeProblem();          
           this.Clearinputs();
           //actualizar 
@@ -267,13 +238,8 @@ CreateTypeProblem(){
                         
 if((this.typeProblem == '')|| (this.descriptionProblem == '')||(this.estatus == '')) {                      
   //alert("error faltan datos");      
-  //this._snackBar.open('Error faltan datos para actualizar', 'X');          
-  this._snackBar.open('Error faltan datos', 'X', {        
-    verticalPosition: this.verticalPosition,
-    //panelClass: ['green-snackbar'],
-    panelClass: ['red-snackbar'],
-  });
-
+  //this._snackBar.open('Error faltan datos para actualizar', 'X');   
+  this.APIAdminPetition.SnackBarError('Error, faltan datos.', 'X');    
 }else{
 
   //llenar data a enviar
@@ -285,18 +251,10 @@ if((this.typeProblem == '')|| (this.descriptionProblem == '')||(this.estatus == 
     //console.table(datasend);        
     this.APIAdminPetition.createTypeProblem(datasend).subscribe(response =>{                    
       this.response = response;                      
-      if(this.response.Estatus == 'Error'){            
-        this._snackBar.open(this.response.Mensaje, 'X', {              
-          verticalPosition: this.verticalPosition,
-          //panelClass: ['green-snackbar'],
-          panelClass: ['red-snackbar'],
-        });
+      if(this.response.Estatus == 'Error'){         
+        this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');     
       }else{
-        this._snackBar.open(this.response.Mensaje, 'X', {              
-          verticalPosition: this.verticalPosition,
-          panelClass: ['green-snackbar'],
-          //panelClass: ['red-snackbar'],
-        });                                     
+        this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X');                                      
         this.ReloadTypeProblem();        
         this.Clearinputs();                    
       }             

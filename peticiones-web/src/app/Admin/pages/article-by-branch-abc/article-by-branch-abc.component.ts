@@ -255,7 +255,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
   if((this.idSucursal == '') || (this.idArticle == '') || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {                              
     this._snackBar.open('Error faltan datos', 'X', {        
       verticalPosition: this.verticalPosition,
-      //panelClass: ['green-snackbar'],
+      duration: 3000,
       panelClass: ['red-snackbar'],
     });
   }else if( String(this.idArticle).length !=10 ){

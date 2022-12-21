@@ -16,7 +16,7 @@ import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-d
 })
 export class SolverRequerimentComponent implements OnInit {
 
-  nameColumn: string[] = ['Material','Cantidad','Unidad', 'Precio','Botones'];  
+  nameColumn: string[] = ['Material','Cantidad','Unidad', 'Precio','Botones','Descipcion'];  
 
   arrayRequeriment: requeriment [] = [];
 
@@ -84,7 +84,7 @@ export class SolverRequerimentComponent implements OnInit {
   dataSesion: User|any;
 
   item: any [] = [];
-  itemsTable: table_show [] = [];
+  itemsTable: any [] = [];
 
   ngOnInit(): void {
      if (localStorage){    
@@ -187,78 +187,22 @@ export class SolverRequerimentComponent implements OnInit {
                   col2: this.form.amount,
                   col3: this.unidad,
                   col4: this.form.price,
-                  col5: this.form.articleId
+                  col5: this.form.articleId,
+                  col6: this.form.description
                 });
                 this.clearInput();
               });                       
               this.SnackBarSuccessful('Articulo agregado.','X')
               //this.reloadTable();
             })          
-          }else{
-  
-            this.arrayRequeriment.push({      
-              id_problema: this.idProblem,
-              id_codigo_articulo: this.form.articleId,
-              descripcion_requisito: this.form.description, 
-              cantidad: parseInt(this.form.amount),
-              unidad: this.form.unit,
-              precio: parseInt(this.form.price)
-            });  
-            
-            this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
-              let articleName = result[0].nombre_articulo;
-              this.itemsTable.push({
-                col1: articleName, //nombre
-                col2: this.form.amount,
-                col3: this.unidad,
-                col4: this.form.price,
-                col5: this.form.articleId
-              });
-              this.clearInput();
-            });                     
-            this.SnackBarSuccessful('Articulo agregado.','X')
-            //this.reloadTable();          
-          }
-                      
+          }                      
         }
       }
     }else{
 
       if(this.dataidProblema != null){
         this.idProblem = parseInt(this.dataidProblema);
-      }
-      
-      if(this.form.articleId != '5000000000'){
-        this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
-          this.form.description = result[0].descripcion;                
-
-          this.arrayRequeriment.push({      
-            id_problema: this.idProblem,
-            id_codigo_articulo: this.form.articleId,
-            descripcion_requisito: this.form.description, 
-            cantidad: parseInt(this.form.amount),
-            unidad: this.form.unit,
-            precio: parseInt(this.form.price)
-          });            
-          
-
-          this.adminService.getArticleForId(this.form.articleId).subscribe(result => {
-            let articleName = result[0].nombre_articulo;
-            this.itemsTable.push({
-              col1: articleName, //nombre
-              col2: this.form.amount,
-              col3: this.unidad,
-              col4: this.form.price,
-              col5: this.form.articleId
-            });
-            this.clearInput();
-          });         
-          
-          this.SnackBarSuccessful('Articulo agregado.','X')
-          //this.reloadTable();
-        })          
-      }else{
-
+      }            
         this.arrayRequeriment.push({      
           id_problema: this.idProblem,
           id_codigo_articulo: this.form.articleId,
@@ -275,40 +219,41 @@ export class SolverRequerimentComponent implements OnInit {
             col2: this.form.amount,
             col3: this.unidad,
             col4: this.form.price,
-            col5: this.form.articleId
+            col5: this.form.articleId,
+            col6: this.form.description
           });
           this.clearInput();
         });         
                         
         this.SnackBarSuccessful('Articulo agregado.','X')
         //this.reloadTable();          
-      }                  
+                      
     }
     
 }
    
   onChangeActionTable(data: any){  
     if(data.action === 'detail'){
-      this.ActionDatil(data.id,data.cantidad,data.precio);
+      this.ActionDatil(data.id,data.descripcion);
     }else if(data.action == 'delete'){      
-      this.ActionRemoveRequeriment(data.id, data.cantidad,data.precio);
+      this.ActionRemoveRequeriment(data.id,data.descripcion );
     }
   }
 
   arrayAUX: any []= [];
   arrayAuxTable: any []=[];
-  ActionRemoveRequeriment(id: string, cantidad:string, precio:string){        
+  ActionRemoveRequeriment(id: string, descripcion:string){        
     this.reload = false;
     
     if(id == '5000000000'){
       //limpiar de arreglo
-      this.arrayAUX = this.arrayRequeriment.filter(element =>  element.precio != parseInt(precio) );
+      this.arrayAUX = this.arrayRequeriment.filter(element =>  element.descripcion_requisito != descripcion );
       this.arrayRequeriment = [];
       this.arrayRequeriment = this.arrayAUX;
       this.arrayAUX= [];    
       
       //limpiar de tabla
-      this.arrayAuxTable = this.itemsTable.filter(element => element.col4 != precio);
+      this.arrayAuxTable = this.itemsTable.filter(element => element.col6 != descripcion);
       this.itemsTable = [];          
       this.itemsTable = this.arrayAuxTable;
       this.arrayAuxTable = [];
@@ -353,10 +298,10 @@ export class SolverRequerimentComponent implements OnInit {
   }
 */
   description: any;
-  ActionDatil(id: string, cantidad:string, precio:string){
+  ActionDatil(id: string,descripcion:string){
 
     if(id == '5000000000'){
-      this.dataArticleShow = this.arrayRequeriment.find(element => element.id_codigo_articulo == id && element.cantidad == parseInt(cantidad) && element.precio == parseInt(precio));      
+      this.dataArticleShow = this.arrayRequeriment.find(element => element.id_codigo_articulo == id && element.descripcion_requisito == descripcion);      
       const dialogRef = this.dialog.open(DialogDetailComponent, {
         width: '300px',
         data: [{title: 'ID:', data: id},
@@ -364,6 +309,15 @@ export class SolverRequerimentComponent implements OnInit {
         ]
     });
     }else{
+
+      this.dataArticleShow = this.arrayRequeriment.find(element => element.id_codigo_articulo == id && element.descripcion_requisito == descripcion);      
+      const dialogRef = this.dialog.open(DialogDetailComponent, {
+        width: '300px',
+        data: [{title: 'ID:', data: id},
+        {title: 'Descripcion:', data: String(this.dataArticleShow.descripcion_requisito)},
+        ]
+      });
+      /*
       this.adminService.getArticleForId(id).subscribe(result => {
         this.description = result[0].descripcion;                
         const dialogRef = this.dialog.open(DialogDetailComponent, {
@@ -372,7 +326,8 @@ export class SolverRequerimentComponent implements OnInit {
           {title: 'Descripcion:', data: String(this.description)},
           ]
         });
-      })  
+      })
+      */  
     }        
   }
 

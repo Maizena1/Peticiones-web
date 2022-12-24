@@ -240,10 +240,11 @@ export class ShowRequestAdminComponent implements OnInit {
     const idproblem = this.arrayProblems.findIndex((element) => element.fecha_solicitud == fecha);                                         
     //pendiente????------    
     this.APIPetition.getRequirementProblem(this.arrayProblems[idproblem].id_problema).subscribe(result =>{                 
-      this.arrayRequerimentProblem = result;
+      this.arrayRequerimentProblem = result;      
+      console.log(this.arrayRequerimentProblem);
       const dialogRef = this.dialog.open(DialogDetailRequirementsComponent, {      
       width:'65%',
-      data: this.arrayRequerimentProblem,
+      data: this.arrayRequerimentProblem,      
       });  
     });             
   }

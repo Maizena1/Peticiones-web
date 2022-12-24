@@ -110,8 +110,7 @@ export class SolverRequerimentComponent implements OnInit {
     this.adminService.getArticleForProblemType(parseInt(this.dataidTipo)).subscribe(article => {
       this.item = article;
       //console.log(article);
-    })
-                
+    })                
   }
   
   unidad: string = '';
@@ -176,7 +175,7 @@ export class SolverRequerimentComponent implements OnInit {
                 id_codigo_articulo: this.form.articleId,
                 descripcion_requisito: this.form.description, 
                 cantidad: parseInt(this.form.amount),
-                unidad: this.form.unit,
+                unidad: this.unidad,
                 precio: parseInt(this.form.price)                
               });            
               
@@ -208,7 +207,7 @@ export class SolverRequerimentComponent implements OnInit {
           id_codigo_articulo: this.form.articleId,
           descripcion_requisito: this.form.description, 
           cantidad: parseInt(this.form.amount),
-          unidad: this.form.unit,
+          unidad: this.unidad,
           precio: parseInt(this.form.price)
         });  
 

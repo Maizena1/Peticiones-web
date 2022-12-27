@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 
 import { InputComponent } from './components/input/input.component';
@@ -58,6 +58,7 @@ import { DialogDetailRequirementsComponent } from './components/dialog-detail-re
 import { ReportComponent } from './Admin/pages/report/report.component';
 import { TableRequerimentComponent } from './components/table-requeriment/table-requeriment.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { TableShowCheckedComponent } from './components/table-show-checked/table-show-checked.component';
 
 
 @NgModule({
@@ -94,7 +95,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ManagerSolverAssignmentComponent,
     DialogDetailRequirementsComponent,
     ReportComponent,
-    TableRequerimentComponent
+    TableRequerimentComponent,
+    TableShowCheckedComponent
 
   ],
   imports: [
@@ -120,7 +122,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatMenuModule,
     MatDialogModule,
     MatCardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

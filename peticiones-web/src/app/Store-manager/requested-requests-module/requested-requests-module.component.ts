@@ -31,7 +31,11 @@ export class RequestedRequestsModuleComponent implements OnInit {
   response: response | any; //subscripcion de respuesta
   dataShowProblem : problem | any;  
   //nombres de las columas de la tabla
-  nameColums: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Botones'];  
+  nameColums: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Prioridad','Botones'];  
+
+  //para la posicion en la tabla de genericos
+  nameColumsGeneric: string[] = ['No.','Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Botones'];  
+
 
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }  
@@ -88,21 +92,13 @@ export class RequestedRequestsModuleComponent implements OnInit {
               id_problema: this.arrayProblems[idproblem].id_problema,                
               estatus: 'TERMINADO',                                                  
             };
-            console.table(datasend);
+            //console.table(datasend);
             this.APIPetition.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
               this.response = response;                                        
               if(this.response.Estatus == 'Error'){            
-                this._snackBar.open(this.response.Mensaje, 'X', {                
-                  verticalPosition: this.verticalPosition,                
-                  duration: 3000,
-                  panelClass: ['red-snackbar'],
-                });
+                this.APIPetition.SnackBarError(this.response.Mensaje, 'X');
               }else{
-                this._snackBar.open(this.response.Mensaje, 'X', {                
-                  verticalPosition: this.verticalPosition,
-                  duration: 3000,
-                  panelClass: ['green-snackbar'],                
-                });                
+                this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X');                
               }                  
             });      
             this.ReloadProblems();   
@@ -115,8 +111,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
     //obtener los detalles de la sucursal a mostrar
     this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
     const dialogRef = this.dialog.open(DialogDetailComponent, {      
-    data: [
-      {title: 'ID:', data:  this.dataShowProblem.id_problema},      
+    data: [      
       {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},
       {title: 'Descripcion:', data:this.dataShowProblem.descripcion_problema},      
       {title: 'Nombre de Encargada de tienda:', data:this.dataShowProblem.nombre_empleado},      
@@ -127,7 +122,8 @@ export class RequestedRequestsModuleComponent implements OnInit {
       {title: 'Fecha de Asignado:', data:this.dataShowProblem.fecha_aceptado},            
       {title: 'Fecha de Inicio:', data:this.dataShowProblem.fecha_enproceso},            
       {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
-      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},   
+      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},  
+      {title: 'Prioridad:', data:this.dataShowProblem.prioridad},  
       {title: 'Gasto De Mantenimiento:', data:this.dataShowProblem.total},      
     ],      
     });  
@@ -135,8 +131,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
 
   
   
-  //variable para obtener hasta el id usuario
-  usuario: string = "no";
+ 
   ReloadProblems(){
     this.arrayProblems = [];         
     this.APIPetition.getProblemsOrder().subscribe(result =>{              
@@ -147,8 +142,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
           panelClass: ['red-snackbar'],
         });
       }else{
-
-        result.forEach((row:any) => {                           
+          result.forEach((row:any) => {                           
             //console.table(result);                                               
           if(row.estatus == 'ESPERA'){
             this.arrayProblems.push({
@@ -169,9 +163,10 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
-              total: 0
+              prioridad:'sin prioridad',
+              total: row.total
             });                      
-  
+
           }else if(row.estatus == 'ACEPTADO'){
             this.arrayProblems.push({
               id_tipo_problema: row.id_tipo_problema ,
@@ -191,6 +186,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              prioridad:row.prioridad,
               total: row.total
             });
           }else if(row.estatus == 'REVISION'){
@@ -212,6 +208,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              prioridad:row.prioridad,
               total: row.total
             });
           }else if(row.estatus == 'PROCESO'){
@@ -233,6 +230,7 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
+              prioridad:row.prioridad,
               total: row.total
             });
           }else if(row.estatus == 'TERMINADO'){
@@ -252,11 +250,12 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_revision: row.fecha_revision, 
               fecha_enproceso: row.fecha_enproceso,
               fecha_terminado: row.fecha_terminado,
-              fecha_rechazado:'--',
+              fecha_rechazado:'--',              
               id_problema:row.id_problema,  
+              prioridad:row.prioridad,
               total: row.total
             });
-  
+
           }else if(row.estatus == 'RECHAZADO'){
             this.arrayProblems.push({
               id_tipo_problema: row.id_tipo_problema ,
@@ -276,31 +275,56 @@ export class RequestedRequestsModuleComponent implements OnInit {
               fecha_terminado: row.fecha_terminado,
               fecha_rechazado:row.fecha_rechazado,
               id_problema:row.id_problema,  
+              prioridad:row.prioridad,
               total: row.total
             });
           }                      
-        });                 
+        }); 
+
         this.reloadArrayGeneric();
       }      
     });
   }
 
-arraySlopesOrder: table_show [] = [];
+
+  //variable para obtener hasta el id usuario
+  numProlimit: number = 0;
+  numprouser: number = 0;
+
+  //variable para saber la posicion dela pila
+  numPos: number = 0;
+
+
   reloadArrayGeneric(){
-    this.usuario='no';
+    this.numProlimit = 0;
+    this.numprouser = 0;
+    this.numPos = 0;
     this.ItemsTableGeneric = [];
     this.ItemsTableSlopes = []; 
     this.ItemsTableProcess = [];      
-
-    this.arraySlopesOrder = [];
-    //pila hasta tu problema
-    this.arrayProblems.forEach((row) => {          
-      if(row.estatus == 'ESPERA'){              
-        if(this.usuario == 'no'){
-          this.ItemsTableGeneric.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
-        }                            
+    
+    //contar los problemas que existen tuyos en espera parahacer la pila hasta tu problema
+    this.arrayProblems.forEach((row) => {                
+      if(row.estatus == 'ESPERA'){                      
         if(this.dataSesion.id_usuario == row.id_usuario ){
-          this.usuario = 'si';              
+          this.numprouser = this.numprouser + 1;
+        }
+      }
+    });  
+
+    //pila hasta tu problema
+    this.arrayProblems.forEach((row) => {                
+      if(row.estatus == 'ESPERA'){              
+                
+        if(this.numProlimit < this.numprouser){
+          this.numPos = this.numPos + 1;
+          this.ItemsTableGeneric.push({ col1: String(this.numPos)  ,col2: String(row.tipo_problema) , col3: String(row.nombre_sucursal) , col4: String(row.fecha_solicitud), col5: String(row.estatus),col6:'--' });                                
+        }          
+          
+        if(this.dataSesion.id_usuario == row.id_usuario ){
+          if(this.numProlimit < this.numprouser){
+            this.numProlimit = this.numProlimit + 1;              
+          }          
         }
       }
     });  
@@ -308,17 +332,18 @@ arraySlopesOrder: table_show [] = [];
     //los problemas de tu sucursal
     this.arrayProblems.forEach((row) => {                        
         if(this.dataSesion.id_usuario == row.id_usuario ){
-          this.ItemsTableSlopes.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
+          this.ItemsTableSlopes.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:String(row.prioridad), col6:'--'});                        
         }      
-    });    
+    });  
+
     this.ItemsTableSlopes.reverse();
              
-  //los problemas de para que los finalices
-    this.arrayProblems.forEach((row) => {                        
-      if(this.dataSesion.id_usuario == row.id_usuario && row.estatus =='PROCESO'){
-        this.ItemsTableProcess.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
-      }      
-  });  
+    //los problemas de para que los finalices
+      this.arrayProblems.forEach((row) => {                        
+        if(this.dataSesion.id_usuario == row.id_usuario && row.estatus =='PROCESO'){
+          this.ItemsTableProcess.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:String(row.prioridad), col6:'--'});                        
+        }      
+    });  
 
   }
 }

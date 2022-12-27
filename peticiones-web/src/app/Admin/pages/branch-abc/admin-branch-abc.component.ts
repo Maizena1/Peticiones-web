@@ -145,7 +145,7 @@ ActionDelete(id: string){
         if(this.ItemsTable[inDesc].col3 == 'Inactivo'){
           this.APIAdminPetition.SnackBarError('Error, no se puede desactivar porque ya está inactiva', 'X');
             
-        }else if (this.id_sucursal == '16'){
+        }else if (this.id_sucursal == '1'){
           this.APIAdminPetition.SnackBarError('Error, no se puede desactivar sucursal almacén', 'X');
         }else{
 
@@ -308,10 +308,5 @@ CreateBranch() {
         })        
       }
 }
-
-   
-   
-
-
 }
 

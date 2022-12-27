@@ -32,6 +32,9 @@
                     <div class="table-branch-container" *ngIf="ItemsTable.length > 0">
                         <app-abc-table [items]="ItemsTable" [nameColumn]="nameColumn" [optionDelete]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>
                     </div>
+                    <div class="table-branch-container" *ngIf="ItemsTable.length == 0">
+                        <p>No hay sucursales registradas para mostrar!!</p>
+                    </div>
                 </div>            
             </div>
         </div>

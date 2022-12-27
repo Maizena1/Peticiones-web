@@ -1,10 +1,4 @@
-<!--  PARA LAS QUE SI TENDRAN CHECKED PARA MANEJO DE RIORIDAD--> 
 <div class="abc-table-container">
-
- 
-
-
- 
     <mat-form-field appearance="standard" *ngIf="optionFilter =='si'">
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
@@ -34,22 +28,27 @@
       <!-- Weight Column -->
       <ng-container matColumnDef="col4" *ngIf="nameColumns[3].length>1">
         <th mat-header-cell *matHeaderCellDef class="header-cell">{{nameColumns[3]}}</th>
-        <td mat-cell *matCellDef="let row" #col4> {{row.col4}} </td>
+        <td mat-cell *matCellDef="let row" #col4> {{row.col4}} </td>    
       </ng-container>
-
+  
       <ng-container matColumnDef="col5" *ngIf="nameColumns[4].length>1">
         <th mat-header-cell *matHeaderCellDef class="header-cell">{{nameColumns[4]}}</th>
-        <td mat-cell *matCellDef="let row" #col5> {{row.col5}} </td>
+        <td mat-cell *matCellDef="let row">  
+          <mat-checkbox color="primary" [(ngModel)]="row.col5" >
+            Alta                        
+          </mat-checkbox>
+          
+        </td>
       </ng-container>
-
+  
       <ng-container matColumnDef="col6" stickyEnd>        
         <th mat-header-cell *matHeaderCellDef class="header-cell"></th>
         <td mat-cell *matCellDef="let row" >
             <div class="button-container">
-                <app-button-table-abc [clase]="'button-remove'" [icon]="'delete_forever'" [tooltip]="'Rechazar'" (onClick)="getid(row.col3,'delete')" *ngIf="optionDelete =='si'"></app-button-table-abc>
-                <app-button-table-abc [clase]="'button-accep'" [icon]="'done'" [tooltip]="'Aceptar'" (onClick)="getid(row.col3,'accep')" *ngIf="optionEdit=='si'"></app-button-table-abc>
-                <app-button-table-abc [clase]="'button-detail'" [icon]="'receipt'"  [tooltip]="'Detalles'"(onClick)="getid(row.col3,'detail')" *ngIf="optionDetail=='si'"></app-button-table-abc>
-                <app-button-table-abc [clase]="'button-requeriment'" [icon]="'assignment'" [tooltip]="'Requisitos'" (onClick)="getid(row.col3,'detailReq')" *ngIf="optionRequeriment=='si'"></app-button-table-abc>                
+                <app-button-table-abc [clase]="'button-remove'" [icon]="'delete_forever'" [tooltip]="'Rechazar'" (onClick)="getid(row.col3,'delete',row.col5)" *ngIf="optionDelete =='si'"></app-button-table-abc>
+                <app-button-table-abc [clase]="'button-accep'" [icon]="'done'" [tooltip]="'Aceptar'" (onClick)="getid(row.col3,'accep', row.col5)" *ngIf="optionEdit=='si'"></app-button-table-abc>
+                <app-button-table-abc [clase]="'button-detail'" [icon]="'receipt'"  [tooltip]="'Detalles'"(onClick)="getid(row.col3,'detail',row.col5)" *ngIf="optionDetail=='si'"></app-button-table-abc>
+                <app-button-table-abc [clase]="'button-requeriment'" [icon]="'assignment'" [tooltip]="'Requisitos'" (onClick)="getid(row.col3,'detailReq',row.col5)" *ngIf="optionRequeriment=='si'"></app-button-table-abc>                
             </div>
         </td>        
       </ng-container>
@@ -63,14 +62,6 @@
       <!--
         {{input.value}}
       -->
-    </table>
-    
-    <mat-paginator [pageSizeOptions]="[15, 20]" aria-label="Select page of users"></mat-paginator>
-
-    
+    </table>    
+    <mat-paginator [pageSizeOptions]="[10, 15]" aria-label="Select page of users"></mat-paginator>
 </div>
-
-
-<!--  PARA LAS QUE NO TENDRAN CHECKED-->
-
-

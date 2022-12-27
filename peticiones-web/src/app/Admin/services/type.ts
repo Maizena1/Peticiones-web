@@ -127,6 +127,7 @@ export interface problem{
     fecha_terminado: string;
     fecha_rechazado: string;
     id_problema: number;
+    prioridad?:string;
     total: number;
 }
 
@@ -140,6 +141,7 @@ export interface add_problem{
 export interface assignament_problem{    
     id_usuario_designado:number;
     estatus: string;    
+    prioridad:string;
 }
 
 
@@ -174,7 +176,8 @@ export interface table_show {
     col2: string;
     col3: string;
     col4: string;
-    col5: string;
+    col5: any;
+    col6: string;
 }
 
 

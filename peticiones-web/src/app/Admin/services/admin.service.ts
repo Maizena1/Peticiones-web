@@ -34,14 +34,26 @@ export class AdminService {
     return this.http.delete(`${this.url}eliminar-sucursal/${id}`);
   }
 
+  //sucursales
   getBranches():Observable<any>{
     //console.log(dato);
     return this.http.get(`${this.url}sucursales`);
   }
+
+  //sucursales activas
+  getBranchesAct():Observable<any>{  
+    return this.http.get(`${this.url}sucursalesAct`);
+  }
+  
   
   //Eployees --------------------------------------------------------
   getEmployees():Observable<any>{    
     return this.http.get(`${this.url}empleados`);
+  }
+
+  //empleados activos
+  getEmployeesAct():Observable<any>{    
+    return this.http.get(`${this.url}empleadosAct`);
   }
 
   getEmployee(id:number):Observable<any>{    
@@ -124,6 +136,12 @@ export class AdminService {
   getArticle():Observable<any>{
     //console.log(dato);
     return this.http.get(`${this.url}codigos-articulos`);
+  }
+
+  //poner articulos a excepcion de otros 50000000000
+  getArticleSinOtros():Observable<any>{
+    //console.log(dato);
+    return this.http.get(`${this.url}codigosArticulosSinOtros`);
   }
 
   getArticleForId(id: string):Observable<any>{

@@ -20,7 +20,7 @@
                         
                 <mat-tab label="Pendientes">                  
                     <div class="table-container" *ngIf="ItemsTableSlopes.length > 0">
-                        <app-table-show class="table" [items]="ItemsTableSlopes" [nameColumn]="nameColums" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show>                      
+                        <app-table-show-checked class="table" [items]="ItemsTableSlopes" [nameColumn]="nameColums" [optionChecked]="'si'" [optionRequeriment]="'no'" (onChange)="onChangeActionTable($event)"></app-table-show-checked>                      
                     </div>
                     <div class="table-container" *ngIf="ItemsTableSlopes.length == 0">
                         <p>No hay problemas pendientes.</p>

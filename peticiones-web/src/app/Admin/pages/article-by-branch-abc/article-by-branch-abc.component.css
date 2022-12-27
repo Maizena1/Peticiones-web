@@ -14,6 +14,12 @@
     width: 380px;
 }
 
+.module-name{
+    background-color: rgb(116, 165, 239);
+}
+
+
+
 .module-name-register-container{
     width: 100%;
 

@@ -31,6 +31,10 @@ h1, h2{
     color: #4D4D51;
 }
 
+.module-name{
+    background-color: rgb(116, 165, 239);
+}
+
 .module-register-container{
     display: flex;
     gap: 20px;

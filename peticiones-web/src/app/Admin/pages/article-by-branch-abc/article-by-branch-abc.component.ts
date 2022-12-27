@@ -77,7 +77,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
       this.branches = branch;
     })
 
-    this.APIPetition.getArticle().subscribe(article => {
+    this.APIPetition.getArticleSinOtros().subscribe(article => {
       this.articles = article;
     })
 
@@ -126,17 +126,19 @@ export class ArticleByBranchAbcComponent implements OnInit {
     this.idSucursal = '0';
     this.idArticle = '0';    
     this.totalAmount = ' ';
-    this.totalAvailable='0';
+    this.totalAvailable=' ';
     this.tipo = '';
   }
 
 
   onChangeTotalAmount(data: string){
     this.totalAmount = data;
+    console.log(this.totalAmount)
   }
 
   onChangeTotalAvailable(data: string){
     this.totalAvailable = data;
+    console.log(this.totalAvailable)
   }
 
   onChangeActionTable(data: {id:string, action:string}){
@@ -179,20 +181,37 @@ export class ArticleByBranchAbcComponent implements OnInit {
     }else{    
       this.tipo = 'Comun'
     }  
-    //alert(this.inAct);
-    const dialogRef = this.dialog.open(DialogDetailComponent, {
-      width: '300px',
-      data: [
-      //{ title: 'ID:', data: id },
-      {title: 'Id Sucursal:', data: this.DataStoreShow.id_sucursal},    
-      {title: 'Nombre Sucursal: ', data: this.DataStoreShow.nombre_sucursal},    
-      {title: 'Codigo Articulo:', data: this.DataStoreShow.id_codigo_articulo },
-      {title: 'Nombre Articulo:', data: this.DataStoreShow.nombre_articulo },
-      {title: 'Existentes:', data: String(this.DataStoreShow.cantidad_total) },
-      {title: 'Disponibles:', data: String(this.DataStoreShow.cantidad_disponible)},
-      {title: 'Tipo:', data: this.tipo}    
-    ],      
-    });  
+
+    if(this.DataStoreShow.id_sucursal == '1'){
+      const dialogRef = this.dialog.open(DialogDetailComponent, {
+        width: '300px',
+        data: [
+        //{ title: 'ID:', data: id },
+        {title: 'Id Sucursal:', data: this.DataStoreShow.id_sucursal},    
+        {title: 'Nombre Sucursal: ', data: this.DataStoreShow.nombre_sucursal},    
+        {title: 'Codigo Articulo:', data: this.DataStoreShow.id_codigo_articulo },
+        {title: 'Nombre Articulo:', data: this.DataStoreShow.nombre_articulo },        
+        {title: 'Disponibles:', data: String(this.DataStoreShow.cantidad_disponible)},
+        {title: 'Tipo:', data: this.tipo}    
+      ],      
+      });  
+    }else{
+      const dialogRef = this.dialog.open(DialogDetailComponent, {
+        width: '300px',
+        data: [
+        //{ title: 'ID:', data: id },
+        {title: 'Id Sucursal:', data: this.DataStoreShow.id_sucursal},    
+        {title: 'Nombre Sucursal: ', data: this.DataStoreShow.nombre_sucursal},    
+        {title: 'Codigo Articulo:', data: this.DataStoreShow.id_codigo_articulo },
+        {title: 'Nombre Articulo:', data: this.DataStoreShow.nombre_articulo },
+        {title: 'Existentes:', data: String(this.DataStoreShow.cantidad_total) },        
+        {title: 'Tipo:', data: this.tipo}    
+      ],      
+      });  
+    }
+
+    
+    
   }
   
   
@@ -206,8 +225,22 @@ export class ArticleByBranchAbcComponent implements OnInit {
     //alert(this.estatus);
   }
 
-  if((this.idSucursal == '')|| (this.idArticle == '') || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {                
+  if(this.idSucursal =='1'){
+    this.totalAmount = '0';
+  }else{    
+    this.totalAvailable = '0'
+  }
+
+  console.log(this.idSucursal);
+  console.log(this.idArticle);
+  console.log(this.totalAmount);
+  console.log(this.totalAvailable);
+  console.log(this.tipo);
+
+
+  if((this.idSucursal == '')|| (this.idArticle == '') || (this.totalAvailable == '')||( String(this.totalAmount) == '') ||(this.tipo == '')) {                
     this.APIPetition.SnackBarError('Error, faltan datos.','X');
+    this.Clearinputs();
   }else if(String(this.idArticle).length != 10){
     this.APIPetition.SnackBarError('Error, mínimo 10 dígitos en el ID.','X');
   }
@@ -234,8 +267,9 @@ export class ArticleByBranchAbcComponent implements OnInit {
         }else{
           this.APIPetition.SnackBarSuccessful(this.response.Mensaje, 'X');      
 
-          this.Clearinputs();          
+          
           this.ReloadStores();          
+          this.Clearinputs();          
         }                  
       });            
       this.butonAddUpdate = '';  
@@ -251,7 +285,13 @@ export class ArticleByBranchAbcComponent implements OnInit {
       this.tipo = 'C'
       //alert(this.estatus);
   }
-                          
+  
+  if(this.idSucursal =='1'){
+    this.totalAmount = '0';
+  }else{
+    this.totalAvailable = '0';
+  }      
+
   if((this.idSucursal == '') || (this.idArticle == '') || (this.totalAvailable == '')||(this.totalAmount == '') ||(this.tipo == '')) {                              
     this._snackBar.open('Error faltan datos', 'X', {        
       verticalPosition: this.verticalPosition,
@@ -272,7 +312,7 @@ export class ArticleByBranchAbcComponent implements OnInit {
       tipo: this.tipo,
     };
 
-    console.log(datasend);
+    //console.log(datasend);
       //console.table(datasend);        
       this.APIPetition.createStore(datasend).subscribe(response =>{                    
         this.response = response;          

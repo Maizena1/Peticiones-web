@@ -27,7 +27,7 @@ export class AdminUserAbcComponent implements OnInit {
     password: '',
     employeeId:'',
     roleId: '',
-    status: false,
+    status: true,
   }
 
   toggle: string = '';
@@ -84,7 +84,7 @@ export class AdminUserAbcComponent implements OnInit {
       this.roles = role;
     })
 
-    this.adminService.getEmployees().subscribe(employee => {
+    this.adminService.getEmployeesAct().subscribe(employee => {
       this.employeeItem = employee;
     })
 
@@ -189,6 +189,7 @@ export class AdminUserAbcComponent implements OnInit {
 
 
   UpdateUser(){
+
     if(this.form.status){
       this.toggle = 'A';
     }else{
@@ -197,12 +198,9 @@ export class AdminUserAbcComponent implements OnInit {
 
     if((this.form.userName == '') || (this.form.password == '') || (this.form.employeeId == '') || (this.form.roleId == '')){
       this.adminService.SnackBarError('Error, faltan datos.', 'X')
-    }else{
-
-      
-
-      if(this.form.roleId == '1'){
-        this.adminService.SnackBarError('Error, no puede desabilitar al administrador', 'X')
+    }else{      
+      if(this.form.roleId == '1' || this.form.userId == '1'){
+        this.adminService.SnackBarError('Error, no puede desabilitar o cambiarle el rol al administrador', 'X')
       }else{
         const updateUser: User = {
           id_rol: parseInt(this.form.roleId),
@@ -256,8 +254,9 @@ export class AdminUserAbcComponent implements OnInit {
         data: [{title: 'ID:', data: id},
         {title: 'Usuario:', data: this.dataUserShow.usuario},
         {title: 'Contraseña:', data: this.dataUserShow.password},
-        {title: 'Rol:', data: this.roles[currentIndex].nombre_rol},
         {title: 'Empleado:', data: this.employee},
+        {title: 'Rol:', data: this.roles[currentIndex].nombre_rol},
+        
         ]
       })
     })

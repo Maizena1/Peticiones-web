@@ -78,7 +78,7 @@ export class ArticleAbcComponent implements OnInit {
     //limpieza
     this.idArticle = ' ';
     this.name = ' ';
-    this.description = ' ';
+    this.description = '';
     this.enableid = false;
   }
 

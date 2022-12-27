@@ -35,7 +35,7 @@ export class ShowRequestSolverComponent implements OnInit {
   response: response | any; //subscripcion de respuesta
   dataShowProblem : problem | any;  
   //nombres de las columas de la tabla
-  nameColums: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Botones'];  
+  nameColums: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Prioridad','Botones'];  
   verticalPosition: MatSnackBarVerticalPosition = 'top'; 
 
   constructor(public dialog: MatDialog ,private router: Router, private APIPetition: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) { }
@@ -91,8 +91,7 @@ export class ShowRequestSolverComponent implements OnInit {
     //obtener los detalles de la sucursal a mostrar
     this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
     const dialogRef = this.dialog.open(DialogDetailComponent, {      
-    data: [
-      {title: 'ID:', data:  this.dataShowProblem.id_problema},      
+    data: [      
       {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},
       {title: 'Descripcion:', data:this.dataShowProblem.descripcion_problema},      
       {title: 'Tu:', data:this.dataShowProblem.nombre_empleado},      
@@ -103,6 +102,7 @@ export class ShowRequestSolverComponent implements OnInit {
       {title: 'Fecha de Aceptado:', data:this.dataShowProblem.fecha_aceptado},            
       {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
       {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},   
+      {title: 'Prioridad:', data:this.dataShowProblem.prioridad},   
       {title: 'Gasto De Mantenimiento:', data:this.dataShowProblem.total},      
     ],      
     });  
@@ -146,145 +146,152 @@ export class ShowRequestSolverComponent implements OnInit {
            panelClass: ['red-snackbar'],
          });
        }else{
- 
-         result.forEach((row:any) => {                           
-             //console.table(result);                                               
-           if(row.estatus == 'ESPERA'){
-             this.arrayProblems.push({
-               id_tipo_problema: row.id_tipo_problema,
-               tipo_problema: row.tipo_problema,
-               descripcion_problema: row.descripcion_problema,
-               id_usuario: row.id_usuario,
-               nombre_empleado: row.nombre_empleado,
-               id_sucursal: row.id_sucursal,
-               nombre_sucursal: row.nombre_sucursal,
-               id_usuario_designado: 0 ,
-               nombre_empleado_designado: "Sin solucionador asignado",
-               estatus: row.estatus, 
-               fecha_solicitud: row.fecha_solicitud,
-               fecha_aceptado: '--', 
-               fecha_revision:'--', 
-               fecha_enproceso:'--',
-               fecha_terminado:'--',
-               fecha_rechazado:'--',
-               id_problema:row.id_problema,  
-               total: row.total
-             });                      
-   
-           }else if(row.estatus == 'ACEPTADO'){
-             this.arrayProblems.push({
-               id_tipo_problema: row.id_tipo_problema ,
-               tipo_problema: row.tipo_problema,
-               descripcion_problema: row.descripcion_problema,
-               id_usuario: row.id_usuario,
-               nombre_empleado: row.nombre_empleado,
-               id_sucursal: row.id_sucursal,
-               nombre_sucursal: row.nombre_sucursal,
-               id_usuario_designado: row.id_usuario_designado ,
-               nombre_empleado_designado: row.nombre_empleado_designado,
-               estatus: row.estatus, 
-               fecha_solicitud: row.fecha_solicitud,
-               fecha_aceptado: row.fecha_aceptado, 
-               fecha_revision:'--', 
-               fecha_enproceso:'--',
-               fecha_terminado:'--',
-               fecha_rechazado:'--',
-               id_problema:row.id_problema,  
-               total: row.total
-             });
-           }else if(row.estatus == 'REVISION'){
-             this.arrayProblems.push({
-               id_tipo_problema: row.id_tipo_problema ,
-               tipo_problema: row.tipo_problema,
-               descripcion_problema: row.descripcion_problema,
-               id_usuario: row.id_usuario,
-               nombre_empleado: row.nombre_empleado,
-               id_sucursal: row.id_sucursal,
-               nombre_sucursal: row.nombre_sucursal,
-               id_usuario_designado: row.id_usuario_designado ,
-               nombre_empleado_designado: row.nombre_empleado_designado,
-               estatus: row.estatus, 
-               fecha_solicitud: row.fecha_solicitud,
-               fecha_aceptado: row.fecha_aceptado, 
-               fecha_revision: row.fecha_revision, 
-               fecha_enproceso:'--',
-               fecha_terminado:'--',
-               fecha_rechazado:'--',
-               id_problema:row.id_problema,  
-               total: row.total
-             });
-           }else if(row.estatus == 'PROCESO'){
-             this.arrayProblems.push({
-               id_tipo_problema: row.id_tipo_problema ,
-               tipo_problema: row.tipo_problema,
-               descripcion_problema: row.descripcion_problema,
-               id_usuario: row.id_usuario,
-               nombre_empleado: row.nombre_empleado,
-               id_sucursal: row.id_sucursal,
-               nombre_sucursal: row.nombre_sucursal,
-               id_usuario_designado: row.id_usuario_designado ,
-               nombre_empleado_designado: row.nombre_empleado_designado,
-               estatus: row.estatus, 
-               fecha_solicitud: row.fecha_solicitud,
-               fecha_aceptado: row.fecha_aceptado, 
-               fecha_revision: row.fecha_revision, 
-               fecha_enproceso: row.fecha_enproceso,
-               fecha_terminado:'--',
-               fecha_rechazado:'--',
-               id_problema:row.id_problema,  
-               total: row.total
-             });
-           }else if(row.estatus == 'TERMINADO'){
-             this.arrayProblems.push({
-               id_tipo_problema: row.id_tipo_problema ,
-               tipo_problema: row.tipo_problema,
-               descripcion_problema: row.descripcion_problema,
-               id_usuario: row.id_usuario,
-               nombre_empleado: row.nombre_empleado,
-               id_sucursal: row.id_sucursal,
-               nombre_sucursal: row.nombre_sucursal,
-               id_usuario_designado: row.id_usuario_designado ,
-               nombre_empleado_designado: row.nombre_empleado_designado,
-               estatus: row.estatus, 
-               fecha_solicitud: row.fecha_solicitud,
-               fecha_aceptado: row.fecha_aceptado, 
-               fecha_revision: row.fecha_revision, 
-               fecha_enproceso: row.fecha_enproceso,
-               fecha_terminado: row.fecha_terminado,
-               fecha_rechazado:'--',
-               id_problema:row.id_problema,  
-               total: row.total
-             });
-   
-           }else if(row.estatus == 'RECHAZADO'){
-             this.arrayProblems.push({
-               id_tipo_problema: row.id_tipo_problema ,
-               tipo_problema: row.tipo_problema,
-               descripcion_problema: row.descripcion_problema,
-               id_usuario: row.id_usuario,
-               nombre_empleado: row.nombre_empleado,
-               id_sucursal: row.id_sucursal,
-               nombre_sucursal: row.nombre_sucursal,
-               id_usuario_designado: 0 ,
-               nombre_empleado_designado: "Sin solucionador asignado",
-               estatus: row.estatus, 
-               fecha_solicitud: row.fecha_solicitud,
-               fecha_aceptado: row.fecha_aceptado, 
-               fecha_revision: row.fecha_revision, 
-               fecha_enproceso: row.fecha_enproceso,
-               fecha_terminado: row.fecha_terminado,
-               fecha_rechazado:row.fecha_rechazado,
-               id_problema:row.id_problema,  
-               total: row.total
-             });
-           }                      
-         });                 
+          result.forEach((row:any) => {                           
+            //console.table(result);                                               
+          if(row.estatus == 'ESPERA'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: 0 ,
+              nombre_empleado_designado: "Sin solucionador asignado",
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: '--', 
+              fecha_revision:'--', 
+              fecha_enproceso:'--',
+              fecha_terminado:'--',
+              fecha_rechazado:'--',
+              id_problema:row.id_problema,  
+              prioridad:'sin prioridad',
+              total: row.total
+            });                      
+
+          }else if(row.estatus == 'ACEPTADO'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema ,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: row.id_usuario_designado ,
+              nombre_empleado_designado: row.nombre_empleado_designado,
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: row.fecha_aceptado, 
+              fecha_revision:'--', 
+              fecha_enproceso:'--',
+              fecha_terminado:'--',
+              fecha_rechazado:'--',
+              id_problema:row.id_problema,  
+              prioridad:row.prioridad,
+              total: row.total
+            });
+          }else if(row.estatus == 'REVISION'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema ,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: row.id_usuario_designado ,
+              nombre_empleado_designado: row.nombre_empleado_designado,
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: row.fecha_aceptado, 
+              fecha_revision: row.fecha_revision, 
+              fecha_enproceso:'--',
+              fecha_terminado:'--',
+              fecha_rechazado:'--',
+              id_problema:row.id_problema,  
+              prioridad:row.prioridad,
+              total: row.total
+            });
+          }else if(row.estatus == 'PROCESO'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema ,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: row.id_usuario_designado ,
+              nombre_empleado_designado: row.nombre_empleado_designado,
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: row.fecha_aceptado, 
+              fecha_revision: row.fecha_revision, 
+              fecha_enproceso: row.fecha_enproceso,
+              fecha_terminado:'--',
+              fecha_rechazado:'--',
+              id_problema:row.id_problema,  
+              prioridad:row.prioridad,
+              total: row.total
+            });
+          }else if(row.estatus == 'TERMINADO'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema ,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: row.id_usuario_designado ,
+              nombre_empleado_designado: row.nombre_empleado_designado,
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: row.fecha_aceptado, 
+              fecha_revision: row.fecha_revision, 
+              fecha_enproceso: row.fecha_enproceso,
+              fecha_terminado: row.fecha_terminado,
+              fecha_rechazado:'--',              
+              id_problema:row.id_problema,  
+              prioridad:row.prioridad,
+              total: row.total
+            });
+
+          }else if(row.estatus == 'RECHAZADO'){
+            this.arrayProblems.push({
+              id_tipo_problema: row.id_tipo_problema ,
+              tipo_problema: row.tipo_problema,
+              descripcion_problema: row.descripcion_problema,
+              id_usuario: row.id_usuario,
+              nombre_empleado: row.nombre_empleado,
+              id_sucursal: row.id_sucursal,
+              nombre_sucursal: row.nombre_sucursal,
+              id_usuario_designado: 0 ,
+              nombre_empleado_designado: "Sin solucionador asignado",
+              estatus: row.estatus, 
+              fecha_solicitud: row.fecha_solicitud,
+              fecha_aceptado: row.fecha_aceptado, 
+              fecha_revision: row.fecha_revision, 
+              fecha_enproceso: row.fecha_enproceso,
+              fecha_terminado: row.fecha_terminado,
+              fecha_rechazado:row.fecha_rechazado,
+              id_problema:row.id_problema,  
+              prioridad:row.prioridad,
+              total: row.total
+            });
+          }                      
+        });          
          this.reloadArrayGeneric();
        }      
      });
    }
- 
- 
+
+   
+
+   
    reloadArrayGeneric(){
      this.ItemsTableGeneric = [];
      this.ItemsTableSlopes = []; 
@@ -294,18 +301,32 @@ export class ShowRequestSolverComponent implements OnInit {
      //pila hasta tu problema     
      this.arrayProblems.forEach((row) => {                        
          if(this.dataSesion.id_usuario == row.id_usuario_designado ){
-          this.ItemsTableGeneric.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                                            
+          this.ItemsTableGeneric.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:String(row.prioridad), col6:'--'});                                            
           if(row.estatus == 'REVISION'){
-            this.ItemsTableSlopes.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
+            this.ItemsTableSlopes.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:String(row.prioridad), col6:'--'});                        
           }          
           if(row.estatus == 'ACEPTADO'){
-            this.ItemsTableAsignament.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
-          }                
+            
+            this.ItemsTableAsignament.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:String(row.prioridad), col6:'--'});                        
+          }   
+          
+          //ordenamiento short por prioridad
+          this.ItemsTableAsignament.sort((a: table_show, b: table_show) => {
+            if (a.col5 < b.col5) {
+              return -1;
+            }
+            if (a.col5 > b.col5) {
+              return 1;
+            }
+            return 0;
+          });
+
+
           if(row.estatus == 'PROCESO'){
-            this.ItemsTableProceess.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
+            this.ItemsTableProceess.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:String(row.prioridad), col6:'--'});                        
           }                    
           if(row.estatus == 'TERMINADO'){
-            this.ItemsTableFinished.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});                        
+            this.ItemsTableFinished.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:String(row.prioridad), col6:'--'});                        
           }                    
          }      
      });       

@@ -5,22 +5,23 @@ import  { MatTableDataSource } from '@angular/material/table';
 import { table_show } from 'src/app/Admin/services/type';
 
 @Component({
-  selector: 'app-table-show',
-  templateUrl: './table-show.component.html',
-  styleUrls: ['./table-show.component.css']
+  selector: 'app-table-show-checked',
+  templateUrl: './table-show-checked.component.html',
+  styleUrls: ['./table-show-checked.component.css']
 })
-export class TableShowComponent implements OnInit {
+export class TableShowCheckedComponent implements OnInit {
 
   @Input() items: table_show [] = [];
   @Input() nameColumn: String[] = [];
   @Input() type_table: String = "";
-  @Input() optionDelete: string = 'si';  
+  @Input() optionDelete: string = 'si';
+  @Input() optionChecked: string = 'no';
   @Input() optionEdit: string = 'si';
   @Input() optionDetail: string = 'si';
   @Input() optionFilter: string = 'si';
   @Input() optionRequeriment: string = 'si';
 
-  @Output() onChange = new EventEmitter<{fecha:string, action:string}>();   
+  @Output() onChange = new EventEmitter<{fecha:string, action:string, prioridad: string}>();   
     
   displayedColumns: String[] = ['col1','col2','col3','col4','col5','col6'];
   dataSource = new MatTableDataSource(this.items);
@@ -35,18 +36,23 @@ export class TableShowComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  constructor() { }
 
-  constructor() {}
 
-  getid(fecha: string, action: string){        
-    this.onChange.emit({fecha: fecha,action: action});            
+  getid(fecha: string, action: string, prioridad: boolean){    
+    //alert(prioridad);    
+    if(prioridad == true){
+      this.onChange.emit({fecha: fecha,action: action, prioridad:"Alta" });                
+    }else{
+      this.onChange.emit({fecha: fecha,action: action, prioridad:"Normal" });                
+    }   
   }
 
   ngOnInit(){  
     this.nameColumns = this.nameColumn;
     this.dataSource = new MatTableDataSource(this.items); 
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;    
+    this.dataSource.paginator = this.paginator;
   }
   
   ngOnChanges(changes: SimpleChanges) {
@@ -56,4 +62,5 @@ export class TableShowComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }  
+
 }

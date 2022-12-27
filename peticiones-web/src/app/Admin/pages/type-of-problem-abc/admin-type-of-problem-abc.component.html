@@ -31,6 +31,9 @@
                     <div class="table-type-of-problem-container" *ngIf="ItemsTable.length > 0">
                         <app-abc-table class="table" [items]="ItemsTable" [nameColumn]="namecolum" [optionDelete]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>                        
                     </div>
+                    <div class="table-type-of-problem-container" *ngIf="ItemsTable.length == 0">
+                        <p>No hay tipos de problemas registrados para mostrar!!</p>
+                    </div>
 
                 </div>
             

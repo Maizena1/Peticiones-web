@@ -69,7 +69,7 @@ export class AdminEmployeeAbcComponent implements OnInit {
 
     this.ReloadEmployees();
 
-    this.APIPetition.getBranches().subscribe(branches => { 
+    this.APIPetition.getBranchesAct().subscribe(branches => { 
       this.branches = branches;
     });
 

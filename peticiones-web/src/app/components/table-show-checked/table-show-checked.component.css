@@ -1,40 +1,42 @@
 .abc-table-container{
-    width: auto;
+    
     max-width: 100%;
     overflow: auto;    
+    margin: 0px auto;    
 }
 
-table {
-    width: 100%;
-    box-shadow: rgb(255, 255, 255) 0px 2px 8px 0px;
+table {    
+    width: 100%;    
     border:solid 1px ;
 }
 
 
-.header-cell{
-    background-color: rgb(13, 161, 211);    
-}
 
 .mat-elevation-z8{
     text-align: center;
+    box-shadow: none;
 }
 
-th{  
+th{        
+    font-weight: 500;
     color: white;  
     text-align: center !important;
-    font-size: 16px;
+    font-size: 14px;
+}
+
+.header-cell{
+    background-color: rgb(13, 161, 211);    
 }
 
 .mat-row{
     height: 32px;
 }
 
-
 .button-container{
     display: flex;
     justify-content:center ;
     gap: 10px;
-    padding: 0px 8px;    
+    padding: 0px 8px;        
 }
 
 td{

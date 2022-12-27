@@ -26,6 +26,10 @@
     font-size: 16px;
 }
 
+.module-name{
+    background-color: rgb(116, 165, 239);
+}
+
 h1, h2{
     color: #4D4D51;
 }

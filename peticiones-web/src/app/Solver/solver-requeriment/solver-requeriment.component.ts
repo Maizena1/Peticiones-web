@@ -2,7 +2,6 @@ import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from 'src/app/Admin/services/admin.service';
 import { FormBuilder, } from '@angular/forms';
-import { MatSnackBar, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { estatus_problem, requeriment, response, table_show, User } from 'src/app/Admin/services/type';
 import { DialogDetailComponent } from 'src/app/components/dialog-detail/dialog-detail.component';
@@ -54,13 +53,12 @@ export class SolverRequerimentComponent implements OnInit {
 
   articleTable: requeriment | any;
   dataArticleShow: requeriment | any;
-  problemArticle: any [] = [];
-  verticalPosition: MatSnackBarVerticalPosition = 'top'; 
+  problemArticle: any [] = [];  
 
 
   dataidProblema: string | null;
   dataidTipo: string | null;  
-  constructor(private routerAc: ActivatedRoute,public dialog: MatDialog ,private router: Router, private adminService: AdminService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar,) {
+  constructor(private routerAc: ActivatedRoute,public dialog: MatDialog ,private router: Router, private adminService: AdminService, private _formBuilder: FormBuilder,) {
     this.dataidProblema = this.routerAc.snapshot.paramMap.get('idproblema');
     this.dataidTipo = this.routerAc.snapshot.paramMap.get('idtipo');
 
@@ -93,11 +91,7 @@ export class SolverRequerimentComponent implements OnInit {
          this.dataSesion = userJson !== null ? JSON.parse(userJson) : console.log('Estoy devolviendo nulo');                                
          this.idRol = this.dataSesion.id_rol;        
          if(this.idRol != 4){          
-           this._snackBar.open('Error no tiene permisos o no inicio sesión', 'X', {      
-             verticalPosition: this.verticalPosition,   
-             duration: 3000,   
-             panelClass: ['red-snackbar'],
-           });
+          this.adminService.SnackBarError('Error no tiene permisos o no inicio sesión', 'X');
            this.router.navigate(["login"]);              
          }
        }else{        
@@ -113,23 +107,26 @@ export class SolverRequerimentComponent implements OnInit {
     })                
   }
   
+  getUnitId(item: any){
+    return item.id.toString()
+  }
+
+  getUnitLabel(item: any){
+    return item.title
+  }
+  
+
+  getArticleId(item: any){
+    return item.id_codigo_articulo
+  }
+
+  getArticleLabel(item: any){
+    return item.nombre_articulo+'-#'+item.cantidad_disponible
+  }
+
+  
   unidad: string = '';
-  SnackBarError(mensaje: string, icon: string){
-    this._snackBar.open(mensaje, icon, {
-      verticalPosition: this.verticalPosition,
-      panelClass: ['red-snackbar'],
-      duration: 3000,
-    });
-  }
-
-  SnackBarSuccessful(mensaje: string, icon: string){
-    this._snackBar.open(mensaje, icon, {
-      verticalPosition: this.verticalPosition,
-      panelClass: ['green-snackbar'],
-      duration: 1000,
-    });
-  }
-
+  
   clearInput(){    
     this.form.articleId= '0';
     this.form.description= '';
@@ -152,16 +149,23 @@ export class SolverRequerimentComponent implements OnInit {
     }else if(this.form.unit == '4'){
       this.unidad = 'Piezas'
     }
-       
+    
+    
+   
+
     if(this.form.articleId != '5000000000'){
       if(this.arrayRequeriment.find(element => element.id_codigo_articulo == this.form.articleId)){
       
-        this.SnackBarError('Error articulo ya registrado.','X') ;
+        this.adminService.SnackBarError('Error articulo ya registrado.','X');
+        
       }else{
   
         if(this.form.articleId == '0' || this.form.amount == '' || this.form.amount == '0' || this.form.price == '' ||this.form.price == '0'){
-          this.SnackBarError('Error no hay datos para agregar.','X')          
-        }else{
+          this.adminService.SnackBarError('Error no hay datos para agregar.','X')          
+
+        }else if(parseInt(this.form.amount) > 4000){
+          this.adminService.SnackBarError('Error Limite maximo de 4000 en la cantidad.','X')          
+        } else{
           if(this.dataidProblema != null){
             this.idProblem = parseInt(this.dataidProblema);
           }
@@ -191,7 +195,7 @@ export class SolverRequerimentComponent implements OnInit {
                 });
                 this.clearInput();
               });                       
-              this.SnackBarSuccessful('Articulo agregado.','X')
+              this.adminService.SnackBarSuccessful('Articulo agregado.','X')
               //this.reloadTable();
             })          
           }                      
@@ -224,11 +228,10 @@ export class SolverRequerimentComponent implements OnInit {
           this.clearInput();
         });         
                         
-        this.SnackBarSuccessful('Articulo agregado.','X')
+        this.adminService.SnackBarSuccessful('Articulo agregado.','X')
         //this.reloadTable();          
                       
-    }
-    
+    }    
 }
    
   onChangeActionTable(data: any){  
@@ -279,23 +282,7 @@ export class SolverRequerimentComponent implements OnInit {
     }        
   }
 
-  /*
-  reloadTable(){
-          
-      this.arrayRequeriment.forEach(element =>{      
-        this.adminService.getArticleForId(element.id_codigo_articulo).subscribe(result => {
-          let articleName = result[0].nombre_articulo;
-          this.itemsTable.push({
-            col1: articleName, //nombre
-            col2: String(element.cantidad),
-            col3: element.unidad,
-            col4: String(element.precio),
-            col5: element.id_codigo_articulo
-          });
-        });                 
-      });      
-  }
-*/
+  
   description: any;
   ActionDatil(id: string,descripcion:string){
 
@@ -315,142 +302,100 @@ export class SolverRequerimentComponent implements OnInit {
         data: [{title: 'ID:', data: id},
         {title: 'Descripcion:', data: String(this.dataArticleShow.descripcion_requisito)},
         ]
-      });
-      /*
-      this.adminService.getArticleForId(id).subscribe(result => {
-        this.description = result[0].descripcion;                
-        const dialogRef = this.dialog.open(DialogDetailComponent, {
-          width: '300px',
-          data: [{title: 'ID:', data: id},
-          {title: 'Descripcion:', data: String(this.description)},
-          ]
-        });
-      })
-      */  
+      });     
     }        
   }
 
 
+
   bandOverflow : string ='n'
-  ConfirRequest(){    
-    this.bandOverflow = 'n'
-    this.item.forEach(element => {      
-      this.arrayRequeriment.forEach(elementl => {                
-        if(element.id_codigo_articulo != '5000000000' && elementl.id_codigo_articulo != '5000000000'){
-          if(element.id_codigo_articulo == elementl.id_codigo_articulo){          
-            if(elementl.cantidad > element.cantidad_disponible){
-              this.SnackBarError('Error uno de los requisitos sobrepasa la cantidad en stock.','X')                    
-              this.bandOverflow ='s'
-            }
+  ConfirRequest(){        
+    if(this.arrayRequeriment.length > 0){
+      
+      this.bandOverflow = 'n'    
+      this.item.forEach(element => {      
+        this.arrayRequeriment.forEach(elementl => {                
+          if(element.id_codigo_articulo != '5000000000' && elementl.id_codigo_articulo != '5000000000'){
+            if(element.id_codigo_articulo == elementl.id_codigo_articulo){          
+              if(elementl.cantidad > element.cantidad_disponible){
+                this.adminService.SnackBarError('Error uno de los requisitos sobrepasa la cantidad en stock.','X')                    
+                this.bandOverflow ='s'
+              }
+            }        
           }        
-        }        
+        });
       });
-    });
+          
+      if(this.bandOverflow =='n'){
 
-    //console.log(this.arrayRequeriment);
-    
-    if(this.bandOverflow =='n'){
+        if(this.dataidProblema != null){
 
+          const datasend : estatus_problem = {                              
+            id_problema: parseInt(this.dataidProblema),                        
+            estatus: 'REVISION',        
+            requeriment: this.arrayRequeriment
+          };                    
+          //creacion de requisitos        
+          this.adminService.createRequeriments(datasend).subscribe(response =>{           
+            this.response = response;                                        
+            if(this.response.Estatus == 'Error'){            
+              this.adminService.SnackBarError(this.response.Mensaje, 'X');
+            }else{
+              this.adminService.SnackBarSuccessful(this.response.Mensaje, 'X' );              
+              
+              //Cambiar el estatus del problema a revison
+              this.adminService.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
+                this.response = response;                                        
+                if(this.response.Estatus == 'Error'){            
+                  this.adminService.SnackBarError(this.response.Mensaje, 'X');
+                }else{
+                  this.adminService.SnackBarSuccessful(this.response.Mensaje, 'X');                                       
+                  //regresa a las tablas de rutas
+                  this.router.navigate(['solver/showRequested',]);        
+                  //this.ReloadProblems();                                                                       
+                }                  
+              });                
+            }                  
+          });                   
+        }      
+      }
+    }else{
       if(this.dataidProblema != null){
-
         const datasend : estatus_problem = {                              
           id_problema: parseInt(this.dataidProblema),                        
           estatus: 'REVISION',        
           requeriment: this.arrayRequeriment
-        };
-                
-        //creacion de requisitos        
-        this.adminService.createRequeriments(datasend).subscribe(response =>{           
+        };                    
+        //Cambiar el estatus del problema a revison
+        this.adminService.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
           this.response = response;                                        
           if(this.response.Estatus == 'Error'){            
-            this._snackBar.open(this.response.Mensaje, 'X', {                
-              verticalPosition: this.verticalPosition,                
-              duration: 3000,
-              panelClass: ['red-snackbar'],
-            });
+            this.adminService.SnackBarError(this.response.Mensaje, 'X');
           }else{
-            this._snackBar.open(this.response.Mensaje, 'X', {                
-              verticalPosition: this.verticalPosition,
-              duration: 3000,
-              panelClass: ['green-snackbar'],                
-            }); 
+            this.adminService.SnackBarSuccessful(this.response.Mensaje, 'X');
             
-            //Cambiar el estatus del problema a revison
-            this.adminService.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
-              this.response = response;                                        
-              if(this.response.Estatus == 'Error'){            
-                this._snackBar.open(this.response.Mensaje, 'X', {                
-                  verticalPosition: this.verticalPosition,                
-                  duration: 3000,
-                  panelClass: ['red-snackbar'],
-                });
-              }else{
-                this._snackBar.open(this.response.Mensaje, 'X', {                
-                  verticalPosition: this.verticalPosition,
-                  duration: 3000,
-                  panelClass: ['green-snackbar'],                
-                });   
-
-                //si los requisitos son vacios este poner en proceso directo
-                if(this.arrayRequeriment.length == 0){
-
-                  //this.arrayRequerimentProblem = [];
-
-                  const datasend : estatus_problem = {                      
-                    id_problema: this.dataProblem.id_problema,                
-                    id_sucursal: this.dataProblem.id_sucursal,
-                    estatus: 'PROCESO',        
-                    requeriment: this.arrayRequeriment
-                  };
-                  //console.log(datasend);
-                  this.adminService.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
-                    this.response = response;                                        
-                    if(this.response.Estatus == 'Error'){            
-                      this._snackBar.open(this.response.Mensaje, 'X', {                
-                        verticalPosition: this.verticalPosition,                
-                        duration: 3000,
-                        panelClass: ['red-snackbar'],
-                      });
-                    }else{
-                      this._snackBar.open(this.response.Mensaje, 'X', {                
-                        verticalPosition: this.verticalPosition,
-                        duration: 3000,
-                        panelClass: ['green-snackbar'],                
-                      });                         
-                    }                  
-                  }); 
-                }
-
-                //regresa a las tablas de rutas
-                this.router.navigate([      
-                  'solver/showRequested',
-                ]);        
-                //this.ReloadProblems();                                                                       
-              }                  
-            });                
+            //si los requisitos son vacios este poner en proceso directo           
+              //this.arrayRequerimentProblem = [];
+              const datasend : estatus_problem = {                      
+                id_problema: this.dataProblem.id_problema,                
+                id_sucursal: this.dataProblem.id_sucursal,
+                estatus: 'PROCESO',        
+                requeriment: this.arrayRequeriment
+              };
+              //console.log(datasend);
+              this.adminService.estatusProblem(datasend,datasend.id_problema).subscribe(response =>{           
+                this.response = response;                                        
+                if(this.response.Estatus == 'Error'){            
+                  this.adminService.SnackBarError(this.response.Mensaje, 'X');
+                }else{
+                  this.adminService.SnackBarSuccessful(this.response.Mensaje, 'X');                         
+                  //regresa a las tablas de rutas
+                  this.router.navigate(['solver/showRequested',]);     
+                }                  
+              });                                                                                                   
           }                  
-        });                   
-      }      
-    }
-  }
-
-
-  getUnitId(item: any){
-    return item.id.toString()
-  }
-
-  getUnitLabel(item: any){
-    return item.title
-  }
-  
-
-  getArticleId(item: any){
-    return item.id_codigo_articulo
-  }
-
-  getArticleLabel(item: any){
-    return item.nombre_articulo+'-#'+item.cantidad_disponible
-  }
-
-
+        });                     
+      }        
+    }  
+  }  
 }

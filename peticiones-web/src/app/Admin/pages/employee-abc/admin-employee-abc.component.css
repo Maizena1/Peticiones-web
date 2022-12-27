@@ -24,6 +24,10 @@
 
 }
 
+.module-name{
+    background-color: rgb(116, 165, 239);
+}
+
 .text-status{
     font-size: 16px;
 }

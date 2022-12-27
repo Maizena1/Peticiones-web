@@ -31,6 +31,9 @@
                     <div class="table-user-by-problem-type-container" *ngIf="itemsTable.length > 0">
                         <app-abc-table class="table" [items]=" itemsTable" [nameColumn]="namecolum" [optionDelete]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>
                     </div>
+                    <div class="table-user-by-problem-type-container" *ngIf="itemsTable.length == 0">
+                        <p>No hay usuarios por tipo de problema para mostrar!!</p>
+                    </div>
 
                 </div>
                 

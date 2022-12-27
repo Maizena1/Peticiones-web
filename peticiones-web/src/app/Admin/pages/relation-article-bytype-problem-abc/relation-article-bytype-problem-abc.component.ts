@@ -65,8 +65,8 @@ export class RelationArticleBytypeProblemAbcComponent implements OnInit {
     }); 
     
     //obtener los articulos 
-    this.APIAdminPetition.getArticle().subscribe(result =>{                      
-      this.itemsArticles = result      
+    this.APIAdminPetition.getArticleSinOtros().subscribe(result =>{                      
+      this.itemsArticles = result            
     })        
   }
 

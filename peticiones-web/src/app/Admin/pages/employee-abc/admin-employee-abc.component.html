@@ -35,7 +35,9 @@
                     <div class="table-employee-container" *ngIf="ItemsTable.length > 0">
                         <app-abc-table  [nameColumn]="namecolum" class="table" [items]="ItemsTable" [optionDelete]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>                        
                     </div>
-
+                    <div class="table-employee-container" *ngIf="ItemsTable.length == 0">
+                        <p>No hay empleados registrados para mostrar!!</p>
+                    </div>
                 </div>
             
             </div>

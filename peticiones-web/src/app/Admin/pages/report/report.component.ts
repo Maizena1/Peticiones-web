@@ -39,7 +39,7 @@ export class ReportComponent implements OnInit {
   idBranch: string = '0';
   response: response | any;
   //nombres de columnas de tabla General
-  nameColums: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Botones'];  
+  nameColums: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Prioridad','Botones'];  
   
   verticalPosition: MatSnackBarVerticalPosition = 'top';   
   idRol : number = 0;
@@ -108,7 +108,7 @@ export class ReportComponent implements OnInit {
   ReloadTableBranch(id: string){
     this.arrayProblems.forEach((row) => {                
       if(row.id_sucursal == parseInt(id)){
-        this.ItemsTableBranch.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
+        this.ItemsTableBranch.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:String(row.prioridad), col6:'--'});
         this.gastoProblemaSucursal = this.gastoProblemaSucursal + row.total;
       }
     });    
@@ -129,7 +129,7 @@ export class ReportComponent implements OnInit {
   ReloadTableUser(id: string){
     this.arrayProblems.forEach((row) => {                
       if(row.id_usuario_designado == parseInt(id)){
-        this.ItemsTableUser.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:'--',});
+        this.ItemsTableUser.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:String(row.prioridad), col6:'--'});
         this.gastoProlbemaUsuario = this.gastoProlbemaUsuario + row.total;
       }
     });
@@ -151,8 +151,7 @@ export class ReportComponent implements OnInit {
 ActionDetail(fecha: string){
   this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
   const dialogRef = this.dialog.open(DialogDetailComponent, {      
-  data: [
-    {title: 'ID:', data:  this.dataShowProblem.id_problema},      
+  data: [    
     {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},
     {title: 'Descripcion:', data:this.dataShowProblem.descripcion_problema},      
     {title: 'Nombre Encargada que solicita:', data:this.dataShowProblem.nombre_empleado},      
@@ -163,8 +162,8 @@ ActionDetail(fecha: string){
     {title: 'Fecha de Aceptado:', data:this.dataShowProblem.fecha_aceptado},            
     {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
     {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},   
-    {title: 'Gasto De Mantenimiento:', data:this.dataShowProblem.total},   
-    
+    {title: 'Prioridad:', data:this.dataShowProblem.prioridad},       
+    {title: 'Gasto De Mantenimiento:', data:this.dataShowProblem.total},       
   ],      
   });      
 }
@@ -179,7 +178,7 @@ ReloadProblems(){
         panelClass: ['red-snackbar'],
       });
     }else{
-      result.forEach((row:any) => {                           
+        result.forEach((row:any) => {                           
           //console.table(result);                                               
         if(row.estatus == 'ESPERA'){
           this.arrayProblems.push({
@@ -200,6 +199,7 @@ ReloadProblems(){
             fecha_terminado:'--',
             fecha_rechazado:'--',
             id_problema:row.id_problema,  
+            prioridad:'sin prioridad',
             total: row.total
           });                      
 
@@ -222,6 +222,7 @@ ReloadProblems(){
             fecha_terminado:'--',
             fecha_rechazado:'--',
             id_problema:row.id_problema,  
+            prioridad:row.prioridad,
             total: row.total
           });
         }else if(row.estatus == 'REVISION'){
@@ -243,6 +244,7 @@ ReloadProblems(){
             fecha_terminado:'--',
             fecha_rechazado:'--',
             id_problema:row.id_problema,  
+            prioridad:row.prioridad,
             total: row.total
           });
         }else if(row.estatus == 'PROCESO'){
@@ -264,7 +266,8 @@ ReloadProblems(){
             fecha_terminado:'--',
             fecha_rechazado:'--',
             id_problema:row.id_problema,  
-            total:row.total
+            prioridad:row.prioridad,
+            total: row.total
           });
         }else if(row.estatus == 'TERMINADO'){
           this.arrayProblems.push({
@@ -283,9 +286,10 @@ ReloadProblems(){
             fecha_revision: row.fecha_revision, 
             fecha_enproceso: row.fecha_enproceso,
             fecha_terminado: row.fecha_terminado,
-            fecha_rechazado:'--',
+            fecha_rechazado:'--',              
             id_problema:row.id_problema,  
-            total:row.total
+            prioridad:row.prioridad,
+            total: row.total
           });
 
         }else if(row.estatus == 'RECHAZADO'){
@@ -307,10 +311,11 @@ ReloadProblems(){
             fecha_terminado: row.fecha_terminado,
             fecha_rechazado:row.fecha_rechazado,
             id_problema:row.id_problema,  
+            prioridad:row.prioridad,
             total: row.total
           });
         }                      
-      });                 
+      });                   
     }      
   });    
 }

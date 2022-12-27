@@ -20,8 +20,8 @@
                                        
                             <app-select [label]="'Sucursal'" [(value)]="idSucursal" [items]="branches" [getId]="getIdBranches" [getLabel]="getLabelBranches" [disabled]="enableid"></app-select>
                             <app-select [label]="'Artículo'" [(value)]="idArticle" [items]="articles"  [getId]="getIdArticle" [getLabel]="getLabelArticle" [disabled]="enableid"></app-select>
-                            <app-input [type]="'number'" [label]="'Cantidad total'" [example]="'30'" [value]="totalAmount" (onChange)="onChangeTotalAmount($event)"></app-input>                            
-                            <app-input [type]="'number'" [label]="'Cantidad disponible'" [value]="totalAvailable" (onChange)="onChangeTotalAvailable($event)" *ngIf="idSucursal == '16'"></app-input>                            
+                            <app-input [type]="'number'" [label]="'Cantidad total'" [example]="'30'" [value]="totalAmount" (onChange)="onChangeTotalAmount($event)" *ngIf="idSucursal != '1'"></app-input>                            
+                            <app-input [type]="'number'" [label]="'Cantidad disponible'" [value]="totalAvailable" (onChange)="onChangeTotalAvailable($event)" *ngIf="idSucursal == '1'"></app-input>                            
                             <mat-slide-toggle [color]="'primary'" class="slide-toggle" [(ngModel)]="isChecked">Valioso</mat-slide-toggle>
                         </div>
 
@@ -34,6 +34,9 @@
 
                     <div class="table-article-by-branch-container" *ngIf="ItemsTable.length > 0">
                         <app-abc-table class="table" [items]="ItemsTable" [nameColumn]="nameColum" [optionDelete]="'no'" (onChange)="onChangeActionTable($event)"></app-abc-table>
+                    </div>
+                    <div class="table-article-by-branch-container" *ngIf="ItemsTable.length == 0">
+                        <p>No hay registros de almacen para mostrar!!</p>
                     </div>
 
                 </div>

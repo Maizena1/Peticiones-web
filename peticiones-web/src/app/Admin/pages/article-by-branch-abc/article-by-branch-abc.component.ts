@@ -231,20 +231,13 @@ export class ArticleByBranchAbcComponent implements OnInit {
     this.totalAvailable = '0'
   }
 
-  console.log(this.idSucursal);
-  console.log(this.idArticle);
-  console.log(this.totalAmount);
-  console.log(this.totalAvailable);
-  console.log(this.tipo);
-
-
+  
   if((this.idSucursal == '')|| (this.idArticle == '') || (this.totalAvailable == '')||( String(this.totalAmount) == '') ||(this.tipo == '')) {                
     this.APIPetition.SnackBarError('Error, faltan datos.','X');
     this.Clearinputs();
   }else if(String(this.idArticle).length != 10){
     this.APIPetition.SnackBarError('Error, mínimo 10 dígitos en el ID.','X');
-  }
-  else{
+  }else{
     
     //llenar data a enviar
       const datasend : store = {                            

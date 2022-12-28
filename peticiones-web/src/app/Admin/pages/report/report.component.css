@@ -1,6 +1,5 @@
 .content-container{
     padding: 20px 0px;
-
     width: 100%;
 }
 
@@ -20,6 +19,32 @@
 .mat-content-container{
     padding: 20px 0px;
 }
+
+.button{    
+
+    display: flex;            
+    margin-top: 20px;
+    height: auto;
+}
+
+.assignament-button{
+    width: 80px;
+    height: 40px;
+}
+
+.optionReports{   
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Selects{
+    margin-top: 8px;
+    display: flex;
+    gap: 16px;
+}
+
+
 
 .total-container{    
     margin-top: 12px;

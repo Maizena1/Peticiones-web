@@ -42,3 +42,7 @@ $peticiones-web-theme: mat.define-light-theme((
   background: #10B981 !important;
   color: white !important;
 }
+
+.mat-form-field-infix {
+  display: inline-flex !important;
+}

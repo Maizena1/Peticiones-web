@@ -1,8 +1,45 @@
+
+
 .header{
+    padding: 0px 30px;
     height: 80px;
-    background-color: #201c3d;
-    width: 100%;
-} 
+    background-color: #201C3D;
+    width: calc(100% - 60px);
+    display: flex;    
+}
+
+.del-muro-logo{
+    display: flex;
+    align-items: center;
+    width: 240px;
+    text-align: center;
+    
+}
+
+.welcome{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 240px);
+    text-align: center;
+    margin-right: 12%;
+}
+
+.nameProyec{    
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: #FFFFFF;
+}
+.title{
+    font-family: 'Cambo';
+    line-height: 32px;
+    color: #FFFFFF;
+    font-size: 24px;
+}
+
+
 
 .login-container{
     padding: 0px 20px;

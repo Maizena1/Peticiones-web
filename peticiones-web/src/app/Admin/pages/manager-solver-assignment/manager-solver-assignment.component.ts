@@ -161,7 +161,7 @@ export class ManagerSolverAssignmentComponent implements OnInit {
 
   ReloadProblems(){
     this.arrayProblems = [];    
-    this.APIPetition.getProblems().subscribe(result =>{              
+    this.APIPetition.getProblemsAct().subscribe(result =>{              
       if(result.Estatus){
         this.APIPetition.SnackBarError(result.Mensaje, 'X');
       }else{

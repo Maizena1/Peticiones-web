@@ -206,6 +206,10 @@ export class AdminService {
     return this.http.get(`${this.url}problemas`);
   }
 
+  getProblemsAct():Observable<any>{    
+    return this.http.get(`${this.url}problemas-Act`);
+  }
+
   estatusProblem(dato: estatus_problem , id: number):Observable<any>{
     return this.http.put(`${this.url}estatus-problema/${id}`,dato);
   }
@@ -218,21 +222,20 @@ export class AdminService {
     return this.http.post(`${this.url}registrar-problema`,dato);
   }
 
-
-  getProblemsOrder():Observable<any>{    
-    return this.http.get(`${this.url}problemas-order`);
-  }
-
-
-  getProblemsSucursalOrder(id:number):Observable<any>{    
+  getProblemsActSucursalOrder(id:number):Observable<any>{    
     return this.http.get(`${this.url}problemas-sucursal-order/${id}`);
   }
 
-  getGastoTotalSucursal(id:number):Observable<any>{    
-    return this.http.get(`${this.url}gasto-sucursal/${id}`);
+  //reportes de sucursal----------------------------------------------
+  getProblemsSucursal(id:number, fecini:string, fecfin: string):Observable<any>{    
+    return this.http.get(`${this.url}problemas-sucursal-order/${id}/${fecini}/${fecfin}`);
   }
   
-  
+  //Reportes de Empleado-----------------------------------------------
+  getProblemsEmployee(id:number, fecini:string, fecfin: string):Observable<any>{    
+    return this.http.get(`${this.url}problemas-usuario-order/${id}/${fecini}/${fecfin}`);
+  }
+
 
   //requisitos------------------------------------------------
   getRequirementProblem(id:number):Observable<any>{    

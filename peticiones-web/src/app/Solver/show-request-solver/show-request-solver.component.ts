@@ -138,7 +138,7 @@ export class ShowRequestSolverComponent implements OnInit {
    usuario: string = "no";
    ReloadProblems(){
      this.arrayProblems = [];           
-     this.APIPetition.getProblemsOrder().subscribe(result =>{              
+     this.APIPetition.getProblemsAct().subscribe(result =>{              
        if(result.Estatus){
          this._snackBar.open(result.Mensaje, 'X', {      
            verticalPosition: this.verticalPosition,   

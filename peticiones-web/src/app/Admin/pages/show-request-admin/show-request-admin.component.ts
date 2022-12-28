@@ -260,7 +260,7 @@ export class ShowRequestAdminComponent implements OnInit {
     this.ItemsTableRefused = [];
     this.ItemsTableProcess = [];
     
-    this.APIPetition.getProblems().subscribe(result =>{        
+    this.APIPetition.getProblemsAct().subscribe(result =>{        
       
       if(result.Estatus){
         this._snackBar.open(result.Mensaje, 'X', {      

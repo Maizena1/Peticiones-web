@@ -117,7 +117,7 @@ export class AdminBranchAbcComponent implements OnInit {
 
 //metodo para la tabla delete,edit, detail
 onChangeActionTable(data: any){    
-  console.log(data.action)
+  //console.log(data.action)
   //alert(data.id+"---"+data.action);
   if(data.action === 'delete'){
     this.ActionDelete(data.id);
@@ -183,7 +183,7 @@ ActionEdit(id:string){
     element.id_sucursal == parseInt(id)
   );  
   
-  console.table(this.dataBranchShow);
+  //console.table(this.dataBranchShow);
   this.Clearinputs();
   this.enableid = true;      
   this.id_sucursal = String(this.dataBranchShow.id_sucursal);  
@@ -227,6 +227,47 @@ UpdateBranch(){
     this.APIAdminPetition.SnackBarError('Error, faltan datos.', 'X');
   }else if(this.telefono.length != 10){
     this.APIAdminPetition.SnackBarError('Error, mínimo 10 dígitos en el teléfono.','X')
+  }else if(this.isChecked == false){    
+      const dialogRef = this.dialog.open(DialogDeleteComponent, {
+        width: '420px',
+        height: '300px',
+        data: { name: 'Deshabilitar', subname: '¿Estas seguro que desea deshabilitar esta sucursal? al hacer eso se desabilitaran los empleados pertenecientes a ella y el almacen se cargara a la sucursal almacen'},
+      });    
+      dialogRef.afterClosed().subscribe(result => {
+        //alert(prioridad);      
+        if ( result == true){   
+          
+          const datasend : branch = {                      
+            nombre_sucursal: this.nombre,
+            domicilio: this.domicilio,
+            correo: this.correo,
+            telefono: this.telefono,
+            estatus: this.estatus,                                                            
+            };
+      
+            //console.table(datasend);
+            this.idupdate = this.id_sucursal;      
+      
+            this.APIAdminPetition.UpdatedBranch(datasend, parseInt(this.idupdate)).subscribe(response =>{                    
+              this.response = response;   
+              
+              this.id_sucursal =this.idupdate ;        // se iguala porque se puedan
+              this.nombre = datasend.nombre_sucursal;
+              this.estatus = datasend.estatus;
+              
+              if(this.response.Estatus == 'Error'){      
+                this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');           
+                     
+              }else{
+                this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X');                                             
+                this.Clearinputs();
+                //actualizar 
+                this.ReloadBranches();    
+                this.butonAddUpdate = '';       
+              }                  
+            });                   
+        }
+      })
   }else{
 
     const datasend : branch = {                      
@@ -251,16 +292,14 @@ UpdateBranch(){
           this.APIAdminPetition.SnackBarError(this.response.Mensaje, 'X');           
                
         }else{
-          this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X');     
-                                        
+          this.APIAdminPetition.SnackBarSuccessful(this.response.Mensaje, 'X');                                             
           this.Clearinputs();
           //actualizar 
-          this.ReloadBranches();          
+          this.ReloadBranches();    
+          this.butonAddUpdate = '';       
         }                  
-      });      
-      
-      this.butonAddUpdate = '';  
-    }
+      });                   
+  }
 }
 
 CreateBranch() {

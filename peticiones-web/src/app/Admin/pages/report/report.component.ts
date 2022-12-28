@@ -37,6 +37,13 @@ export class ReportComponent implements OnInit {
   idUser: string = '0';
   idBranch: string = '0';
   idEstatus: string = '0';
+  
+  //obtencion de estado
+  estatus: string = '';
+
+  //variables para recibir fechas  
+  FecIni: string = '';
+  FecEnd: string = '';
 
   //arreglo de estatus
   Estatus: any [] = [
@@ -51,6 +58,10 @@ export class ReportComponent implements OnInit {
   response: response | any;
   //nombres de columnas de tabla General
   nameColums: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Estatus','Prioridad','Botones'];  
+
+  nameColumsTerminado: string[] = ['Tipo de Problema','Sucursal','Fecha Registro', 'Fecha Termino','Dias transcurridos','Botones'];  
+
+
   
   verticalPosition: MatSnackBarVerticalPosition = 'top';   
   idRol : number = 0;
@@ -81,47 +92,13 @@ export class ReportComponent implements OnInit {
       this.arrayUserSolvers = result;                   
     });  
     
-    this.APIPetition.getBranches().subscribe(branches => { 
+    this.APIPetition.getBranchesSinAlmacen().subscribe(branches => { 
       this.arrayBranches = branches;
     });
         
   }
 
-  //obtener fechas
-  FecIni: string = '';
-  FecEnd: string = '';
 
-  rangeDates(ini:string, fin:string){  
-    let inicio = new Date(ini);
-    let final = new Date(fin);      
-    //Para la fecha inicio
-    this.FecIni = String(inicio.getFullYear());
-    this.FecIni = this.FecIni+'-'+(inicio.getMonth() + 1);  // Los meses se cuentan desde 0, así que hay que sumar 1
-    this.FecIni = this.FecIni+'-'+inicio.getDate();    
-    this.FecIni = this.FecIni+' '+'00:00:00';    
-
-    //Para la fecha inicio
-    this.FecEnd = String(final.getFullYear());
-    this.FecEnd = this.FecEnd+'-'+(final.getMonth() + 1);  // Los meses se cuentan desde 0, así que hay que sumar 1
-    this.FecEnd = this.FecEnd+'-'+final.getDate();    
-    this.FecEnd = this.FecEnd+' '+'00:00:00';    
-    //11-111-2022 00:00:00    
-  }
-
-
-  ClearInputs(){
-    this.FecIni ='';
-    this.FecEnd = '';
-    this.estatus ='0';
-    this.idUser= '0';
-    this.idBranch = '0';
-    this.idEstatus = '0'
-  }
-
-
-  //obtencion de estado
-  estatus: string = '0';
-  
   //select de estatus
   getIdEstatus(item: any){
     return item.id;
@@ -151,10 +128,35 @@ export class ReportComponent implements OnInit {
   }
 
 
+  
+
+  onDateChangeInicio(date: Date){    
+    this.FecIni = String(date.getFullYear());
+    this.FecIni = this.FecIni+'-'+(date.getMonth() + 1);  // Los meses se cuentan desde 0, así que hay que sumar 1
+    this.FecIni = this.FecIni+'-'+date.getDate();    
+    this.FecIni = this.FecIni+' '+'00:00:00';        
+  }
+
+  onDateChangeFinal(date: Date){
+    this.FecEnd = String(date.getFullYear());
+    this.FecEnd = this.FecEnd+'-'+(date.getMonth() + 1);  // Los meses se cuentan desde 0, así que hay que sumar 1
+    this.FecEnd = this.FecEnd+'-'+date.getDate();    
+    this.FecEnd = this.FecEnd+' '+'23:59:00';        
+  }
+    
+
+
+  ClearInputs(){
+    this.FecIni ='';
+    this.FecEnd = '';
+    this.estatus ='0';
+    this.idUser= '0';
+    this.idBranch = '0';
+    this.idEstatus = '0'
+  }
 
   UploadReportSucursal(){   
     
-
     if(this.idEstatus == '1'){
       this.estatus = 'ESPERA'
     }else if(this.idEstatus == '2'){
@@ -162,17 +164,21 @@ export class ReportComponent implements OnInit {
     }else if(this.idEstatus == '3'){
       this.estatus = 'REVISION'
     }else if(this.idEstatus == '4'){
-      this.estatus = 'PROCESO'
+      this.estatus = 'PROCESO'      
     }else if(this.idEstatus == '5'){
-      this.estatus = 'TERMINADO'
+      this.estatus = 'TERMINADO'      
     }else if(this.idEstatus == '6'){
-      this.estatus = 'RECHAZADO'
+      this.estatus = 'RECHAZADO'  
     }    
     
-    
-    if(this.idBranch == '0'){
+    const date1 = new Date(this.FecIni);
+    const date2 = new Date(this.FecEnd);
+
+    if ( date2 < date1) {
+      this.APIPetition.SnackBarError('Error la fecha de fin debe de ser mayor a la de inicio del reporte','X');
+    }else if(this.idBranch == '0'){
       this.APIPetition.SnackBarError('Error no selecciono sucursal','X');
-    }else if(this.estatus == '0'){
+    }else if(this.estatus == ''){
       this.APIPetition.SnackBarError('Error no selecciono Estado del problema','X');
     }else if(this.FecIni == ''|| this.FecEnd == ''){
       this.APIPetition.SnackBarError('Error no especifico rango de fechas','X');
@@ -187,30 +193,30 @@ export class ReportComponent implements OnInit {
   
   UploadReportEmployee(){
     if(this.idEstatus == '1'){
-      this.estatus = 'ESPERA'
-    }else if(this.idEstatus == '2'){
-      this.estatus = 'ACEPTADO'
+      this.estatus = 'ESPERA'      
+    }else if(this.idEstatus == '2'){      
+      this.estatus = 'ACEPTADO'      
     }else if(this.idEstatus == '3'){
-      this.estatus = 'REVISION'
+      this.estatus = 'REVISION'      
     }else if(this.idEstatus == '4'){
-      this.estatus = 'PROCESO'
+      this.estatus = 'PROCESO'      
     }else if(this.idEstatus == '5'){
-      this.estatus = 'TERMINADO'
+      this.estatus = 'TERMINADO'      
     }else if(this.idEstatus == '6'){
-      this.estatus = 'RECHAZADO'
+      this.estatus = 'RECHAZADO'      
     }    
     
     
-    if(this.idBranch == '0'){
-      this.APIPetition.SnackBarError('Error no selecciono sucursal','X');
-    }else if(this.estatus == '0'){
+    if(this.idUser == '0'){
+      this.APIPetition.SnackBarError('Error no selecciono un usuario','X');
+    }else if(this.estatus == ''){
       this.APIPetition.SnackBarError('Error no selecciono Estado del problema','X');
     }else if(this.FecIni == ''|| this.FecEnd == ''){
       this.APIPetition.SnackBarError('Error no especifico rango de fechas','X');
     }else{
       this.ItemsTableUser = [];    
       this.gastoProlbemaUsuario = 0;                  
-      this.ReloadProblemsEmployee(this.idBranch, this.FecIni,this.FecEnd);                     
+      this.ReloadProblemsEmployee(this.idUser, this.FecIni,this.FecEnd);                     
       
     }        
   }
@@ -226,23 +232,23 @@ export class ReportComponent implements OnInit {
 
   ActionDetail(fecha: string){
     this.dataShowProblem = this.arrayProblems.find(element => element.fecha_solicitud == fecha);  
-    const dialogRef = this.dialog.open(DialogDetailComponent, {      
-    data: [    
-      {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},
-      {title: 'Descripcion:', data:this.dataShowProblem.descripcion_problema},      
-      {title: 'Nombre Encargada que solicita:', data:this.dataShowProblem.nombre_empleado},      
-      {title: 'Nombre Sucursal:', data:this.dataShowProblem.nombre_sucursal},      
-      {title: 'Solucionador Designado:', data:this.dataShowProblem.nombre_empleado_designado},
-      {title: 'Estado:', data:this.dataShowProblem.estatus},
-      {title: 'Fecha Solicitud:', data:this.dataShowProblem.fecha_solicitud},
-      {title: 'Fecha de Asignado:', data:this.dataShowProblem.fecha_aceptado},            
-      {title: 'Fecha de Inicio:', data:this.dataShowProblem.fecha_enproceso},            
-      {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
-      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},   
-      {title: 'Prioridad:', data:this.dataShowProblem.prioridad},       
-      {title: 'Gasto De Mantenimiento:', data:this.dataShowProblem.total},       
-    ],      
-    });      
+      const dialogRef = this.dialog.open(DialogDetailComponent, {            
+        data: [    
+          {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},
+          {title: 'Descripcion:', data:this.dataShowProblem.descripcion_problema},      
+          {title: 'Nombre Encargada que solicita:', data:this.dataShowProblem.nombre_empleado},      
+          {title: 'Nombre Sucursal:', data:this.dataShowProblem.nombre_sucursal},      
+          {title: 'Solucionador Designado:', data:this.dataShowProblem.nombre_empleado_designado},
+          {title: 'Estado:', data:this.dataShowProblem.estatus},
+          {title: 'Prioridad:', data:this.dataShowProblem.prioridad},             
+          {title: 'Fecha Solicitud:', data:this.dataShowProblem.fecha_solicitud},
+          {title: 'Fecha de Asignado:', data:this.dataShowProblem.fecha_aceptado},            
+          {title: 'Fecha de Inicio:', data:this.dataShowProblem.fecha_enproceso},            
+          {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
+          {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},                   
+          {title: 'Gasto De Mantenimiento:', data:this.dataShowProblem.total},       
+        ],      
+        });                  
   }
 
   ReloadProblemsSucursal(id: string, fechaInicio: string, fechaFinal: string){
@@ -250,7 +256,7 @@ export class ReportComponent implements OnInit {
     this.APIPetition.getProblemsSucursal(parseInt(id),fechaInicio,fechaFinal).subscribe(result =>{              
       //console.log(result);
       if(result.Estatus){
-        this.APIPetition.SnackBarError(result.Mensaje, 'X');
+        this.APIPetition.SnackBarAlert(result.Mensaje, 'X');
       }else{
           result.forEach((row:any) => {                           
             //console.table(result);                                               
@@ -408,7 +414,6 @@ export class ReportComponent implements OnInit {
     if(this.ItemsTableBranch.length == 0){      
       this.ItemsTableBranch = [];
     }
-    this.ClearInputs();
   }
 
 
@@ -418,7 +423,7 @@ export class ReportComponent implements OnInit {
     this.APIPetition.getProblemsEmployee(parseInt(id),fechaInicio,fechaFinal).subscribe(result =>{              
       //console.log(result);
       if(result.Estatus){
-        this.APIPetition.SnackBarError(result.Mensaje, 'X');
+        this.APIPetition.SnackBarAlert(result.Mensaje, 'X');
       }else{
           result.forEach((row:any) => {                           
             //console.table(result);                                               
@@ -442,7 +447,8 @@ export class ReportComponent implements OnInit {
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
               prioridad:'sin prioridad',
-              total: row.total
+              total: row.total,
+              daydiff:'--' 
             });                      
 
           }else if(row.estatus == 'ACEPTADO'){
@@ -464,8 +470,9 @@ export class ReportComponent implements OnInit {
               fecha_terminado:'--',
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
-              prioridad:row.prioridad,
-              total: row.total
+              prioridad:row.prioridad,              
+              total: row.total,
+              daydiff:'Contando' 
             });
           }else if(row.estatus == 'REVISION'){
             this.arrayProblems.push({
@@ -487,7 +494,8 @@ export class ReportComponent implements OnInit {
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
               prioridad:row.prioridad,
-              total: row.total
+              total: row.total,
+              daydiff:'Contando' 
             });
           }else if(row.estatus == 'PROCESO'){
             this.arrayProblems.push({
@@ -509,7 +517,8 @@ export class ReportComponent implements OnInit {
               fecha_rechazado:'--',
               id_problema:row.id_problema,  
               prioridad:row.prioridad,
-              total: row.total
+              total: row.total,
+              daydiff:'Contando' 
             });
           }else if(row.estatus == 'TERMINADO'){
             this.arrayProblems.push({
@@ -531,7 +540,8 @@ export class ReportComponent implements OnInit {
               fecha_rechazado:'--',              
               id_problema:row.id_problema,  
               prioridad:row.prioridad,
-              total: row.total
+              total: row.total,
+              daydiff: row.daydiff 
             });
 
           }else if(row.estatus == 'RECHAZADO'){
@@ -554,7 +564,8 @@ export class ReportComponent implements OnInit {
               fecha_rechazado:row.fecha_rechazado,
               id_problema:row.id_problema,  
               prioridad:row.prioridad,
-              total: row.total
+              total: row.total,
+              daydiff:'--'
             });
           }                      
         });                   
@@ -567,14 +578,19 @@ export class ReportComponent implements OnInit {
   ReloadTableUser(id: string,estatus: string){
     this.arrayProblems.forEach((row) => {                
       if(row.id_usuario_designado == parseInt(id) && row.estatus == String(estatus)){
-        this.ItemsTableUser.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:String(row.prioridad), col6:'--'});
-        this.gastoProlbemaUsuario = this.gastoProlbemaUsuario + row.total;
+        if(estatus == 'TERMINADO'){
+          this.ItemsTableUser.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: row.fecha_terminado, col5: row.daydiff, col6:'--'});
+          this.gastoProlbemaUsuario = this.gastoProlbemaUsuario + row.total;          
+        }else{
+          this.ItemsTableUser.push({col1: String(row.tipo_problema) , col2: String(row.nombre_sucursal) , col3: String(row.fecha_solicitud), col4: String(row.estatus), col5:String(row.prioridad), col6:'--'});
+          this.gastoProlbemaUsuario = this.gastoProlbemaUsuario + row.total;
+        }
+        
       }
     });    
     if(this.ItemsTableUser.length == 0){    
       this.ItemsTableUser=[];
     }
-    this.ClearInputs();
   }
 
 }

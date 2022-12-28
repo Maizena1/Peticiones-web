@@ -94,15 +94,15 @@ export class ShowRequestSolverComponent implements OnInit {
     data: [      
       {title: 'Tipo problema:', data:this.dataShowProblem.tipo_problema},
       {title: 'Descripcion:', data:this.dataShowProblem.descripcion_problema},      
-      {title: 'Tu:', data:this.dataShowProblem.nombre_empleado},      
+      {title: 'Nobre de Escargado(a) de sucursal:', data:this.dataShowProblem.nombre_empleado},      
       {title: 'Nombre de tu sucursal:', data:this.dataShowProblem.nombre_sucursal},      
       {title: 'Solucionador Designado:', data:this.dataShowProblem.nombre_empleado_designado},
       {title: 'Estado:', data:this.dataShowProblem.estatus},
+      {title: 'Prioridad:', data:this.dataShowProblem.prioridad},   
       {title: 'Fecha Solicitud:', data:this.dataShowProblem.fecha_solicitud},
       {title: 'Fecha de Aceptado:', data:this.dataShowProblem.fecha_aceptado},            
       {title: 'Fecha de Terminado:', data:this.dataShowProblem.fecha_terminado},
-      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},   
-      {title: 'Prioridad:', data:this.dataShowProblem.prioridad},   
+      {title: 'Fecha de Rechazado:', data:this.dataShowProblem.fecha_rechazado},         
       {title: 'Gasto De Mantenimiento:', data:this.dataShowProblem.total},      
     ],      
     });  

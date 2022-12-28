@@ -7,7 +7,8 @@
 
 table {    
     width: 100%;   
-    border:solid 1px ; 
+    border-color: black;
+    border: solid 1px;
 }
 
 
@@ -41,8 +42,5 @@ th{
 
 td{
     padding-top: 6px !important;
-    padding-bottom: 6px !important;
-    border-color: black;
-    border-bottom: 2px;
-    border-top: 2px;
+    padding-bottom: 6px !important;   
 }

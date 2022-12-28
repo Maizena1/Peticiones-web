@@ -18,10 +18,10 @@ export class DialogDetailComponent implements OnInit {
     //console.log(this.data.length);
 
     if(this.data.find(element => element.title == 'Fecha Solicitud:' )){
-      for(let i = 0 ; i < 6 ; i++){
+      for(let i = 0 ; i < 7 ; i++){
         this.arrayData.push(this.data[i]);
       }
-      for(let i = 6 ; i < 13 ; i++){
+      for(let i = 7 ; i < this.data.length ; i++){
         this.arrayFecha.push(this.data[i]);
       }
       //console.table(this.arrayData);

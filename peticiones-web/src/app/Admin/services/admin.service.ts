@@ -40,6 +40,12 @@ export class AdminService {
     return this.http.get(`${this.url}sucursales`);
   }
 
+  //sucursales
+  getBranchesSinAlmacen():Observable<any>{
+    //console.log(dato);
+    return this.http.get(`${this.url}sucursales-SinAlmacen`);
+  }
+
   //sucursales activas
   getBranchesAct():Observable<any>{  
     return this.http.get(`${this.url}sucursalesAct`);
@@ -285,5 +291,13 @@ export class AdminService {
     });
   }
       
+  SnackBarAlert(mensaje: string, icon: string){
+    this._snackBar.open(mensaje, icon, {
+      verticalPosition: this.verticalPosition,
+      panelClass: ['yelow-snackbar'],      
+      duration: 3000,
+    });
+  }
+
 
 } 

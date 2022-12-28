@@ -6,8 +6,9 @@
 
 table {
     width: 100%;
-    box-shadow: rgb(255, 255, 255) 0px 2px 8px 0px;
-    border:solid 1px ;
+    box-shadow: rgb(255, 255, 255) 0px 2px 8px 0px;    
+    border:solid 1px; 
+    border-color: black;
 }
 
 
@@ -39,8 +40,5 @@ th{
 
 td{
     padding-top: 6px !important;
-    padding-bottom: 6px !important;
-    border-color: black;
-    border-bottom: 2px;
-    border-top: 2px;
+    padding-bottom: 6px !important;   
 }

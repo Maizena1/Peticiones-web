@@ -103,7 +103,7 @@ export class SolverRequerimentComponent implements OnInit {
     if(this.dataidTipo != null)
     this.adminService.getArticleForProblemType(parseInt(this.dataidTipo)).subscribe(article => {
       this.item = article;
-      //console.log(article);
+      console.log(article);
     })                
   }
   

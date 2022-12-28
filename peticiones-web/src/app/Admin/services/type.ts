@@ -129,6 +129,7 @@ export interface problem{
     id_problema: number;
     prioridad?:string;
     total: number;
+    daydiff?:string;
 }
 
 export interface add_problem{
